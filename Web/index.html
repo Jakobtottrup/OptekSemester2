@@ -14,6 +14,13 @@
 
 
     <title>S7Lan</title>
+
+    <!--================= jQuery ============================-->
+    <script src="https://code.jquery.com/jquery-3.2.1.min.js"
+            integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="
+            crossorigin="anonymous"></script>
+    <!--================ END jQuery =========================-->
+
     <!--================= Bootstrap ==========================-->
     <!-- Latest compiled and minified CSS -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
@@ -29,17 +36,12 @@
             crossorigin="anonymous"></script>
     <!--================= END Bootstrap ==========================-->
 
-    <!--================= jQuery ============================-->
-    <script src="https://code.jquery.com/jquery-3.2.1.min.js"
-            integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="
-            crossorigin="anonymous"></script>
-    <!--================ END jQuery =========================-->
 
 </head>
 <body>
 
 <!-- Fixed navbar -->
-<nav class="navbar navbar-default navbar-fixed-top">
+<nav class="navbar navbar-inverse navbar-fixed-top">
     <div class="container">
         <div class="navbar-header">
             <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar"
@@ -77,12 +79,34 @@
 <!-- Begin page content -->
 <div class="container">
     <div class="page-header">
-        <h1>Sticky footer with fixed navbar</h1>
+        <h1>Forside</h1>
     </div>
-    <p class="lead">Pin a fixed-height footer to the bottom of the viewport in desktop browsers with this custom HTML
-        and CSS. A fixed navbar has been added with <code>padding-top: 60px;</code> on the <code>body &gt;
-            .container</code>.</p>
-    <p>Back to <a href="../sticky-footer">the default sticky footer</a> minus the navbar.</p>
+    <div>
+        <p class="lead">Forside features:</p>
+        <ul>
+            <li>Billedkarusel (evt. med video highlights fra forrige lan events)</li>
+            <li>Countdown timer</li>
+            <li>Facebook plugin</li>
+            <li>Pladsbestilling</li>
+            <li>Turneringstilmelding</li>
+            <li>Login funktion (alm. brugere kan måske se deres egen data) - Admins kommer til admin side</li>
+            <li>Google maps + SDU maps</li>
+            <li>Info (sidebar?)
+                <ul>
+                    <li>huskeliste</li>
+                    <li>om crew</li>
+                    <li>betaling</li>
+                    <li>om shoppen til eventet</li>
+                    <li>regler</li>
+                    <li>om S7Lan</li>
+                    <li>sponsorer</li>
+                </ul>
+            </li>
+
+
+        </ul>
+
+    </div>
 </div>
 
 <footer class="footer">
@@ -97,8 +121,6 @@
 <!-- Placed at the end of the document so the pages load faster -->
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
 <script>window.jQuery || document.write('<script src="../../assets/js/vendor/jquery.min.js"><\/script>')</script>
-<script src="../../dist/js/bootstrap.min.js"></script>
-<!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
-<script src="../../assets/js/ie10-viewport-bug-workaround.js"></script>
+
 </body>
 </html>

@@ -4,6 +4,12 @@
     <meta charset="UTF-8">
     <title>Admin side</title>
 
+    <!--================= jQuery ============================-->
+    <script src="https://code.jquery.com/jquery-3.2.1.min.js"
+            integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="
+            crossorigin="anonymous"></script>
+    <!--================ END jQuery =========================-->
+
     <!--================= Bootstrap ==========================-->
     <!-- Latest compiled and minified CSS -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
@@ -18,20 +24,14 @@
             integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa"
             crossorigin="anonymous"></script>
     <!--================= END Bootstrap ==========================-->
-    <!--================= jQuery ============================-->
-    <script src="https://code.jquery.com/jquery-3.2.1.min.js"
-            integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="
-            crossorigin="anonymous"></script>
-    <!--================ END jQuery =========================-->
+
 </head>
 <body onload="test()">
 test
 <p>test</p>
-<script src="js/bootstrap.js"></script>
 <script>
     function test() {
         console.log("jquery & javascript loaded..");
-
     }
     $(function () {
         $("p").text("The DOM is now loaded and can be manipulated.");
