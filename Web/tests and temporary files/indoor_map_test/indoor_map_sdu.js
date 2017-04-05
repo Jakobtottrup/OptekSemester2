@@ -5,7 +5,7 @@
  */
 
 
-var GoogleMap, MapsIndoors;
+//var GoogleMap, MapsIndoors;
 var sdu_location = {lat: 55.3685, lng: 10.4282}; //coordinates for SDU Odense
 var test_location = {lat: 57.085809, lng: 9.9573899};
 
