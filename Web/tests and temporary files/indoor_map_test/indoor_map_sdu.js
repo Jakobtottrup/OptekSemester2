@@ -13,7 +13,7 @@ var test_location = {lat: 57.085809, lng: 9.9573899};
 var init = function () {
     //setting Google Maps
     GoogleMap = new google.maps.Map(document.getElementById('map'), {
-        zoom: 17,
+        zoom: 16,
         center: sdu_location,
         mapTypeId: 'terrain'
     });
@@ -31,20 +31,19 @@ var init = function () {
         from:16,
         icon:"http://myiconhost.com/info.png"
     });
+    document.getElementById("getRouteButton").addEventListener("click", showRoute());
 };
-
-google.maps.event.addDomListener(window, 'load', init);
-
 
 
 //get directions
 function showRoute() {
-    var start = document.getElementById('start').value; //skal ændres til brugerens nuværende lokation
-    var end = sdu_location;
-
-    var request = {
-        origin: start,
-        destination: end,
-        travelMode: google.maps.TravelMode.DRIVING
-    };
+    console.log("clicked");
+    // var start = google.loader.ClientLocation.address.city;
+    // var end = sdu_location;
+    //
+    // var request = {
+    //     origin: start,
+    //     destination: end,
+    //     travelMode: google.maps.TravelMode.DRIVING
+    // };
 }
