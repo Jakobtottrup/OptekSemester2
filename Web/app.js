@@ -8,7 +8,7 @@ var url = 'mongodb://localhost:27017/myproject';
 MongoClient.connect(url, function (err, db) {
     assert.equal(null, err);
     console.log("Connected successfully to server");
-    //insertDocuments(db, function () {
+    insertDocuments(db, function () {
         //findDocuments(db, function() {
         //updateDocument(db, function() {
         /*removeDocument(db, function () {
@@ -16,7 +16,7 @@ MongoClient.connect(url, function (err, db) {
         });*/
         //});
         //});
-   //});
+   });
     findDocuments(db, function () {
         db.close();
     });
@@ -28,7 +28,7 @@ var insertDocuments = function (db, callback) {
     var collection = db.collection('documents');
     // Insert some documents
     collection.insertMany([
-        {b: 1}, {b: 2}, {b: 3}
+        {christian: 1}, {christian: 2}, {christian: 3}
     ], function (err, result) {
         assert.equal(err, null);
         assert.equal(3, result.result.n);
