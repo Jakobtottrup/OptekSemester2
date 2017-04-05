@@ -4,5 +4,11 @@ html, body {
 }
 
 #map {
-    height: 100%;
+    height: 800px;
+    width: 800px;
+}
+
+#getRouteButton {
+    margin-top: 10px;
+
 }
