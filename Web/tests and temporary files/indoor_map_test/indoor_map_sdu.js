@@ -5,11 +5,47 @@
  */
 
 
-var GoogleMap, MapsIndoors;
-var sdu_location = {lat: 55.3685, lng: 10.4282};
+//var GoogleMap, MapsIndoors;
+var sdu_location = {lat: 55.3685, lng: 10.4282}; //coordinates for SDU Odense
 var test_location = {lat: 57.085809, lng: 9.9573899};
 
+function initMap() {
+    var map = new google.maps.Map(document.getElementById('map'), {
+        center: sdu_location,
+        zoom: 16
+    });
+    var infoWindow = new google.maps.InfoWindow({map: map});
 
+    // Try HTML5 geolocation.
+    if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(function(position) {
+            var pos = {
+                lat: position.coords.latitude,
+                lng: position.coords.longitude
+            };
+            console.log("Current position: "+pos);
+            infoWindow.setPosition(pos);
+            infoWindow.setContent('Du er her');
+            map.setCenter(pos);
+            map.setZoom(18);
+        }, function() {
+            handleLocationError(true, infoWindow, map.getCenter());
+        });
+    } else {
+        // Browser doesn't support Geolocation
+        handleLocationError(false, infoWindow, map.getCenter());
+    }
+}
+
+function handleLocationError(browserHasGeolocation, infoWindow, pos) {
+    infoWindow.setPosition(pos);
+    infoWindow.setContent(browserHasGeolocation ?
+        'Error: The Geolocation service failed.' :
+        'Error: Your browser doesn\'t support geolocation.');
+}
+
+
+/*
 var init = function () {
     //setting Google Maps
     GoogleMap = new google.maps.Map(document.getElementById('map'), {
@@ -19,7 +55,7 @@ var init = function () {
     });
 
     //setting MapsIndoors
-    MapsIndoors= new mapsindoors.MapsIndoors({
+    MapsIndoors = new mapsindoors.MapsIndoors({
         map: GoogleMap
     });
 
@@ -28,12 +64,12 @@ var init = function () {
     GoogleMap.controls[google.maps.ControlPosition.RIGHT_TOP].push(div);
 
     mapsIndoors.displayRules.set("info", {
-        from:16,
-        icon:"http://myiconhost.com/info.png"
+        from: 16,
+        icon: "http://myiconhost.com/info.png"
     });
-    document.getElementById("getRouteButton").addEventListener("click", showRoute());
-};
 
+    document.getElementById("getRouteButton").addEventListener("click", showRoute());
+}
 
 //get directions
 function showRoute() {
@@ -46,4 +82,4 @@ function showRoute() {
     //     destination: end,
     //     travelMode: google.maps.TravelMode.DRIVING
     // };
-}
+}*/
