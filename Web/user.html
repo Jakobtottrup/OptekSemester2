@@ -35,8 +35,10 @@
             integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa"
             crossorigin="anonymous"></script>
     <!--================= END Bootstrap ==========================-->
+    <script src="mongoose.js"></script>
 </head>
 <body>
+
 <!-- Fixed navbar -->
 <nav class="navbar navbar-inverse navbar-fixed-top">
     <div class="container">
@@ -78,8 +80,21 @@
         <h1>User info</h1>
         <p>Her kommer informationen om brugeren til at stå</p>
         <p><a class="btn btn-primary btn-lg" href="index.html" role="button">Tilbage</a></p>
+        <p><a class="btn btn-primary btn-lg" href="#" role="button" id="createBtn">Create User</a></p>
+        <p><a class="btn btn-primary btn-lg" href="#" role="button" id="listBtn">List Users</a></p>
+
     </div>
 
 </div>
+
+<div id="test"></div>
+<script>
+    $('#createBtn').click(function () {
+
+    });
+    $('#listBtn').click(function () {
+        getUser();
+    });
+</script>
 </body>
 </html>
