@@ -25,17 +25,31 @@
             crossorigin="anonymous"></script>
     <!--================= END Bootstrap ==========================-->
 
+    <script src="main.js"></script>
 </head>
-<body onload="test()">
-test
-<p>test</p>
-<script>
-    function test() {
-        console.log("jquery & javascript loaded..");
-    }
-    $(function () {
-        $("p").text("The DOM is now loaded and can be manipulated.");
-    });
-</script>
+<body onload="getBooks()">
+<div class="container">
+    <h3>Add New Book</h3>
+    <form id="add-book">
+        <div class="form-group">
+            <label>Book Title</label>
+            <input type="text" id="title" class="form-control">
+        </div>
+        <div class="form-group">
+            <label>Category</label>
+            <input type="text" id="category" class="form-control">
+        </div>
+        <div class="form-group">
+            <label>Excerpt</label>
+            <input type="text" id="excerpt" class="form-control">
+        </div>
+        <input type="submit" name="submit" value="Add Book" class="btn btn-primary">
+    </form>
+    <hr />
+    <div class="row">
+        <div id="books"></div>
+    </div>
+</div>
 </body>
+
 </html>
