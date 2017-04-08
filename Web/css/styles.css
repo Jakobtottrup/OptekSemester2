@@ -3,35 +3,48 @@
 /*>> STYLING FOR seating_groups.html <<*/
 
 html {
-
+    font-family: 'Raleway', sans-serif;
 }
 
 
-#displayGroups {
-    height: 160px;
+#display-groups {
+    height: 150px;
     background-color: #dffdcf;
     border-radius: 15px;
+    overflow: auto;
 
 }
 
-#displayGroups svg:hover {
+#display-groups svg {
+    fill: #8F8F8F;
+}
+
+#display-groups svg:hover {
     fill: #22FF6D;
     cursor: pointer;
 }
 
 
-#displayGroups #createDiv, #groupDiv {
+#display-groups #create-div, #group-div {
     float: left;
     padding-top: 1px;
     width: 150px;
     height: 100%;
     text-align: center;
     margin: 5px;
+
 }
 
-#displayGroups #userDiv {
-    height: 100%;
-    margin: 5px;
+#display-groups #user-div {
+    height: 140px;
+    margin-top: 5px;
+    margin-left: 5px;
     float: left;
     text-align: center;
+}
+
+#user-div {
+    background-color: #c9e5b8;
+    border-radius: 15px;
+    padding: 10px;
 }
