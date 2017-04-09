@@ -1,0 +1,14 @@
+html, body {
+    height: 100%;
+    margin: 0px;
+}
+
+#map {
+    height: 800px;
+    width: 800px;
+}
+
+#getRouteButton {
+    margin-top: 10px;
+
+}
