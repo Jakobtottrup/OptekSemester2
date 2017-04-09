@@ -56,7 +56,7 @@
 //            Email: 'seand16@student.sdu.dk',
 //            Studie: 'Optek16',
 //            Battletag: 'btag#2222',
-//            SteamID: 'steam2222',
+//            SteamID: 'steam2222'
 //            hasPaid: true,
 //            Winratio: 1.2
 //        }, {
