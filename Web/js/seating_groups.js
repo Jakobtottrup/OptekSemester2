@@ -77,8 +77,6 @@ function viewUser(){console.log("viewUser()");}
 function changeGroupSettings(){console.log("changeGroupSettings");}
 
 
-
-
 //write data to database
 $(document).ready(function(){
     $('#add-book').on('submit', function(e){
