@@ -7,6 +7,7 @@ $(document).ready(function(){
         var excerpt = $('#excerpt').val();
 
         $.ajax({
+            //url: "mongodb://localhost:27017/optek-test",  //christian local database test
             url: "https://api.mlab.com/api/1/databases/heroku_fxdl0qct/collections/books?apiKey=2sC5adiZTeej0Ye2PQhW6sGavUshB5Uy",
             data: JSON.stringify({
                 "title": title,
@@ -28,6 +29,7 @@ $(document).ready(function(){
 
 function getBooks(){
     $.ajax({
+        //url: "mongodb://localhost:27017/optek-test" //christian local database test
         url: "https://api.mlab.com/api/1/databases/heroku_fxdl0qct/collections/books?apiKey=2sC5adiZTeej0Ye2PQhW6sGavUshB5Uy"
     }).done(function(data){
         var output ='<div>';

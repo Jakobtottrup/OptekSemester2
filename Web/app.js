@@ -1,3 +1,21 @@
+var express = require('express');
+var bcryptjs = require('bcryptjs');
+var passport = require('passport');
+var session = require('express-session');
+var mongo = ('mongodb');
+var mongoose = require('mongoose');
+var db = mongoose.connection;
+
+if (env === 'development') {
+    mongoose.connect('mongodb://localhost/optek-test'); //christians local database
+} else {
+    mongoose.connect('mongodb://optek:optek123@ds153400.mlab.com:53400/heroku_fxdl0qct');
+}
+
+
+
+
+
 //UNUSED FILE
 //UNUSED FILE
 //UNUSED FILE

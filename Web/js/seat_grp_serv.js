@@ -1,7 +1,7 @@
 /**
  * Created by chris on 09-04-2017.
  */
-
+/*
 if (env === 'development') {
     mongoose.connect('mongodb://localhost/optektestdb');
     console.log("You're in development mode");
@@ -9,7 +9,7 @@ if (env === 'development') {
     mongoose.connect('mongodb://optek:optek123@ds153400.mlab.com:53400/heroku_fxdl0qct');
     console.log("You're in production mode");
 }
-
+*/
 
 /*
 //write data to database
@@ -38,22 +38,14 @@ $(document).ready(function(){
         });
     });
 });
-
+*/
 
  //get information from database
- function getGroups(){
- $.ajax({
- url: "https://api.mlab.com/api/1/databases/heroku_fxdl0qct/collections/books?apiKey=2sC5adiZTeej0Ye2PQhW6sGavUshB5Uy"
- }).done(function(data){
- var output ='<div>';
- $.each(data, function(key, data){
- output += '<div class="well">';
- output += '<h3>'+data.title+'</h3>';
- output += '<p>category: '+data.category+'</p>';
- output += '<p>'+data.excerpt+'</p>';
- output += '</div>';
- });
- output += '</div>';
- $('#books').html(output);
- });
- }
+function getGroups(){
+    console.log('getBooks()');
+    $.ajax({
+        url: "https://api.mlab.com/api/1/databases/heroku_fxdl0qct/collections/seatgroup?apiKey=2sC5adiZTeej0Ye2PQhW6sGavUshB5Uy"
+    }).done(function(data){
+            drawCurrentGroups(data);
+    });
+};

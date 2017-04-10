@@ -10,11 +10,17 @@
   "author": "Jakob Tøttrup <jatoe13@student.sdu.dk>",
   "license": "ISC",
   "dependencies": {
-    "bcrypt": "^1.0.2",
+    "bcryptjs": "^2.4.3",
     "bluebird": "^3.5.0",
     "express": "^4.15.2",
+    "express-session": "*",
+    "express-handlebars": "*",
+    "express-validator": "*",
+    "express-messages": "*",
     "mongodb": "^2.2.25",
     "mongoose": "^4.9.3",
-    "passport": "^0.3.2"
+    "passport": "^0.3.2",
+    "passport-http": "*",
+    "passport-local": "*"
   }
 }
