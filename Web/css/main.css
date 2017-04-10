@@ -6,13 +6,19 @@ html {
     margin-left: 10px;
 }
 
-.group-wrapper, svg {
-    margin-top: 50px;
+
+.group-wrapper {
+    height: 150px;
+    background-color: #dffdcf;
+    border-radius: 15px;
+    overflow: auto;
 }
 
+
 .group-wrapper svg {
+    margin-top: 50px;
     fill: #8F8F8F;
-    margin: calc((134px - 96px)/2);
+    margin: calc((134px - 96px) / 2);
 }
 
 .group-wrapper svg:hover {
@@ -20,7 +26,7 @@ html {
     cursor: pointer;
 }
 
-#create-group {
+#create-group-- {
     height: 150px;
     background-color: #dffdcf;
     border-radius: 15px;

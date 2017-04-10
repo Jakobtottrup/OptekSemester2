@@ -1,15 +1,6 @@
 /**
  * Created by chris on 08-04-2017.
  */
-/*
-if (env === 'development') {
-    mongoose.connect('mongodb://localhost/optektestdb');
-    console.log("You're in development mode");
-}   else {
-    mongoose.connect('mongodb://optek:optek123@ds153400.mlab.com:53400/heroku_fxdl0qct');
-    console.log("You're in production mode");
-}
-*/
 
 //"create group" div
 var newGroup =
@@ -59,12 +50,17 @@ var newMember =
         '</div>' +
     '</div>';
 
+//create current group div
+var currentGroupDiv =
+    '<div class="group-wrapper" id="current-groups"></div>' +
+    '<br/>';
+
 
 var noGroup = true;                                                                                                     //skal erstattes med variabel fra database, der fortæller om brugeren allerede er i en gruppe.
 function createGroupOption(){
 //    if (reg.user) {                                                                                                   //check whether user is logged in, in current session - using passport.js
             if (noGroup) {                                                                                              //check if user is already in group
-                console.log("addGroupOption()");
+                console.log("create new group option added");
                 noGroup = false;
                 $("#create-group").prepend(newGroup);
             }
@@ -72,21 +68,13 @@ function createGroupOption(){
 }
 
 function validateForms() {
-    $('#group-modal').modal('hide');
+    console.log('Forms are missing validation');
     createGroup();
-    /*
-    $('#group-name input').blur(function()
-    {
-        if( !this.value ) {
-            $(this).parents('p').addClass('warning');
-        } else {createGroup()}
-    });
-    */
 }
 
 function createGroup(){
     if (document.getElementById("create-div")) {
-        console.log("createGroup()");
+        //console.log("createGroup()");
         $("div").remove("#create-div");
         $("#create-group").prepend(groupCreated);
         $("#create-group").append(currentMember);
@@ -100,11 +88,20 @@ function joinGroup(){
 }
 
 function drawCurrentGroups(data){
-    console.log(data);
+    //console.log(data);
+    output = '<div>';
+    $.each(data, function(key, data){
+        output += '<p>Gruppe '+data.name+'</p>';
+        output += $("#current-group-container").append(currentGroupDiv);
+
+        for(i=0;i<data.members.length;i++) {
+            output += $("#current-groups").append(currentMember);
+        };
+        console.log(data.name);
+        output += $('#current-groups').append(newMember);
+    });
+    output = '<div>';
 }
-
-
-
 
 
 function viewUser(){console.log("viewUser()");}

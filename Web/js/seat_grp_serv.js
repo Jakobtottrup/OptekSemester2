@@ -13,7 +13,7 @@ if (env === 'development') {
 
 /*
 //write data to database
-$(document).ready(function(){
+$('#model-group').ready(function(){
     $('#add-book').on('submit', function(e){
         e.preventDefault();
         var groupName =$('#group-name').val();
@@ -42,7 +42,7 @@ $(document).ready(function(){
 
  //get information from database
 function getGroups(){
-    console.log('getBooks()');
+    console.log('retrieve data from database');
     $.ajax({
         url: "https://api.mlab.com/api/1/databases/heroku_fxdl0qct/collections/seatgroup?apiKey=2sC5adiZTeej0Ye2PQhW6sGavUshB5Uy"
     }).done(function(data){
