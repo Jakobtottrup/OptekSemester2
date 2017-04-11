@@ -86,28 +86,7 @@ users.find(function (err, users) {
     console.log(users);
 });
 
-function getUser() {
-    $.ajax({
-        url: "https://api.mlab.com/api/1/databases/heroku_fxdl0qct/collections/users?apiKey=2sC5adiZTeej0Ye2PQhW6sGavUshB5Uy"
-    }).done(function (data) {
-        var output = '<div>';
-        $.each(data, function (key, data) {
-            output += '<div class="well container">';
-            output += '<h3>' + data.name + '</h3>';
-            output += '<p>Email: ' + data.email + '</p>';
-            output += '<p>Battletag: ' + data.bnet + '</p>';
-            output += '<p>Steam ID : ' + data.steam + '</p>';
-            output += '<p>Payment status: ' + data.hasPaid + '</p>';
-            output += '<p>Seating status: ' + data.hasSeat + '</p>';
-            output += '<p>ID: ' + data._id.$oid + '</p>';
-            output += '</div>';
-            //console.log(data);
-        });
-        output += '</div>';
-        $('#test').html(output);
 
-    });
-}
 
 
 
