@@ -16,7 +16,7 @@ var GroupSchema = mongoose.Schema({
     }
 });
 
-var Group = module.exports = mongoose.model('Group', GroupSchema);
+var Group = module.exports = mongoose.model('seatgroup', GroupSchema);
 
 module.exports.createGroup = function(newGroup, callback){
     bcrypt.genSalt(10, function(err, salt) {

@@ -23,6 +23,8 @@ router.post('/seatgroups', function(req, res){
     req.checkBody('password', 'Kodeord er nødvendigt').notEmpty();
     req.checkBody('password2', 'Tjek venligst at kodeordene stemmer overens').equals(req.body.password);
 
+    console.log(groupName);
+
     var errors = req.validationErrors();
 
     if(errors){
