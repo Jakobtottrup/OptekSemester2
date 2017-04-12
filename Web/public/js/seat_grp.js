@@ -50,6 +50,8 @@ newMember = '<div class="group-container">' +
     '</div>';
 
 
+var authenticated = re
+console.log(authenticated);
 
 var noGroup = true;                                                                                                     //TODO: skal erstattes med variabel fra database, der fortæller om brugeren allerede er i en gruppe.
 function createGroupOption(){
@@ -65,11 +67,6 @@ function createGroupOption(){
  //   } else {window.alert("You must login before proceeding");}
 }
 
-function validateForms() {
-    //$('#group-modal').validate();
-    console.log('Forms are missing validation');
-    removeCreateGroupOption();
-}
 
 function removeCreateGroupOption(){
     $('#create-group').remove();
