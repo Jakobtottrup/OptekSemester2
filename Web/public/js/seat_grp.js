@@ -66,7 +66,7 @@ function createGroupOption(){
 }
 
 function validateForms() {
-    $('#group-modal').validate();
+    //$('#group-modal').validate();
     console.log('Forms are missing validation');
     removeCreateGroupOption();
 }

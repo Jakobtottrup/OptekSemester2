@@ -1,11 +1,18 @@
 
+/*>>GENERAL SYLING FOR CONTENT PAGES<<*/
 
-/*>> STYLING FOR seat_grp.html <<*/
+.nav-bar-space {
+    margin-top: 100px;
+    margin-left: 350px;
+    width: 1000px;
+}
+
+
+/*>> STYLING FOR seatgroup<<*/
 html {
     font-family: 'Raleway', sans-serif;
     margin-left: 10px;
 }
-
 
 .group-wrapper {
     height: 150px;
@@ -13,7 +20,6 @@ html {
     border-radius: 15px;
     overflow: auto;
 }
-
 
 .group-wrapper svg {
     margin-top: 50px;
@@ -51,3 +57,18 @@ html {
 }
 
 
+/*>>STYLES FOR TEMPORARY GOOGLE MAP<<*/
+html, body {
+    height: 100%;
+    margin: 0px;
+}
+
+#map {
+    height: 800px;
+    width: 800px;
+}
+
+#getRouteButton {
+    margin-top: 10px;
+
+}

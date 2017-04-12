@@ -17,7 +17,7 @@ $(document).ready(function(){
             type: "POST",
             contentType: "application/json",
             success: function(data){
-                window.location.href="../content_pages/index.html";
+                window.location.href="../../views/temp-views/index.html";
             },
             error: function(xhr, status, err){
                 console.log(err);

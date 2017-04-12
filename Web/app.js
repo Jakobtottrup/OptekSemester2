@@ -15,6 +15,8 @@ var db = mongoose.connection;
 
 var routes = require('./routes/index');
 var users = require('./routes/users');
+var booking = require('./routes/booking');
+var test = require('./routes/test'); //testing directory
 
 
 // Init App
@@ -82,6 +84,8 @@ app.use(function (req, res, next) {
 
 app.use('/', routes);
 app.use('/users', users);
+app.use('/booking', booking);
+app.use('/test', test); //testing directory
 
 
 //Set Port

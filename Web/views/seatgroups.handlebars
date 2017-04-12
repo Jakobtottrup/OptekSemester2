@@ -1,0 +1,39 @@
+<script src="/js/seat_grp.js"></script>
+<script src="/js/seat_grp_serv.js"></script>
+
+
+<body onload="createGroupOption(); getData()" class="nav-bar-space">
+<h3 id="create-group-header">Opret siddegruppe</h3>
+<div class="group-wrapper" id="create-group"></div>
+
+<h3>Tilslut siddegruppe</h3>
+<div id="current-group-container"></div>
+
+<!-- Modal -->
+<div id="group-modal" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">Opret siddegruppe</h4>
+            </div>
+            <div class="modal-body">
+                <p>Indtast oplysninger for din siddegruppe.</p>
+                <p>Andre brugere bruger disse oplysninger til at forbinde til din gruppe.</p>
+                <br>
+                <label>Navngiv din gruppe</label>
+                <input type="text" id="group-name" class="form-control" placeholder="Gruppenavn" required/>
+                <br>
+                <label>Giv din gruppe et password</label>
+                <input type="text" id="group-password" class="form-control" placeholder="Password" required/>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-success" data-dismiss="modal" name="submit" onclick="validateForms()">Opret</button>
+                <button type="button" class="btn btn-danger" data-dismiss="modal">Annuller</button>
+            </div>
+        </div>
+
+    </div>
+</div>
+</body>

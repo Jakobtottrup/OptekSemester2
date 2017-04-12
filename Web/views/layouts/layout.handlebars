@@ -7,20 +7,15 @@
     <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
     <meta name="description" content="">
     <meta name="author" content="">
-
+    <title>S7LAN</title>
 
     <!-- Custom styles for Sticky Footer with Navbar template -->
-    <link href="../css/sticky-footer-navbar.css" rel="stylesheet">
-
-
-    <title>S7Lan</title>
-
+    <link href="/css/sticky-footer-navbar.css" rel="stylesheet">
     <!--================= jQuery ============================-->
     <script src="https://code.jquery.com/jquery-3.2.1.min.js"
             integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="
             crossorigin="anonymous"></script>
     <!--================ END jQuery =========================-->
-
     <!--================= Bootstrap ==========================-->
     <!-- Latest compiled and minified CSS -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
@@ -35,112 +30,44 @@
             integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa"
             crossorigin="anonymous"></script>
     <!--================= END Bootstrap ==========================-->
+    <link rel="stylesheet" href="/css/main.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
 
 
 </head>
-<body>
-
-<!-- Fixed navbar -->
-<nav class="navbar navbar-inverse navbar-fixed-top">
-    <div class="container">
-        <div class="navbar-header">
-            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar"
-                    aria-expanded="false" aria-controls="navbar">
-                <span class="sr-only">Toggle navigation</span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-            </button>
-            <a class="navbar-brand" href="#">Project name</a>
-        </div>
-        <div id="navbar" class="collapse navbar-collapse">
-            <ul class="nav navbar-nav">
-                <li class="active"><a href="#">Home</a></li>
-                <li><a href="#about">OM S7</a></li>
-                <li><a href="#contact">KONTAKT</a></li>
-                <li class="dropdown">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
-                       aria-expanded="false">Dropdown <span class="caret"></span></a>
-                    <ul class="dropdown-menu">
-                        <li><a href="#">Action</a></li>
-                        <li><a href="#">Another action</a></li>
-                        <li><a href="#">Something else here</a></li>
-                        <li role="separator" class="divider"></li>
-                        <li class="dropdown-header">Nav header</li>
-                        <li><a href="#">Separated link</a></li>
-                        <li><a href="#">One more separated link</a></li>
+    <body>
+        <!-- Fixed navbar -->
+        <nav class="navbar navbar-inverse navbar-fixed-top">
+            <div class="container">
+                <div class="navbar-header">
+                    <a class="navbar-brand" href="/">S7 LAN</a>
+                </div>
+                <div id="navbar" class="collapse navbar-collapse">
+                    <ul class="nav navbar-nav">
+                        <li><a href="/">HJEM</a></li>
+                        <li><a href="">OM S7</a></li>
+                        <li><a href="/test/googlemaps-test">TURNERINGER</a></li>
+                        <li><a href="/test/books-test">REGLER</a></li>
+                        <li><a href="/booking/seatgroups">EVENTET</a></li> !-- link skal ændres (bruges kun midlertidigt som test) --
+                        <li><a href="/users/register">REGISTER</a></li>
+                        <li><a href="/users/login">LOGIN</a></li>
                     </ul>
-                </li>
-            </ul>
-        </div><!--/.nav-collapse -->
-    </div>
-</nav>
+                </div><!--/.nav-collapse -->
+            </div>
+        </nav>
+        <div>
+            <div class="row">
+                <div class="col-lg-12">
+                    <p>CONTENT VIEWS BEGINS HERE</p>
+                    {{{body}}}
+                </div>
+            </div>
+        </div>
 
-<!-- Begin page content -->
-<div class="container">
-    <div class="page-header">
-        <h1>Forside</h1>
-    </div>
-    <div>
-        <p class="lead">Forside features:</p>
-        <ul>
-            <li>Billedkarusel (evt. med video highlights fra forrige lan events)</li>
-            <li>Countdown timer</li>
-            <li>Facebook plugin</li>
-            <li>Pladsbestilling</li>
-            <li>Turneringstilmelding</li>
-            <li>Login funktion (alm. brugere kan måske se deres egen data) - Admins kommer til admin side</li>
-            <li>Google maps + SDU maps</li>
-            <li>Info (sidebar?)
-                <ul>
-                    <li>huskeliste</li>
-                    <li>om crew</li>
-                    <li>betaling</li>
-                    <li>om shoppen til eventet</li>
-                    <li>regler</li>
-                    <li>om S7Lan</li>
-                    <li>sponsorer</li>
-                    <li>pladsreservering</li>
-                    <li>test </li>
-                </ul>
-            </li>
-
-
-        </ul>
-
-    </div>
-</div>
-<div class="container">
-    <p class="lead text-primary">
-        Links til interne sider:
-    </p>
-    <ul>
-        <li><a href="admin.html">Admin</a></li>
-        <li><a href="user.html">User</a></li>
-        <li><a href="temp-map_index.html">Maps</a></li>
-    </ul>
-    <!--JIM added line breaks to see links-->
-    <br>
-    <br>
-    <br>
-    <!--Sebastian removed two line breaks-->
-
-
-</div>
-<footer class="footer">
-    <div class="container">
-        <p class="text-muted">Place sticky footer content here.</p>
-    </div>
-</footer>
-
-
-<!-- Bootstrap core JavaScript
-================================================== -->
-<!-- Placed at the end of the document so the pages load faster -->
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js">
-
-</script>
-<script>window.jQuery || document.write('<script src="../../assets/js/vendor/jquery.min.js"><\/script>')</script>
-
-</body>
+        <footer class="footer">
+            <div class="container">
+                <p class="text-muted">ALL RIGHTS RESERVED | ez pz n00bz | 2017</p>
+            </div>
+        </footer>
+    </body>
 </html>
