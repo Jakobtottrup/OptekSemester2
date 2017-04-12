@@ -8,9 +8,10 @@ var flash = require('connect-flash');
 var session = require('express-session');
 var passport = require('passport');
 var localStrategy = require('passport-local').Strategy;
+
 var mongo = require('mongodb');
 var mongoose = require('mongoose');
-mongoose.connect('mongodb://optek:optek123@ds153400.mlab.com:53400/heroku_fxdl0qct');
+mongoose.connect('mongodb://optek:optek123@ds153400.mlab.com:53400/heroku_fxdl0qct'); //url works properly - checked
 var db = mongoose.connection;
 
 var routes = require('./routes/index');
