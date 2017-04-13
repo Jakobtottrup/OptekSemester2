@@ -12,9 +12,11 @@
   "license": "ISC",
   "dependencies": {
     "bcryptjs": "*",
+    "bluebird": "*",
     "body-parser": "*",
     "connect-flash": "*",
     "cookie-parser": "^1.4.1",
+    "dateformat": "^2.0.0",
     "express": "*",
     "express-handlebars": "*",
     "express-messages": "*",
@@ -24,7 +26,6 @@
     "mongoose": "*",
     "passport": "*",
     "passport-http": "*",
-    "passport-local": "*",
-    "bluebird": "*"
+    "passport-local": "*"
   }
 }

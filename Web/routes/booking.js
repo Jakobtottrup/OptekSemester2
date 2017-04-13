@@ -3,12 +3,14 @@
  */
 var express = require('express');
 var router = express.Router();
+var dateFormat = require('dateformat');
 
 var Group = require('../models/booking');
 
+
 // RENDER SEATGROUP VIEW
 router.get('/seatgroups', function(req, res){
-    res.render('seatgroups');
+    res.render('user-backend/seatgroups');
 });
 
 
@@ -20,7 +22,7 @@ router.post('/seatgroups', function(req, res){
     var members = [];
     var leaderID = null;
     var eventID = null;
-    var creationDate ;
+    var creationDate = dateFormat(creationDate, "isoDateTime");
 
     console.log("gruppenavn: " + groupName + " | passwords: " + password + " / " + password2);
 
@@ -29,14 +31,14 @@ router.post('/seatgroups', function(req, res){
     req.checkBody('password', 'Kodeord er nødvendigt').notEmpty();
     req.checkBody('password2', 'Tjek venligst at kodeordene stemmer overens').equals(req.body.password);
 
-    var errors = req.validationErrors();
 
-    if(errors){
+    var errors = req.validationErrors();
+    if(errors){ // if validation fails
         res.render('index',{
             errors:errors
         });
         console.log(errors);
-    } else {
+    } else { //if validation succeeds server sends data to database using modelschema "Booking.js"
         var newGroup = new Group({
             groupName: groupName,
             password: password,

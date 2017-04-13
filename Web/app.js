@@ -9,15 +9,22 @@ var session = require('express-session');
 var passport = require('passport');
 var localStrategy = require('passport-local').Strategy;
 
+// DATABASE CONNECTION
 var mongo = require('mongodb');
 var mongoose = require('mongoose');
 mongoose.connect('mongodb://optek:optek123@ds153400.mlab.com:53400/heroku_fxdl0qct'); //url works properly - checked
 var db = mongoose.connection;
+db.on('error', console.error.bind(console, 'connection error:'));
+db.once('open', function() {
+    console.log("Database connection established!");
+});
 
-var routes = require('./routes/index');
-var users = require('./routes/users');
+
+var routes = require('./routes/index'); //main index (front page)
+var users = require('./routes/users'); //user pages
 var booking = require('./routes/booking');
-var test = require('./routes/test'); //testing directory
+var test = require('./routes/test'); //"testing directory" route
+var admins = require('./routes/admins'); //admin-backend route
 
 
 // Init App
@@ -88,6 +95,7 @@ app.use('/', routes);
 app.use('/users', users);
 app.use('/booking', booking);
 app.use('/test', test); //testing directory
+app.use('/admins', admins);
 
 
 //Set Port

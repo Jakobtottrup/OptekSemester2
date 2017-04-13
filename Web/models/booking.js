@@ -24,7 +24,7 @@ var GroupSchema = mongoose.Schema({
         type: String
     },
     creationDate: {
-        type: Date
+        type: String
     }
 });
 

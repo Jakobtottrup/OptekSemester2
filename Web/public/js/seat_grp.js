@@ -50,7 +50,7 @@ newMember = '<div class="group-container">' +
     '</div>';
 
 
-//var authenticated = re;
+
 
 var noGroup = true;                                                                                                     //TODO: skal erstattes med variabel fra database, der fortæller om brugeren allerede er i en gruppe.
 function createGroupOption(){
@@ -81,12 +81,12 @@ function drawCurrentGroups(groupData){
     $.each(groupData, function(key, groupData){
         output += '<h4>Gruppe '+key+':  '+groupData.groupName+'</h4>';
         output += '<p>Denne gruppe har '+groupData.members.length+' medlemmer</p>';
-        output += '<div class="group-wrapper group" id="current-groups"></div>';
+        output += '<div class="group-wrapper current-groups" id="current-groups"></div>';
         output += '</br>';
     });
     output += '</div>' + '</br>';
     $('#current-group-container').html(output);
-    $(".group").append(newMember);
+    $(".current-groups").append(newMember);
 }
 
 
