@@ -13,6 +13,18 @@ var GroupSchema = mongoose.Schema({
     },
     password: {
         type: String
+    },
+    members: {
+        type: Array
+    },
+    leaderID: {
+        type: String
+    },
+    eventID: {
+        type: String
+    },
+    creationDate: {
+        type: Date
     }
 });
 

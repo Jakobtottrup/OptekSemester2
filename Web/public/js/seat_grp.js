@@ -50,14 +50,13 @@ newMember = '<div class="group-container">' +
     '</div>';
 
 
-var authenticated = re
-console.log(authenticated);
+//var authenticated = re;
 
 var noGroup = true;                                                                                                     //TODO: skal erstattes med variabel fra database, der fortæller om brugeren allerede er i en gruppe.
 function createGroupOption(){
 //    if (reg.user) {                                                                                                   //check whether user is logged in, in current session - using passport.js
             if (noGroup) {                                                                                              //check if user is already in group
-                //console.log("create new group option added");
+                console.log("create new group option added");
                 noGroup = false;
                 $("#create-group").prepend(newGroup);
             } else {
@@ -80,21 +79,16 @@ function joinGroup(){
 function drawCurrentGroups(groupData){
     var output = '<div class="groups">';
     $.each(groupData, function(key, groupData){
-        output += '<h4>'+groupData.name+'</h4>';
-        output += '<div class="group-wrapper" id="current-groups'+key+'"></div>';
+        output += '<h4>Gruppe '+key+':  '+groupData.groupName+'</h4>';
+        output += '<p>Denne gruppe har '+groupData.members.length+' medlemmer</p>';
+        output += '<div class="group-wrapper group" id="current-groups"></div>';
         output += '</br>';
-        //putMembersInGroup(key, groupData);
-        $().append(newMember);
     });
     output += '</div>' + '</br>';
     $('#current-group-container').html(output);
+    $(".group").append(newMember);
 }
 
-function putMembersInGroup (key, groupData){
-    for(i=0;i<groupData.members.length;i++) {
-        $("#current-groups").append(currentMember);
-    }
-}
 
-function viewUser(){console.log("viewUser()");} //TODO: brugerne skal kunne se hinanden profiler
+function viewUser(){console.log("viewUser()");} //TODO: brugerne skal kunne se hinandens profiler
 function changeGroupSettings(){console.log("changeGroupSettings");} //TODO: brugeren skal kunne ændre gruppeoplysninger
