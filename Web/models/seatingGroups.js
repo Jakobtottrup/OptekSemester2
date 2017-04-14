@@ -8,8 +8,7 @@ var bcrypt = require('bcryptjs');
 // Group Schema for creating seatgroups
 var GroupSchema = mongoose.Schema({
     groupName: {
-        type: String,
-        index:true
+        type: String
     },
     password: {
         type: String
@@ -24,12 +23,14 @@ var GroupSchema = mongoose.Schema({
         type: String
     },
     creationDate: {
-        type: String
+        type: Date,
+        default: Date.now
     }
 });
 
 var Group = module.exports = mongoose.model('seatgroup', GroupSchema);
 
+// PASSWORD ENCRYPTION
 module.exports.createGroup = function(newGroup, callback){
     bcrypt.genSalt(10, function(err, salt) {
         bcrypt.hash(newGroup.password, salt, function(err, hash) {

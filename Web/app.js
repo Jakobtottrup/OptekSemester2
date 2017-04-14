@@ -9,6 +9,7 @@ var session = require('express-session');
 var passport = require('passport');
 var localStrategy = require('passport-local').Strategy;
 
+
 // DATABASE CONNECTION
 var mongo = require('mongodb');
 var mongoose = require('mongoose');
@@ -22,9 +23,11 @@ db.once('open', function() {
 
 var routes = require('./routes/index'); //main index (front page)
 var users = require('./routes/users'); //user pages
-var booking = require('./routes/booking');
 var test = require('./routes/test'); //"testing directory" route
 var admins = require('./routes/admins'); //admin-backend route
+
+
+
 
 
 // Init App
@@ -93,7 +96,6 @@ app.use(function (req, res, next) {
 
 app.use('/', routes);
 app.use('/users', users);
-app.use('/booking', booking);
 app.use('/test', test); //testing directory
 app.use('/admins', admins);
 

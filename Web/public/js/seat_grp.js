@@ -76,18 +76,24 @@ function joinGroup(){
     $("#create-group").append(currentMember);
 }
 
+
 function drawCurrentGroups(groupData){
     var output = '<div class="groups">';
     $.each(groupData, function(key, groupData){
-        output += '<h4>Gruppe '+key+':  '+groupData.groupName+'</h4>';
+        output += '<h4>Gruppe '+(key+1)+':  '+groupData.groupName+'</h4>';
         output += '<p>Denne gruppe har '+groupData.members.length+' medlemmer</p>';
-        output += '<div class="group-wrapper current-groups" id="current-groups"></div>';
+        output += '<div class="group-wrapper current-groups'+key+'" id="current-groups"></div>';
         output += '</br>';
+        console.log(key);
+        for(i=0;i<groupData.members.length; i++){
+            $("#current-groups"+key).append(newMember);
+        }
     });
     output += '</div>' + '</br>';
     $('#current-group-container').html(output);
-    $(".current-groups").append(newMember);
+    $("#current-groups").prepend(newMember);
 }
+
 
 
 function viewUser(){console.log("viewUser()");} //TODO: brugerne skal kunne se hinandens profiler
