@@ -12,7 +12,7 @@ router.get('/', function(req, res){
 
 // RENDER REGISTER VIEW
 router.get('/register', function(req, res){
-    res.render('frontend/register', {title: "Registrering"});
+    res.render('frontend/register', {title: "Tilmelding"});
 });
 
 

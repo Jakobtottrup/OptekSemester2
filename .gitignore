@@ -2,3 +2,4 @@
 Web/.idea/*
 .idea/*
 Web/node_modules/*
+Web/bower_components/*

@@ -1,32 +1,26 @@
-var express = require('express');
+// Init Modules
 var path = require('path');
-var cookieParser = require('cookie-parser');
-var bodyParser = require('body-parser');
+var express = require('express');
 var exphbs = require('express-handlebars');
 var expressValidator = require('express-validator');
+var expressSession = require('express-session');
+var cookieParser = require('cookie-parser');
+var bodyParser = require('body-parser');
 var flash = require('connect-flash');
-var session = require('express-session');
 var passport = require('passport');
 var localStrategy = require('passport-local').Strategy;
-
 
 // DATABASE CONNECTION
 var mongo = require('mongodb');
 var mongoose = require('mongoose');
 mongoose.connect('mongodb://optek:optek123@ds153400.mlab.com:53400/heroku_fxdl0qct'); //url works properly - checked
 var db = mongoose.connection;
-db.on('error', console.error.bind(console, 'connection error:'));
-db.once('open', function() {
-    console.log("Database connection established!");
-});
 
 
 var routes = require('./routes/index'); //main index (front page)
 var users = require('./routes/users'); //user pages
 var test = require('./routes/test'); //"testing directory" route
 var admins = require('./routes/admins'); //admin-backend route
-
-
 
 
 
@@ -48,10 +42,11 @@ app.use(cookieParser());
 
 // Set Static Folder
 app.use(express.static(path.join(__dirname, 'public')));
+app.use(express.static(path.join(__dirname, 'bower_components')));
 
 
 // Express Session
-app.use(session({
+app.use(expressSession({
     secret : 'secret',
     saveUninitialized: true,
     resave: true
@@ -106,6 +101,18 @@ app.set('port', (process.env.PORT || 3000));
 app.listen(app.get('port'), function(){
    console.log('Server started on port '+app.get('port'));
 });
+
+
+
+
+// CONSOLE LOGS
+
+db.on('error', console.error.bind(console, 'connection error:'));
+db.once('open', function() {
+    console.log("Database connection established!");
+});
+
+
 
 
 

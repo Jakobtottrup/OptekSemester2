@@ -4,8 +4,6 @@
 <title>{{ title }}</title>
 
 <body onload="createGroupOption(); getData()" class="nav-bar-space">
-
-
     <h3 id="create-group-header">Opret siddegruppe</h3>
     <div class="group-wrapper" id="create-group"></div>
     <br>
@@ -22,26 +20,27 @@
                     <h4 class="modal-title">Opret siddegruppe</h4>
                 </div>
                 <div class="modal-body">
-                    <form method="post" action="/booking/seatgroups">
-                        <p>Indtast oplysninger for din siddegruppe.</p>
-                        <p>Andre brugere bruger disse oplysninger til at forbinde til din gruppe.</p>
-                        <label>Navngiv din gruppe</label>
-                        <!--input type="text" id="group-name" class="form-control" placeholder="Gruppenavn" name="name"-->
-                        <input type="text" class="form-control" placeholder="Navn" name="groupName">
-                        <br>
-                        <label>Giv din gruppe et kodeord</label>
-                        <input type="password" class="form-control" placeholder="Kodeord" name="password">
-                        <br>
-                        <label>Skriv kodeordet igen</label>
-                        <input type="password" class="form-control" placeholder="Kodeord" name="password2">
-                    </div>
-                    <div class="modal-footer">
-                        <button type="submit" class="btn btn-success">Opret</button>
-                        <button type="button" class="btn btn-danger" data-dismiss="modal">Annuller</button>
-                    </div>
-                </form>
+                    <form method="post" action="/users/seatgroups">
+                        <div>
+                            <p>Indtast oplysninger for din siddegruppe.</p>
+                            <p>Andre brugere bruger disse oplysninger til at forbinde til din gruppe.</p>
+                            <label>Navngiv din gruppe</label>
+                            <!--input type="text" id="group-name" class="form-control" placeholder="Gruppenavn" name="name"-->
+                            <input type="text" class="form-control" placeholder="Navn" name="groupName">
+                            <br>
+                            <label>Giv din gruppe et kodeord</label>
+                            <input type="password" class="form-control" placeholder="Kodeord" name="password">
+                            <br>
+                            <label>Skriv kodeordet igen</label>
+                            <input type="password" class="form-control" placeholder="Kodeord" name="password2">
+                        </div>
+                        <div class="modal-footer">
+                            <button type="submit" class="btn btn-success">Opret</button>
+                            <button type="button" class="btn btn-danger" data-dismiss="modal">Annuller</button>
+                        </div>
+                    </form>
+                </div>
             </div>
-
         </div>
     </div>
 </body>

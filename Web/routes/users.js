@@ -64,11 +64,10 @@ router.post('/seatgroups', function(req, res){
             //console.log(group);
         });
         req.flash('success_msg', 'Gruppen er nu oprettet');
-        res.redirect('/user-backend/seatgroups');
+        res.redirect('/users/seatgroups');
     }
 
 });
-
 
 
 module.exports = router;
