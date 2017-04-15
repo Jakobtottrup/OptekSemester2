@@ -12,7 +12,7 @@ var router = express.Router();
 
 // RENDER REGISTER VIEW
 router.get('/adminpanel', function(req, res){
-    res.render('admin-backend/adminpanel', {title: "Admin Panel"});
+    res.render('admin-backend/admindashboard', {title: "Admin Panel"});
 });
 
 

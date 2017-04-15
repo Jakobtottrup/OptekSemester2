@@ -13,10 +13,4 @@ router.get('/books-test', function(req, res){
 });
 
 
-// RENDER GOOGLE MAPS VIEW
-router.get('/googlemaps-test', function(req, res){
-    res.render('frontend/googlemaps-test', {title: "Google Maps test page"});
-});
-
-
 module.exports = router;

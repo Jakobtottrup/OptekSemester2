@@ -9,7 +9,12 @@ var router = express.Router();
 // THESE VIEWS ARE ONLY ALLOWED IF USER IS LOGGED IN //
 
 // USER DASHBOARD
-router.get('/userdashboard', function(req, res) {
+router.get('/userpanel', function(req, res){
+    res.render('user-backend/userdashboard', {title: "Dashboard"});
+});
+/*
+router.get('/userpanel', function(req, res) {
+    res.render('user-backend/userdashboard', {title: "Dashboard"});
     if(!req.session.user){
         return res.status(401).send();
 
@@ -17,7 +22,7 @@ router.get('/userdashboard', function(req, res) {
     res.render('user-backend/userdashboard', {title: "Dashboard"});
     return res.status(200).send("Welcome to the userdashboard");
 });
-
+*/
 
 
 // RENDER SEATGROUP VIEW

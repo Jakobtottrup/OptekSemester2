@@ -10,10 +10,35 @@ router.get('/', function(req, res){
 });
 
 
-// RENDER REGISTER VIEW
-router.get('/register', function(req, res){
-    res.render('frontend/register', {title: "Tilmelding"});
+// RENDER 'REGISTER' VIEW
+router.get('/signup', function(req, res){
+    res.render('frontend/signup', {title: "Tilmelding"});
 });
+
+
+// RENDER 'CONTACT' VIEW
+router.get('/contact', function(req, res){
+    res.render('frontend/contact', {title: "Google Maps test page"});
+});
+
+
+// RENDER 'TOURNAMENTS' VIEW
+router.get('/tournaments', function(req, res){
+    res.render('frontend/tournaments', {title: "Google Maps test page"});
+});
+
+
+// RENDER 'RULES' VIEW
+router.get('/rules', function(req, res){
+    res.render('frontend/rules', {title: "Google Maps test page"});
+});
+
+
+// RENDER 'EVENTS' VIEW
+router.get('/events', function(req, res){
+    res.render('frontend/events', {title: "Google Maps test page"});
+});
+
 
 
 // RENDER LOGIN VIEW

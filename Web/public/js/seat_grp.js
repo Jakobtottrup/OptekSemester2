@@ -81,7 +81,7 @@ function drawCurrentGroups(groupData){
     var output = '<div class="groups">';
     $.each(groupData, function(key, groupData){
         output += '<h4>Gruppe '+(key+1)+':  '+groupData.groupName+'</h4>';
-        output += '<p>Denne gruppe har '+groupData.members.length+' medlemmer</p>';
+        output += '<p>Denne gruppe har '+groupData.members.length+' medlemmer | Password: '+groupData.password+'</p>';
         output += '<div class="group-wrapper current-groups'+key+'" id="current-groups"></div>';
         output += '</br>';
         console.log(key);
@@ -98,3 +98,14 @@ function drawCurrentGroups(groupData){
 
 function viewUser(){console.log("viewUser()");} //TODO: brugerne skal kunne se hinandens profiler
 function changeGroupSettings(){console.log("changeGroupSettings");} //TODO: brugeren skal kunne ændre gruppeoplysninger
+
+// get information from database
+function getData() {
+    console.log('requesting "seatgroup" data from database');
+    $.ajax({
+        url: "https://api.mlab.com/api/1/databases/heroku_fxdl0qct/collections/seatgroups?apiKey=2sC5adiZTeej0Ye2PQhW6sGavUshB5Uy"
+    }).done(function (groupData) {
+        console.log('received seatgroup data');
+        drawCurrentGroups(groupData);
+    });
+}
