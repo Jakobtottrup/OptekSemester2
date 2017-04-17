@@ -6,7 +6,7 @@ mongoose.Promise = require('bluebird');
 var bcrypt = require('bcryptjs');
 
 
-// Group Schema for creating seatgroups
+// Group Schema for creating seating groups
 var GroupSchema = mongoose.Schema({
     groupName: {
         type: String
@@ -23,13 +23,14 @@ var GroupSchema = mongoose.Schema({
     eventID: {
         type: String
     },
-    creationDate: {
+    createdAt: {
         type: Date,
         default: Date.now
     }
 });
 
 var Group = module.exports = mongoose.model('seatgroup', GroupSchema);
+
 
 // PASSWORD ENCRYPTION
 module.exports.createGroup = function(newGroup, callback){

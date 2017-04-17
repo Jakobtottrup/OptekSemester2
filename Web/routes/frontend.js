@@ -3,6 +3,9 @@
  */
 var express = require('express');
 var router = express.Router();
+var passport = require('passport');
+var LocalStrategy = require('passport-local').Strategy;
+
 
 // GET HOMEPAGE
 router.get('/', function(req, res){
@@ -40,7 +43,6 @@ router.get('/events', function(req, res){
 });
 
 
-
 // RENDER LOGIN VIEW
 router.get('/login', function(req, res){
     res.render('frontend/login', {title: "Login"});
@@ -63,6 +65,26 @@ router.get('/login', function(req, res){
     })
 */
 });
+
+
+// AUTHENTICATE LOGIN
+router.post('/login',
+    passport.authenticate('local', {successRedirect:'/', failureRedirect:'/index/login',failureFlash: true}),
+    function(req, res) {
+        res.redirect('/');
+    });
+
+router.get('/logout', function(req, res){
+    req.logout();
+
+    req.flash('success_msg', 'You are logged out');
+
+    res.redirect('/users/login');
+});
+
+
+
+
 
 
 // CHECK IF USER TRIES TO ENTER UNALLOWED ROUTE

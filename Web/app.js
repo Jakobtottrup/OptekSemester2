@@ -17,7 +17,7 @@ mongoose.connect('mongodb://optek:optek123@ds153400.mlab.com:53400/heroku_fxdl0q
 var db = mongoose.connection;
 
 
-var routes = require('./routes/index'); //main index (front page)
+var routes = require('./routes/frontend'); //main index (front page)
 var users = require('./routes/users'); //user pages
 var test = require('./routes/test'); //"testing directory" route
 var admins = require('./routes/admins'); //admin-backend route
@@ -40,7 +40,7 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 
 
-// Set Static Folder
+// Set Static Folders
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(express.static(path.join(__dirname, 'bower_components')));
 
@@ -89,6 +89,7 @@ app.use(function (req, res, next) {
    next();
 });
 
+
 app.use('/', routes);
 app.use('/users', users);
 app.use('/test', test); //testing directory
@@ -101,8 +102,6 @@ app.set('port', (process.env.PORT || 3000));
 app.listen(app.get('port'), function(){
    console.log('Server started on port '+app.get('port'));
 });
-
-
 
 
 // CONSOLE LOGS

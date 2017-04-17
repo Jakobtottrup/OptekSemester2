@@ -54,9 +54,10 @@ newMember = '<div class="group-container">' +
 
 var noGroup = true;                                                                                                     //TODO: skal erstattes med variabel fra database, der fortæller om brugeren allerede er i en gruppe.
 function createGroupOption(){
+    getData();
 //    if (reg.user) {                                                                                                   //check whether user is logged in, in current session - using passport.js
             if (noGroup) {                                                                                              //check if user is already in group
-                console.log("create new group option added");
+                //console.log("create new group option added");
                 noGroup = false;
                 $("#create-group").prepend(newGroup);
             } else {
@@ -77,27 +78,27 @@ function joinGroup(){
 }
 
 
+
+ // old database reading function
 function drawCurrentGroups(groupData){
     var output = '<div class="groups">';
     $.each(groupData, function(key, groupData){
         output += '<h4>Gruppe '+(key+1)+':  '+groupData.groupName+'</h4>';
-        output += '<p>Denne gruppe har '+groupData.members.length+' medlemmer | Password: '+groupData.password+'</p>';
+        output += '<p>Denne gruppe har '+groupData.members.length+' medlemmer</p>';
+        output += '<p>Password: '+groupData.password+'</p>';
+        output += '<p>Oprettet: '+groupData.createdAt.$date+'</p>';
         output += '<div class="group-wrapper current-groups'+key+'" id="current-groups"></div>';
         output += '</br>';
-        console.log(key);
-        for(i=0;i<groupData.members.length; i++){
-            $("#current-groups"+key).append(newMember);
-        }
+
+        $.each(groupData.members, function(key2){
+            console.log(key);
+            $("#current-groups").prepend(newMember);
+        });
     });
     output += '</div>' + '</br>';
     $('#current-group-container').html(output);
-    $("#current-groups").prepend(newMember);
+    $("#current-groups").prepend(currentMember);
 }
-
-
-
-function viewUser(){console.log("viewUser()");} //TODO: brugerne skal kunne se hinandens profiler
-function changeGroupSettings(){console.log("changeGroupSettings");} //TODO: brugeren skal kunne ændre gruppeoplysninger
 
 // get information from database
 function getData() {
@@ -105,7 +106,12 @@ function getData() {
     $.ajax({
         url: "https://api.mlab.com/api/1/databases/heroku_fxdl0qct/collections/seatgroups?apiKey=2sC5adiZTeej0Ye2PQhW6sGavUshB5Uy"
     }).done(function (groupData) {
-        console.log('received seatgroup data');
+        //console.log(groupData);
         drawCurrentGroups(groupData);
     });
 }
+
+
+
+function viewUser(){console.log("viewUser()");} //TODO: brugerne skal kunne se hinandens profiler
+function changeGroupSettings(){console.log("changeGroupSettings");} //TODO: brugeren skal kunne ændre gruppeoplysninger

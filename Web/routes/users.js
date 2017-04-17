@@ -2,8 +2,10 @@
  * Created by chris on 11-04-2017.
  */
 var express = require('express');
+//var LocalStrategy = require('passport-local').Strategy;
 var router = express.Router();
-
+var mongoose = require('mongoose');
+mongoose.Promise = require('bluebird');
 
 
 // THESE VIEWS ARE ONLY ALLOWED IF USER IS LOGGED IN //
@@ -27,7 +29,7 @@ router.get('/userpanel', function(req, res) {
 
 // RENDER SEATGROUP VIEW
 router.get('/seatgroups', function(req, res){
-    res.render('user-backend/seatgroups', {title: "Siddegrupper"});
+    res.render('user-backend/seatgroups', {title: "Siddegrupper", data: groupData});
 });
 
 
@@ -38,7 +40,7 @@ router.post('/seatgroups', function(req, res){
     var password = req.body.password;
     var password2 = req.body.password2;
     var members = [];
-    var leaderID = null;
+    var leaderID = null; //req.user.id
     var eventID = null;
 
     //console.log("gruppenavn: " + groupName + " | passwords: " + password + " / " + password2);
@@ -72,6 +74,14 @@ router.post('/seatgroups', function(req, res){
         res.redirect('/users/seatgroups');
     }
 
+});
+
+
+// GET SEATGROUPS
+Group.find({}, function(err, seatgroups){
+    if(err) throw err;
+    groupData = seatgroups;
+    //console.log(groupData);
 });
 
 
