@@ -2,14 +2,14 @@
  * Created by chris on 12-04-2017.
  */
 var mongoose = require('mongoose');
+mongoose.Promise = require('bluebird');
 var bcrypt = require('bcryptjs');
 
 
-// Group Schema for creating seatgroups
+// Group Schema for creating seating groups
 var GroupSchema = mongoose.Schema({
     groupName: {
-        type: String,
-        index:true
+        type: String
     },
     password: {
         type: String
@@ -23,13 +23,16 @@ var GroupSchema = mongoose.Schema({
     eventID: {
         type: String
     },
-    creationDate: {
-        type: Date
+    createdAt: {
+        type: Date,
+        default: Date.now
     }
 });
 
 var Group = module.exports = mongoose.model('seatgroup', GroupSchema);
 
+
+// PASSWORD ENCRYPTION
 module.exports.createGroup = function(newGroup, callback){
     bcrypt.genSalt(10, function(err, salt) {
         bcrypt.hash(newGroup.password, salt, function(err, hash) {

@@ -2,4 +2,4 @@
 Web/.idea/*
 .idea/*
 Web/node_modules/*
-jvt/*
+Web/bower_components/*

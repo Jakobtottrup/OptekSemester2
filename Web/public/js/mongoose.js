@@ -24,6 +24,7 @@ var userSchema = mongoose.Schema({
     hasSeat: Boolean
 });
 
+
 // NOTE: methods must be added to the schema before compiling it with mongoose.model()
 userSchema.methods.info = function () {
     var name = this.name
