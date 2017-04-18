@@ -18,7 +18,7 @@ var SeatSchema = mongoose.Schema({
     },
     seatUserID: {
         type: String
-    }
+    },
     seatGroupID: {
         type: String
     }

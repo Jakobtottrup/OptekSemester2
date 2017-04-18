@@ -21,7 +21,7 @@ router.get('/create_seats', function(req, res){
     res.render('admin-backend/create_seats', {title: "Create Seats"});
 });
 
-/*
+
 // REGISTER GROUP
 var seats = require('../models/seats');
 router.post('/create_seats', function(req, res){
@@ -45,14 +45,19 @@ router.post('/create_seats', function(req, res){
             seatGroupID: 0
         });
 
-        seats.createGroup(newSeat, function(err, group){
-            if(err) throw err;
-            //console.log(group);
-        });
-        req.flash('success_msg', 'Pladsen er nu oprettet');
-        res.redirect('/admins/create_seats');
+        newSeat.save(function(err) {
+            if (err) throw err;
+
+            console.log("Seat created!");
+        })
+        // seats.createGroup(newSeat, function(err, group){
+        //     if(err) throw err;
+        //     //console.log(group);
+        // });
+        //req.flash('success_msg', 'Pladsen er nu oprettet');
+        //res.redirect('/admins/create_seats');
     }
 });
 
-*/
+
 module.exports = router;
