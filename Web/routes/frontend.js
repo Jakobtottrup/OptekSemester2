@@ -37,6 +37,12 @@ router.get('/rules', function(req, res){
 });
 
 
+// RENDER 'SEATS' VIEW
+router.get('/seats', function(req, res){
+    res.render('frontend/seats', {title: "Pladskort"});
+});
+
+
 // RENDER 'EVENTS' VIEW
 router.get('/events', function(req, res){
     res.render('frontend/events', {title: "Google Maps test page"});
