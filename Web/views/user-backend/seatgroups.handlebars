@@ -1,11 +1,12 @@
-<script src="/js/seat_grp.js"></script>
-<!--script>
-    var data = "{{ data }}";
+<script>
+    var data = {{ data }};
     console.log(data);
-</script-->
+</script>
+<script src="/js/seat_grp.js"></script>
+
 
 <body onload="createGroupOption();" class="nav-bar-space">
-<!--h1>{{ data }}</h1-->
+<h1>{{ data }}</h1>
     <h3 id="create-group-header">Opret siddegruppe</h3>
     <div class="group-wrapper" id="create-group"></div>
     <br>

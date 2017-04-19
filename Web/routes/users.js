@@ -12,8 +12,9 @@ mongoose.Promise = require('bluebird');
 
 // USER DASHBOARD
 router.get('/userpanel', function(req, res){
-    res.render('user-backend/userdashboard', {title: "Dashboard"});
+    res.render('user-backend/userDashboard.handlebars', {title: "Dashboard"});
 });
+
 /*
 router.get('/userpanel', function(req, res) {
     res.render('user-backend/userdashboard', {title: "Dashboard"});
@@ -21,7 +22,7 @@ router.get('/userpanel', function(req, res) {
         return res.status(401).send();
 
     }
-    res.render('user-backend/userdashboard', {title: "Dashboard"});
+    res.render('user-backend/userDashboard.handlebars', {title: "Dashboard"});
     return res.status(200).send("Welcome to the userdashboard");
 });
 */
@@ -41,7 +42,6 @@ router.post('/seatgroups', function(req, res){
     var password2 = req.body.password2;
     var members = [];
     var leaderID = null; //req.user.id
-    var eventID = null;
 
     //console.log("gruppenavn: " + groupName + " | passwords: " + password + " / " + password2);
 
@@ -62,8 +62,7 @@ router.post('/seatgroups', function(req, res){
             groupName: groupName,
             password: password,
             members: members,
-            leaderID: leaderID,
-            eventID: eventID
+            leaderID: leaderID
         });
 
         Group.createGroup(newGroup, function(err, group){
@@ -73,15 +72,13 @@ router.post('/seatgroups', function(req, res){
         req.flash('success_msg', 'Gruppen er nu oprettet');
         res.redirect('/users/seatgroups');
     }
-
 });
-
 
 // GET SEATGROUPS
 Group.find({}, function(err, seatgroups){
     if(err) throw err;
     groupData = seatgroups;
-    //console.log(groupData);
+    console.log(groupData);
 });
 
 

@@ -54,5 +54,4 @@ router.post('/create_seats', function(req, res){
     }
 });
 
-
 module.exports = router;
