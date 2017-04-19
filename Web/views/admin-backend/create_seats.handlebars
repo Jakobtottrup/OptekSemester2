@@ -6,7 +6,7 @@
     <form id="new-user" accept-charset="utf-8" method="post" action="/admins/create_seats">
         <div class="form-group">
             <label>Seat Name</label>
-            <input type="text" id="seatName" class="form-control" placeholder="A0" maxlength="2" required name="seatName">
+            <input type="text" id="seatName" class="form-control" placeholder="A0" maxlength="2" minlength="2" required name="seatName">
         </div>
         <input type="submit" name="submit" value="Create Seat" class="btn btn-primary">
     </form>
