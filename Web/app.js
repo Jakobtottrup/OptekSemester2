@@ -1,6 +1,7 @@
 // Init Modules
 var path = require('path');
 var express = require('express');
+var session = require('express-session');
 var exphbs = require('express-handlebars');
 var expressValidator = require('express-validator');
 var expressSession = require('express-session');
@@ -32,6 +33,16 @@ app.set('views', path.join(__dirname, 'views'));
 app.engine('handlebars', exphbs({defaultLayout:'layout'}));
 app.set('view engine', 'handlebars');
 
+// Express Session
+/*app.configure(function() {
+    app.use(express.static('public'));
+    app.use(express.cookieParser());
+    app.use(express.bodyParser());
+    app.use(express.session({ secret: 'keyboard cat' }));
+    app.use(passport.initialize());
+    app.use(passport.session());
+    app.use(app.router);
+});*/
 
 // BodyParser Middleware
 app.use(bodyParser.json());
@@ -43,13 +54,6 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(express.static(path.join(__dirname, 'bower_components')));
 
-
-// Express Session
-app.use(expressSession({
-    secret : 'secret',
-    saveUninitialized: true,
-    resave: true
-}));
 
 
 // Passport Init
@@ -87,6 +91,7 @@ app.use(function (req, res, next) {
    res.locals.user = req.user || null;
    next();
 });
+
 
 
 app.use('/', routes);

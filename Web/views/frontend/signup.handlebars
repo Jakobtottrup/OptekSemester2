@@ -13,12 +13,19 @@
 <body class="nav-bar-space">
     <div class="container">
 
-        <form class="form-horizontal col-md-8 col-md-offset-2" id="input_form">
+
+        {{#if errors}}
+            {{#each errors}}
+                <div class="alert alert-danger"> {{msg}}
+                </div>
+            {{/each}}
+        {{/if}}
+        <form class="form-horizontal col-md-8 col-md-offset-2" id="input_form" method="post" action="/signup">
 
             <div class="form-group">
                 <label for="input_name" class="col-sm-4 control-label">Navn:</label>
                 <div class="col-sm-6">
-                    <input type="text" class="form-control" id="input_name" placeholder="Fulde Navn">
+                    <input type="text" class="form-control" id="input_name" placeholder="Fulde Navn" name="username">
                 </div>
             </div>
 
@@ -26,42 +33,42 @@
             <div class="form-group">
                 <label for="input_alder" class="col-sm-4 control-label">Alder:</label>
                 <div class="col-sm-6">
-                    <input type="number" class="form-control" id="input_alder">
+                    <input type="number" class="form-control" id="input_alder" name="age">
                 </div>
             </div>
 
             <div class="form-group">
                 <label for="input_email" class="col-sm-4 control-label">Email:</label>
                 <div class="col-sm-6">
-                    <input type="email" class="form-control" id="input_email" placeholder="Fx. jatoe13@student.sdu.dk">
+                    <input type="email" class="form-control" id="input_email" placeholder="Fx. jatoe13@student.sdu.dk" name="email">
                 </div>
             </div>
 
             <div class="form-group">
                 <label for="input_password" class="col-sm-4 control-label">Password:</label>
                 <div class="col-sm-6">
-                    <input type="password" class="form-control" id="input_password" placeholder="Indtast et password">
+                    <input type="password" class="form-control" id="input_password" placeholder="Indtast et password" name="password">
                 </div>
             </div>
 
             <div class="form-group">
                 <label for="input_studie" class="col-sm-4 control-label">Studie:</label>
                 <div class="col-sm-6">
-                    <input type="text" class="form-control" id="input_studie" placeholder="Fx. Optek">
+                    <input type="text" class="form-control" id="input_studie" placeholder="Fx. Optek" name="studie">
                 </div>
             </div>
 
             <div class="form-group">
                 <label for="input_bnet" class="col-sm-4 control-label">BattleTag:</label>
                 <div class="col-sm-6">
-                    <input type="text" class="form-control" id="input_bnet" placeholder="Fx. Swaglord#420">
+                    <input type="text" class="form-control" id="input_bnet" placeholder="Fx. Swaglord#420" name="bnet">
                 </div>
             </div>
 
             <div class="form-group">
                 <label for="input_steam" class="col-sm-4 control-label">Steam ID:</label>
                 <div class="col-sm-6">
-                    <input type="text" class="form-control" id="input_steam" placeholder="Fx. Swagmaster6969">
+                    <input type="text" class="form-control" id="input_steam" placeholder="Fx. Swagmaster6969" name="steam">
                 </div>
             </div>
 
@@ -93,6 +100,7 @@
     <div id="test"></div>
 </body>
 
+<!--
 <script>
     $('#createBtn').click(function () {
 
@@ -162,4 +170,4 @@
 
         });
     }
-</script>
+</script>-->
