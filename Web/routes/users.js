@@ -34,7 +34,7 @@ router.get('/seatgroups', function(req, res){
     Group.find({}, function(err, seatgroups){
         if(err) throw err;
         groupData = seatgroups;
-        console.log(groupData);
+        //console.log(groupData);
         res.render('user-backend/seatgroups', {title: "Siddegrupper", data: groupData});
     });
 });

@@ -51,6 +51,7 @@ newMember = '<div class="group-container">' +
 
 
 
+console.log(groupData);
 
 var noGroup = true;                                                                                                     //TODO: skal erstattes med variabel fra database, der fortæller om brugeren allerede er i en gruppe.
 function createGroupOption(){
