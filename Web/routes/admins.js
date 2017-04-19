@@ -22,7 +22,7 @@ router.get('/create_seats', function(req, res){
 });
 
 
-// REGISTER GROUP
+// REGISTER SEAT
 var seats = require('../models/seats');
 router.post('/create_seats', function(req, res){
     var seatName = req.body.seatName;
@@ -40,7 +40,7 @@ router.post('/create_seats', function(req, res){
         var newSeat = new seats({
             seatName: seatName,
             seatState: 0,
-            seatOpen: 0,
+            seatOpen: false,
             seatUserID: 0,
             seatGroupID: 0
         });
@@ -49,13 +49,8 @@ router.post('/create_seats', function(req, res){
             if (err) throw err;
 
             console.log("Seat created!");
-        })
-        // seats.createGroup(newSeat, function(err, group){
-        //     if(err) throw err;
-        //     //console.log(group);
-        // });
-        //req.flash('success_msg', 'Pladsen er nu oprettet');
-        //res.redirect('/admins/create_seats');
+        });
+        res.redirect('/admins/create_seats');
     }
 });
 
