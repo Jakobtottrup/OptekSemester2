@@ -30,7 +30,13 @@ router.get('/userpanel', function(req, res) {
 
 // RENDER SEATGROUP VIEW
 router.get('/seatgroups', function(req, res){
-    res.render('user-backend/seatgroups', {title: "Siddegrupper", data: groupData});
+    // GET SEATGROUPS
+    Group.find({}, function(err, seatgroups){
+        if(err) throw err;
+        groupData = seatgroups;
+        console.log(groupData);
+        res.render('user-backend/seatgroups', {title: "Siddegrupper", data: groupData});
+    });
 });
 
 
@@ -74,12 +80,7 @@ router.post('/seatgroups', function(req, res){
     }
 });
 
-// GET SEATGROUPS
-Group.find({}, function(err, seatgroups){
-    if(err) throw err;
-    groupData = seatgroups;
-    console.log(groupData);
-});
+
 
 
 module.exports = router;
