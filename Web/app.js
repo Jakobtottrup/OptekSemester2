@@ -41,6 +41,20 @@ app.set('views', path.join(__dirname, 'views'));
 app.engine('handlebars', exphbs({defaultLayout:'layout'}));
 app.set('view engine', 'handlebars');
 
+/*
+var exphbs = exphbs.create({
+    // Specify helpers which are only registered on this instance.
+    helpers: {
+        toUpperCase: function(value) {
+            if (object) {
+                return new exphbs.SafeString(value.toUpperCase());
+            } else {
+                return '';
+            }
+        }
+    }
+});
+*/
 
 
 // Express Session
@@ -65,18 +79,6 @@ app.use(cookieParser());
 // Set Static Folders
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(express.static(path.join(__dirname, 'bower_components')));
-// exphbs.registerPartials(__dirname + '/views/admin-backend'); // partials used for adminpanel
-// exphbs.registerPartials(__dirname + '/views/user-backend'); // partials used for userpanel
-/*
-exphbs.registerPartial('adminpanel-nav', $('#p').html());
-var t = exphbs.compile($('#t').html());
-$('body').append(t({
-    id: 6,
-    active: { active_seats: true }
-}));
-
-*/
-
 
 
 

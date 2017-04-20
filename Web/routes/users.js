@@ -11,18 +11,22 @@ mongoose.Promise = require('bluebird');
 // THESE VIEWS ARE ONLY ALLOWED IF USER IS LOGGED IN //
 
 // CHECK IF USER TRIES TO ENTER UNALLOWED ROUTE
+/*
 function ensureAuthenticated(req, res, next){
     if(req.isAuthenticated()){
         return next();
     } else {
         req.flash('error_msg','Du er ikke logget ind');
-        res.redirect('/frontend/login', {title: "Login"});
+        res.redirect('/login', {title: "Login"});
     }
 }
+*/
+
+
 
 
 // USER DASHBOARD
-router.get('/userpanel', ensureAuthenticated, function(req, res){
+router.get('/userpanel', function(req, res){
     res.render('user-backend/usersDashboard', {title: "Dashboard"});
 });
 
