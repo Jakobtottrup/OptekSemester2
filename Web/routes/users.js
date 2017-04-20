@@ -10,22 +10,21 @@ mongoose.Promise = require('bluebird');
 
 // THESE VIEWS ARE ONLY ALLOWED IF USER IS LOGGED IN //
 
-// USER DASHBOARD
-router.get('/userpanel', function(req, res){
-    res.render('user-backend/usersDashboard', {title: "Dashboard", name: "Brugers navn"}); //TODO: skal ændres til req.user.name (eller noget der henter brugerens navn
-});
-
-/*
-router.get('/userpanel', function(req, res) {
-    res.render('user-backend/userdashboard', {title: "Dashboard"});
-    if(!req.session.user){
-        return res.status(401).send();
-
+// CHECK IF USER TRIES TO ENTER UNALLOWED ROUTE
+function ensureAuthenticated(req, res, next){
+    if(req.isAuthenticated()){
+        return next();
+    } else {
+        req.flash('error_msg','Du er ikke logget ind');
+        res.redirect('/frontend/login', {title: "Login"});
     }
-    res.render('user-backend/usersDashboard.handlebars', {title: "Dashboard"});
-    return res.status(200).send("Welcome to the userdashboard");
+}
+
+
+// USER DASHBOARD
+router.get('/userpanel', ensureAuthenticated, function(req, res){
+    res.render('user-backend/usersDashboard', {title: "Dashboard"});
 });
-*/
 
 
 // RENDER SEATGROUP VIEW

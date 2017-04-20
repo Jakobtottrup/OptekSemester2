@@ -123,57 +123,10 @@ router.get('/events', function (req, res) {
 router.get('/login', function (req, res) {
     res.render('frontend/login', {title: "Login"});
 
-    /*
-     // STORE CURRENT LOGIN
-     var username = req.body.username;   // TODO: Skal rettes, så den peger på det rette textfelt
-     var password = req.body.password;   // TODO: Skal rettes, så den peger på det rette textfelt
-
-     user.fineOne({username: username, password: password}, function(err, user){
-     if (err){
-     console.log(err);
-     return res.status(500).esnd();
-     }
-     if(!user){
-     return res.status(404).send();
-     }
-     req.session.user = user;
-     return res.status(200).send();
-     })
-     */
 });
 
 
-/*
- // AUTHENTICATE LOGIN
- router.post('/login',
- passport.authenticate('local', {successRedirect:'/', failureRedirect:'/index/login',failureFlash: true}),
- function(req, res) {
- res.redirect('/');
- });
 
- router.get('/logout', function(req, res){
- req.logout();
-
- req.flash('success_msg', 'You are logged out');
-
- res.redirect('/users/login');
- });
-
-
-
-
-
-
- // CHECK IF USER TRIES TO ENTER UNALLOWED ROUTE
- function ensureAuthenticated(req, res, next){
- if(req.isAuthenticated()){
- return next();
- } else {
- //req.flash('error_msg','You are not logged in');
- res.redirect('/frontend/login', {title: "Login"});
- }
- }
- */
 passport.use(new LocalStrategy(
     function (username, password, done) {
         User.getUserByUsername(username, function (err, user) {
@@ -209,7 +162,17 @@ router.post('/login',
 
     function (req, res) {
         console.log("LOGGED IN!");
-        res.redirect('/')
+        res.redirect('/users/userpanel')
     });
+
+
+// LOGOUT
+router.get('/logout', function(req, res){
+   req.logout();
+   req.flash('succes_msg', 'Du er nu logget ud');
+   res. redirect('/');
+});
+
+
 
 module.exports = router;
