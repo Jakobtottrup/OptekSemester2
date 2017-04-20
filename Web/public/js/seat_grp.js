@@ -52,21 +52,17 @@ newMember = '<div class="group-container">' +
 
 
 
-console.log(req.user);
-
 var noGroup = true;                                                                                                     //TODO: skal erstattes med variabel fra database, der fortæller om brugeren allerede er i en gruppe.
-function createGroupOption(){
+function createGroupOption() {
     getData();
-//    if (reg.user) {                                                                                                   //check whether user is logged in, in current session - using passport.js
-            if (noGroup) {                                                                                              //check if user is already in group
-                //console.log("create new group option added");
-                noGroup = false;
-                $("#create-group").prepend(newGroup);
-            } else {
-                $('#create-group').remove();
-                $('#create-group-header').remove();
-            }
- //   } else {window.alert("You must login before proceeding");}
+    if (noGroup) {                                                                                              //check if user is already in group
+        //console.log("create new group option added");
+        noGroup = false;
+        $("#create-group").prepend(newGroup);
+    } else {
+        $('#create-group').remove();
+        $('#create-group-header').remove();
+    }
 }
 
 

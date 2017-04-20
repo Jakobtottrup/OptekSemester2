@@ -1,5 +1,5 @@
 console.log(" ____      _      .  .    ___     ___         __       .    .    ___      ___     ___ \n     |    / \\     | /    /   \\   |   \\       |  \\      |\\   |   /   \\    /   \\   |   \\ \n     |   /___\\    |/    |     |  |___/       |__/      | \\  |  |     |  |     |  |___/\n     |  /     \\   |\\    |     |  |   \\       | \\       |  \\ |  |     |  |     |  |   \\ \n\\___/  /       \\  | \\    \\___/   |___/       |  \\      |   \\|   \\___/    \\___/   |___/");
-console.log(">> R E M E M B E R   T O   U P D A T E   M O D U L E S << \n -> npm install\n -> bower install");
+console.log(">> R E M E M B E R   T O   U P D A T E   M O D U L E S << \n -> npm install\n -> bower install \n");
 
 // Init Modules
 var path = require('path');

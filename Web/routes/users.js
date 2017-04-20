@@ -37,7 +37,6 @@ router.get('/seatgroups', function(req, res){
     Group.find({}, function(err, seatgroups){
         if(err) throw err;
         groupData = seatgroups;
-        //console.log(groupData);
         res.render('user-backend/seatgroups', {title: "Siddegrupper", data: groupData});
     });
 });
@@ -50,9 +49,8 @@ router.post('/seatgroups', function(req, res){
     var password = req.body.password;
     var password2 = req.body.password2;
     var members = [];
-    var leaderID = null; //req.user.id
+    var leaderID = req.user.id;
 
-    //console.log("gruppenavn: " + groupName + " | passwords: " + password + " / " + password2);
 
     // VALIDATION
     req.checkBody('groupName', 'Gruppenavn er nødvendigt').notEmpty();
@@ -82,8 +80,6 @@ router.post('/seatgroups', function(req, res){
         res.redirect('/users/seatgroups');
     }
 });
-
-
 
 
 module.exports = router;

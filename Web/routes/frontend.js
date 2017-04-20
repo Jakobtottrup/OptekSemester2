@@ -148,7 +148,7 @@ passport.use(new LocalStrategy(
 ));
 passport.serializeUser(function(user, done) {
     done(null, user.id);
-    console.log("USER ID: "+user.id);
+    console.log("USER: "+user.username+" | ID: "+user.id);
 });
 
 passport.deserializeUser(function(id, done) {
@@ -172,7 +172,6 @@ router.get('/logout', function(req, res){
    req.flash('succes_msg', 'Du er nu logget ud');
    res. redirect('/');
 });
-
 
 
 module.exports = router;
