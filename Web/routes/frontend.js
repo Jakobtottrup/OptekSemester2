@@ -20,6 +20,27 @@ router.get('/signup', function (req, res) {
     res.render('frontend/signup', {title: "Tilmelding"});
 });
 
+// RENDER 'FORGOT PASSWORD' VIEW
+router.get('/passwordreset', function (req, res) {
+    res.render('frontend/reset_password', {title: "Gendan kodeord"});
+});
+
+router.post('/passwordreset', function(req, res, next) {
+    app.mailer.send('email', {
+        to: 'req.body.username', // REQUIRED. This can be a comma delimited string just like a normal email to field.
+        subject: 'Kodeord gendannelse', // REQUIRED.
+        otherProperty: 'Other Property' // All additional properties are also passed to the template as local variables.
+    }, function (err) {
+        if (err) {
+            // handle error
+            console.log(err);
+            res.send('There was an error sending the email');
+            return;
+        }
+        res.send('Email Sent');
+    });
+});
+
 
 // Register User
 router.post('/signup', function (req, res) {

@@ -1,4 +1,6 @@
-console.log("R E M E M B E R   T O   U P D A T E   M O D U L E S -->> 'npm install' and 'bower install'");
+console.log(" ____      _      .  .    ___     ___         __       .    .    ___      ___     ___ \n     |    / \\     | /    /   \\   |   \\       |  \\      |\\   |   /   \\    /   \\   |   \\ \n     |   /___\\    |/    |     |  |___/       |__/      | \\  |  |     |  |     |  |___/\n     |  /     \\   |\\    |     |  |   \\       | \\       |  \\ |  |     |  |     |  |   \\ \n\\___/  /       \\  | \\    \\___/   |___/       |  \\      |   \\|   \\___/    \\___/   |___/");
+console.log(">> R E M E M B E R   T O   U P D A T E   M O D U L E S << \n -> npm install\n -> bower install");
+
 // Init Modules
 var path = require('path');
 var express = require('express');
@@ -11,6 +13,7 @@ var bodyParser = require('body-parser');
 var flash = require('connect-flash');
 var passport = require('passport');
 var localStrategy = require('passport-local').Strategy;
+mailer = require('express-mailer');
 
 // DATABASE CONNECTION
 var mongo = require('mongodb');
@@ -21,7 +24,6 @@ var db = mongoose.connection;
 
 var routes = require('./routes/frontend'); //main index (front page)
 var users = require('./routes/users'); //user pages
-var test = require('./routes/test'); //"testing directory" route
 var admins = require('./routes/admins'); //admin-backend route
 
 
@@ -99,11 +101,13 @@ app.use(function (req, res, next) {
 });
 
 
-
+// PUBLIC ROUTES
 app.use('/', routes);
 app.use('/users', users);
-app.use('/test', test); //testing directory
 app.use('/admins', admins);
+app.use("*",function(req,res){
+    res.status(404).render('layouts/error404', {title: "Siden blev ikke fundet"});
+});
 
 
 //Set Port
@@ -112,6 +116,22 @@ app.set('port', (process.env.PORT || 3000));
 app.listen(app.get('port'), function(){
    console.log('Server started on port '+app.get('port'));
 });
+
+
+// EXPRESS MAILER
+mailer.extend(app, {
+    from: 'no-reply@s7lan.dk',
+    host: 'smtp.gmail.com', // hostname
+    secureConnection: false, // use SSL
+    port: 465, // port for secure SMTP
+    transportMethod: 'SMTP', // default is SMTP. Accepts anything that nodemailer accepts
+    auth: {
+        user: 'gmail.user@gmail.com',
+        pass: 'userpass'
+    }
+});
+
+
 
 
 // CONSOLE LOGS
