@@ -3,31 +3,31 @@
 <body class="nav-bar-space">
 
 
-<div>
+<!--<div>
     <h1>Admin Dashboard</h1>
     <p>Nothing here yet</p>
-</div>
+</div>-->
 
-<div class="container">
-    <div class="row">
-        <div class="col-md-3">
-            <ul class="nav nav-pills nav-stacked">
-                <li class="active"><a href="#"><i class="fa fa-crosshairs fa-fw"></i>{{ name }}</a></li>
-                <li><a href=""><i class="fa fa-edit fa-fw"></i>Posts</a></li>
-                <li><a href="create_seats"><i class="fa fa-th fa-fw"></i>Bordopstilling</a></li>
-                <li><a href="seating_groups"><i class="fa fa-users fa-fw"></i>Siddegrupper</a></li>
-                <li><a href="tournaments"><i class="fa fa-sitemap fa-fw"></i>Turneringer</a></li>
-                <li><a href="users"><i class="fa fa-user fa-fw"></i>Brugere</a></li>
-                <li><a href="sponsors"><i class="fa fa-tasks fa-fw"></i>Sponsors</a></li>
-                <li><a href="mails"><i class="fa fa-envelope fa-fw"></i>Mails</a></li>
-                <li><a href="events"><i class="fa fa-cogs fa-fw"></i>Dette LAN</a></li>
-            </ul>
-        </div>
-        <div class="col-md-9 well">
-            Panel content here
+    <div class="container">
+        <div class="row">
+            <div class="col-md-3">
+                <ul class="nav nav-pills nav-stacked">
+                    <li class="active"><a href="#"><i class="fa fa-crosshairs fa-fw"></i>{{ name }}</a></li>
+                    <li><a href=""><i class="fa fa-edit fa-fw"></i>Posts</a></li>
+                    <li><a href="{{id}}"><i class="{{#if active_seats}}active{{/if}} seates fa fa-th fa-fw"></i>Bordopstilling</a></li>
+                    <li><a href="{{id}}"><i class="{{#if active_groups}}active{{/if}} groups fa fa-users fa-fw "></i>Siddegrupper</a></li>
+                    <li><a href="tournaments"><i class="fa fa-sitemap fa-fw"></i>Turneringer</a></li>
+                    <li><a href="users"><i class="fa fa-user fa-fw"></i>Brugere</a></li>
+                    <li><a href="sponsors"><i class="fa fa-tasks fa-fw"></i>Sponsors</a></li>
+                    <li><a href="mails"><i class="fa fa-envelope fa-fw"></i>Mails</a></li>
+                    <li><a href="events"><i class="fa fa-cogs fa-fw"></i>Dette LAN</a></li>
+                </ul>
+            </div>
+            <div class="col-md-9 well">
 
+
+            </div>
         </div>
     </div>
-</div>
 
 </body>

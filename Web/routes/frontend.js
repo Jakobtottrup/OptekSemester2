@@ -20,11 +20,11 @@ router.get('/signup', function (req, res) {
     res.render('frontend/signup', {title: "Tilmelding"});
 });
 
+
 // RENDER 'FORGOT PASSWORD' VIEW
 router.get('/passwordreset', function (req, res) {
     res.render('frontend/reset_password', {title: "Gendan kodeord"});
 });
-
 router.post('/passwordreset', function(req, res, next) {
     app.mailer.send('email', {
         to: 'req.body.username', // REQUIRED. This can be a comma delimited string just like a normal email to field.
@@ -33,7 +33,7 @@ router.post('/passwordreset', function(req, res, next) {
     }, function (err) {
         if (err) {
             // handle error
-            console.log(err);
+            console.log("err"+err);
             res.send('There was an error sending the email');
             return;
         }
@@ -176,16 +176,14 @@ router.get('/login', function (req, res) {
  */
 passport.use(new LocalStrategy(
     function (username, password, done) {
-        console.log("Her sker der noget");
         User.getUserByUsername(username, function (err, user) {
             if(err) throw err;
             if(!user) {
-                return done(null, false, {message: 'Unkown User'});
+                return done(null, false, {message: 'Unknown User'});
             }
 
             User.comparePassword(password, user.password, function (err, isMatch) {
                 if(err) throw err;
-                console.log(err);
                 if (isMatch) {
                     return done(null, user);
                 } else {
@@ -197,6 +195,7 @@ passport.use(new LocalStrategy(
 ));
 passport.serializeUser(function(user, done) {
     done(null, user.id);
+    console.log("USER ID: "+user.id);
 });
 
 passport.deserializeUser(function(id, done) {

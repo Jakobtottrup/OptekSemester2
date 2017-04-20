@@ -41,6 +41,8 @@ app.set('views', path.join(__dirname, 'views'));
 app.engine('handlebars', exphbs({defaultLayout:'layout'}));
 app.set('view engine', 'handlebars');
 
+
+
 // Express Session
 /*app.configure(function() {
     app.use(express.static('public'));
@@ -52,15 +54,29 @@ app.set('view engine', 'handlebars');
     app.use(app.router);
 });*/
 
+
 // BodyParser Middleware
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 
 
+
 // Set Static Folders
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(express.static(path.join(__dirname, 'bower_components')));
+// exphbs.registerPartials(__dirname + '/views/admin-backend'); // partials used for adminpanel
+// exphbs.registerPartials(__dirname + '/views/user-backend'); // partials used for userpanel
+/*
+exphbs.registerPartial('adminpanel-nav', $('#p').html());
+var t = exphbs.compile($('#t').html());
+$('body').append(t({
+    id: 6,
+    active: { active_seats: true }
+}));
+
+*/
+
 
 
 
@@ -130,8 +146,6 @@ mailer.extend(app, {
         pass: 'userpass'
     }
 });
-
-
 
 
 // CONSOLE LOGS
