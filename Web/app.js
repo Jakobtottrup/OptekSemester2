@@ -1,3 +1,4 @@
+console.log("R E M E M B E R   T O   U P D A T E   M O D U L E S -->> 'npm install' and 'bower install'");
 // Init Modules
 var path = require('path');
 var express = require('express');
@@ -118,3 +119,4 @@ db.on('error', console.error.bind(console, 'connection error:'));
 db.once('open', function() {
     console.log("Database connection established!");
 });
+
