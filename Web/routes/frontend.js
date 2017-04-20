@@ -155,6 +155,7 @@ router.get('/login', function (req, res) {
  */
 passport.use(new LocalStrategy(
     function (username, password, done) {
+        console.log("Her sker der noget");
         User.getUserByUsername(username, function (err, user) {
             if(err) throw err;
             if(!user) {
@@ -187,7 +188,7 @@ router.post('/login',
     passport.authenticate('local', {successRedirect: '/', failureRedirect: '/login', failureFlash: true}),
 
     function (req, res) {
-        console.log("LOGGED IN!")
+        console.log("LOGGED IN!");
         res.redirect('/')
     });
 
