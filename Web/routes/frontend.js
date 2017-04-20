@@ -163,6 +163,7 @@ passport.use(new LocalStrategy(
 
             User.comparePassword(password, user.password, function (err, isMatch) {
                 if(err) throw err;
+                console.log(err);
                 if (isMatch) {
                     return done(null, user);
                 } else {
@@ -186,6 +187,7 @@ router.post('/login',
     passport.authenticate('local', {successRedirect: '/', failureRedirect: '/login', failureFlash: true}),
 
     function (req, res) {
+        console.log("LOGGED IN!")
         res.redirect('/')
     });
 

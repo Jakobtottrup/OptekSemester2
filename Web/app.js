@@ -27,6 +27,11 @@ var admins = require('./routes/admins'); //admin-backend route
 // Init App
 var app = express();
 
+app.use(session({ cookie: { maxAge: 60000 },
+    secret: 'woot',
+    resave: false,
+    saveUninitialized: false}));
+
 
 // View Engine
 app.set('views', path.join(__dirname, 'views'));
