@@ -12,7 +12,7 @@ mongoose.Promise = require('bluebird');
 
 // USER DASHBOARD
 router.get('/userpanel', function(req, res){
-    res.render('user-backend/userDashboard', {title: "Dashboard"});
+    res.render('user-backend/usersDashboard', {title: "Dashboard", name: "Brugers navn"}); //TODO: skal ændres til req.user.name (eller noget der henter brugerens navn
 });
 
 /*
@@ -22,7 +22,7 @@ router.get('/userpanel', function(req, res) {
         return res.status(401).send();
 
     }
-    res.render('user-backend/userDashboard.handlebars', {title: "Dashboard"});
+    res.render('user-backend/usersDashboard.handlebars', {title: "Dashboard"});
     return res.status(200).send("Welcome to the userdashboard");
 });
 */

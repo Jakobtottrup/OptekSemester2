@@ -12,7 +12,7 @@ var router = express.Router();
 
 // RENDER REGISTER VIEW
 router.get('/adminpanel', function(req, res){
-    res.render('admin-backend/admindashboard', {title: "Admin Panel", name: "Test navn"}); //TODO: test navn skal ændres til req.user.name (eller noget der henter brugerens navn
+    res.render('admin-backend/adminsDashboard', {title: "Admin Panel", name: "Brugers navn"}); //TODO: skal ændres til req.user.name (eller noget der henter brugerens navn
 });
 
 
