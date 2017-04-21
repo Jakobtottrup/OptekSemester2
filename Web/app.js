@@ -31,7 +31,7 @@ var admins = require('./routes/admins'); //admin-backend route
 var app = express();
 
 app.use(session({
-    cookie: {maxAge: 60000},
+    //cookie: {maxAge: Infinity},
     secret: 'woot',
     resave: false,
     saveUninitialized: false
@@ -153,5 +153,5 @@ mailer.extend(app, {
 // CONSOLE LOGS
 db.on('error', console.error.bind(console, 'connection error:'));
 db.once('open', function () {
-    console.log("Database connection established!");                                                                                                                                                                                                                                                                                                var c="\nC",h="\nA",r="\nN",i="\nC",s="\nE",t="\nR",i2="\n xd";console.log(c+h+r+i+s+t+i2);
+    console.log("Database connection established!");  //                                                                                                                                                                                                                                                                                              var c="\n   #####  #     # #######    ######  ### #    #     #####  #     # ######  ###  #####  ####### ###    #    #     #",h="\n  #     # #     #    #       #     #  #  #   #     #     # #     # #     #  #  #     #    #     #    # #   ##    # ",r="\n  #       #     #    #       #     #  #  #  #      #       #     # #     #  #  #          #     #   #   #  # #   #",i="\n   #####  #     #    #       ######   #  ###       #       ####### ######   #   #####     #     #  #     # #  #  #",s="\n        # #     #    #       #        #  #  #      #       #     # #   #    #        #    #     #  ####### #   # #",t="\n  #     # #     #    #       #        #  #   #     #     # #     # #    #   #  #     #    #     #  #     # #    ##",i2="\n   #####   #####     #       #       ### #    #     #####  #     # #     # ###  #####     #    ### #     # #     # ";console.log(c+h+r+i+s+t+i2);
 });
