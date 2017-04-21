@@ -95,19 +95,19 @@ router.post('/signup', function (req, res) {
 
 // RENDER 'CONTACT' VIEW
 router.get('/contact', function (req, res) {
-    res.render('frontend/contact', {title: "Google Maps test page"});
+    res.render('frontend/contact', {title: "Kontakt"});
 });
 
 
 // RENDER 'TOURNAMENTS' VIEW
 router.get('/tournaments', function (req, res) {
-    res.render('frontend/tournaments', {title: "Google Maps test page"});
+    res.render('frontend/tournaments', {title: "Turneringer"});
 });
 
 
 // RENDER 'RULES' VIEW
 router.get('/rules', function (req, res) {
-    res.render('frontend/rules', {title: "Google Maps test page"});
+    res.render('frontend/rules', {title: "Regler"});
 });
 
 
@@ -119,7 +119,7 @@ router.get('/seats', function (req, res) {
 
 // RENDER 'EVENTS' VIEW
 router.get('/events', function (req, res) {
-    res.render('frontend/events', {title: "Google Maps test page"});
+    res.render('frontend/events', {title: "Dette Event"});
 });
 
 
