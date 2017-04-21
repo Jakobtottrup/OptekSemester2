@@ -31,6 +31,24 @@ router.get('/userpanel', function(req, res){
 });
 
 
+// USER INFO
+router.get('/userinfo', function(req, res){
+    res.render('user-backend/userinfo', {title: "Bruger info"});
+});
+
+
+// USER TOURNAMENTS
+router.get('/usertournaments', function(req, res){
+    res.render('user-backend/usertournaments', {title: "Dine Turneringer"});
+});
+
+
+// USER SEAT
+router.get('/getseat', function(req, res){
+    res.render('user-backend/getseat', {title: "Din plads"});
+});
+
+
 // RENDER SEATGROUP VIEW
 router.get('/seatgroups', function(req, res){
     // GET SEATGROUPS

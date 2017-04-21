@@ -16,9 +16,39 @@ router.get('/adminpanel', function(req, res){
 });
 
 
-// RENDER REGISTER VIEW
+// RENDER CREATE SEATS VIEW
 router.get('/create_seats', function(req, res){
-    res.render('admin-backend/create_seats', {title: "Create Seats"});
+    res.render('admin-backend/create_seats', {title: "Bordopstilling"});
+});
+
+
+// RENDER POSTS VIEW
+router.get('/posts', function(req, res){
+    res.render('admin-backend/posts', {title: "Opslag"});
+});
+
+
+// RENDER SEATING GROUP VIEW
+router.get('/seating_groups', function(req, res){
+    res.render('admin-backend/seating_groups', {title: "Siddegrupper"});
+});
+
+
+// RENDER TOURNAMENT VIEW
+router.get('/tournaments', function(req, res){
+    res.render('admin-backend/tournaments', {title: "Turneringer"});
+});
+
+
+// RENDER USERS VIEW
+router.get('/users', function(req, res){
+    res.render('admin-backend/users', {title: "Brugere"});
+});
+
+
+// RENDER POSTS VIEW
+router.get('/sponsors', function(req, res){
+    res.render('admin-backend/sponsors', {title: "Sponsorer"});
 });
 
 
