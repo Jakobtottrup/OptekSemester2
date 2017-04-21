@@ -1,5 +1,5 @@
-// console.log(" ____      _      .  .    ___     ___         __       .    .    ___      ___     ___ \n     |    / \\     | /    /   \\   |   \\       |  \\      |\\   |   /   \\    /   \\   |   \\ \n     |   /___\\    |/    |     |  |___/       |__/      | \\  |  |     |  |     |  |___/\n     |  /     \\   |\\    |     |  |   \\       | \\       |  \\ |  |     |  |     |  |   \\ \n\\___/  /       \\  | \\    \\___/   |___/       |  \\      |   \\|   \\___/    \\___/   |___/");console.log(" ____      _      .  .    ___     ___         __       .    .    ___      ___     ___ \n     |    / \\     | /    /   \\   |   \\       |  \\      |\\   |   /   \\    /   \\   |   \\ \n     |   /___\\    |/    |     |  |___/       |__/      | \\  |  |     |  |     |  |___/\n     |  /     \\   |\\    |     |  |   \\       | \\       |  \\ |  |     |  |     |  |   \\ \n\\___/  /       \\  | \\    \\___/   |___/       |  \\      |   \\|   \\___/    \\___/   |___/");
-console.log(">> R E M E M B E R   T O   U P D A T E   M O D U L E S << \n -> npm install\n -> bower install \n");
+//console.log(" ____      _      .  .    ___     ___         __       .    .    ___      ___     ___ \n     |    / \\     | /    /   \\   |   \\       |  \\      |\\   |   /   \\    /   \\   |   \\ \n     |   /___\\    |/    |     |  |___/       |__/      | \\  |  |     |  |     |  |___/\n     |  /     \\   |\\    |     |  |   \\       | \\       |  \\ |  |     |  |     |  |   \\ \n\\___/  /       \\  | \\    \\___/   |___/       |  \\      |   \\|   \\___/    \\___/   |___/");
+console.log(">> R E M E M B E R   T O   U P D A T E   M O D U L E S << \n\t\t\t -> npm install\n\t\t\t -> bower install \n");
 
 // Init Modules
 var path = require('path');
@@ -115,6 +115,7 @@ app.use(function (req, res, next) {
     res.locals.error_msg = req.flash('error_msg');
     res.locals.error = req.flash('error');
     res.locals.user = req.user || null;
+    res.locals.admin = req.admin || null;
     next();
 });
 

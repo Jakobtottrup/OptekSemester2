@@ -51,6 +51,7 @@ router.post('/signup', function (req, res) {
     var studie = req.body.studie;
     var bnet = req.body.bnet;
     var steam = req.body.steam;
+    var isAdmin = req.body.admin;
 
     //validation
 
@@ -74,8 +75,11 @@ router.post('/signup', function (req, res) {
             password: password,
             studie: studie,
             bnet: bnet,
-            steam: steam
+            steam: steam,
+            isAdmin: false
+
         });
+
 
         User.createUser(newUser, function (err, user) {
             if (err) throw err;
@@ -148,7 +152,8 @@ passport.use(new LocalStrategy(
 ));
 passport.serializeUser(function(user, done) {
     done(null, user.id);
-    console.log("USER: "+user.username+" | ID: "+user.id);
+    //console.log("USER: "+user.username+" | ID: "+user.id);
+    console.log(user)
 });
 
 passport.deserializeUser(function(id, done) {
@@ -169,7 +174,7 @@ router.post('/login',
 // LOGOUT
 router.get('/logout', function(req, res){
    req.logout();
-   req.flash('succes_msg', 'Du er nu logget ud');
+   req.flash('success_msg', 'Du er nu logget ud');
    res. redirect('/');
 });
 

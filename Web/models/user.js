@@ -27,8 +27,8 @@ var UserSchema = mongoose.Schema({
         },
         steam: {
             type: String
-        }
-
+        },
+        isAdmin: Boolean
     }
 );
 
