@@ -31,9 +31,7 @@
                         <li><a href="/seats">PLADSKORT</a></li>
                         <li><a href="/contact">KONTAKT</a></li>
                         {{#if user}}
-                        <li><a href="/users/userpanel">{{user.username}}</a></li>
-                        {{else if admin}}
-                            <li><a href="/admins/adminpanel">{{admin.adminname}}</a></li>
+                        <li><a href="/dashboard">{{user.username}}</a></li>
                         {{else}}
                         <li><a href="/signup">TILMELD</a></li>
                         <li><a href="/login">LOG IND</a></li>

@@ -11,9 +11,9 @@ var router = express.Router();
 
 
 // RENDER REGISTER VIEW
-router.get('/adminpanel', function(req, res){
+/*router.get('/adminpanel', function(req, res){
     res.render('admin-backend/adminsDashboard', {title: "Admin Panel", name: "Brugers navn"}); //TODO: skal ændres til req.user.name (eller noget der henter brugerens navn
-});
+});*/
 
 
 // RENDER CREATE SEATS VIEW

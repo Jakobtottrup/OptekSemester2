@@ -178,5 +178,23 @@ router.get('/logout', function(req, res){
    res. redirect('/');
 });
 
+// RENDER DASHBOARD VIEW
+router.get('/dashboard', ensureAuthenticated, function (req, res) {
+    if(req.user.isAdmin === true){
+        console.log("Admin entered his dashboard");
+        res.render('admin-backend/adminsDashboard', {title: "Dashboard"});
+    } else {
+        console.log("User entered his dashboard");
+        res.render('user-backend/usersDashboard', {title: "Dashboard"});
+    }
+});
+function ensureAuthenticated(req, res, next){
+    if(req.isAuthenticated()){
+        return next();
+    } else {
+        req.flash('error_msg','Du er ikke logget ind');
+        res.redirect('/login');
+    }
+}
 
 module.exports = router;

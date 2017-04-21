@@ -16,10 +16,12 @@ mongoose.Promise = require('bluebird');
 
 
 
+/*
 // USER DASHBOARD
 router.get('/userpanel', ensureAuthenticated, function(req, res){
     res.render('user-backend/usersDashboard', {title: "Dashboard"});
 });
+*/
 
 function ensureAuthenticated(req, res, next){
     if(req.isAuthenticated()){
