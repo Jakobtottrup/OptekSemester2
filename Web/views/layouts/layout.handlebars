@@ -1,21 +1,21 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
-    <meta name="description" content="">
-    <meta name="author" content="">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+        <meta name="description" content="">
+        <meta name="author" content="">
 
-    <link rel="stylesheet" type="text/css" href="/bootstrap/dist/css/bootstrap.min.css">
-    <link rel="stylesheet" type="text/css" href="/bootstrap/dist/css/bootstrap-theme.min.css">
-    <link rel="stylesheet" type="text/css" href="/css/main.css">
+        <link rel="stylesheet" type="text/css" href="/bootstrap/dist/css/bootstrap.min.css">
+        <link rel="stylesheet" type="text/css" href="/bootstrap/dist/css/bootstrap-theme.min.css">
+        <link rel="stylesheet" type="text/css" href="/css/main.css">
 
 
 
-    <title>{{ title }}</title>
-</head>
+        <title>{{ title }}</title>
+    </head>
     <body>
         <!-- Fixed navbar -->
         <nav class="navbar navbar-inverse navbar-fixed-top">
@@ -41,52 +41,52 @@
             </div>
         </nav>
 
-
         {{#if user.remove_this_when_testing}}
+        <!-- dashboard panels -->
         <div>
             <div>
                 <h1>Velkommen {{user.username}}</h1>
             </div>
             {{#unless user.isAdmin}}
-                <div class="container">
-                    <div class="row">
-                        <div class="col-md-3">
-                            <ul class="nav nav-pills nav-stacked">
-                                <li class="active"><a href="#"><i class="fa fa-crosshairs fa-fw"></i>{{ user.username }}</a></li>
-                                <li><a href="/users/userinfo"><i class="fa fa-edit fa-fw"></i>Bruger info</a></li>
-                                <li><a href="/users/getseat"><i class="fa fa-th fa-fw"></i>Din Plads</a></li>
-                                <li><a href="/users/seatgroups"><i class="fa fa-users fa-fw"></i>Siddegruppe</a></li>
-                                <li><a href="/users/usertournaments"><i class="fa fa-sitemap fa-fw"></i>Dine Turneringer</a></li>
-                                <li><a href="/logout"><i class="fa fa-sign-out fa-fw"></i>Log ud</a></li>
-                            </ul>
-                        </div>
-                        <div class="col-md-9 well">
-                            Panel content here
-                        </div>
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-3">
+                        <ul class="nav nav-pills nav-stacked">
+                            <li class="active"><a href="#"><i class="fa fa-crosshairs fa-fw"></i>{{user.username}}'s dashboard</a></li>
+                            <li><a href="/users/userinfo"><i class="fa fa-edit fa-fw"></i>Bruger info</a></li>
+                            <li><a href="/users/getseat"><i class="fa fa-th fa-fw"></i>Din Plads</a></li>
+                            <li><a href="/users/seatgroups"><i class="fa fa-users fa-fw"></i>Siddegruppe</a></li>
+                            <li><a href="/users/usertournaments"><i class="fa fa-sitemap fa-fw"></i>Dine Turneringer</a></li>
+                            <li><a href="/logout"><i class="fa fa-sign-out fa-fw"></i>Log ud</a></li>
+                        </ul>
                     </div>
-                </div>
-            {{else}}
-                <div class="container">
-                    <div class="row">
-                        <div class="col-md-3">
-                            <ul class="nav nav-pills nav-stacked">
-                                <li class="active"><a href="#"><i class="fa fa-crosshairs fa-fw "></i>{{ user.username }}</a></li>
-                                <li><a href="/admins/posts"><i class="fa fa-edit fa-fw"></i>Opslag</a></li>
-                                <li><a href="/admins/create_seats"><i class="fa fa-th fa-fw"></i>Bordopstilling</a></li>
-                                <li><a href="/admins/seating_groups"><i class="fa fa-users fa-fw "></i>Siddegrupper</a></li>
-                                <li><a href="/admins/tournaments"><i class="fa fa-sitemap fa-fw"></i>Turneringer</a></li>
-                                <li><a href="/admins/users"><i class="fa fa-user fa-fw"></i>Brugere</a></li>
-                                <li><a href="/admins/sponsors"><i class="fa fa-tasks fa-fw"></i>Sponsors</a></li>
-                                <li><a href="/admins/mails"><i class="fa fa-envelope fa-fw"></i>Mails</a></li>
-                                <li><a href="/admins/events"><i class="fa fa-cogs fa-fw"></i>Dette LAN</a></li>
-                                <li><a href="/logout"><i class="fa fa-sign-out fa-fw"></i>Log ud</a></li>
-                            </ul>
-                        </div>
-                        <div class="col-md-9 well">
-                        </div>
+                    <div class="col-md-9 well">
+                        Panel content here
                     </div>
                 </div>
             </div>
+            {{else}}
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-3">
+                        <ul class="nav nav-pills nav-stacked">
+                            <li class="active"><a href="#"><i class="fa fa-crosshairs fa-fw "></i>{{user.username}}'s dashboard</a></li>
+                            <li><a href="/admins/posts"><i class="fa fa-edit fa-fw"></i>Opslag</a></li>
+                            <li><a href="/admins/create_seats"><i class="fa fa-th fa-fw"></i>Bordopstilling</a></li>
+                            <li><a href="/admins/seating_groups"><i class="fa fa-users fa-fw "></i>Siddegrupper</a></li>
+                            <li><a href="/admins/tournaments"><i class="fa fa-sitemap fa-fw"></i>Turneringer</a></li>
+                            <li><a href="/admins/users"><i class="fa fa-user fa-fw"></i>Brugere</a></li>
+                            <li><a href="/admins/sponsors"><i class="fa fa-tasks fa-fw"></i>Sponsors</a></li>
+                            <li><a href="/admins/mails"><i class="fa fa-envelope fa-fw"></i>Mails</a></li>
+                            <li><a href="/admins/events"><i class="fa fa-cogs fa-fw"></i>Dette LAN</a></li>
+                            <li><a href="/logout"><i class="fa fa-sign-out fa-fw"></i>Log ud</a></li>
+                        </ul>
+                    </div>
+                    <div class="col-md-9 well">
+                    </div>
+                </div>
+            </div>
+        </div>
         {{/unless}}
         {{/if}}
 
@@ -113,9 +113,10 @@
             </div>
         </footer-->
     </body>
+</html>
+
 <script src="/jquery/dist/jquery.min.js"></script>
 <script src="/bootstrap/dist/js/bootstrap.min.js"></script>
 <script src="/ajax/dist/ajax.min.js"></script>
 <script src="/angular/angular.min.js"></script>
-</html>
 
