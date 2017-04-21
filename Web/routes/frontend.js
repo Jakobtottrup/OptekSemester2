@@ -130,6 +130,25 @@ router.get('/login', function (req, res) {
 });
 
 
+// LOGOUT
+router.get('/logout', function(req, res){
+    req.logout();
+    req.flash('success_msg', 'Du er nu logget ud');
+    res. redirect('/');
+});
+
+
+// RENDER DASHBOARD VIEW
+router.get('/dashboard', ensureAuthenticated, function (req, res) {
+    if(req.user.isAdmin === true){
+        console.log("Admin entered his dashboard");
+        res.render('admin-backend/adminsDashboard', {title: "Dashboard"});
+    } else {
+        console.log("User entered his dashboard");
+        res.render('user-backend/usersDashboard', {title: "Dashboard"});
+    }
+});
+
 
 passport.use(new LocalStrategy(
     function (username, password, done) {
@@ -163,6 +182,7 @@ passport.deserializeUser(function(id, done) {
     });
 });
 
+// GET DATA FROM LOGIN PAGE
 router.post('/login',
     passport.authenticate('local', {successRedirect: '/', failureRedirect: '/login', failureFlash: true}),
 
@@ -172,23 +192,7 @@ router.post('/login',
     });
 
 
-// LOGOUT
-router.get('/logout', function(req, res){
-   req.logout();
-   req.flash('success_msg', 'Du er nu logget ud');
-   res. redirect('/');
-});
-
-// RENDER DASHBOARD VIEW
-router.get('/dashboard', ensureAuthenticated, function (req, res) {
-    if(req.user.isAdmin === true){
-        console.log("Admin entered his dashboard");
-        res.render('admin-backend/adminsDashboard', {title: "Dashboard"});
-    } else {
-        console.log("User entered his dashboard");
-        res.render('user-backend/usersDashboard', {title: "Dashboard"});
-    }
-});
+// ENSURE USER IS LOGGED IN
 function ensureAuthenticated(req, res, next){
     if(req.isAuthenticated()){
         return next();

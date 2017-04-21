@@ -10,19 +10,7 @@ mongoose.Promise = require('bluebird');
 
 // THESE VIEWS ARE ONLY ALLOWED IF USER IS LOGGED IN //
 
-// CHECK IF USER TRIES TO ENTER UNALLOWED ROUTE
-
-
-
-
-
-/*
-// USER DASHBOARD
-router.get('/userpanel', ensureAuthenticated, function(req, res){
-    res.render('user-backend/usersDashboard', {title: "Dashboard"});
-});
-*/
-
+// ENSURE USER IS LOGGED IN
 function ensureAuthenticated(req, res, next){
     if(req.isAuthenticated()){
         return next();
@@ -32,44 +20,34 @@ function ensureAuthenticated(req, res, next){
     }
 }
 
+
 // USER INFO
-router.get('/userinfo', function(req, res){
+router.get('/userinfo', ensureAuthenticated, function(req, res){
     res.render('user-backend/userinfo', {title: "Bruger info"});
 });
 
 
 // USER TOURNAMENTS
-router.get('/usertournaments', function(req, res){
+router.get('/usertournaments', ensureAuthenticated, function(req, res){
     res.render('user-backend/usertournaments', {title: "Dine Turneringer"});
 });
 
 
 // USER SEAT
-router.get('/getseat', function(req, res){
+router.get('/getseat', ensureAuthenticated, function(req, res){
     res.render('user-backend/getseat', {title: "Din plads"});
 });
 
 
-// RENDER SEATGROUP VIEW
-router.get('/seatgroups', function(req, res){
-    // GET SEATGROUPS
-    Group.find({}, function(err, seatgroups){
-        if(err) throw err;
-        groupData = seatgroups;
-        res.render('user-backend/seatgroups', {title: "Siddegrupper", data: groupData});
-    });
-});
-
-router.get('/seatgroup', function(req, res) {
-    res.json({notes: "This is your notebook. Edit this to start saving your notes!"})
+// USER SEAT
+router.get('/seatgroups', ensureAuthenticated, function(req, res){
+    res.render('user-backend/seatgroups', {title: "Siddegruppe"});
 });
 
 
-
-
-// REGISTER GROUP
+// GROUP
 var Group = require('../models/seatingGroups');
-router.post('/seatgroups', function(req, res){
+router.post('/seatgroups', ensureAuthenticated, function(req, res){
     var groupName = req.body.groupName;
     var password = req.body.password;
     var password2 = req.body.password2;

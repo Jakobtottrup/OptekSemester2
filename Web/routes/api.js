@@ -9,7 +9,7 @@ mongoose.Promise = require('bluebird');
 
 // THIS ROUTE IS USED FOR EXPORING JSON DATA TO CLIENT //
 
-
+// ENSURE USER IS LOGGED IN
 function ensureAuthenticated(req, res, next){
     if(req.isAuthenticated()){
         return next();
@@ -26,7 +26,7 @@ router.get('/seatgroups', ensureAuthenticated, function(req, res) {
     Group.find({}, function(err, seatgroups){
         if(err) throw err;
         groupData = seatgroups;
-        res.json({groupData})
+        res.json({data: groupData})
     });
 });
 
@@ -37,7 +37,7 @@ router.get('/users', ensureAuthenticated, function(req, res) {
     User.find({}, function(err, users){
         if(err) throw err;
         userData = users;
-        res.json({userData})
+        res.json({data: userData})
     });
 });
 
@@ -48,7 +48,7 @@ router.get('/seats', ensureAuthenticated, function(req, res) {
     User.find({}, function(err, seats){
         if(err) throw err;
         seatsData = seats;
-        res.json({seatsData})
+        res.json({data: seatsData})
     });
 });
 
