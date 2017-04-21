@@ -60,6 +60,12 @@ router.get('/seatgroups', function(req, res){
     });
 });
 
+router.get('/seatgroup', function(req, res) {
+    res.json({notes: "This is your notebook. Edit this to start saving your notes!"})
+});
+
+
+
 
 // REGISTER GROUP
 var Group = require('../models/seatingGroups');

@@ -102,9 +102,10 @@ function drawCurrentGroups(groupData){
 function getData() {
     console.log('requesting "seatgroup" data from database');
     $.ajax({
-        url: "https://api.mlab.com/api/1/databases/heroku_fxdl0qct/collections/seatgroups?apiKey=2sC5adiZTeej0Ye2PQhW6sGavUshB5Uy"
+        // url: "https://api.mlab.com/api/1/databases/heroku_fxdl0qct/collections/seatgroups?apiKey=2sC5adiZTeej0Ye2PQhW6sGavUshB5Uy"
+        url: "/api/seatgroups"
     }).done(function (groupData) {
-        //console.log(groupData);
+        console.log(groupData);
         drawCurrentGroups(groupData);
     });
 }

@@ -25,6 +25,7 @@ var db = mongoose.connection;
 var routes = require('./routes/frontend'); //main index (front page)
 var users = require('./routes/users'); //user pages
 var admins = require('./routes/admins'); //admin-backend route
+var api = require('./routes/api'); // used for exporting data to client-scripts
 
 
 // Init App
@@ -124,6 +125,7 @@ app.use(function (req, res, next) {
 app.use('/', routes);
 app.use('/users', users);
 app.use('/admins', admins);
+app.use('/api', api);
 app.use("*", function (req, res) {
     res.status(404).render('layouts/error404', {title: "Siden blev ikke fundet"});
 });
