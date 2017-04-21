@@ -95,6 +95,4 @@ router.get('/mails', function(req, res){
 });
 
 
-
-
 module.exports = router;
