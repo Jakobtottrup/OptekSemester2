@@ -2,24 +2,25 @@
 console.log(">> R E M E M B E R   T O   U P D A T E   M O D U L E S << \n\t\t\t -> npm install\n\t\t\t -> bower install \n");
 
 // Init Modules
-var path = require('path');
-var express = require('express');
-var session = require('express-session');
-var exphbs = require('express-handlebars');
-var expressValidator = require('express-validator');
-var expressSession = require('express-session');
-var cookieParser = require('cookie-parser');
-var bodyParser = require('body-parser');
-var flash = require('connect-flash');
-var passport = require('passport');
-var localStrategy = require('passport-local').Strategy;
-mailer = require('express-mailer');
+const path = require('path');
+const express = require('express');
+const session = require('express-session');
+const exphbs = require('express-handlebars');
+const expressValidator = require('express-validator');
+const expressSession = require('express-session');
+const cookieParser = require('cookie-parser');
+const bodyParser = require('body-parser');
+const flash = require('connect-flash');
+const passport = require('passport');
+const localStrategy = require('passport-local').Strategy;
+const mailer = require('express-mailer');
+const helpers = require('handlebars-helpers')();
 
 // DATABASE CONNECTION
-var mongo = require('mongodb');
-var mongoose = require('mongoose');
+const mongo = require('mongodb');
+const mongoose = require('mongoose');
 mongoose.connect('mongodb://optek:optek123@ds153400.mlab.com:53400/heroku_fxdl0qct'); //url works properly - checked
-var db = mongoose.connection;
+const db = mongoose.connection;
 
 
 var routes = require('./routes/frontend'); //main index (front page)
@@ -44,20 +45,21 @@ app.set('views', path.join(__dirname, 'views'));
 app.engine('handlebars', exphbs({defaultLayout: 'layout'}));
 app.set('view engine', 'handlebars');
 
-/*
- var exphbs = exphbs.create({
- // Specify helpers which are only registered on this instance.
- helpers: {
- toUpperCase: function(value) {
- if (object) {
- return new exphbs.SafeString(value.toUpperCase());
- } else {
- return '';
- }
- }
- }
- });
- */
+
+'use strict';
+var os = require('os');
+var assert = require('assert');
+
+
+exphbs.create({
+    // Specify helpers which are only registered on this instance.
+    helpers: {
+        random: function (min, max) {
+            return Math.floor(Math.random() * (max - min + 1)) + min;
+        }
+
+    }
+});
 
 
 // Express Session

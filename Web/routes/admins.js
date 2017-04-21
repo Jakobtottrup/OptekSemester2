@@ -88,13 +88,13 @@ router.post('/create_seats', ensureAuthenticated, function(req, res){
 });
 
 // RENDER EVENT VIEW
-router.get('/events', function(req, res){
-    res.render('admin-backend/events', ensureAuthenticated, {title: "Admin Panel"});
+router.get('/events', ensureAuthenticated, function(req, res){
+    res.render('admin-backend/events', {title: "Admin Panel"});
 });
 
 // RENDER MAILS VIEW
-router.get('/mails', function(req, res){
-    res.render('admin-backend/mails', ensureAuthenticated, {title: "Admin Panel", name: "Brugers navn"});
+router.get('/mails', ensureAuthenticated, function(req, res){
+    res.render('admin-backend/mails', {title: "Admin Panel", name: "Brugers navn"});
 });
 
 
