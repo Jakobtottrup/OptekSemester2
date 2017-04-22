@@ -51,7 +51,7 @@ router.post('/seatgroups', ensureAuthenticated, function(req, res){
     var groupName = req.body.groupName;
     var password = req.body.password;
     var password2 = req.body.password2;
-    var members = [];
+    var members = [req.user.id];
     var leaderID = req.user.id;
 
 

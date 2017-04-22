@@ -95,8 +95,6 @@ function drawCurrentGroups(groupData){
     $.each(groupData, function(key, groupData){
         output += '<h4>Gruppe '+(key+1)+':  '+groupData.groupName+'</h4>';
         output += '<p>Denne gruppe har '+groupData.members.length+' medlemmer</p>';
-        output += '<p>Password: '+groupData.password+'</p>';
-        output += '<p>Oprettet: '+groupData.createdAt.$date+'</p>';
         output += '<div class="group-wrapper current-groups'+key+'" id="current-groups"></div>';
         output += '</br>';
 
