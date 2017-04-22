@@ -39,8 +39,41 @@ newMember = '<div class="group-container">' +
     '</div>';
 
 
-var Group = function(groupName, members){
+// get information from database
+function getData() {
+    console.log('requesting data from server');
+    $.ajax({
+        type: 'GET',
+        url: "/api/seatgroups"
+    }).done(function(data) {
+        groupData = data;
+        console.log(groupData);
 
+    });
 
-};
+    $.ajax({
+        type: 'GET',
+        url: "/api/users"
+    }).done(function(data) {
+        usersData = data;
+        console.log(usersData);
 
+    });
+
+    $.ajax({
+        type: 'GET',
+        url: "/api/user"
+    }).done(function(data) {
+        userData = data;
+        console.log(userData);
+    });
+}
+
+function checkGroup(){
+    getData();
+
+}
+
+function createGroupOption(){
+    checkGroup();
+}

@@ -1,12 +1,11 @@
 /**
  * Created by chris on 11-04-2017.
  */
-var express = require('express');
-var router = express.Router();
-var passport = require('passport');
-var LocalStrategy = require('passport-local').Strategy;
-
-var User = require('../models/user');
+const express = require('express');
+const router = express.Router();
+const passport = require('passport');
+const LocalStrategy = require('passport-local').Strategy;
+const User = require('../models/user');
 
 
 // GET HOMEPAGE
@@ -76,8 +75,7 @@ router.post('/signup', function (req, res) {
             studie: studie,
             bnet: bnet,
             steam: steam,
-            isAdmin: false
-
+            isAdmin: false,
         });
 
 

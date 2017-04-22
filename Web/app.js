@@ -23,14 +23,14 @@ mongoose.connect('mongodb://optek:optek123@ds153400.mlab.com:53400/heroku_fxdl0q
 const db = mongoose.connection;
 
 
-var routes = require('./routes/frontend'); //main index (front page)
-var users = require('./routes/users'); //user pages
-var admins = require('./routes/admins'); //admin-backend route
-var api = require('./routes/api'); // used for exporting data to client-scripts
+const routes = require('./routes/frontend'); //main index (front page)
+const users = require('./routes/users'); //user pages
+const admins = require('./routes/admins'); //admin-backend route
+const api = require('./routes/api'); // used for exporting data to client-scripts
 
 
 // Init App
-var app = express();
+const app = express();
 
 app.use(session({
     //cookie: {maxAge: Infinity},
@@ -46,9 +46,6 @@ app.engine('handlebars', exphbs({defaultLayout: 'layout'}));
 app.set('view engine', 'handlebars');
 
 
-'use strict';
-var os = require('os');
-var assert = require('assert');
 
 // HANDLEBARS-HELPERS
 exphbs.create({

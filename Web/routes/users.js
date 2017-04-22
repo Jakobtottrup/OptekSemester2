@@ -1,10 +1,10 @@
 /**
  * Created by chris on 11-04-2017.
  */
-var express = require('express');
+const express = require('express');
 //var LocalStrategy = require('passport-local').Strategy;
-var router = express.Router();
-var mongoose = require('mongoose');
+const router = express.Router();
+const mongoose = require('mongoose');
 mongoose.Promise = require('bluebird');
 
 

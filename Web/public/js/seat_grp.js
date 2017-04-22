@@ -50,9 +50,21 @@ newMember = '<div class="group-container">' +
     '</div>';
 
 
+// get information from database
+function getData() {
+    console.log('requesting data from server');
+    $.ajax({
+        url: "/api/seatgroups"
+    }).done(function (groupData) {
+        // console.log("received seatgroups");
+        // console.log(groupData);
+        drawCurrentGroups(groupData);
+    });
+}
 
 
-var noGroup = true;                                                                                                     //TODO: skal erstattes med variabel fra database, der fortæller om brugeren allerede er i en gruppe.
+
+var noGroup = true;
 function createGroupOption() {
     getData();
     if (noGroup) {                                                                                              //check if user is already in group
@@ -98,16 +110,6 @@ function drawCurrentGroups(groupData){
     $("#current-groups").prepend(currentMember);
 }
 
-// get information from database
-function getData() {
-    console.log('requesting "seatgroup" data from server');
-    $.ajax({
-        url: "/api/seatgroups"
-    }).done(function (groupData) {
-        console.log(groupData);
-        drawCurrentGroups(groupData);
-    });
-}
 
 
 function viewUser(){console.log("viewUser()");} //TODO: brugerne skal kunne se hinandens profiler
