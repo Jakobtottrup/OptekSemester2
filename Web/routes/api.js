@@ -53,4 +53,9 @@ router.get('/seats', ensureAuthenticated, function(req, res) {
 });
 
 
+// ACTIVE USER LOGIN DATA
+router.get('/user', ensureAuthenticated, function(req, res) {
+    res.json({data: req.user})
+});
+
 module.exports = router;
