@@ -31,7 +31,7 @@
                         <li><a href="/seats">PLADSKORT</a></li>
                         <li><a href="/contact">KONTAKT</a></li>
                         {{#if user}}
-                        <li><a href="/dashboard" class="text-uppercase">{{user.username}}</a></li>
+                        <li><a href="/dashboard">{{uppercase user.username}}</a></li>
                         {{else}}
                         <li><a href="/signup">TILMELD</a></li>
                         <li><a href="/login">LOG IND</a></li>
@@ -41,7 +41,7 @@
             </div>
         </nav>
 
-        {{#if user.remove_this_when_testing}}
+        {{#if user.dont_do_this}}
         <!-- dashboard panels -->
         <div>
             <div>

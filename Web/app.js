@@ -50,14 +50,24 @@ app.set('view engine', 'handlebars');
 var os = require('os');
 var assert = require('assert');
 
-
+// HANDLEBARS-HELPERS
 exphbs.create({
     // Specify helpers which are only registered on this instance.
     helpers: {
         random: function (min, max) {
             return Math.floor(Math.random() * (max - min + 1)) + min;
+        },
+        uppercase: function(str, options) {
+            if (str && typeof str === 'string') {
+                return str.toUpperCase();
+            } else {
+                options = str;
+            }
+            if (typeof options === 'object' && options.fn) {
+                return options.fn(this).toUpperCase();
+            }
+            return '';
         }
-
     }
 });
 

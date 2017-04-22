@@ -25,8 +25,7 @@ var Group = require('../models/seatingGroups');
 router.get('/seatgroups', ensureAuthenticated, function(req, res) {
     Group.find({}, function(err, seatgroups){
         if(err) throw err;
-        groupData = seatgroups;
-        res.json({data: groupData})
+        res.json(seatgroups)
     });
 });
 
@@ -36,8 +35,7 @@ var User = require('../models/user');
 router.get('/users', ensureAuthenticated, function(req, res) {
     User.find({}, function(err, users){
         if(err) throw err;
-        userData = users;
-        res.json({data: userData})
+        res.json(users)
     });
 });
 
@@ -47,15 +45,14 @@ var seats = require('../models/seats');
 router.get('/seats', ensureAuthenticated, function(req, res) {
     User.find({}, function(err, seats){
         if(err) throw err;
-        seatsData = seats;
-        res.json({data: seatsData})
+        res.json(seats)
     });
 });
 
 
 // ACTIVE USER LOGIN DATA
 router.get('/user', ensureAuthenticated, function(req, res) {
-    res.json({data: req.user})
+    res.json(req.user)
 });
 
 module.exports = router;
