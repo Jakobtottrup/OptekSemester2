@@ -9,9 +9,15 @@
 const express = require('express');
 const router = express.Router();
 
+// ADMIN AUTHENTICATION
 function ensureAuthenticated(req, res, next){
     if(req.isAuthenticated()){
-        return next();
+        if(req.user.isAdmin === true){
+            return next();
+        } else if (req.user.isAdmin === false){
+            req.flash('error_msg','Du har ikke de nødvendige rettigheder');
+            res.redirect('/dashboard');
+        }
     } else {
         req.flash('error_msg','Du er ikke logget ind');
         res.redirect('/login');
