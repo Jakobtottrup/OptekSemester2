@@ -128,7 +128,13 @@ app.use(function (req, res, next) {
     res.locals.admin = req.admin || null;
     next();
 });
-
+app.use(function(req, res, next) {
+    for (var key in req.query)
+    {
+        req.query[key.toLowerCase()] = req.query[key];
+    }
+    next();
+});
 
 // PUBLIC ROUTES
 app.use('/', routes);

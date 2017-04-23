@@ -24,7 +24,7 @@ router.get('/signup', function (req, res) {
 router.get('/passwordreset', function (req, res) {
     res.render('frontend/reset_password', {title: "Gendan kodeord"});
 });
-router.post('/passwordreset', function(req, res, next) {
+router.post('/passwordreset', function (req, res, next) {
     app.mailer.send('email', {
         to: 'req.body.username', // REQUIRED. This can be a comma delimited string just like a normal email to field.
         subject: 'Kodeord gendannelse', // REQUIRED.
@@ -32,7 +32,7 @@ router.post('/passwordreset', function(req, res, next) {
     }, function (err) {
         if (err) {
             // handle error
-            console.log("err"+err);
+            console.log("err" + err);
             res.send('There was an error sending the email');
             return;
         }
@@ -75,17 +75,59 @@ router.post('/signup', function (req, res) {
             studie: studie,
             bnet: bnet,
             steam: steam,
-            isAdmin: false,
+            isAdmin: false
+        });
+        /*
+         User.findOne({'local.email': email}, function (err, user) {
+         // if there are any errors, return the error
+         if (err)
+         return done(err);
+
+         // check to see if theres already a user with that email
+         if (user) {
+         return done(null, false, req.flash('error_msg', 'That email is already taken.'));
+         } else {
+
+         // if there is no user with that email
+         // create the user
+         var newUser = new User();
+
+         // set the user's local credentials
+         newUser.local.email = email;
+         newUser.local.password = newUser.generateHash(password);
+
+         // save the user
+         newUser.save(function (err) {
+         if (err)
+         throw err;
+         return done(null, newUser);
+         });
+         }
+
+         });
+         */
+
+        User.findOne({username: username}, function (err, user) {
+            if (err)
+                return done(err);
+
+            if (user) {
+                console.log("user already exists.");
+                req.flash('error_msg', 'Bruger eksisterer allerede');
+                res.redirect('/signup');
+            } else {
+                console.log("created user with: " + user);
+                User.createUser(newUser, function (err, username) {
+                    if (err) throw err;
+                    console.log(username);
+                    req.flash('success_msg', 'You are registered!');
+                    res.redirect('/login');
+
+                });
+            }
         });
 
 
-        User.createUser(newUser, function (err, user) {
-            if (err) throw err;
-            console.log(user);
-
-        });
-        req.flash('success_msg', 'You are registered!');
-        res.redirect('/login');
     }
 
 });
@@ -129,16 +171,16 @@ router.get('/login', function (req, res) {
 
 
 // LOGOUT
-router.get('/logout', function(req, res){
+router.get('/logout', function (req, res) {
     req.logout();
     req.flash('success_msg', 'Du er nu logget ud');
-    res. redirect('/');
+    res.redirect('/');
 });
 
 
 // RENDER DASHBOARD VIEW
 router.get('/dashboard', ensureAuthenticated, function (req, res) {
-    if(req.user.isAdmin === true){
+    if (req.user.isAdmin === true) {
         console.log("Admin entered his dashboard");
         res.render('admin-backend/adminsDashboard', {title: "Dashboard"});
     } else {
@@ -151,13 +193,13 @@ router.get('/dashboard', ensureAuthenticated, function (req, res) {
 passport.use(new LocalStrategy(
     function (username, password, done) {
         User.getUserByUsername(username, function (err, user) {
-            if(err) throw err;
-            if(!user) {
-                return done(null, false, {message: 'Unknown User'});
+            if (err) throw err;
+            if (!user) {
+                return done(null, false, {message: 'Ukendt Bruger - Husk forskel på store og små bogstaver.'});
             }
 
             User.comparePassword(password, user.password, function (err, isMatch) {
-                if(err) throw err;
+                if (err) throw err;
                 if (isMatch) {
                     return done(null, user);
                 } else {
@@ -168,17 +210,18 @@ passport.use(new LocalStrategy(
     }
 ));
 
-passport.serializeUser(function(user, done) {
+passport.serializeUser(function (user, done) {
     done(null, user.id);
     //console.log("USER: "+user.username+" | ID: "+user.id);
     console.log(user)
 });
 
-passport.deserializeUser(function(id, done) {
-    User.getUserById(id, function(err, user) {
+passport.deserializeUser(function (id, done) {
+    User.getUserById(id, function (err, user) {
         done(err, user);
     });
 });
+
 
 // GET DATA FROM LOGIN PAGE
 router.post('/login',
@@ -191,11 +234,11 @@ router.post('/login',
 
 
 // ENSURE USER IS LOGGED IN
-function ensureAuthenticated(req, res, next){
-    if(req.isAuthenticated()){
+function ensureAuthenticated(req, res, next) {
+    if (req.isAuthenticated()) {
         return next();
     } else {
-        req.flash('error_msg','Du er ikke logget ind');
+        req.flash('error_msg', 'Du er ikke logget ind');
         res.redirect('/login');
     }
 }
