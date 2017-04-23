@@ -6,25 +6,64 @@
 //// USED TO DISPLAY ADMIN BACKEND PANEL ////
 
 
-var express = require('express');
-var router = express.Router();
+const express = require('express');
+const router = express.Router();
+
+// ADMIN AUTHENTICATION
+function ensureAuthenticated(req, res, next){
+    if(req.isAuthenticated()){
+        if(req.user.isAdmin === true){
+            return next();
+        } else if (req.user.isAdmin === false){
+            req.flash('error_msg','Du har ikke de nødvendige rettigheder');
+            res.redirect('/dashboard');
+        }
+    } else {
+        req.flash('error_msg','Du er ikke logget ind');
+        res.redirect('/login');
+    }
+}
 
 
-// RENDER REGISTER VIEW
-router.get('/adminpanel', function(req, res){
-    res.render('admin-backend/adminsDashboard', {title: "Admin Panel", name: "Brugers navn"}); //TODO: skal ændres til req.user.name (eller noget der henter brugerens navn
+// RENDER CREATE SEATS VIEW
+router.get('/create_seats', ensureAuthenticated, function(req, res){
+    res.render('admin-backend/create_seats', {title: "Bordopstilling"});
 });
 
 
-// RENDER REGISTER VIEW
-router.get('/create_seats', function(req, res){
-    res.render('admin-backend/create_seats', {title: "Create Seats"});
+// RENDER POSTS VIEW
+router.get('/posts', ensureAuthenticated, function(req, res){
+    res.render('admin-backend/posts', {title: "Opslag"});
+});
+
+
+// RENDER SEATING GROUP VIEW
+router.get('/seating_groups', ensureAuthenticated, function(req, res){
+    res.render('admin-backend/seating_groups', {title: "Siddegrupper"});
+});
+
+
+// RENDER TOURNAMENT VIEW
+router.get('/tournaments', ensureAuthenticated, function(req, res){
+    res.render('admin-backend/tournaments', {title: "Turneringer"});
+});
+
+
+// RENDER USERS VIEW
+router.get('/users', ensureAuthenticated, function(req, res){
+    res.render('admin-backend/users', {title: "Brugere"});
+});
+
+
+// RENDER POSTS VIEW
+router.get('/sponsors', ensureAuthenticated, function(req, res){
+    res.render('admin-backend/sponsors', {title: "Sponsorer"});
 });
 
 
 // REGISTER SEAT
 var seats = require('../models/seats');
-router.post('/create_seats', function(req, res){
+router.post('/create_seats', ensureAuthenticated, function(req, res){
     var seatName = req.body.seatName;
 
     // VALIDATION
@@ -55,16 +94,14 @@ router.post('/create_seats', function(req, res){
 });
 
 // RENDER EVENT VIEW
-router.get('/events', function(req, res){
+router.get('/events', ensureAuthenticated, function(req, res){
     res.render('admin-backend/events', {title: "Admin Panel"});
 });
 
 // RENDER MAILS VIEW
-router.get('/mails', function(req, res){
+router.get('/mails', ensureAuthenticated, function(req, res){
     res.render('admin-backend/mails', {title: "Admin Panel", name: "Brugers navn"});
 });
-
-
 
 
 module.exports = router;

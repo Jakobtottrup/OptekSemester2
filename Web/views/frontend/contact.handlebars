@@ -1,13 +1,13 @@
 
-<script src="/js/temp-indoor_map_sdu.js"></script>
-<!--script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?libraries=geometry,directions"></script-->
 <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyANQd8petvZv_ezZ0dfCZ55TZINe40at_M&libraries=geometry,directions"></script>
+<script src="/js/GoogleMaps.js"></script>
+<!--script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?libraries=geometry,directions"></script-->
+<link href="/css/MapStyling.css" rel="stylesheet" type="text/css" />
 
 
-
-<body onload="initMap()" class="nav-bar-space">
+<body onload="initialize()" class="nav-bar-space">
     <h1>Kontakt</h1>
 
-    <div id="map"></div>
+    <div id="map-canvas"></div>
     <input id=getRouteButton type='button' value='Find vej!'>
 </body>

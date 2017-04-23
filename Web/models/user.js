@@ -7,28 +7,28 @@ var bcrypt = require('bcryptjs');
 
 
 var UserSchema = mongoose.Schema({
-        username: {
-            type: String
-        },
-        age: {
-            type: Number
-        },
-        email: {
-            type: String
-        },
-        password: {
-            type: String
-        },
-        studie: {
-            type: String
-        },
-        bnet: {
-            type: String
-        },
-        steam: {
-            type: String
-        }
-
+    username: {
+        type: String
+    },
+    age: {
+        type: Number
+    },
+    email: {
+        type: String
+    },
+    password: {
+        type: String
+    },
+    studie: {
+        type: String
+    },
+    bnet: {
+        type: String
+    },
+    steam: {
+        type: String
+    },
+    isAdmin: Boolean
     }
 );
 

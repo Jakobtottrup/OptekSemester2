@@ -1,54 +1,57 @@
 /**
  * Created by chris on 11-04-2017.
  */
-var express = require('express');
+const express = require('express');
 //var LocalStrategy = require('passport-local').Strategy;
-var router = express.Router();
-var mongoose = require('mongoose');
+const router = express.Router();
+const mongoose = require('mongoose');
 mongoose.Promise = require('bluebird');
 
 
 // THESE VIEWS ARE ONLY ALLOWED IF USER IS LOGGED IN //
 
-// CHECK IF USER TRIES TO ENTER UNALLOWED ROUTE
-/*
+// ENSURE USER IS LOGGED IN
 function ensureAuthenticated(req, res, next){
     if(req.isAuthenticated()){
         return next();
     } else {
         req.flash('error_msg','Du er ikke logget ind');
-        res.redirect('/login', {title: "Login"});
+        res.redirect('/login');
     }
 }
-*/
 
 
-
-
-// USER DASHBOARD
-router.get('/userpanel', function(req, res){
-    res.render('user-backend/usersDashboard', {title: "Dashboard"});
+// USER INFO
+router.get('/userinfo', ensureAuthenticated, function(req, res){
+    res.render('user-backend/userinfo', {title: "Bruger info"});
 });
 
 
-// RENDER SEATGROUP VIEW
-router.get('/seatgroups', function(req, res){
-    // GET SEATGROUPS
-    Group.find({}, function(err, seatgroups){
-        if(err) throw err;
-        groupData = seatgroups;
-        res.render('user-backend/seatgroups', {title: "Siddegrupper", data: groupData});
-    });
+// USER TOURNAMENTS
+router.get('/usertournaments', ensureAuthenticated, function(req, res){
+    res.render('user-backend/usertournaments', {title: "Dine Turneringer"});
 });
 
 
-// REGISTER GROUP
+// USER SEAT
+router.get('/getseat', ensureAuthenticated, function(req, res){
+    res.render('user-backend/getseat', {title: "Din plads"});
+});
+
+
+// USER SEAT
+router.get('/seatgroups', ensureAuthenticated, function(req, res){
+    res.render('user-backend/seatgroups', {title: "Siddegruppe"});
+});
+
+
+// GROUP
 var Group = require('../models/seatingGroups');
-router.post('/seatgroups', function(req, res){
+router.post('/seatgroups', ensureAuthenticated, function(req, res){
     var groupName = req.body.groupName;
     var password = req.body.password;
     var password2 = req.body.password2;
-    var members = [];
+    var members = [req.user.id];
     var leaderID = req.user.id;
 
 

@@ -9,10 +9,12 @@
 var sdu_location = {lat: 55.3685, lng: 10.4282}; //coordinates for SDU Odense
 var test_location = {lat: 57.085809, lng: 9.9573899};
 
+
 function initMap() {
     var map = new google.maps.Map(document.getElementById('map'), {
         center: sdu_location,
         zoom: 16
+
     });
     var infoWindow = new google.maps.InfoWindow({map: map});
 
@@ -25,7 +27,7 @@ function initMap() {
             };
             console.log("Current position: "+pos);
             infoWindow.setPosition(pos);
-            infoWindow.setContent('Du er her');
+            infoWindow.setContent('<br/> Du er her <br/><br/>');
             map.setCenter(pos);
             map.setZoom(18);
         }, function() {
@@ -43,7 +45,7 @@ function handleLocationError(browserHasGeolocation, infoWindow, pos) {
         'Error: The Geolocation service failed.' :
         'Error: Your browser doesn\'t support geolocation.');
 }
-
+//////////////////////////////////////////////////
 
 /*
 var init = function () {

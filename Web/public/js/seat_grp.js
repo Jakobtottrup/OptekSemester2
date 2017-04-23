@@ -50,9 +50,21 @@ newMember = '<div class="group-container">' +
     '</div>';
 
 
+// get information from database
+function getData() {
+    console.log('requesting data from server');
+    $.ajax({
+        url: "/api/seatgroups"
+    }).done(function (groupData) {
+        // console.log("received seatgroups");
+        // console.log(groupData);
+        drawCurrentGroups(groupData);
+    });
+}
 
 
-var noGroup = true;                                                                                                     //TODO: skal erstattes med variabel fra database, der fortæller om brugeren allerede er i en gruppe.
+
+var noGroup = true;
 function createGroupOption() {
     getData();
     if (noGroup) {                                                                                              //check if user is already in group
@@ -83,8 +95,6 @@ function drawCurrentGroups(groupData){
     $.each(groupData, function(key, groupData){
         output += '<h4>Gruppe '+(key+1)+':  '+groupData.groupName+'</h4>';
         output += '<p>Denne gruppe har '+groupData.members.length+' medlemmer</p>';
-        output += '<p>Password: '+groupData.password+'</p>';
-        output += '<p>Oprettet: '+groupData.createdAt.$date+'</p>';
         output += '<div class="group-wrapper current-groups'+key+'" id="current-groups"></div>';
         output += '</br>';
 
@@ -96,17 +106,6 @@ function drawCurrentGroups(groupData){
     output += '</div>' + '</br>';
     $('#current-group-container').html(output);
     $("#current-groups").prepend(currentMember);
-}
-
-// get information from database
-function getData() {
-    console.log('requesting "seatgroup" data from database');
-    $.ajax({
-        url: "https://api.mlab.com/api/1/databases/heroku_fxdl0qct/collections/seatgroups?apiKey=2sC5adiZTeej0Ye2PQhW6sGavUshB5Uy"
-    }).done(function (groupData) {
-        //console.log(groupData);
-        drawCurrentGroups(groupData);
-    });
 }
 
 

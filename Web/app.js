@@ -1,34 +1,36 @@
 //console.log(" ____      _      .  .    ___     ___         __       .    .    ___      ___     ___ \n     |    / \\     | /    /   \\   |   \\       |  \\      |\\   |   /   \\    /   \\   |   \\ \n     |   /___\\    |/    |     |  |___/       |__/      | \\  |  |     |  |     |  |___/\n     |  /     \\   |\\    |     |  |   \\       | \\       |  \\ |  |     |  |     |  |   \\ \n\\___/  /       \\  | \\    \\___/   |___/       |  \\      |   \\|   \\___/    \\___/   |___/");
-console.log(">> R E M E M B E R   T O   U P D A T E   M O D U L E S << \n -> npm install\n -> bower install \n");
+console.log(">> R E M E M B E R   T O   U P D A T E   M O D U L E S << \n\t\t\t -> npm install\n\t\t\t -> bower install \n");
 
 // Init Modules
-var path = require('path');
-var express = require('express');
-var session = require('express-session');
-var exphbs = require('express-handlebars');
-var expressValidator = require('express-validator');
-var expressSession = require('express-session');
-var cookieParser = require('cookie-parser');
-var bodyParser = require('body-parser');
-var flash = require('connect-flash');
-var passport = require('passport');
-var localStrategy = require('passport-local').Strategy;
-mailer = require('express-mailer');
+const path = require('path');
+const express = require('express');
+const session = require('express-session');
+const exphbs = require('express-handlebars');
+const expressValidator = require('express-validator');
+const expressSession = require('express-session');
+const cookieParser = require('cookie-parser');
+const bodyParser = require('body-parser');
+const flash = require('connect-flash');
+const passport = require('passport');
+const localStrategy = require('passport-local').Strategy;
+const mailer = require('express-mailer');
+const helpers = require('handlebars-helpers')();
 
 // DATABASE CONNECTION
-var mongo = require('mongodb');
-var mongoose = require('mongoose');
+const mongo = require('mongodb');
+const mongoose = require('mongoose');
 mongoose.connect('mongodb://optek:optek123@ds153400.mlab.com:53400/heroku_fxdl0qct'); //url works properly - checked
-var db = mongoose.connection;
+const db = mongoose.connection;
 
 
-var routes = require('./routes/frontend'); //main index (front page)
-var users = require('./routes/users'); //user pages
-var admins = require('./routes/admins'); //admin-backend route
+const routes = require('./routes/frontend'); //main index (front page)
+const users = require('./routes/users'); //user pages
+const admins = require('./routes/admins'); //admin-backend route
+const api = require('./routes/api'); // used for exporting data to client-scripts
 
 
 // Init App
-var app = express();
+const app = express();
 
 app.use(session({
     //cookie: {maxAge: Infinity},
@@ -43,20 +45,28 @@ app.set('views', path.join(__dirname, 'views'));
 app.engine('handlebars', exphbs({defaultLayout: 'layout'}));
 app.set('view engine', 'handlebars');
 
-/*
- var exphbs = exphbs.create({
- // Specify helpers which are only registered on this instance.
- helpers: {
- toUpperCase: function(value) {
- if (object) {
- return new exphbs.SafeString(value.toUpperCase());
- } else {
- return '';
- }
- }
- }
- });
- */
+
+
+// HANDLEBARS-HELPERS
+exphbs.create({
+    // Specify helpers which are only registered on this instance.
+    helpers: {
+        random: function (min, max) {
+            return Math.floor(Math.random() * (max - min + 1)) + min;
+        },
+        uppercase: function(str, options) {
+            if (str && typeof str === 'string') {
+                return str.toUpperCase();
+            } else {
+                options = str;
+            }
+            if (typeof options === 'object' && options.fn) {
+                return options.fn(this).toUpperCase();
+            }
+            return '';
+        }
+    }
+});
 
 
 // Express Session
@@ -115,14 +125,22 @@ app.use(function (req, res, next) {
     res.locals.error_msg = req.flash('error_msg');
     res.locals.error = req.flash('error');
     res.locals.user = req.user || null;
+    res.locals.admin = req.admin || null;
     next();
 });
-
+app.use(function(req, res, next) {
+    for (var key in req.query)
+    {
+        req.query[key.toLowerCase()] = req.query[key];
+    }
+    next();
+});
 
 // PUBLIC ROUTES
 app.use('/', routes);
 app.use('/users', users);
 app.use('/admins', admins);
+app.use('/api', api);
 app.use("*", function (req, res) {
     res.status(404).render('layouts/error404', {title: "Siden blev ikke fundet"});
 });
