@@ -10,7 +10,7 @@ const express = require('express');
 const router = express.Router();
 
 // ADMIN AUTHENTICATION
-function ensureAuthenticated(req, res, next){
+function ensureAdminAuthenticated(req, res, next){
     if(req.isAuthenticated()){
         if(req.user.isAdmin === true){
             return next();
@@ -26,44 +26,44 @@ function ensureAuthenticated(req, res, next){
 
 
 // RENDER CREATE SEATS VIEW
-router.get('/create_seats', ensureAuthenticated, function(req, res){
+router.get('/create_seats', ensureAdminAuthenticated, function(req, res){
     res.render('admin-backend/create_seats', {title: "Bordopstilling"});
 });
 
 
 // RENDER POSTS VIEW
-router.get('/posts', ensureAuthenticated, function(req, res){
+router.get('/posts', ensureAdminAuthenticated, function(req, res){
     res.render('admin-backend/posts', {title: "Opslag"});
 });
 
 
 // RENDER SEATING GROUP VIEW
-router.get('/seating_groups', ensureAuthenticated, function(req, res){
+router.get('/seating_groups', ensureAdminAuthenticated, function(req, res){
     res.render('admin-backend/seating_groups', {title: "Siddegrupper"});
 });
 
 
 // RENDER TOURNAMENT VIEW
-router.get('/tournaments', ensureAuthenticated, function(req, res){
+router.get('/tournaments', ensureAdminAuthenticated, function(req, res){
     res.render('admin-backend/tournaments', {title: "Turneringer"});
 });
 
 
 // RENDER USERS VIEW
-router.get('/users', ensureAuthenticated, function(req, res){
+router.get('/users', ensureAdminAuthenticated, function(req, res){
     res.render('admin-backend/users', {title: "Brugere"});
 });
 
 
 // RENDER POSTS VIEW
-router.get('/sponsors', ensureAuthenticated, function(req, res){
+router.get('/sponsors', ensureAdminAuthenticated, function(req, res){
     res.render('admin-backend/sponsors', {title: "Sponsorer"});
 });
 
 
 // REGISTER SEAT
 var seats = require('../models/seats');
-router.post('/create_seats', ensureAuthenticated, function(req, res){
+router.post('/create_seats', ensureAdminAuthenticated, function(req, res){
     var seatName = req.body.seatName;
 
     // VALIDATION
@@ -94,12 +94,12 @@ router.post('/create_seats', ensureAuthenticated, function(req, res){
 });
 
 // RENDER EVENT VIEW
-router.get('/events', ensureAuthenticated, function(req, res){
+router.get('/events', ensureAdminAuthenticated, function(req, res){
     res.render('admin-backend/events', {title: "Admin Panel"});
 });
 
 // RENDER MAILS VIEW
-router.get('/mails', ensureAuthenticated, function(req, res){
+router.get('/mails', ensureAdminAuthenticated, function(req, res){
     res.render('admin-backend/mails', {title: "Admin Panel", name: "Brugers navn"});
 });
 

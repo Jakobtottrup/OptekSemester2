@@ -229,9 +229,8 @@ router.post('/login',
 
     function (req, res) {
         console.log("LOGGED IN!");
-        res.redirect('/users/userpanel')
+        res.redirect('/dashboard')
     });
-
 
 // ENSURE USER IS LOGGED IN
 function ensureAuthenticated(req, res, next) {

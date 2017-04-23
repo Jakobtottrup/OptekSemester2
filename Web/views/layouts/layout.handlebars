@@ -11,39 +11,54 @@
         <link rel="stylesheet" type="text/css" href="/bootstrap/dist/css/bootstrap.min.css">
         <link rel="stylesheet" type="text/css" href="/bootstrap/dist/css/bootstrap-theme.min.css">
         <link rel="stylesheet" type="text/css" href="/css/main.css">
-
-
-
         <title>{{ title }}</title>
     </head>
     <body>
-        <!-- Fixed navbar -->
-        <nav class="navbar navbar-inverse navbar-fixed-top">
-            <div class="container">
-                <div class="navbar-header">
-                    <a class="navbar-brand" href="/">S7 LAN</a>
-                </div>
-                <div id="navbar" class="collapse navbar-collapse">
-                    <ul class="nav navbar-nav">
-                        <li><a href="/events">EVENTET</a></li>
-                        <li><a href="/rules">REGLER</a></li>
-                        <li><a href="/tournaments">TURNERINGER</a></li>
-                        <li><a href="/seats">PLADSKORT</a></li>
-                        <li><a href="/contact">KONTAKT</a></li>
-                        {{#if user}}
-                        <li><a href="/dashboard">{{uppercase user.username}}</a></li>
-                        {{else}}
+    <nav class="navbar navbar-default">
+        <div class="container-fluid">
+            <!-- Brand and toggle get grouped for better mobile display -->
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="#">S7 LAN</a>
+            </div>
+
+            <!-- Collect the nav links, forms, and other content for toggling -->
+            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                <ul class="nav navbar-nav">
+                    <li><a href="/events">EVENTET</a></li>
+                    <li><a href="/rules">REGLER</a></li>
+                    <li><a href="/tournaments">TURNERINGER</a></li>
+                    <li><a href="/seats">PLADSKORT</a></li>
+                    <li><a href="/contact">KONTAKT</a></li>
+                </ul>
+
+                <ul class="nav navbar-nav navbar-right">
+                    <form class="navbar-form navbar-left">
+                        <div class="form-group">
+                            <input type="text" class="form-control" placeholder="Søg">
+                        </div>
+                        <button type="submit" class="btn btn-default">SØG</button>
+                    </form>
+                    {{#if user}}
+                        <li><a href="/dashboard">LOGGET IND SOM {{uppercase user.username}}</a></li>
+                    {{else}}
                         <li><a href="/signup">TILMELD</a></li>
                         <li><a href="/login">LOG IND</a></li>
-                        {{/if}}
-                    </ul>
-                </div><!--/.nav-collapse -->
-            </div>
-        </nav>
+                    {{/if}}
+                </ul>
+            </div><!-- /.navbar-collapse -->
+        </div><!-- /.container-fluid -->
+    </nav>
 
-        {{#if user.dont_do_this}}
+
+        {{#if user}}
         <!-- dashboard panels -->
-        <div>
+        <div class="left-dashboard-menu">
             <div>
                 <h1>Velkommen {{user.username}}</h1>
             </div>
@@ -59,9 +74,6 @@
                             <li><a href="/users/usertournaments"><i class="fa fa-sitemap fa-fw"></i>Dine Turneringer</a></li>
                             <li><a href="/logout"><i class="fa fa-sign-out fa-fw"></i>Log ud</a></li>
                         </ul>
-                    </div>
-                    <div class="col-md-9 well">
-                        Panel content here
                     </div>
                 </div>
             </div>
@@ -81,8 +93,6 @@
                             <li><a href="/admins/events"><i class="fa fa-cogs fa-fw"></i>Dette LAN</a></li>
                             <li><a href="/logout"><i class="fa fa-sign-out fa-fw"></i>Log ud</a></li>
                         </ul>
-                    </div>
-                    <div class="col-md-9 well">
                     </div>
                 </div>
             </div>
