@@ -42,7 +42,7 @@ router.get('/users', /*ensureAuthenticated,*/ function(req, res) {
 
 
 // SEATS DATA - "STRICT FILTERED"
-var tours = require('../models/seats');
+var seats = require('../models/seats');
 router.get('/seats', /*ensureAuthenticated,*/ function(req, res) {
     seats.find({},{__v:0}, function(err, seats){
         if(err) throw err;
