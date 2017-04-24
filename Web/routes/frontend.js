@@ -16,7 +16,11 @@ router.get('/', function (req, res) {
 
 // RENDER 'REGISTER' VIEW
 router.get('/signup', function (req, res) {
-    res.render('frontend/signup', {title: "Tilmelding"});
+    if (typeof req.user != "undefined"){
+        res.redirect('/dashboard');
+    } else {
+        res.render('frontend/signup', {title: "Tilmelding"});
+    }
 });
 
 
@@ -170,8 +174,11 @@ router.get('/events', function (req, res) {
 
 // RENDER LOGIN VIEW
 router.get('/login', function (req, res) {
-    res.render('frontend/login', {title: "Login"});
-
+    if (typeof req.user != "undefined"){
+        res.redirect('/dashboard');
+    } else {
+        res.render('frontend/login', {title: "Dashboard"});
+    }
 });
 
 
