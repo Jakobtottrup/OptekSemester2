@@ -47,7 +47,9 @@ router.post('/signup', function (req, res) {
     var age = req.body.age;
     var email = req.body.email;
     var password = req.body.password;
-    var studie = req.body.studie;
+    var password2 = req.body.password2;
+    var studie = req.body.studie.toString();
+    var fakultet = req.body.fakultet.toString();
     var bnet = req.body.bnet;
     var steam = req.body.steam;
     var isAdmin = req.body.admin;
@@ -60,6 +62,8 @@ router.post('/signup', function (req, res) {
     req.checkBody('email', 'Invalid email format').isEmail();
     req.checkBody('password', 'Password required').notEmpty();
     req.checkBody('studie', 'Studie required').notEmpty();
+    req.checkBody('fakultet', 'Fakultet required').notEmpty();
+    req.checkBody('password2', 'Passwords do not match').equals(req.body.password);
 
 
     var errors = req.validationErrors();
@@ -73,6 +77,7 @@ router.post('/signup', function (req, res) {
             email: email,
             password: password,
             studie: studie,
+            fakultet: fakultet,
             bnet: bnet,
             steam: steam,
             isAdmin: false

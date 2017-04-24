@@ -10,6 +10,15 @@
 
     </div>
 </div>-->
+<style>
+    .form-group.required .control-label:after {
+        color: #d00;
+        content: "*";
+        position: absolute;
+        margin-left: 8px;
+        top:7px;
+    }
+</style>
 <div class="nav-bar-space">
     <div class="container">
 
@@ -22,7 +31,7 @@
         {{/if}}
         <form class="form-horizontal col-md-8 col-md-offset-2" id="input_form" method="post" action="/signup">
 
-            <div class="form-group">
+            <div class="form-group required">
                 <label for="input_name" class="col-sm-4 control-label">Navn:</label>
                 <div class="col-sm-6">
                     <input type="text" class="form-control" id="input_name" placeholder="Fulde Navn" name="username">
@@ -30,56 +39,89 @@
             </div>
 
 
-            <div class="form-group">
-                <label for="input_alder" class="col-sm-4 control-label">Alder:</label>
+            <div class="form-group required">
+                <label for="input_alder" class="col-sm-4 control-label"> Alder:</label>
                 <div class="col-sm-6">
-                    <input type="number" class="form-control" id="input_alder" name="age">
+                    <input type="number" min="1" max="99" class="form-control" id="input_alder" name="age">
                 </div>
             </div>
 
-            <div class="form-group">
-                <label for="input_email" class="col-sm-4 control-label">Email:</label>
+            <div class="form-group required">
+                <label for="input_email" class="col-sm-4 control-label"> Email: </label>
                 <div class="col-sm-6">
-                    <input type="email" class="form-control" id="input_email" placeholder="Fx. jatoe13@student.sdu.dk" name="email">
+                    <input type="email" class="form-control" id="input_email" placeholder="Fx. [initialer][årgang]@student.sdu.dk" name="email">
                 </div>
             </div>
 
-            <div class="form-group">
-                <label for="input_password" class="col-sm-4 control-label">Password:</label>
+            <div class="form-group required">
+                <label for="input_password" class="col-sm-4 control-label"> Password:</label>
                 <div class="col-sm-6">
                     <input type="password" class="form-control" id="input_password" placeholder="Indtast et password" name="password">
                 </div>
             </div>
 
-            <div class="form-group">
+            <div class="form-group required">
+                <label for="input_password_confirm" class="col-sm-4 control-label"> Bekreæft password:</label>
+                <div class="col-sm-6">
+                    <input type="password" class="form-control" id="input_password_confirm" placeholder="Bekræft password" name="password2">
+                </div>
+            </div>
+
+
+            <!--<div class="form-group">
                 <label for="input_studie" class="col-sm-4 control-label">Studie:</label>
                 <div class="col-sm-6">
                     <input type="text" class="form-control" id="input_studie" placeholder="Fx. Optek" name="studie">
+                </div>
+            </div>-->
+
+            <div class="form-group required">
+                <label for="input_studie" class="col-sm-4 control-label">Uddannelsessted:</label>
+                <div class="col-sm-6">
+                    <select class="form-control" name="studie" id="input_studie">
+                        <option></option>
+                        <option>SDU Odense</option>
+                        <option>SDU Esbjerg</option>
+                        <option>SDU Kolding</option>
+                        <option>SDU Slagelse</option>
+                        <option>SDU København</option>
+                        <option>Ikke fra SDU</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="form-group required">
+                <label for="input_fakultet" class="col-sm-4 control-label"> Fakultet:</label>
+                <div class="col-sm-6">
+                    <select class="form-control" name="fakultet" id="input_fakultet">
+                        <option></option>
+                        <option>Teknisk Fakultet</option>
+                        <option>Samfundsvidenskabelige Fakultet</option>
+                        <option>Naturvidenskabelige Fakultet</option>
+                        <option>Humanistiske Fakultet</option>
+                        <option>Sunhedsvidenskabelige Fakultet</option>
+                        <option>Andet</option>
+                    </select>
                 </div>
             </div>
 
             <div class="form-group">
                 <label for="input_bnet" class="col-sm-4 control-label">BattleTag:</label>
                 <div class="col-sm-6">
-                    <input type="text" class="form-control" id="input_bnet" placeholder="Fx. Swaglord#420" name="bnet">
+                    <input type="text" class="form-control" id="input_bnet" placeholder="Fx. BattleTag#1234" name="bnet">
                 </div>
             </div>
 
             <div class="form-group">
                 <label for="input_steam" class="col-sm-4 control-label">Steam ID:</label>
                 <div class="col-sm-6">
-                    <input type="text" class="form-control" id="input_steam" placeholder="Fx. Swagmaster6969" name="steam">
+                    <input type="text" class="form-control" id="input_steam" placeholder="Fx. SteamID123" name="steam">
                 </div>
+            </div>
+            <div class="form-group" style="margin-left: 35%">
+                <div class="col-sm-6"><p><span style="color: red;">*</span> = required</p></div>
             </div>
 
-            <div class="form-group">
-                <label class="col-sm-4 control-label">Er du admin?</label>
-                <div class="col-sm-6">
-                    <label class="radio-inline">
-                        <input type="checkbox" name="admin" onclick="isAdmin=!isAdmin;" > Ja
-                    </label>
-                </div>
-            </div>
             <div class="col-sm-4 col-sm-offset-6" style="margin-top: 50px">
                 <input type="submit" name="submit" value="Create User" class="btn btn-primary btn-lg">
             </div>
@@ -97,6 +139,13 @@
     <div id="test"></div>
 </div>
 
+<script>
+    document.getElementById('input_alder').oninput = function () {
+        if (this.value.length > 2) {
+            this.value = this.value.slice(0,2);
+        }
+    }
+</script>
 <!--
 <script>
     $('#createBtn').click(function () {
