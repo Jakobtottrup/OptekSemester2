@@ -5,6 +5,9 @@
 body{margin-top:20px;}
 .fa-fw {width: 2em;}
 
+div {
+    border: 1px solid grey;
+}
 
 
 .nav-bar-space_bhbx {
@@ -94,5 +97,5 @@ html, body {
 
 
 .content-center{
-    margin-top: 0px;
+    margin: 0px;
 }
