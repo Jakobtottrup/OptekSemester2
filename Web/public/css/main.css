@@ -4,10 +4,10 @@
 @import url(/font-awesome/css/font-awesome.min.css);
 body{
     margin-top:20px;
-    background: -webkit-linear-gradient(left, #0b3b6d , #0f4ab6, #0b3b6d ); /* For Safari 5.1 to 6.0 */
-    background: -o-linear-gradient(right, #0b3b6d , #0f4ab6, #0b3b6d ); /* For Opera 11.1 to 12.0 */
-    background: -moz-linear-gradient(right, #0b3b6d , #0f4ab6, #0b3b6d ); /* For Firefox 3.6 to 15 */
-    background: linear-gradient(to right, #0b3b6d , #0f4ab6, #0b3b6d ); /* Standard syntax */
+    background: -webkit-linear-gradient(left, #0c3764 , #1349aa, #0c3764 ); /* For Safari 5.1 to 6.0 */
+    background: -o-linear-gradient(right, #0c3764 , #1349aa, #0c3764 ); /* For Opera 11.1 to 12.0 */
+    background: -moz-linear-gradient(right, #0c3764 , #1349aa, #0c3764 ); /* For Firefox 3.6 to 15 */
+    background: linear-gradient(to right, #0c3764 , #1349aa, #0c3764 ); /* Standard syntax */
 }
 
 .fa-fw {width: 2em;}
@@ -168,4 +168,13 @@ html, body {
 
 .content-center{
     margin: 0px;
+}
+
+#input_form {
+    font-size: 15px;
+    font-family: "Agency FB";
+    color: #c0c1c3;
+    text-align: left;
+    text-shadow: -1px 1px 0.2px rgba(0, 0, 0, 0.46);
+    margin-left: 130px;
 }
