@@ -13,110 +13,98 @@
         <link rel="stylesheet" type="text/css" href="/css/main.css">
         <title>{{ title }}</title>
     </head>
+
     <body>
-    <nav class="navbar navbar-default">
-        <div class="container-fluid">
-            <!-- Brand and toggle get grouped for better mobile display -->
-            <div class="navbar-header">
-                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
-                    <span class="sr-only">Toggle navigation</span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                </button>
-                <a class="navbar-brand" href="#">S7 LAN</a>
-            </div>
-
-            <!-- Collect the nav links, forms, and other content for toggling -->
-            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-                <ul class="nav navbar-nav">
-                    <li><a href="/events">EVENTET</a></li>
-                    <li><a href="/rules">REGLER</a></li>
-                    <li><a href="/tournaments">TURNERINGER</a></li>
-                    <li><a href="/seats">PLADSKORT</a></li>
-                    <li><a href="/contact">KONTAKT</a></li>
-                </ul>
-
-                <ul class="nav navbar-nav navbar-right">
-                    <form class="navbar-form navbar-left">
-                        <div class="form-group">
-                            <input type="text" class="form-control" placeholder="Søg">
-                        </div>
-                        <button type="submit" class="btn btn-default">SØG</button>
-                    </form>
-                    {{#if user}}
-                        <li><a href="/dashboard">LOGGET IND SOM {{uppercase user.username}}</a></li>
-                    {{else}}
-                        <li><a href="/signup">TILMELD</a></li>
-                        <li><a href="/login">LOG IND</a></li>
-                    {{/if}}
-                </ul>
-            </div><!-- /.navbar-collapse -->
-        </div><!-- /.container-fluid -->
-    </nav>
-
-
-        {{#if user}}
-        <!-- dashboard panels -->
-        <div class="left-dashboard-menu">
-            <div>
-                <h1>Velkommen {{user.username}}</h1>
-            </div>
-            {{#unless user.isAdmin}}
-            <div class="container">
-                <div class="row">
-                    <div class="col-md-3">
-                        <ul class="nav nav-pills nav-stacked">
-                            <li class="active"><a href="#"><i class="fa fa-crosshairs fa-fw"></i>{{user.username}}'s dashboard</a></li>
-                            <li><a href="/users/userinfo"><i class="fa fa-edit fa-fw"></i>Bruger info</a></li>
-                            <li><a href="/users/getseat"><i class="fa fa-th fa-fw"></i>Din Plads</a></li>
-                            <li><a href="/users/seatgroups"><i class="fa fa-users fa-fw"></i>Siddegruppe</a></li>
-                            <li><a href="/users/usertournaments"><i class="fa fa-sitemap fa-fw"></i>Dine Turneringer</a></li>
-                            <li><a href="/logout"><i class="fa fa-sign-out fa-fw"></i>Log ud</a></li>
-                        </ul>
-                    </div>
+        <!--navigations bar -->
+        <nav class="navbar navbar-default">
+            <div class="container-fluid">
+                <!-- Brand and toggle get grouped for better mobile display -->
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+                        <span class="sr-only">Toggle navigation</span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    <a class="navbar-brand" href="/">S7 LAN</a>
                 </div>
-            </div>
-            {{else}}
-            <div class="container">
-                <div class="row">
-                    <div class="col-md-3">
-                        <ul class="nav nav-pills nav-stacked">
-                            <li class="active"><a href="#"><i class="fa fa-crosshairs fa-fw "></i>{{user.username}}'s dashboard</a></li>
-                            <li><a href="/admins/posts"><i class="fa fa-edit fa-fw"></i>Opslag</a></li>
-                            <li><a href="/admins/create_seats"><i class="fa fa-th fa-fw"></i>Bordopstilling</a></li>
-                            <li><a href="/admins/seating_groups"><i class="fa fa-users fa-fw "></i>Siddegrupper</a></li>
-                            <li><a href="/admins/tournaments"><i class="fa fa-sitemap fa-fw"></i>Turneringer</a></li>
-                            <li><a href="/admins/users"><i class="fa fa-user fa-fw"></i>Brugere</a></li>
-                            <li><a href="/admins/sponsors"><i class="fa fa-tasks fa-fw"></i>Sponsors</a></li>
-                            <li><a href="/admins/mails"><i class="fa fa-envelope fa-fw"></i>Mails</a></li>
-                            <li><a href="/admins/events"><i class="fa fa-cogs fa-fw"></i>Dette LAN</a></li>
-                            <li><a href="/logout"><i class="fa fa-sign-out fa-fw"></i>Log ud</a></li>
-                        </ul>
-                    </div>
+
+                <!-- Collect the nav links, forms, and other content for toggling -->
+                <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                    <ul class="nav navbar-nav">
+                        <li><a href="/events">EVENTET</a></li>
+                        <li><a href="/rules">REGLER</a></li>
+                        <li><a href="/tournaments">TURNERINGER</a></li>
+                        <li><a href="/seats">PLADSKORT</a></li>
+                        <li><a href="/contact">KONTAKT</a></li>
+                    </ul>
+
+                    <ul class="nav navbar-nav navbar-right">
+                        <form class="navbar-form navbar-left">
+                            <div class="form-group">
+                                <input type="text" class="form-control" placeholder="Søg">
+                            </div>
+                            <button type="submit" class="btn btn-default">SØG</button>
+                        </form>
+                        {{#if user}}
+                            <li><a href="/dashboard">LOGGET IND SOM {{uppercase user.username}}</a></li>
+                        {{else}}
+                            <li><a href="/signup">TILMELD</a></li>
+                            <li><a href="/login">LOG IND</a></li>
+                        {{/if}}
+                    </ul>
+                </div><!-- /.navbar-collapse -->
+            </div><!-- /.container-fluid -->
+        </nav>
+    <!-- dashboard panels -->
+
+    <div>
+    {{#if user}}
+    <!--<div class="left-dashboard-menu">-->
+        <div class="container">
+            <!--<div class="row">-->
+                <div class="col-lg-3">
+                    <ul class="nav nav-pills nav-stacked">
+                        <li class="active"><a href="#"><i class="fa fa-crosshairs fa-fw "></i>{{user.username}}'s dashboard</a></li>
+                        {{#unless user.isAdmin}}
+                        <li><a href="/users/userinfo"><i class="fa fa-edit fa-fw"></i>Bruger info</a></li>
+                        <li><a href="/users/getseat"><i class="fa fa-th fa-fw"></i>Din Plads</a></li>
+                        <li><a href="/users/seatgroups"><i class="fa fa-users fa-fw"></i>Siddegruppe</a></li>
+                        <li><a href="/users/usertournaments"><i class="fa fa-sitemap fa-fw"></i>Dine Turneringer</a></li>
+                        <li><a href="/logout"><i class="fa fa-sign-out fa-fw"></i>Log ud</a></li>
+                        {{else}}
+                        <li><a href="/admins/posts"><i class="fa fa-edit fa-fw"></i>Opslag</a></li>
+                        <li><a href="/admins/create_seats"><i class="fa fa-th fa-fw"></i>Bordopstilling</a></li>
+                        <li><a href="/admins/seating_groups"><i class="fa fa-users fa-fw "></i>Siddegrupper</a></li>
+                        <li><a href="/admins/tournaments"><i class="fa fa-sitemap fa-fw"></i>Turneringer</a></li>
+                        <li><a href="/admins/users"><i class="fa fa-user fa-fw"></i>Brugere</a></li>
+                        <li><a href="/admins/sponsors"><i class="fa fa-tasks fa-fw"></i>Sponsors</a></li>
+                        <li><a href="/admins/mails"><i class="fa fa-envelope fa-fw"></i>Mails</a></li>
+                        <li><a href="/admins/events"><i class="fa fa-cogs fa-fw"></i>Dette LAN</a></li>
+                        <li><a href="/logout"><i class="fa fa-sign-out fa-fw"></i>Log ud</a></li>
+                        {{/unless}}
+                    </ul>
                 </div>
-            </div>
+            <!--</div>-->
+        <!--</div>-->
         </div>
-        {{/unless}}
         {{/if}}
-
-        <div>
-            <div class="row">
-                <div class="col-lg-12">
-                    {{#if success_msg}}
-                        <div class="alert alert-success">{{success_msg}}</div>
-                    {{/if}}
-                    {{#if error_msg}}
-                        <div class="alert alert-danger">{{error_msg}}</div>
-                    {{/if}}
-                    {{#if error}}
-                        <div class="alert alert-danger">{{error}}</div>
-                    {{/if}}
-                    {{{body}}}
-                </div>
+            <div class="col-lg-offset-2">
+                <!--<div class="row">-->
+                    <div class="col-lg-9 container-fluid">
+                        {{#if success_msg}}
+                            <div class="alert alert-success">{{success_msg}}</div>
+                        {{/if}}
+                        {{#if error_msg}}
+                            <div class="alert alert-danger">{{error_msg}}</div>
+                        {{/if}}
+                        {{#if error}}
+                            <div class="alert alert-danger">{{error}}</div>
+                        {{/if}}
+                    </div>
+                <!--</div>-->
             </div>
-        </div>
-
+        {{{body}}}
         <!--footer class="footer">
             <div class="container">
                 <p class="text-muted">ALL RIGHTS RESERVED | ez pz n00bz | 2017</p>

@@ -20,7 +20,7 @@ function ensureAuthenticated(req, res, next){
 }
 
 
-// SEATGROUP DATA - "FILTERED"
+// SEATGROUP DATA - "STRICT FILTERED"
 var Group = require('../models/seatingGroups');
 router.get('/seatgroups', /*ensureAuthenticated,*/ function(req, res) {
     Group.find({},{password:0, createdAt:0, __v:0}, function(err, seatgroups){
@@ -31,7 +31,7 @@ router.get('/seatgroups', /*ensureAuthenticated,*/ function(req, res) {
 });
 
 
-// USER DATA - "FILTERED"
+// USER DATA - "STRICT FILTERED"
 var User = require('../models/user');
 router.get('/users', /*ensureAuthenticated,*/ function(req, res) {
     User.find({},{password:0, isAdmin:0, email:0, studie:0, __v:0}, function(err, users){
@@ -41,8 +41,8 @@ router.get('/users', /*ensureAuthenticated,*/ function(req, res) {
 });
 
 
-// SEATS DATA - "FILTERED"
-var seats = require('../models/seats');
+// SEATS DATA - "STRICT FILTERED"
+var tours = require('../models/seats');
 router.get('/seats', /*ensureAuthenticated,*/ function(req, res) {
     seats.find({},{__v:0}, function(err, seats){
         if(err) throw err;
@@ -50,8 +50,29 @@ router.get('/seats', /*ensureAuthenticated,*/ function(req, res) {
     });
 });
 
+/*
+// TOURNAMENTS DATA - "STRICT FILTERED"
+var Tournaments = require('../models/tournaments'); //TODO: MODEL SKAL OPRETTES
+router.get('/tournaments', /!*ensureAuthenticated,*!/ function(req, res) {
+    tours.find({},{__v:0}, function(err, tours){
+        if(err) throw err;
+        res.json(tours);
+    });
+});
 
-// ACTIVE USER LOGIN DATA
+
+// SPONSORS DATA - "STRICT FILTERED"
+var Sponsors = require('../models/sponsors'); //TODO: MODEL SKAL OPRETTES
+router.get('/sponsors', /!*ensureAuthenticated,*!/ function(req, res) {
+    sponsor.find({},{__v:0}, function(err, sponsor){
+        if(err) throw err;
+        res.json(sponsor);
+    });
+});
+*/
+
+
+// ACTIVE USER LOGIN DATA - NO FILTERING
 router.get('/user', /*ensureAuthenticated,*/ function(req, res) {
     if (req.user){
         res.json(req.user);
@@ -59,6 +80,8 @@ router.get('/user', /*ensureAuthenticated,*/ function(req, res) {
         res.json("You need to be logged in before requesting user data");
     }
 });
+
+
 
 
 // ENSURE USER IS LOGGED IN AS ADMIN
@@ -78,7 +101,7 @@ function ensureAdminAuthenticated(req, res, next){
 
 
 
-// USER DATA - "UNFILTERED"
+// USER DATA - "NONSTRICT FILTERED"
 router.get('/users/admin', /*ensureAdminAuthenticated,*/ function(req, res) {
     User.find({},{password:0, __v:0}, function(err, users){
         if(err) throw err;

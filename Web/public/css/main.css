@@ -1,6 +1,15 @@
 
 /*>>GENERAL SYLING FOR CONTENT PAGES<<*/
 
+@import url(/font-awesome/css/font-awesome.min.css);
+body{margin-top:20px;}
+.fa-fw {width: 2em;}
+
+div {
+    border: 1px solid grey;
+}
+
+
 .nav-bar-space_bhbx {
     margin-top: 100px;
     margin-left: 20%;
@@ -22,7 +31,6 @@ html {
 }
 
 .group-wrapper svg {
-    /*margin-top-min: 50px;*/
     fill: #8F8F8F;
     margin: calc((134px - 96px) / 2);
 }

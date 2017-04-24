@@ -183,7 +183,7 @@ router.get('/dashboard', ensureAuthenticated, function (req, res) {
     if (req.user.isAdmin === true) {
         console.log("Admin entered his dashboard");
         res.render('admin-backend/adminsDashboard', {title: "Dashboard"});
-    } else {
+    } else if (req.user === true) {
         console.log("User entered his dashboard");
         res.render('user-backend/usersDashboard', {title: "Dashboard"});
     }
