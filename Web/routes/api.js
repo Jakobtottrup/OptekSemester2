@@ -75,7 +75,9 @@ router.get('/sponsors', /!*ensureAuthenticated,*!/ function(req, res) {
 // ACTIVE USER LOGIN DATA - NO FILTERING
 router.get('/user', /*ensureAuthenticated,*/ function(req, res) {
     if (req.user){
-        res.json(req.user);
+        let safe_user = req.user;
+        safe_user.password = 0;
+        res.json(safe_user);
     } else {
         res.json("You need to be logged in before requesting user data");
     }
