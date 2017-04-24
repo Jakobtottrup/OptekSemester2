@@ -123,7 +123,7 @@ router.post('/signup', function (req, res) {
             } else {
                 console.log("created user with: " + user);
                 User.createUser(newUser, function (err, username) {
-                    if (err) throw err;
+                    if (err) throw err
                     console.log(username);
                     req.flash('success_msg', 'You are registered!');
                     res.redirect('/login');
@@ -179,7 +179,7 @@ router.get('/login', function (req, res) {
 router.get('/logout', function (req, res) {
     req.logout();
     req.flash('success_msg', 'Du er nu logget ud');
-    res.redirect('/');
+    res.redirect('/login');
 });
 
 
@@ -215,11 +215,13 @@ passport.use(new LocalStrategy(
     }
 ));
 
+
 passport.serializeUser(function (user, done) {
     done(null, user.id);
     //console.log("USER: "+user.username+" | ID: "+user.id);
     console.log(user)
 });
+
 
 passport.deserializeUser(function (id, done) {
     User.getUserById(id, function (err, user) {
@@ -230,7 +232,7 @@ passport.deserializeUser(function (id, done) {
 
 // GET DATA FROM LOGIN PAGE
 router.post('/login',
-    passport.authenticate('local', {successRedirect: '/', failureRedirect: '/login', failureFlash: true}),
+    passport.authenticate('local', {successRedirect: '/dashboard', failureRedirect: '/login', failureFlash: true}),
 
     function (req, res) {
         console.log("LOGGED IN!");

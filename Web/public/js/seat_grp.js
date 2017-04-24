@@ -98,7 +98,7 @@ function drawCurrentGroups(groupData){
         output += '<div class="group-wrapper current-groups'+key+'" id="current-groups"></div>';
         output += '</br>';
 
-        $.each(groupData.members, function(key2){
+        $.each(groupData.members, function(key){
             console.log(key);
             $("#current-groups").prepend(newMember);
         });

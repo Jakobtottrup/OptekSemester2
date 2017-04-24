@@ -32,7 +32,8 @@ function getUserData(){
         url: "/api/user",
         dataType: "json"
     }).done(function(data){
-        userData = data;
+        userData = data;7
+
     });
 }
 
