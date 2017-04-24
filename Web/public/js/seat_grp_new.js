@@ -55,7 +55,23 @@ $.when(getGroupData(), getUsersData(), getUserData()).done(function(){
 });
 
 
+var Group = function(leaderID, members, groupName, _id){
+    this.id = id;
+    this.groupName = groupName;
+    this.leaderID = leaderID;
+    this.members = members;
+};
+
+
+
 
 function checkGroup(hasGroup, isLeader){
     console.log("user is in group: "+hasGroup+" || user is leader: "+isLeader);
+    if(hasGroup){
+        $.each(groupData, function(key, groupData) {
+            for(i=0;i<groupData.members.length;i++){
+            new Group(groupData.leaderID, group.members, groupData.groupName, groupData._id);
+            }
+        });
+    }
 }

@@ -1,59 +1,60 @@
 
-<body class="nav-bar-space">
-
-    <template>
-        <div class="group-container">
-        <div id="create-div">
-            <p>Opret siddegruppe</p>
-            <svg height="96" viewBox="0 0 24 24" width="96" xmlns="http://www.w3.org/2000/svg" type="button" data-toggle="modal" data-target="#group-modal">
-                <path d="M0 0h24v24H0z" fill="none"/>
-                <path d="M13 7h-2v4H7v2h4v4h2v-4h4v-2h-4V7zm-1-5C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8z"/>
-                </svg>
-            </div>
-        </div>
-    </template>
-
-
-    <h3 id="create-group-header">Opret siddegruppe</h3>
-    <div class="group-wrapper" id="create-group"></div>
-    <br>
-    <br>
-    <h3>Andre siddegrupper</h3>
-    <div id="current-group-container"></div>
-
-    <!-- Modal -->
-    <div id="group-modal" class="modal fade" role="dialog">
-        <div class="modal-dialog">
-            <!-- Modal content-->
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h4 class="modal-title">Opret siddegruppe</h4>
+<div class="col-lg-offset-3">
+    <div class="col-lg-6">
+        <template>
+            <div class="group-container">
+            <div id="create-div">
+                <p>Opret siddegruppe</p>
+                <svg height="96" viewBox="0 0 24 24" width="96" xmlns="http://www.w3.org/2000/svg" type="button" data-toggle="modal" data-target="#group-modal">
+                    <path d="M0 0h24v24H0z" fill="none"/>
+                    <path d="M13 7h-2v4H7v2h4v4h2v-4h4v-2h-4V7zm-1-5C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8z"/>
+                    </svg>
                 </div>
-                <div class="modal-body">
-                    <form method="post" action="/users/seatgroups">
-                        <div>
-                            <p>Indtast oplysninger for din siddegruppe.</p>
-                            <p>Andre brugere bruger disse oplysninger til at forbinde til din gruppe.</p>
-                            <label>Navngiv din gruppe</label>
-                            <!--input type="text" id="group-name" class="form-control" placeholder="Gruppenavn" name="name"-->
-                            <input type="text" class="form-control" placeholder="Navn" name="groupName" maxlength="25">
-                            <br>
-                            <label>Giv din gruppe et kodeord</label>
-                            <input type="password" class="form-control" placeholder="Kodeord" name="password">
-                            <br>
-                            <label>Skriv kodeordet igen</label>
-                            <input type="password" class="form-control" placeholder="Kodeord" name="password2">
-                        </div>
-                        <div class="modal-footer">
-                            <button type="submit" class="btn btn-success">Opret</button>
-                            <button type="button" class="btn btn-danger" data-dismiss="modal">Annuller</button>
-                        </div>
-                    </form>
+            </div>
+        </template>
+
+
+        <h3 id="create-group-header">Opret siddegruppe</h3>
+        <div class="group-wrapper" id="create-group"></div>
+        <br>
+        <br>
+        <h3>Andre siddegrupper</h3>
+        <div id="current-group-container"></div>
+
+        <!-- Modal -->
+        <div id="group-modal" class="modal fade" role="dialog">
+            <div class="modal-dialog">
+                <!-- Modal content-->
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h4 class="modal-title">Opret siddegruppe</h4>
+                    </div>
+                    <div class="modal-body">
+                        <form method="post" action="/users/seatgroups">
+                            <div>
+                                <p>Indtast oplysninger for din siddegruppe.</p>
+                                <p>Andre brugere bruger disse oplysninger til at forbinde til din gruppe.</p>
+                                <label>Navngiv din gruppe</label>
+                                <!--input type="text" id="group-name" class="form-control" placeholder="Gruppenavn" name="name"-->
+                                <input type="text" class="form-control" placeholder="Navn" name="groupName" maxlength="25">
+                                <br>
+                                <label>Giv din gruppe et kodeord</label>
+                                <input type="password" class="form-control" placeholder="Kodeord" name="password">
+                                <br>
+                                <label>Skriv kodeordet igen</label>
+                                <input type="password" class="form-control" placeholder="Kodeord" name="password2">
+                            </div>
+                            <div class="modal-footer">
+                                <button type="submit" class="btn btn-success">Opret</button>
+                                <button type="button" class="btn btn-danger" data-dismiss="modal">Annuller</button>
+                            </div>
+                        </form>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
-</body>
+</div>
 
 <script src="/jquery/dist/jquery.min.js"></script>
 <script src="/ajax/dist/ajax.min.js"></script>
