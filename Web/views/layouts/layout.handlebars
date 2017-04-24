@@ -11,7 +11,7 @@
         <link rel="stylesheet" type="text/css" href="/bootstrap/dist/css/bootstrap.min.css">
         <link rel="stylesheet" type="text/css" href="/bootstrap/dist/css/bootstrap-theme.min.css">
         <link rel="stylesheet" type="text/css" href="/css/main.css">
-        <link rel="stylesheet" type="text/css" href="/css/draft_1_1.css">
+        <!--<link rel="stylesheet" type="text/css" href="/css/draft_1_1.css">-->
 
         <script src="/jquery/dist/jquery.min.js"></script>
         <script src="/bootstrap/dist/js/bootstrap.min.js"></script>
@@ -65,7 +65,7 @@
         </nav>
     <!-- dashboard panels -->
 
-    <div>
+    <div id="dashboard-nav">
     {{#if user}}
     <!--<div class="left-dashboard-menu">-->
         <div class="container-fluid">
@@ -128,6 +128,6 @@
 <script>
 $(document).ready( function(){
     var path = window.location.pathname;
-    $('a[href$="' + path + '"]').parent().addClass("active");
+    $("#dashboard-nav").find('a[href$="' + path + '"]').parent().addClass("active");
 });
 </script>
