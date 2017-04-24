@@ -61,9 +61,9 @@
     <div>
     {{#if user}}
     <!--<div class="left-dashboard-menu">-->
-        <div class="container">
-            <!--<div class="row">-->
-                <div class="col-lg-3">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-lg-2">
                     <ul class="nav nav-pills nav-stacked">
                         <li class="active"><a href="#"><i class="fa fa-crosshairs fa-fw "></i>{{user.username}}'s dashboard</a></li>
                         {{#unless user.isAdmin}}
@@ -85,8 +85,12 @@
                         {{/unless}}
                     </ul>
                 </div>
-            <!--</div>-->
+                <div class="content-center">
+                    {{{body}}}
+                </div>
+            </div>
         <!--</div>-->
+
         </div>
         {{/if}}
             <div class="col-lg-offset-2">
@@ -104,7 +108,7 @@
                     </div>
                 <!--</div>-->
             </div>
-        {{{body}}}
+
         <!--footer class="footer">
             <div class="container">
                 <p class="text-muted">ALL RIGHTS RESERVED | ez pz n00bz | 2017</p>
