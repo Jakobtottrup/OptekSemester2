@@ -127,9 +127,11 @@
 <script language="javascript" type="text/javascript">
     $(document).ready( function(){
         var path = window.location.pathname;
-        $('a[href$=path]').parent().addClass("active");
+        console.log(path, 'a[href$="' + path + '"]');
+        $('a[href$="' + path + '"]').parent().addClass("active");
         console.log($('a[href$=path]').parent());
     });
+
 
 </script>
 
