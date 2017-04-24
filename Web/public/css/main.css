@@ -178,3 +178,18 @@ html, body {
     text-shadow: -1px 1px 0.2px rgba(0, 0, 0, 0.46);
     margin-left: 130px;
 }
+
+.form-group.required .control-label:after {
+    color: #d00;
+    content: "*";
+    position: absolute;
+    margin-left: 8px;
+    top: 7px;
+}
+.req:after{
+    color: red;
+    content: '*';
+    position: absolute;
+    margin-left: 93%;
+    top: -2px;
+}
