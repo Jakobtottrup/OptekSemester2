@@ -57,7 +57,7 @@ $.when(getGroupData(), getUsersData(), getUserData()).done(function(){
 
 
 var Group = function(leaderID, members, groupName, _id){
-    this.id = id;
+    this.id = _id;
     this.groupName = groupName;
     this.leaderID = leaderID;
     this.members = members;
