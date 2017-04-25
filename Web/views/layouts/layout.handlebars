@@ -67,12 +67,13 @@
     <!-- dashboard panels -->
 
     <div id="dashboard-nav">
-    {{#if user}}
+
     <!--<div class="left-dashboard-menu">-->
         <div class="container-fluid">
             <div class="row">
+                {{#if user}}
                 <div class="col-lg-2">
-                    <ul class="nav nav-pills nav-stacked">
+                    <ul class="nav nav-pills nav-stacked dash-menu">
                         <li><a href="/dashboard"><i class="fa fa-crosshairs fa-fw "></i>{{user.username}}'s dashboard</a></li>
                         {{#unless user.isAdmin}}
                         <li><a href="/users/userinfo"><i class="fa fa-edit fa-fw"></i>Bruger info</a></li>
