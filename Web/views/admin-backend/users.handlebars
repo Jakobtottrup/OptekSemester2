@@ -1,3 +1,4 @@
+
 <div class="nav-bar-space">
     <h1>Admin panel - brugere</h1>
     <p>Nothing here yet</p>
@@ -8,12 +9,15 @@
     <!-- Default panel contents -->
     <div class="panel-heading">User Administration</div>
     <!-- Table -->
+
     <form method="post" role="presentation" action="/users.handlebars">
-        <table class="table table-condensed">
+        <table class="table table-condensed table-hover">
             <thead>
 
             <a class="btn btn-primary btn-lg" href="#" role="button" id="getUsersBtn"
-               style="margin-left: 5px;margin-top: 5px">List Users</a>
+               style="margin-left: 5px;margin-top: 5px">Show Users</a>
+            <button type="button" class="btn btn-lg btn-danger" id="removeUserBtn" style="float: right; margin-top: 5px; margin-right: 5px" disabled="disabled">Delete Selected</button>
+            <!--TODO: Fjern inline CSS-->
             <p>
             <p>Funktioner:</p>
             <p>Knap der ændrer nedenstående tabel data til de data der er i collection. TODO: tilføj søgekriterier (alle
@@ -22,6 +26,7 @@
             <p>Ved klik på feltet i tabellen skal man kunne redigere i værdierne</p></thead>
 
             <tr>
+                <th><input type="checkbox" id="meta_checkbox"></th>
                 <th>#</th>
                 <th>Username</th>
                 <th>Age</th>
@@ -41,28 +46,6 @@
 </div>
 <script src="/js/admin-userview.js"></script>
 <script>
-    $(function () {
 
-        $("#getUsersBtn").click(function () {
-            console.log(usersData);
-            $("#data_insert").empty();
-            for (i = 0; i < usersData.length; i++) {
-                $('#data_insert').append("<tr class='data_row'>" +
-                        "<td>" + (i+1) + "</td>" +
-                        "<td>" + usersData[i].username + "</td>" +
-                        "<td>" + usersData[i].age + "</td>" +
-                        "<td>" + usersData[i].email + "</td>" +
-                        "<td>" + usersData[i].studie + "</td>" +
-                        "<td>" + usersData[i].fakultet + "</td>" +
-                        "<td>" + usersData[i].bnet + "</td>" +
-                        "<td>" + usersData[i].steam + "</td></tr>");
 
-            }
-            /*for (j=0;j<7;j++) {
-                $('.data_row').append( "<td>hej " + username + "</td>" );
-            }*/
-            //$('.data').append( "<th></th>" );
-
-        });
-    });
 </script>
