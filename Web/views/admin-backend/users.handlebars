@@ -1,25 +1,28 @@
-
 <div class="nav-bar-space">
     <h1>Admin panel - brugere</h1>
     <p>Nothing here yet</p>
 </div>
 
-<div class="panel panel-primary" style="width: 80%; margin-left: 250px; margin-top: 200px">
+<div class="panel panel-primary" style="width: 80%; margin-left: 300px; margin-top: 200px">
     <!--TODO: INLINE STYLING SKAL FJERNES NÅR LAYOUTET ER DONE-->
     <!-- Default panel contents -->
     <div class="panel-heading">User Administration</div>
     <!-- Table -->
-    <form method="post" role="presentation" action="/   users.handlebars">
+    <form method="post" role="presentation" action="/users.handlebars">
         <table class="table table-condensed">
-        <thead>
+            <thead>
 
-        <a class="btn btn-primary btn-lg" href="#" role="button" id="getUsersBtn" style="margin-left: -25px; margin-top: 5px">List Users</a>
-        <p><p>Funktioner:</p>
-        <p>Knap der ændrer nedenstående tabel data til de data der er i collection. TODO: tilføj søgekriterier (alle users fra SDU odense fx). </p>
-        <p>Knap ved mouseover til højre for brugeren hvor man kan slette denne bruger fra databasen</p>
-        <p>Ved klik på feltet i tabellen skal man kunne redigere i værdierne</p></>
+            <a class="btn btn-primary btn-lg" href="#" role="button" id="getUsersBtn"
+               style="margin-left: 5px;margin-top: 5px">List Users</a>
+            <p>
+            <p>Funktioner:</p>
+            <p>Knap der ændrer nedenstående tabel data til de data der er i collection. TODO: tilføj søgekriterier (alle
+                users fra SDU odense fx). </p>
+            <p>Knap ved mouseover til højre for brugeren hvor man kan slette denne bruger fra databasen</p>
+            <p>Ved klik på feltet i tabellen skal man kunne redigere i værdierne</p></thead>
 
             <tr>
+                <th>#</th>
                 <th>Username</th>
                 <th>Age</th>
                 <th>Email</th>
@@ -28,20 +31,38 @@
                 <th>BattleTag</th>
                 <th>SteamID</th>
             </tr>
-        </thead>
 
 
-        <tbody>
-            <tr>
-                <th>test1</th>
-                <th>test1</th>
-                <th>test1</th>
-                <th>test1</th>
-                <th>test1</th>
-                <th>test1</th>
-                <th>test1</th>
-            </tr>
-        </tbody>
-    </table></form>
+            <tbody id="data_insert">
+            </tbody>
+        </table>
+    </form>
 
 </div>
+<script src="/js/admin-userview.js"></script>
+<script>
+    $(function () {
+
+        $("#getUsersBtn").click(function () {
+            console.log(usersData);
+            $("#data_insert").empty();
+            for (i = 0; i < usersData.length; i++) {
+                $('#data_insert').append("<tr class='data_row'>" +
+                        "<td>" + (i+1) + "</td>" +
+                        "<td>" + usersData[i].username + "</td>" +
+                        "<td>" + usersData[i].age + "</td>" +
+                        "<td>" + usersData[i].email + "</td>" +
+                        "<td>" + usersData[i].studie + "</td>" +
+                        "<td>" + usersData[i].fakultet + "</td>" +
+                        "<td>" + usersData[i].bnet + "</td>" +
+                        "<td>" + usersData[i].steam + "</td></tr>");
+
+            }
+            /*for (j=0;j<7;j++) {
+                $('.data_row').append( "<td>hej " + username + "</td>" );
+            }*/
+            //$('.data').append( "<th></th>" );
+
+        });
+    });
+</script>
