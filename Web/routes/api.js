@@ -30,7 +30,6 @@ function ensureAuthenticated(req, res, next) {
 // ACTIVE USER LOGIN DATA
 router.get('/localuser', ensureAuthenticated, function(req, res) {
     if (req.user){
-        var safe_user = req.user;
         req.user.password = 0;
         res.json(req.user);
     } else {
