@@ -5,7 +5,7 @@
 function getUsersData() {
     return $.ajax({
         type: 'GET',
-        url: "/api/users/admin",
+        url: "/api/users",
         dataType: "json"
     }).done(function(data){
         usersData = data;
