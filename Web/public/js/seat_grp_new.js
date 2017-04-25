@@ -1,10 +1,6 @@
 /**
 * Created by chris on 08-04-2017.
 */
-
-
-
-
 // get information from database
 function getGroupData(){
     return $.ajax({
@@ -29,10 +25,10 @@ function getUsersData() {
 function getUserData(){
     return $.ajax({
         type: 'GET',
-        url: "/api/user",
+        url: "/api/localuser",
         dataType: "json"
     }).done(function(data){
-        userData = data;7
+        userData = data;
 
     });
 }

@@ -16,7 +16,7 @@ router.get('/', function (req, res) {
 
 // RENDER 'REGISTER' VIEW
 router.get('/signup', function (req, res) {
-    if (typeof req.user != "undefined"){
+    if (typeof req.user !== "undefined"){
         res.redirect('/dashboard');
     } else {
         res.render('frontend/signup', {title: "Tilmelding"});
@@ -127,7 +127,7 @@ router.post('/signup', function (req, res) {
             } else {
                 console.log("created user with: " + user);
                 User.createUser(newUser, function (err, username) {
-                    if (err) throw err
+                    if (err) throw err;
                     console.log(username);
                     req.flash('success_msg', 'You are registered!');
                     res.redirect('/login');
@@ -174,7 +174,7 @@ router.get('/events', function (req, res) {
 
 // RENDER LOGIN VIEW
 router.get('/login', function (req, res) {
-    if (typeof req.user != "undefined"){
+    if (typeof req.user !== "undefined"){
         res.redirect('/dashboard');
     } else {
         res.render('frontend/login', {title: "Dashboard"});

@@ -30,7 +30,7 @@ function ensureAuthenticated(req, res, next) {
 // ACTIVE USER LOGIN DATA
 router.get('/localuser', ensureAuthenticated, function(req, res) {
     if (req.user){
-        let safe_user = req.user;
+        var safe_user = req.user;
         req.user.password = 0;
         res.json(req.user);
     } else {
@@ -43,19 +43,19 @@ router.get('/localuser', ensureAuthenticated, function(req, res) {
 // USERS INFORMATION
 router.get('/users', function (req, res) {
     if (typeof req.user === "object" && req.user.isAdmin === true) {    // IF USER REQUESTING IS LOGGED IN AS ADMIN - ADMIN
-        User.find({},{__v:0}, function(err, data){
+        User.find({},{__v:0, password:0}, function(err, data){
             if(err) throw err;
             res.json(data);
             console.log("ADMIN API API CALL"); // TODO
         });
     } else if (typeof req.user === "object") {                          // IF USER REQUESTING IS NOT ADMIN - USER
-        User.find({},{__v:0}, function(err, data) {
+        User.find({},{__v:0, password:0}, function(err, data) {
             if (err) throw err;
             res.json(data);
             console.log("USER API CALL"); // TODO
         });
     } else {                                                            // IF THERE IS NO USER LOGGED IN - PUBLIC
-        User.find({},{__v:0}, function(err, data) {
+        User.find({},{__v:0, password:0, age:0, email:0, studie:0, steam:0, bnet:0, isAdmin:0, fakultet:0}, function(err, data) {
             if (err) throw err;
             res.json(data);
             console.log("PUBLIC API CALL"); // TODO
@@ -88,51 +88,26 @@ router.get('/seats', function (req, res) {
 });
 
 
-// SEATS INFORMATION
-router.get('/seats', function (req, res) {
-    if (typeof req.user === "object" && req.user.isAdmin === true) {    // IF USER REQUESTING IS LOGGED IN AS ADMIN - ADMIN
-        seats.find({},{__v:0}, function(err, data){
-            if(err) throw err;
-            res.json(data);
-            console.log("ADMIN API CALL"); // TODO
-        });
-    } else if (typeof req.user === "object") {                          // IF USER REQUESTING IS NOT ADMIN - USER
-        seats.find({},{__v:0}, function(err, data) {
-            if (err) throw err;
-            res.json(data);
-            console.log("USER API CALL"); // TODO
-        });
-    } else {                                                            // IF THERE IS NO USER LOGGED IN - PUBLIC
-        seats.find({},{__v:0}, function(err, data) {
-            if (err) throw err;
-            res.json(data);
-            console.log("PUBLIC API CALL"); // TODO
-        });
-    }
-});
-
-// seatgroups INFORMATION
+// SEATGROUPS INFORMATION
 router.get('/seatgroups', function (req, res) {
     if (typeof req.user === "object" && req.user.isAdmin === true) {    // IF USER REQUESTING IS LOGGED IN AS ADMIN - ADMIN
-        Group.find({},{__v:0}, function(err, data){
+        Group.find({},{__v:0, password:0}, function(err, data){
             if(err) throw err;
             res.json(data);
             console.log("ADMIN API CALL"); // TODO
         });
     } else if (typeof req.user === "object") {                          // IF USER REQUESTING IS NOT ADMIN - USER
-        Group.find({},{__v:0}, function(err, data) {
+        Group.find({},{__v:0, password:0, createdAt:0}, function(err, data) {
             if (err) throw err;
             res.json(data);
             console.log("USER API CALL"); // TODO
         });
     } else {                                                            // IF THERE IS NO USER LOGGED IN - PUBLIC
-        Group.find({},{__v:0}, function(err, data) {
-            if (err) throw err;
-            res.json(data);
-            console.log("PUBLIC API CALL"); // TODO
-        });
+        req.flash('error_msg', 'Du er ikke logget ind');
+        res.redirect('/login');
     }
 });
+
 
 // SPONSORS INFORMATION
 router.get('/sponsors', function (req, res) {
@@ -180,6 +155,7 @@ router.get('/tournaments', function (req, res) {
         });
     }
 });
+
 
 // EVENT INFORMATION
 router.get('/event', function (req, res) {
