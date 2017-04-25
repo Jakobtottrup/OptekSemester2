@@ -205,7 +205,6 @@ router.get('/dashboard', ensureAuthenticated, function (req, res) {
     }
 });
 
-
 passport.use(new LocalStrategy(
     function (username, password, done) {
         User.getUserByUsername(username, function (err, user) {
@@ -219,12 +218,11 @@ passport.use(new LocalStrategy(
                 if (isMatch) {
                     return done(null, user);
                 } else {
-                    return done(null, false, {message: 'Invalid Password'});
+                    return done(null, false, {message: 'Ukendt kodeord'});
                 }
             });
         })
-    }
-));
+    }));
 
 
 passport.serializeUser(function (user, done) {

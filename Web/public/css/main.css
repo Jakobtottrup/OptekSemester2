@@ -91,4 +91,11 @@ html, body {
     bottom:0;
     left:0;
 }
+
+.content-background {
+    background-color: #f6f6f6;
+    margin-bottom: 120px;
+    border-radius: 10px;
+}
+
 /*end of footer styling*/

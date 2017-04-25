@@ -1,16 +1,18 @@
-<div class="nav-bar-space">
-    <div>
-        <h1>Create Seats</h1>
-    </div>
-
-    <script src="/js/seatmap_admin.js"></script>
-
-    <form id="new-user" accept-charset="utf-8" method="post" action="/admins/create_seats">
-        <div class="form-group">
-            <label>Seat Name</label>
-            <input type="text" id="seatName" class="form-control" placeholder="A0" maxlength="2" minlength="2" required name="seatName">
+<div class="col-lg-offset-2">
+    <div class="col-lg-10 content-background">
+        <div>
+            <h1>Create Seats</h1>
         </div>
-        <input type="submit" name="submit" value="Create Seat" class="btn btn-primary">
-    </form>
+
+        <script src="/js/seatmap_admin.js"></script>
+
+        <form id="new-user" accept-charset="utf-8" method="post" action="/admins/create_seats">
+            <div class="form-group">
+                <label>Seat Name</label>
+                <input type="text" id="seatName" class="form-control" placeholder="A0" maxlength="2" minlength="2" required name="seatName">
+            </div>
+            <input type="submit" name="submit" value="Create Seat" class="btn btn-primary">
+        </form>
+    </div>
 </div>
 

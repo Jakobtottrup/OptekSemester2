@@ -4,19 +4,21 @@
 <!--script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?libraries=geometry,directions"></script-->
 <link href="/css/MapStyling.css" rel="stylesheet" type="text/css" />
 
+<div onload="initialize()" class="col-lg-offset-2">
+    <div class="col-lg-10 content-background">
 
-<div onload="initialize()" class="nav-bar-space">
-    <h1>Kontakt</h1>
+        <h1>Kontakt</h1>
 
-    <div>
+        <div>
 
-        <p> S7LAN kan kontaktes pr. e-mail <br>
-            <a href="mailto:kontakt@s7lan.dk">kontakt@s7lan.dk</a>
-        </p>
+            <p> S7LAN kan kontaktes pr. e-mail <br>
+                <a href="mailto:kontakt@s7lan.dk">kontakt@s7lan.dk</a>
+            </p>
+        </div>
+
+        <div id="map-canvas"></div>
+
+        <input id=getRouteButton type='button' value='Find vej!' onclick='showRoute();' >
     </div>
-
-    <div id="map-canvas"></div>
-
-    <input id=getRouteButton type='button' value='Find vej!' onclick='showRoute();' >
 </div>
 

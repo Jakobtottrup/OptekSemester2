@@ -1,154 +1,156 @@
-<div class="nav-bar-space">
-    <h1>Pladskort</h1>
+<div class="col-lg-offset-2">
+    <div class="col-lg-10 content-background">
+        <h1>Pladskort</h1>
 
-    <div>
-    <p style="width: 400px">Alle der har købt billet har selvfølgelig en plads, men ønsker du at sidde sammen med nogle bestemte personer (din clan, guild, venner, folk fra dit eget institut osv.) så er der mulighed for at reservere pladser! </p>
-    </div>
+        <div>
+        <p style="width: 400px">Alle der har købt billet har selvfølgelig en plads, men ønsker du at sidde sammen med nogle bestemte personer (din clan, guild, venner, folk fra dit eget institut osv.) så er der mulighed for at reservere pladser! </p>
+        </div>
 
-    <canvas id="pladskort" width="800" height="600" style="border: 1px solid;">
-        <p>Din browser understøtter ikke canvas</p>
-    </canvas>
+        <canvas id="pladskort" width="800" height="600" style="border: 1px solid;">
+            <p>Din browser understøtter ikke canvas</p>
+        </canvas>
 
-    <script src="/js/seatmap_view.js"></script>
+        <script src="/js/seatmap_view.js"></script>
 
-    <script>
-        //cache a reference to the html element
-        var canvas = document.getElementById("pladskort");
+        <script>
+            //cache a reference to the html element
+            var canvas = document.getElementById("pladskort");
 
-        //get a reference to the 2d drawing context / api
-        var ctx = canvas.getContext("2d");
+            //get a reference to the 2d drawing context / api
+            var ctx = canvas.getContext("2d");
 
-        //set the drawing surface dimensions to match the canvas
-        canvas.width = canvas.scrollWidth;
-        canvas.height = canvas.scrollHeight;
+            //set the drawing surface dimensions to match the canvas
+            canvas.width = canvas.scrollWidth;
+            canvas.height = canvas.scrollHeight;
 
 
 
-        /**** **************** ****/
-        /*** Initialize objects ***/
-        /**** **************** ****/
+            /**** **************** ****/
+            /*** Initialize objects ***/
+            /**** **************** ****/
 
-        //new object definition
-        var Seat = function(x, y, width, height, name) {
-            this.x = x;
-            this.y = y;
-            this.width = width;
-            this.height = height;
-            if (Math.random() >= 0.3) {
-                this.occupied = false;
-            } else {
-                this.occupied = true;
+            //new object definition
+            var Seat = function(x, y, width, height, name) {
+                this.x = x;
+                this.y = y;
+                this.width = width;
+                this.height = height;
+                if (Math.random() >= 0.3) {
+                    this.occupied = false;
+                } else {
+                    this.occupied = true;
+                }
+                this.mouseHover = false;
+                this.chosen = false;
+                this.seatname = name;
             }
-            this.mouseHover = false;
-            this.chosen = false;
-            this.seatname = name;
-        }
 
-        //function for object -> seat.coor_inside(x, y);
-        Seat.prototype.coor_inside = function(x, y) {
-            return (x >= this.x && x <= this.x + this.width && y >= this.y && y <= this.y + this.height);
-        }
+            //function for object -> seat.coor_inside(x, y);
+            Seat.prototype.coor_inside = function(x, y) {
+                return (x >= this.x && x <= this.x + this.width && y >= this.y && y <= this.y + this.height);
+            }
 
 
 
-        /**** ************ ****/
-        /*** Create Objects ***/
-        /**** ************ ****/
+            /**** ************ ****/
+            /*** Create Objects ***/
+            /**** ************ ****/
 
-        var seat = [];
-        for (i = 0; i < 16; i++) {
-            seat[i] = new Seat(i*50+5, i*10+5, 40, 20+i*10, i+1);
-        }
+            var seat = [];
+            for (i = 0; i < 16; i++) {
+                seat[i] = new Seat(i*50+5, i*10+5, 40, 20+i*10, i+1);
+            }
 
 
 
-        /**** ********* ****/
-        /*** Draw Screen ***/
-        /**** ********* ****/
+            /**** ********* ****/
+            /*** Draw Screen ***/
+            /**** ********* ****/
 
-        function draw_screen() {
-            ctx.clearRect(0, 0, canvas.width, canvas.height);
-            seat.forEach(function(e){
-                if (e.occupied) {
-                    if (e.mouseHover) {
-                        ctx.fillStyle = "darkred";
-                    } else {
-                        ctx.fillStyle = "red";
-                    }
-                } else {
-                    if (e.chosen) {
+            function draw_screen() {
+                ctx.clearRect(0, 0, canvas.width, canvas.height);
+                seat.forEach(function(e){
+                    if (e.occupied) {
                         if (e.mouseHover) {
-                            ctx.fillStyle = "goldenrod";
+                            ctx.fillStyle = "darkred";
                         } else {
-                            ctx.fillStyle = "gold";
+                            ctx.fillStyle = "red";
                         }
                     } else {
-                        if (e.mouseHover) {
-                            ctx.fillStyle = "darkgreen";
+                        if (e.chosen) {
+                            if (e.mouseHover) {
+                                ctx.fillStyle = "goldenrod";
+                            } else {
+                                ctx.fillStyle = "gold";
+                            }
                         } else {
-                            ctx.fillStyle = "forestgreen";
+                            if (e.mouseHover) {
+                                ctx.fillStyle = "darkgreen";
+                            } else {
+                                ctx.fillStyle = "forestgreen";
+                            }
                         }
                     }
-                }
-                ctx.fillRect(e.x, e.y, e.width, e.height);
+                    ctx.fillRect(e.x, e.y, e.width, e.height);
 
-                ctx.fillStyle = "black";
-                ctx.font = "30px Arial";
-                ctx.fillText(e.seatname, e.x, e.y + e.height - (e.height / 2) + 10);
-            });
-        }
-
+                    ctx.fillStyle = "black";
+                    ctx.font = "30px Arial";
+                    ctx.fillText(e.seatname, e.x, e.y + e.height - (e.height / 2) + 10);
+                });
+            }
 
 
-        /**** ********* ****/
-        /*** Mouse Hover ***/
-        /**** ********* ****/
 
-        draw_screen();
-
-        //test for mouse over
-        canvas.addEventListener("mousemove", function(e){
-            //get mouse coordinates according to canvas position on screen
-            var canvasBounds = canvas.getBoundingClientRect();
-            var mouseX = e.pageX - canvasBounds.left;
-            var mouseY = e.pageY - canvasBounds.top;
-
-            //check mouse position
-            seat.forEach(function(e){
-                if (e.coor_inside(mouseX, mouseY)) {
-                    e.mouseHover = true;
-                } else {
-                    e.mouseHover = false;
-                }
-            });
+            /**** ********* ****/
+            /*** Mouse Hover ***/
+            /**** ********* ****/
 
             draw_screen();
-        });
+
+            //test for mouse over
+            canvas.addEventListener("mousemove", function(e){
+                //get mouse coordinates according to canvas position on screen
+                var canvasBounds = canvas.getBoundingClientRect();
+                var mouseX = e.pageX - canvasBounds.left;
+                var mouseY = e.pageY - canvasBounds.top;
+
+                //check mouse position
+                seat.forEach(function(e){
+                    if (e.coor_inside(mouseX, mouseY)) {
+                        e.mouseHover = true;
+                    } else {
+                        e.mouseHover = false;
+                    }
+                });
+
+                draw_screen();
+            });
 
 
 
-        /**** ********* ****/
-        /*** Mouse Click ***/
-        /**** ********* ****/
+            /**** ********* ****/
+            /*** Mouse Click ***/
+            /**** ********* ****/
 
-        canvas.addEventListener("click", function(e){
-            //get mouse coordinates according to canvas position on screen
-            var canvasBounds = canvas.getBoundingClientRect();
-            var mouseX = e.pageX - canvasBounds.left;
-            var mouseY = e.pageY - canvasBounds.top;
+            canvas.addEventListener("click", function(e){
+                //get mouse coordinates according to canvas position on screen
+                var canvasBounds = canvas.getBoundingClientRect();
+                var mouseX = e.pageX - canvasBounds.left;
+                var mouseY = e.pageY - canvasBounds.top;
 
-            //check mouse position
-            seat.forEach(function(e){
-                if (e.coor_inside(mouseX, mouseY)) {
-                    if (!e.occupied) {
-                        if (e.chosen) {
-                            e.chosen = false;
-                        } else {
-                            e.chosen = true;
+                //check mouse position
+                seat.forEach(function(e){
+                    if (e.coor_inside(mouseX, mouseY)) {
+                        if (!e.occupied) {
+                            if (e.chosen) {
+                                e.chosen = false;
+                            } else {
+                                e.chosen = true;
+                            }
                         }
                     }
-                }
+                });
             });
-        });
-    </script>
+        </script>
+    </div>
 </div>
