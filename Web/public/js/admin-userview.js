@@ -53,6 +53,7 @@ $('#meta_checkbox').click(function(e){
 
 $(function () {
    $('#removeUserBtn').click(function () {
+       alert("Are you sure you wish to delete selected users?");
        console.log("Deleting user...");
    })
 });

@@ -1,30 +1,28 @@
+<div class="col-lg-offset-2">
+    <div class="col-lg-10 content-background">
+        <h1>Admin Panel - Brugere</h1>
+        <br><br><br>
 
-<div> <!--class="col-lg-offset-2">-->
-    <div> <!--class="col-lg-10 content-background">-->
-        <h1>Admin panel - brugere</h1>
-        <p>Nothing here yet</p>
-    </div>
-
-    <div class="panel panel-primary" style="width: 80%; margin-left: 300px; margin-top: 200px">
-        <!--TODO: INLINE STYLING SKAL FJERNES NÅR LAYOUTET ER DONE-->
-        <!-- Default panel contents -->
-        <div class="panel-heading">User Administration</div>
+    <div class="panel panel-primary col-lg-12">
         <!-- Table -->
-
+        <h2>Brugeradministration</h2>
         <form method="post" role="presentation" action="/users.handlebars">
             <table class="table table-condensed table-hover">
-                <thead>
 
-                <a class="btn btn-primary btn-lg" href="#" role="button" id="getUsersBtn"
-                   style="margin-left: 5px;margin-top: 5px">Show Users</a>
-                <button type="button" class="btn btn-lg btn-danger" id="removeUserBtn" style="float: right; margin-top: 5px; margin-right: 5px" disabled="disabled">Delete Selected</button>
+                <button type="button" class="btn btn-lg btn-primary" id="getUsersBtn"
+                        style="margin-top:5px;margin-bottom: 5px;">Show Users
+                </button>
+                <button type="button" class="btn btn-lg btn-danger" id="removeUserBtn"
+                        style="float: right;margin-top:5px;margin-bottom: 5px;" disabled="disabled">Delete Selected
+                </button>
                 <!--TODO: Fjern inline CSS-->
-                <p>
-                <p>Funktioner:</p>
-                <p>Knap der ændrer nedenstående tabel data til de data der er i collection. TODO: tilføj søgekriterier (alle
-                    users fra SDU odense fx). </p>
-                <p>Knap ved mouseover til højre for brugeren hvor man kan slette denne bruger fra databasen</p>
-                <p>Ved klik på feltet i tabellen skal man kunne redigere i værdierne</p></thead>
+                <!--         <p>
+                         <p>Funktioner:</p>
+                         <p>Knap der ændrer nedenstående tabel data til de data der er i collection. TODO: tilføj søgekriterier
+                             (alle
+                             users fra SDU odense fx). </p>
+                         <p>Knap ved mouseover til højre for brugeren hvor man kan slette denne bruger fra databasen</p>
+                         <p>Ved klik på feltet i tabellen skal man kunne redigere i værdierne</p>-->
 
                 <tr>
                     <th><input type="checkbox" id="meta_checkbox"></th>
@@ -44,6 +42,7 @@
             </table>
         </form>
 
+    </div>
     </div>
 </div>
 <script src="/js/admin-userview.js"></script>
