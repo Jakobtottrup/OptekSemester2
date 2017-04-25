@@ -4,10 +4,10 @@
 @import url(/font-awesome/css/font-awesome.min.css);
 body{
     margin-top:20px;
-    background: -webkit-linear-gradient(left, #0b3b6d , #0f4ab6, #0b3b6d ); /* For Safari 5.1 to 6.0 */
-    background: -o-linear-gradient(right, #0b3b6d , #0f4ab6, #0b3b6d ); /* For Opera 11.1 to 12.0 */
-    background: -moz-linear-gradient(right, #0b3b6d , #0f4ab6, #0b3b6d ); /* For Firefox 3.6 to 15 */
-    background: linear-gradient(to right, #0b3b6d , #0f4ab6, #0b3b6d ); /* Standard syntax */
+    background: -webkit-linear-gradient(left, #0e3966 , #123e8e, #0e3966 ); /* For Safari 5.1 to 6.0 */
+    background: -o-linear-gradient(right, #0e3966 , #123e8e, #0e3966 ); /* For Opera 11.1 to 12.0 */
+    background: -moz-linear-gradient(right, #0e3966 , #123e8e, #0e3966 ); /* For Firefox 3.6 to 15 */
+    background: linear-gradient(to right, #0e3966 , #123e8e, #0e3966 ); /* Standard syntax */
 }
 
 .fa-fw {width: 2em;}
@@ -17,65 +17,63 @@ body{
 }*/
 
 
-.nav-bar-space_bhbx {
-    margin-top: 100px;
-    margin-left: 20%;
-    width: 60%;
+#countdown {
+    border-radius: 30px;
+    background: #3c3c3c;
+    padding: 25px;
+    width: 320px;
+    height: 75px;
+    box-shadow: -1px 3px 1px rgba(0, 0, 0, 0.46);
+    color: #8fa6bd;
+    margin-left: 500px;
+    margin-top: 25px;
+    position: center;
+    font-family: "Agency FB";
+    font-size: 20px;
+}
+.pagecontent{
+    border-radius: 30px;
+    background: #3c3c3c;
+    padding: 25px;
+    width: 520px;
+    height: 750px;
+    box-shadow:-1px 3px 1px rgba(0, 0, 0, 0.46);
+    color: #8fa6bd;
+    position: center;
+    margin-left: 400px;
+    margin-top: 25px;
+    font-family: "Agency FB";
+    font-size: 20px;
 }
 
-h1 {
-    font-size: 16px;
-    font-family: "Agency FB";
-    color: rgb(192, 187, 187);
-    line-height: 1.2;
-    text-align: left;
-    text-shadow: -1px 1px 0.2px rgba(0, 0, 0, 0.46);
-    -moz-transform: matrix( 4.14545096292274,0,0,4.10046349594743,0,0);
-    -webkit-transform: matrix( 4.14545096292274,0,0,4.10046349594743,0,0);
-    -ms-transform: matrix( 4.14545096292274,0,0,4.10046349594743,0,0);
-    position:absolute;
-    left: 120px;
-    top: 55px;
-    z-index: 3;
-    margin-left:221px;
-    margin-top: 50px;
-}
-p {
-    font-size: 16px;
-    font-family: "Agency FB";
-    color: #afafaf;
-    text-align: left;
-    text-shadow: -1px 1px 0.2px rgba(0, 0, 0, 0.46);
-    margin-left: 150px;
+#myCarousel{
+    border-radius: 5px;
+    background: #3c3c3c;
+    padding: 50px;
+    width: 770px;
+    height: 420px;
+    box-shadow:-1px 3px 1px rgba(0, 0, 0, 0.46);
+    color: #8fa6bd;
+    position: center;
+    margin-left: 260px;
+    margin-top: 20px;
+
 
 }
-.myCarousel{
-}
-.indexlist li{
-    font-size: 15px;
-    font-family: "Agency FB";
-    color: #c0c1c3;
-    text-align: left;
-    text-shadow: -1px 1px 0.2px rgba(0, 0, 0, 0.46);
-    margin-left: 130px;
-}
-#dashboardTabs{
-    border-radius: 10px;
+
+
+.nav-pills{
+    border-radius: 30px;
     background: #3c3c3c;
     padding: 10px;
-    width: 200px;
-    height: 425px;
-    margin-top: -15px;
-    margin-left: -10px;
+    width: 220px;
+    height: 450px;
     box-shadow:-1px 3px 1px rgba(0, 0, 0, 0.46);
-}
-
-.DashboardMenu li{
-    font-size: 14px;
+    color: #8fa6bd;
+    margin-left: -10px;
+    margin-top: -15px;
     font-family: "Agency FB";
-    color: #c0c1c3;
-    text-align: left;
-    text-shadow: -1px 1px 0.2px rgba(0, 0, 0, 0.46);
+    font-size: 15px;
 }
 .navbar {
     border-radius: 10px;
@@ -86,12 +84,32 @@ p {
     font-family: "Agency FB";
     font-size: 19px;
     border-color:#3c3c3c;
+    margin-top: 10px;
+    margin-right: 1;
+}
+.page-header{
+    margin-left: 260px;
+}
+.page-header h1{
+    font-family:"Agency FB";
+    margin-left: 360px;
+    border-radius: 10px;
+    padding: 18px;
+    background: #3c3c3c;
+    box-shadow:-1px 3px 1px rgba(0, 0, 0, 0.46);
+    text-shadow:-1px 3px 1px rgba(0, 0, 0, 0.46);
+    background: #3c3c3c;
+    border-color:#3c3c3c;
+    width: 120px;
+    height: 70px;
+    position:center;
+    color:#8fa6bd;
 }
 /*>> STYLING FOR seatgroup<<*/
-html {
+/*html {
     font-family: 'Raleway', sans-serif;
     margin-left: 10px;
-}
+}*/
 
 .group-wrapper {
     height: 150px;

@@ -31,11 +31,40 @@ timer = setInterval (showRemaining, 1000);
 /* Countdown script ends here */
 </script>
 <!-- Begin page content -->
-    <div class="container nav-bar-space">
+    <div>
         <div class="page-header">
             <h1>Forside</h1>
         </div>
-        <header id="myCarousel" class="carousel slide" style="margin-left:200px">
+
+        <div id="countdown"></div>
+        <div class="pagecontent">
+            <p class="lead">Forside features:</p>
+            <ul class="indexlist">
+                <li>Billedkarusel (evt. med video highlights fra forrige lan events)</li>
+                <li>Random {{random 0 100}}</li>
+                <li>{{capitalize "test hdfus"}}</li>
+                <li>Countdown timer</li>
+                <li>Facebook plugin</li>
+                <li>Pladsbestilling</li>
+                <li>Turneringstilmelding</li>
+                <li>Login funktion (alm. brugere kan måske se deres egen data) - Admins kommer til admin side</li>
+                <li>Google maps + SDU maps</li>
+                <li>Info (sidebar?)
+                    <ul>
+                        <li>huskeliste</li>
+                        <li>om crew</li>
+                        <li>betaling</li>
+                        <li>om shoppen til eventet</li>
+                        <li>regler</li>
+                        <li>om S7Lan</li>
+                        <li>sponsorer</li>
+                        <li>pladsreservering</li>
+                        <li>test </li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+        <header id="myCarousel" class="carousel slide">
             <!-- Indicators -->
             <ol class="carousel-indicators">
                 <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
@@ -77,32 +106,4 @@ timer = setInterval (showRemaining, 1000);
             </a>
 
         </header>
-        <div id="countdown"></div>
-        <div>
-            <p class="lead">Forside features:</p>
-            <ul class="indexlist">
-                <li>Billedkarusel (evt. med video highlights fra forrige lan events)</li>
-                <li>Random {{random 0 100}}</li>
-                <li>{{capitalize "test hdfus"}}</li>
-                <li>Countdown timer</li>
-                <li>Facebook plugin</li>
-                <li>Pladsbestilling</li>
-                <li>Turneringstilmelding</li>
-                <li>Login funktion (alm. brugere kan måske se deres egen data) - Admins kommer til admin side</li>
-                <li>Google maps + SDU maps</li>
-                <li>Info (sidebar?)
-                    <ul>
-                        <li>huskeliste</li>
-                        <li>om crew</li>
-                        <li>betaling</li>
-                        <li>om shoppen til eventet</li>
-                        <li>regler</li>
-                        <li>om S7Lan</li>
-                        <li>sponsorer</li>
-                        <li>pladsreservering</li>
-                        <li>test </li>
-                    </ul>
-                </li>
-            </ul>
-        </div>
     </div>
