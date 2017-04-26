@@ -80,7 +80,7 @@ var directionsDisplay;
 var directionsService = new google.maps.DirectionsService();
 
 function initialize() {
-    directionsDisplay = new google.maps.DirectionsRenderer();
+    directionsDisplay = new google.maps.DirectionsRenderer(( { suppressMarkers: true } ));
     var mapOptions = {
         center: center,
         zoom: 15,
@@ -116,7 +116,7 @@ function initialize() {
         position: SDU,
         map: map,
         icon:"/img/icons/S7LanMarker.png",
-        title: "Syddansk Universitet, Odense"
+        title:"Syddansk Universitet, Odense"
     });
 
     // This event expects a click on a marker
@@ -129,11 +129,13 @@ function initialize() {
     google.maps.event.addListener(map, 'click', function() {
         infowindowSDU.close();
     });
+
+    $('.VejButton').on('click',function() {
+        $(this).prop("disabled",true);
+    });
 }
 
 function showRoute() {
-    // var start = userLocation;
-    // var end = SDU;
 
     navigator.geolocation.getCurrentPosition(function(pos) {
         var start = new google.maps.LatLng(pos.coords.latitude, pos.coords.longitude);
