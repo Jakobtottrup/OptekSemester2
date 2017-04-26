@@ -12,6 +12,7 @@
         <link rel="stylesheet" type="text/css" href="/bootstrap/dist/css/bootstrap-theme.min.css">
         <link rel="stylesheet" type="text/css" href="/css/main.css">
         <!--<link rel="stylesheet" type="text/css" href="/css/draft_1_1.css">-->
+        <!--link rel="stylesheet" type="text/css" href="/css/colortest.css"-->
 
         <script src="/jquery/dist/jquery.min.js"></script>
         <script src="/bootstrap/dist/js/bootstrap.min.js"></script>
@@ -25,8 +26,8 @@
     <body>
     <div id="wrapper">
         <!--navigations bar -->
-        <nav class="navbar navbar-default">
-            <div class="container-fluid">
+        <nav class="navbar navbar-default top-menu-back">
+            <div class="container-fluid top-menu">
                 <!-- Brand and toggle get grouped for better mobile display -->
                 <div class="navbar-header">
                     <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
@@ -127,6 +128,6 @@
 <script>
 $(document).ready(function(){
     var path = window.location.pathname;
-    $("#dashboard-nav").find('a[href$="' +path+ '"]').parent().addClass("active");
+    $("#dashboard-nav").find('a[href$="' +path+ '"]').parent().addClass("active").addClass("my_active");
 });
 </script>
