@@ -73,8 +73,15 @@ router.get('/sponsors', ensureAdminAuthenticated, function(req, res){
     res.render('admin-backend/sponsors', {title: "Sponsorer"});
 });
 
+// RENDER EVENT VIEW
+router.get('/events', ensureAdminAuthenticated, function(req, res){
+    res.render('admin-backend/events', {title: "Admin Panel"});
+});
 
-
+// RENDER MAILS VIEW
+router.get('/mails', ensureAdminAuthenticated, function(req, res){
+    res.render('admin-backend/mails', {title: "Admin Panel", name: "Brugers navn"});
+});
 
 
 

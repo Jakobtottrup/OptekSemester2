@@ -38,13 +38,28 @@
         <div class="modal-content">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal">&times;</button>
-                <h4 class="modal-title">Opret turnering</h4>
+                <h3 class="modal-title">Opret turnering</h3>
             </div>
             <div class="modal-body">
-                <p>Indtast oplysninger for en ny turnering</p>
+                <h4>Indtast oplysninger for en ny turnering</h4>
+                <p>Indtast navnet for turneringen</p>
+                <div>
+                    <input type="text" class="form-control" id="input_name" placeholder="Navn" name="tour_name" style="width: 60%">
+                    <input type="button" value="Upload billede" onclick="upLoadPic()"/>
+                </div>
+                <br>
+
+                <p>Giv en beskrivelse af turneringen</p>
+                <input type="text" class="form-control" id="input_name" placeholder="Beskrivelse" name="tour_info">
+                <br>
+
+                <p>Giv en beskrivelse af turneringen</p>
+                <input type="text" class="form-control" id="input_name" placeholder="Beskrivelse" name="tour_info">
+                <br>
+
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                <button type="button" method="post" class="btn btn-success" data-dismiss="modal">Opret</button>
             </div>
         </div>
 
@@ -66,7 +81,8 @@
                 <p></p>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                <button type="button" method="post" class="btn btn-danger" data-dismiss="modal">Annuller</button>
+                <button type="button" method="post" class="btn btn-success" data-dismiss="modal">Gem</button>
             </div>
         </div>
 
