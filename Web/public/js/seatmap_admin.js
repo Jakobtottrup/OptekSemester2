@@ -2,126 +2,91 @@
  * Created by ste on 24-04-2017.
  */
 
-    var temp;
+
+var canvas = document.getElementById('pladskort-admin');
+
+//get a reference to the 2d drawing context / api
+var ctx = canvas.getContext('2d');
 
 
+/*** ****** ***/
+/** settings **/
+/*** ****** ***/
 
+var temp;
 
+mycanvas = {width: 640, height: 360};
 
-
-    var canvas = document.getElementById('pladskort-admin');
-
-    //get a reference to the 2d drawing context / api
-    var ctx = canvas.getContext('2d');
+col_state = ["green", "yellow", "red"];
+col_state_m = ["darkgreen", "gold", "brown"];
 
 /*** ********************** ***/
 /** scale for responsive page */
 /*** ********************** ***/
 
-    canvas.style.width = '100%';
-    canvas.style.height = (canvas.style.width / 16) * 9;
+canvas.style.width = '100%';
+canvas.style.height = (canvas.style.width / 16) * 9;
 
-    // ...then set the internal size to match
-    canvas.width  = canvas.offsetWidth;
-    canvas.height = (canvas.width / 16) * 9;
+// ...then set the internal size to match
+canvas.width  = canvas.offsetWidth;
+canvas.height = (canvas.width / 16) * 9;
 
-    //set the drawing surface dimensions to match the canvas
-    canvas.width = canvas.scrollWidth;
-    canvas.height = canvas.scrollHeight;
+//set the drawing surface dimensions to match the canvas
+canvas.width = canvas.scrollWidth;
+canvas.height = canvas.scrollHeight;
 
-    if (canvas.width > 1000) {
-        screen_level = 2; //big screen
-    } else if (canvas.width > 500) {
-        screen_level = 1; //tablet
-    } else {
-        screen_level = 0; //phone
-    }
+if (canvas.width > 800) {
+    screen_level = 2; //big screen
+} else if (canvas.width > 500) {
+    screen_level = 1; //tablet
+} else {
+    screen_level = 0; //phone
+}
 
-    $("#screen_level").html("<p>Screen level: " + screen_level + "</p>");
+$("#screen_level").html("<p>Screen level: " + screen_level + "</p>");
 
-    if (screen_level == 0) {
-        $("#new_map").hide();
-        $("#new_map_btn").hide();
-    } else {
-        $("#new_map").show();
-        $("#new_map_btn").show();
-    }
+if (screen_level == 0) {
+    $("#new_map").hide();
+    $("#new_map_btn").hide();
+} else {
+    $("#new_map").show();
+    $("#new_map_btn").show();
+}
 
-    //since all text is given in pixels
-    scaling = canvas.width / 640;
+scaling = canvas.width / mycanvas.width;
+
+//reload on resize
+$(window).resize(function(){location.reload();});
 
 /*** ***************** ***/
 /** get map from databse */
 /*** ***************** ***/
 
-    seatmap = false;
+seatmap = false;
 
-    function getSeatData(){
-        return $.ajax({
-            type: 'GET',
-            url: "/api/seats",
-            dataType: "json"
-        }).done(function(data){
-            seatmap = data;
-        });
-    }
-
-    $.when(getSeatData()).done(function() {
-        seatmapCleanup(seatmap);
-        setVariables();
-        drawScreen();
+function getSeatData(){
+    return $.ajax({
+        type: 'GET',
+        url: "/api/seats",
+        dataType: "json"
+    }).done(function(data){
+        seatmap = data;
     });
+}
+
+$.when(getSeatData()).done(function() {
+    seatmapCleanup(seatmap);
+    setVariables();
+    drawScreen();
+});
 
 
-    //konverter kort til JSON
-    function savemap() {
-        $(function () {
-            $('#seatName').val(JSON.stringify(seatmap));
-        });
-    }
-
-/*
-    seatmap = {
-        'info':{
-            'seats':20,
-            'open':true
-        },
-        'seats':[
-            {
-                'type':'chair',
-                'label':'B4',
-                'state':0,
-                'userid':'1234',
-                'groupid':'444454434'
-            },{
-                'type':'chair',
-                'label':'B3',
-                'state':2,
-                'userid':'6ts4ss',
-                'groupid':'g4g33c32'
-            },{
-                'type':'wall',
-                'label':'0',
-                'state':0,
-                'userid':'0',
-                'groupid':'0'
-            },{
-                'type':'air',
-                'label':'0',
-                'state':0,
-                'userid':'0',
-                'groupid':'0'
-            }
-        ]
-    };
-*/
-
-/*** ********** ***/
-/** set functions */
-/*** ********** ***/
-
-    //reload on resize
-    $(window).resize(function(){location.reload();});
+//konverter kort til JSON
+function savemap() {
+    $(function () {
+        $('#seatName').val(JSON.stringify(seatmap));
+    });
+}
 
 function seatmapCleanup(json_seat) {
     if (json_seat == false || json_seat == []) {
@@ -131,11 +96,11 @@ function seatmapCleanup(json_seat) {
         temp = [];
         for (var i = 0; i < thiswidth * thisheight; i++) {
             temp.push({
+                x: Math.floor(Math.random()*600),
+                y: Math.floor(Math.random()*300),
                 type: 0,
                 label: i,
-                state: 0,
-                userid: 0,
-                groupid: 0
+                state: Math.floor(Math.random()*3)
             });
         }
 
@@ -165,36 +130,43 @@ function seatmapCleanup(json_seat) {
 /*** *********** ***/
 
 function setVariables() {
-
+    temp = (mycanvas.width * 0.9) / seatmap.room_width;
+    seat_size = temp * 0.9;
+    seat_offset = (mycanvas.width - (seat_size * seatmap.room_width)) / (seatmap.room_width + 1);
 }
 
+/*** ********** ****/
+/** set functions **/
+/*** ********** ****/
 
+function drawPixels() {
+    var i = 0;
+    for (var j = 0; j < seatmap.room_height; j++) {
+        for (var k = 0; k < seatmap.room_width; k++) {
+            ctx.fillStyle = col_state[seatmap.seats[i].state];
+            ctx.fillRect(k * (seat_size + seat_offset) + seat_offset, j * (seat_size + seat_offset) + seat_offset, seat_size, seat_size);
+            i++;
+        }
+    }
+}
 
 /*** *********** ***/
 /** draw on screen */
 /*** *********** ***/
 
 function drawScreen() {
+    ctx.scale(scaling, scaling);
     if (screen_level == 0) {
         //phone
         ctx.fillStyle = "#bfbfbf";
-        ctx.fillRect(10, 10, canvas.width - 20, canvas.height - 20);
-
-        ctx.scale(scaling, scaling);
+        ctx.fillRect(10, 10, mycanvas.width - 20, mycanvas.height - 20);
 
         ctx.fillStyle = "red";
         ctx.font = "30px Arial";
         ctx.textAlign="center";
         ctx.fillText("Dette er skrøbeligt data.",320,160);
-        ctx.fillText("Brug en større enhed.",320,200);
-
-        ctx.scale(1/scaling, 1/scaling);
+        ctx.fillText("Benyt en anden enhed.",320,200);
     } else {
-        ctx.fillText("Det virker!",320,200);
+        drawPixels();
     }
 }
-
-/* scale and rescale
-ctx.scale(scaling, scaling);
-ctx.scale(1/scaling, 1/scaling);
-*/
