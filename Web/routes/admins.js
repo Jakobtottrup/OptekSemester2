@@ -14,6 +14,8 @@ const express = require('express');
 const router = express.Router();
 
 const seats = require('../models/seats');
+const User = require('../models/user');
+var userRoute = router.route('/users/:_id');
 
 
 
@@ -255,5 +257,21 @@ router.delete('/users', ensureAdminAuthenticated, function (req, res) {
 
     //res.redirect('/users');
 });
+userRoute.get(function(req, res) {
+    User.findById(req.params._id, function(err, user) {
+        if (err)
+            res.send(err);
 
+        res.json(user);
+    });
+});
+
+userRoute.delete(function(req, res) {
+    console.log("deleting user");
+    User.findByIdAndRemove(req.params._id, function(err) {
+        if (err)
+            res.send(err);
+        res.json({ message: 'User removed from the DB!' });
+    });
+});
 module.exports = router;

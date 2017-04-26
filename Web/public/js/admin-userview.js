@@ -17,7 +17,7 @@ function deleteUser() {
     $.ajax({
         type: 'DELETE',
         url: '/admins/users',
-        data: {deleteUserId: deleteUserId}
+        dataType: 'json'
     });
 }
 $.when(getUsersData().done(function () {
@@ -79,6 +79,7 @@ $(function () {
     $('#removeUserBtn').click(function (e) {
         /*console.log(deleteUserId[i]._id);
          deleteUser();*/
+        deleteUser();
         for (i = 0; i < deleteUserId.length; i++) {
             console.log(deleteUserId[i]._id);
         }
