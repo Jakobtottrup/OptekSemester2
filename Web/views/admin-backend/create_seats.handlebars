@@ -2,17 +2,23 @@
     <div class="col-lg-10 content-background">
         <div>
             <h1>Create Seats</h1>
+            <div id="screen_level"></div>
         </div>
 
-        <script src="/js/seatmap_admin.js"></script>
+        <canvas id="pladskort-admin" style="border: 1px solid;">
+            <p>Din browser understøtter ikke canvas</p>
+        </canvas>
+
+        <button onclick="savemap()">Konverter kort til JSON</button>
 
         <form id="new-user" accept-charset="utf-8" method="post" action="/admins/create_seats">
             <div class="form-group">
-                <label>Seat Name</label>
-                <input type="text" id="seatName" class="form-control" placeholder="A0" maxlength="2" minlength="2" required name="seatName">
+                <input type="text" id="seatName" class="form-control" placeholder="JSON fil" required name="seatName">
             </div>
-            <input type="submit" name="submit" value="Create Seat" class="btn btn-primary">
+            <input type="submit" name="submit" value="Gem kort" class="btn btn-primary">
         </form>
     </div>
 </div>
+
+<script src="/js/seatmap_admin.js"></script>
 

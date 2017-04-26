@@ -66,7 +66,7 @@ router.get('/users', function (req, res) {
 // SEATS INFORMATION
 router.get('/seats', function (req, res) {
     if (typeof req.user === "object" && req.user.isAdmin === true) {    // IF USER REQUESTING IS LOGGED IN AS ADMIN - ADMIN
-        seats.find({},{__v:0}, function(err, data){
+        seats.find({},{__v:0, _id:0}, function(err, data){
             if(err) throw err;
             res.json(data);
             console.log("ADMIN API CALL"); // TODO

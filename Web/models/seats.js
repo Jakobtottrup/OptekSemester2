@@ -7,6 +7,13 @@ mongoose.Promise = require('bluebird');
 
 // Seat Schema for creating seats
 var SeatSchema = mongoose.Schema({
+    container: {
+        type: String
+    }
+
+
+
+/*
     seatName: {
         type: String
     },
@@ -22,6 +29,26 @@ var SeatSchema = mongoose.Schema({
     seatGroupID: {
         type: String
     }
+*/
+
+
+
+    /*
+    roomWidth: {
+        type: Number
+    },
+    roomHeight: {
+        type: Number
+    },
+    roomStage: {
+        type: Number
+    },
+    roomOpen: {
+        type: Boolean
+    },
+    seats: {
+        type: Array
+    }*/
 });
 
 var seats = module.exports = mongoose.model('seats', SeatSchema);

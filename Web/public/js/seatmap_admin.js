@@ -1,19 +1,155 @@
 /**
  * Created by ste on 24-04-2017.
  */
-document.write("seatmap admin script initialized");
 
-function getSeatData(){
-    return $.ajax({
-        type: 'GET',
-        url: "/api/seats",
-        dataType: "json"
-    }).done(function(data){
-        groupData = data;
+
+
+
+
+
+
+
+    var canvas = document.getElementById('pladskort-admin');
+
+    //get a reference to the 2d drawing context / api
+    var ctx = canvas.getContext('2d');
+
+/*** ********************** ***/
+/** scale for responsive page */
+/*** ********************** ***/
+
+    canvas.style.width = '100%';
+    canvas.style.height = (canvas.style.width / 16) * 9;
+
+    // ...then set the internal size to match
+    canvas.width  = canvas.offsetWidth;
+    canvas.height = (canvas.width / 16) * 9;
+
+    //set the drawing surface dimensions to match the canvas
+    canvas.width = canvas.scrollWidth;
+    canvas.height = canvas.scrollHeight;
+
+    if (canvas.width > 1000) {
+        screen_level = 2; //big screen
+    } else if (canvas.width > 500) {
+        screen_level = 1; //tablet
+    } else {
+        screen_level = 0; //phone
+    }
+
+    document.getElementById("screen_level").innerHTML = "<p>Screen level: " + screen_level + "</p>";
+
+    //since all text is given in pixels
+    scaling = canvas.width / 640;
+
+/*** ***************** ***/
+/** get map from databse */
+/*** ***************** ***/
+
+    seatmap = false;
+
+    function getSeatData(){
+        return $.ajax({
+            type: 'GET',
+            url: "/api/seats",
+            dataType: "json"
+        }).done(function(data){
+            seatmap = data;
+        });
+    }
+
+    $.when(getSeatData()).done(function() {
+        console.log(seatmap);
+        setVariables();
+        drawScreen();
     });
+
+
+    //konverter kort til JSON
+    function savemap() {
+        $(function () {
+            $('#seatName').val(JSON.stringify(seatmap));
+        });
+    }
+
+/*
+    seatmap = {
+        'info':{
+            'seats':20,
+            'open':true
+        },
+        'seats':[
+            {
+                'type':'chair',
+                'label':'B4',
+                'state':0,
+                'userid':'1234',
+                'groupid':'444454434'
+            },{
+                'type':'chair',
+                'label':'B3',
+                'state':2,
+                'userid':'6ts4ss',
+                'groupid':'g4g33c32'
+            },{
+                'type':'wall',
+                'label':'0',
+                'state':0,
+                'userid':'0',
+                'groupid':'0'
+            },{
+                'type':'air',
+                'label':'0',
+                'state':0,
+                'userid':'0',
+                'groupid':'0'
+            }
+        ]
+    };
+*/
+
+/*** ********** ***/
+/** set functions */
+/*** ********** ***/
+
+    //reload on resize
+    $(window).resize(function(){location.reload();});
+
+/*** *********** ***/
+/** set variables **/
+/*** *********** ***/
+
+function setVariables() {
+
 }
 
-$.when(getSeatData()).done(function(){
-    console.log(groupData);
-});
 
+
+/*** *********** ***/
+/** draw on screen */
+/*** *********** ***/
+
+function drawScreen() {
+    if (screen_level == 0) {
+        //phone
+        ctx.fillStyle = "#bfbfbf";
+        ctx.fillRect(10, 10, canvas.width - 20, canvas.height - 20);
+
+        ctx.scale(scaling, scaling);
+
+        ctx.fillStyle = "red";
+        ctx.font = "30px Arial";
+        ctx.textAlign="center";
+        ctx.fillText("Dette er skrøbeligt data.",320,160);
+        ctx.fillText("Brug en anden enhed.",320,200);
+
+        ctx.scale(1/scaling, 1/scaling);
+    } else {
+        ctx.fillText("Det virker!",320,200);
+    }
+}
+
+/* scale and rescale
+ctx.scale(scaling, scaling);
+ctx.scale(1/scaling, 1/scaling);
+*/

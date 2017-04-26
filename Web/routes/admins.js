@@ -5,9 +5,20 @@
 
 //// USED TO DISPLAY ADMIN BACKEND PANEL ////
 
+const mongo = require('mongodb');
+const mongoose = require('mongoose');
+const db = mongoose.connection;
+
 
 const express = require('express');
 const router = express.Router();
+
+const seats = require('../models/seats');
+
+
+
+
+
 
 // ADMIN AUTHENTICATION
 function ensureAdminAuthenticated(req, res, next){
@@ -61,8 +72,13 @@ router.get('/sponsors', ensureAdminAuthenticated, function(req, res){
 });
 
 
+
+
+
+
+/*
+
 // REGISTER SEAT
-var seats = require('../models/seats');
 router.post('/create_seats', ensureAdminAuthenticated, function(req, res){
     var seatName = req.body.seatName;
 
@@ -77,12 +93,54 @@ router.post('/create_seats', ensureAdminAuthenticated, function(req, res){
         console.log(errors);
     } else { //if validation succeeds server sends data to database using modelschema "users.js"
         var newSeat = new seats({
+            test: seatName
+            /*
             seatName: seatName,
             seatState: 0,
             seatOpen: false,
             seatUserID: 0,
-            seatGroupID: 0
+            seatGroupID: 0*//*
         });
+
+
+*/
+
+
+/*
+
+        // get a user with ID of 1
+        User.findById(1, function(err, user) {
+            if (err) throw err;
+
+            // change the users location
+            seats = 'uk';
+
+            // save the user
+            user.save(function(err) {
+                if (err) throw err;
+
+                console.log('User successfully updated!');
+            });
+
+        });
+*/
+/*
+
+
+
+        // find the user starlord55
+        // update him to starlord 88
+        seats.findOneAndUpdate({test: 'asdfgjkljhgfdsaSDFKJLJHGFDSA'}, { test: 'abcba' }, function(err, user) {
+            if (err) throw err;
+
+            // we have the updated user returned to us
+            console.log(user);
+        });
+
+
+*/
+/*
+        console.log(seats.find({test: 'ddeeff'}));
 
         newSeat.save(function(err) {
             if (err) throw err;
@@ -90,8 +148,102 @@ router.post('/create_seats', ensureAdminAuthenticated, function(req, res){
             console.log("Seat created!");
         });
         res.redirect('/admins/create_seats');
+
+
     }
 });
+
+*/
+
+
+
+router.post('/create_seats', ensureAdminAuthenticated, function(req, res){
+    var seatName = req.body.seatName;
+
+    // VALIDATION
+    req.checkBody('seatName', 'Pladsnavn er nødvendigt').notEmpty();
+
+    var errors = req.validationErrors();
+    if(errors){ // if validation fails
+        res.render('frontend/index',{
+            errors:errors
+        });
+        console.log(errors);
+    } else { //if validation succeeds server sends data to database using modelschema "users.js"
+
+        var newSeat = new seats({
+            container: seatName
+        });
+
+
+
+
+
+        //seats.remove({}, {console.log("collection cleared")});
+
+        seats.remove({}, function(err) {
+                if (err) {
+                    console.log(err);
+                } else {
+
+                    newSeat.save(function(err) {
+                        if (err) throw err;
+
+                        console.log("Room created!");
+                    });
+
+                    res.end('success');
+                }
+            }
+        );
+
+    res.redirect('/admins/create_seats');
+
+    }
+ });
+
+
+
+
+
+/*
+
+router.put('/create_seats/:id', function(req, res){
+    var id = req.params.id;
+console.log("HEEEEEY YO CONSOLE LOG");
+    seats.findOne({_id: id}, function(err, foundObject) {
+        if (err) {
+            console.log(err);
+            res.status(500).send();
+        } else {
+            if (!foundObject) {
+                res.status(404).send();
+            } else {
+                if (req.body.name) {
+                    foundObject.name = req.body.name;
+                }
+
+                if (req.body.icecreamname) {
+                    foundObject.icecreamname = req.body.icecreamname;
+                }
+
+                foundObject.save(function(err, updatedObject) {
+                    if (err) {
+                        console.log(err);
+                        res.status(500).send();
+                    } else {
+                        res.send(updatedObject);
+                    }
+                });
+            }
+        }
+    });
+
+});
+*/
+
+
+
 
 // RENDER EVENT VIEW
 router.get('/events', ensureAdminAuthenticated, function(req, res){
