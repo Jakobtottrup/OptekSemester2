@@ -14,9 +14,10 @@ function getUsersData() {
 }
 function deleteUser() {
     console.log(deleteUserId);
-     $.ajax({
-        type: 'POST',
-        url: '/admins/users'
+    $.ajax({
+        type: 'DELETE',
+        url: '/admins/users',
+        data: {deleteUserId: deleteUserId}
     });
 }
 $.when(getUsersData().done(function () {
@@ -76,10 +77,11 @@ $(function () {
 
 $(function () {
     $('#removeUserBtn').click(function (e) {
-        deleteUser(deleteUserId);
-        /*for (i = 0; i < deleteUserId.length; i++) {
+        /*console.log(deleteUserId[i]._id);
+         deleteUser();*/
+        for (i = 0; i < deleteUserId.length; i++) {
             console.log(deleteUserId[i]._id);
-        }*/
+        }
         //console.log(deleteUserId);
 
         $(':checkbox').prop('checked', false);
