@@ -2,7 +2,7 @@
  * Created by ste on 24-04-2017.
  */
 
-
+    var temp;
 
 
 
@@ -68,7 +68,6 @@
 
     $.when(getSeatData()).done(function() {
         seatmapCleanup(seatmap);
-        console.log(seatmap);
         setVariables();
         drawScreen();
     });
@@ -126,9 +125,30 @@
 
 function seatmapCleanup(json_seat) {
     if (json_seat == false || json_seat == []) {
-        seatmap = {seats : "good"};
+        var thiswidth = 16;
+        var thisheight = 9;
+
+        temp = [];
+        for (var i = 0; i < thiswidth * thisheight; i++) {
+            temp.push({
+                type: 0,
+                label: i,
+                state: 0,
+                userid: 0,
+                groupid: 0
+            });
+        }
+
+        seatmap = {
+            room_width: thiswidth,
+            room_height: thisheight,
+            seats_tot: 0,
+            map_open: false,
+            seats: temp
+        };
+
     } else {
-        var temp = JSON.stringify(json_seat).split("\\");
+        temp = JSON.stringify(json_seat).split("\\");
         var res = "";
         temp.forEach(function (item, index) {
             res += item;
@@ -166,7 +186,7 @@ function drawScreen() {
         ctx.font = "30px Arial";
         ctx.textAlign="center";
         ctx.fillText("Dette er skrøbeligt data.",320,160);
-        ctx.fillText("Brug en anden enhed.",320,200);
+        ctx.fillText("Brug en større enhed.",320,200);
 
         ctx.scale(1/scaling, 1/scaling);
     } else {
