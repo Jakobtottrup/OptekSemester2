@@ -1,7 +1,7 @@
 
 <div class="col-lg-offset-2">
     <div class="col-lg-10 content-background">
-        <h1>Admin panel - turneringer</h1>
+        <h1>Administrer turneringer</h1>
         <div>
             <table class="table table-condensed table-hover">
                 <button type="button" class="btn btn-lg btn-primary" id="getUsersBtn" data-toggle="modal" data-target="#modal-create"
@@ -44,27 +44,43 @@
             </div>
             <div class="modal-body">
                 <h4>Indtast oplysninger for en ny turnering</h4>
-                <p>Indtast navn for turneringen</p>
-                <div>
-                    <input type="text" class="form-control" id="input_name" placeholder="Navn" name="tour_name" style="width: 60%; flost:left">
-                    <input type="button" class="btn btn-lg btn-primary" value="Upload billede" onclick="upLoadPic()" style="float: right"/>
+                <div class="well">
+                    <p>Indtast navn for turneringen</p>
+                    <input type="text" class="form-control" id="input_name" placeholder="Navn" name="tour_name" style="width: 70%; display: inline">
+                    <input type="button" class="btn btn-lg btn-primary" value="Upload billede" onclick="upLoadPic()"/>
+                </div>
+                <div class="well">
+                    <p>Giv en beskrivelse af turneringen</p>
+                    <input type="text" class="form-control" id="input_name" placeholder="Beskrivelse" name="tour_info">
                 </div>
                 <br>
+                <div class="well">
+                    <p>Tidspunkt for turneringen</p>
 
-                <p>Giv en beskrivelse af turneringen</p>
-                <input type="text" class="form-control" id="input_name" placeholder="Beskrivelse" name="tour_info">
-                <br>
+                </div>
+                <div class="well">
+                    <p>Turnering indstillinger</p>
+                    <input type="checkbox">
 
-                <p>Giv en beskrivelse af turneringen</p>
-                <input type="text" class="form-control" id="input_name" placeholder="Beskrivelse" name="tour_info">
-                <br>
+                </div>
+                <div class="well">
+                    <p>Præmier</p>
+                </div>
+                <div class="well">
+                    <p>Hold indstillinger</p>
+
+                </div>
+
+
+
+
+
 
             </div>
             <div class="modal-footer">
                 <button type="button" method="post" class="btn btn-success" data-dismiss="modal">Opret</button>
             </div>
         </div>
-
     </div>
 </div>
 
@@ -94,11 +110,10 @@
 <script src="/js/tournaments_admin.js"></script>
 
 <style>
-    .open {
+    .true {
         background-color: rgba(0, 255, 0, 0.2);
     }
-    .closed{
+    .false{
         background-color: rgba(255, 0, 0, 0.2);
     }
-
 </style>

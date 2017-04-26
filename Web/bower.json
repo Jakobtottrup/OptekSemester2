@@ -19,7 +19,6 @@
     "jquery": "^3.2.1",
     "ajax": "^2.1.5",
     "angular": "^1.6.4",
-    "font-awesome": "fontawesome#^4.7.0",
-    "requirejs": "^2.3.3"
+    "font-awesome": "fontawesome#^4.7.0"
   }
 }

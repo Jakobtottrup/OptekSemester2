@@ -18,6 +18,7 @@
         <script src="/ajax/dist/ajax.min.js"></script>
         <script src="/angular/angular.min.js"></script>
 
+
         <title>{{ title }}</title>
     </head>
 
@@ -87,7 +88,7 @@
                     {{#if user}}
                     <div class="col-lg-2">
                         <ul class="nav nav-pills nav-stacked dash-menu">
-                            <li><a href="/dashboard"><i class="fa fa-crosshairs fa-fw "></i>{{user.username}}'s dashboard</a></li>
+                            <li><a href="/dashboard"><i class="fa fa-crosshairs fa-fw "></i>{{user.username}}'s Dashboard</a></li>
                             {{#unless user.isAdmin}}
                             <li><a href="/users/userinfo"><i class="fa fa-edit fa-fw"></i>Bruger info</a></li>
                             <li><a href="/users/getseat"><i class="fa fa-th fa-fw"></i>Din Plads</a></li>
