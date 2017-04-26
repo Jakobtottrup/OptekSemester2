@@ -175,12 +175,6 @@ router.post('/create_seats', ensureAdminAuthenticated, function(req, res){
             container: seatName
         });
 
-
-
-
-
-        //seats.remove({}, {console.log("collection cleared")});
-
         seats.remove({}, function(err) {
                 if (err) {
                     console.log(err);

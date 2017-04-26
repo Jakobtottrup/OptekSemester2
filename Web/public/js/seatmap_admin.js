@@ -37,7 +37,15 @@
         screen_level = 0; //phone
     }
 
-    document.getElementById("screen_level").innerHTML = "<p>Screen level: " + screen_level + "</p>";
+    $("#screen_level").html("<p>Screen level: " + screen_level + "</p>");
+
+    if (screen_level == 0) {
+        $("#new_map").hide();
+        $("#new_map_btn").hide();
+    } else {
+        $("#new_map").show();
+        $("#new_map_btn").show();
+    }
 
     //since all text is given in pixels
     scaling = canvas.width / 640;
@@ -59,6 +67,7 @@
     }
 
     $.when(getSeatData()).done(function() {
+        seatmapCleanup(seatmap);
         console.log(seatmap);
         setVariables();
         drawScreen();
@@ -114,6 +123,22 @@
 
     //reload on resize
     $(window).resize(function(){location.reload();});
+
+function seatmapCleanup(json_seat) {
+    if (json_seat == false || json_seat == []) {
+        seatmap = {seats : "good"};
+    } else {
+        var temp = JSON.stringify(json_seat).split("\\");
+        var res = "";
+        temp.forEach(function (item, index) {
+            res += item;
+        });
+
+        var del_this = "container";
+        temp = res.substring(res.indexOf(del_this) + del_this.length + 3, res.length - 3);
+        seatmap = JSON.parse(temp);
+    }
+}
 
 /*** *********** ***/
 /** set variables **/

@@ -9,11 +9,11 @@
             <p>Din browser understøtter ikke canvas</p>
         </canvas>
 
-        <button onclick="savemap()">Konverter kort til JSON</button>
+        <button id="new_map_btn" onclick="savemap()">Konverter kort til JSON</button>
 
-        <form id="new-user" accept-charset="utf-8" method="post" action="/admins/create_seats">
+        <form id="new_map" accept-charset="utf-8" method="post" action="/admins/create_seats">
             <div class="form-group">
-                <input type="text" id="seatName" class="form-control" placeholder="JSON fil" required name="seatName">
+                <input type="text" id="seatName" name="seatName" class="form-control" placeholder="JSON fil" required readonly> <!-- readonly -->
             </div>
             <input type="submit" name="submit" value="Gem kort" class="btn btn-primary">
         </form>
