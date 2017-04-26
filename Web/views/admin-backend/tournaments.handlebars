@@ -2,7 +2,75 @@
 <div class="col-lg-offset-2">
     <div class="col-lg-10 content-background">
         <h1>Admin panel - turneringer</h1>
-        <p>Nothing here yet</p>
+        <div>
+            <table class="table table-condensed table-hover">
+                <button type="button" class="btn btn-lg btn-primary" id="getUsersBtn" data-toggle="modal" data-target="#modal-create"
+                        style="margin-top:5px;margin-bottom: 5px;">Opret turnering
+                </button>
+                <button type="button" class="btn btn-lg btn-primary" id="getUsersBtn" data-toggle="modal" data-target="#modal-edit"
+                        style="margin-top:5px;margin-bottom: 5px; float:right;">Ændre oplysninger
+                </button>
+
+                <tr>
+                    <th>#</th>
+                    <th>Navn</th>
+                    <th>Start/Slut</th>
+                    <th>Beskrivelse</th>
+                    <th>Billede</th>
+                    <th>Hold</th>
+                    <th>Åben for tilmelding</th>
+                    <th>Præmier</th>
+                </tr>
+                <tbody id="data_insert">
+                </tbody>
+            </table>
+
+        </div>
     </div>
 </div>
 
+
+<!-- Modal for creating tournaments -->
+<div id="modal-create" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">Opret turnering</h4>
+            </div>
+            <div class="modal-body">
+                <p>Indtast oplysninger for en ny turnering</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+
+<!-- Modal for editing information -->
+<div id="modal-edit" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">Ændre</h4>
+            </div>
+            <div class="modal-body">
+                <p></p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+<script src="/js/tournaments_admin.js"></script>

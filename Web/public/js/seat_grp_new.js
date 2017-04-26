@@ -50,6 +50,11 @@ $.when(getGroupData(), getUsersData(), getUserData()).done(function(){
     });
     createGroup(hasGroup, isLeader);
 
+    $.ajax({
+            type: 'PUT',
+            url: "/api/test",
+            dataType: "json"
+        });
 });
 
 function createGroup(hasGroup){

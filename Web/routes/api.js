@@ -180,4 +180,32 @@ router.get('/event', function (req, res) {
 });
 
 
+
+router.get('/test', function(req, res){
+    console.log("GET triggered");
+    res.sendStatus(200);
+});
+
+router.post('/test', function(req, res){
+    console.log("POST triggered");
+    res.sendStatus(200);
+
+});
+
+router.put('/test', function(req, res){
+    console.log("UPDATE triggered");
+    res.sendStatus(200);
+
+});
+
+router.delete('/test', function(req, res, data){
+    console.log("DELETE triggered");
+    console.log(data);
+    res.location("www.google.dk");
+    res.sendStatus(200);
+});
+
+
+
+
 module.exports = router;
