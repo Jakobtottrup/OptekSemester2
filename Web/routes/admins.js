@@ -258,7 +258,7 @@ router.get('/mails', ensureAdminAuthenticated, function(req, res){
     res.render('admin-backend/mails', {title: "Admin Panel", name: "Brugers navn"});
 });
 
-router.delete('/users', ensureAdminAuthenticated, function (req, res) {
+router.delete('/users/:_id', ensureAdminAuthenticated, function (req, res) {
     console.log("deleted");
     console.log(req.body);
 
