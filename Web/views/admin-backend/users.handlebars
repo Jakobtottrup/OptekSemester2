@@ -1,3 +1,5 @@
+
+<script src="/js/admin-userview.js"></script>
 <div class="col-lg-offset-2">
     <div class="col-lg-10 content-background">
         <h1>Admin Panel - Brugere</h1>
@@ -9,13 +11,15 @@
         <form method="post" role="presentation" action="/users.handlebars">
             <table class="table table-condensed table-hover">
 
-                <button type="button" class="btn btn-lg btn-primary" id="getUsersBtn"
-                        style="margin-top:5px;margin-bottom: 5px;">Show Users
+                <button type="button" class="btn btn-lg btn-primary" id="paidBtn"
+                        style="margin: 5px 5px 5px 0;" disabled="disabled" >Has Paid
+                </button>
+                <button type="button" class="btn btn-lg btn-primary" id="notPaidBtn"
+                        style="margin: 5px;" disabled="disabled">Has NOT Paid
                 </button>
                 <button type="button" class="btn btn-lg btn-danger" id="removeUserBtn"
                         style="float: right;margin-top:5px;margin-bottom: 5px;" disabled="disabled">Delete Selected
                 </button>
-                <!--TODO: Fjern inline CSS-->
                 <!--         <p>
                          <p>Funktioner:</p>
                          <p>Knap der ændrer nedenstående tabel data til de data der er i collection. TODO: tilføj søgekriterier
@@ -24,8 +28,8 @@
                          <p>Knap ved mouseover til højre for brugeren hvor man kan slette denne bruger fra databasen</p>
                          <p>Ved klik på feltet i tabellen skal man kunne redigere i værdierne</p>-->
 
-                <tr>
-                    <th><input type="checkbox" id="meta_checkbox"></th>
+                <tr class="data_row">
+                    <th><input type="checkbox" id="selectAll"></th>
                     <th>#</th>
                     <th>Username</th>
                     <th>Age</th>
@@ -44,4 +48,3 @@
     </div>
     </div>
 </div>
-<script src="/js/admin-userview.js"></script>
