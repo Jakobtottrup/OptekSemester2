@@ -48,8 +48,16 @@ $.when(getGroupData(), getUsersData(), getUserData()).done(function(){
             isLeader = true;
         }
     });
-    checkGroup(hasGroup, isLeader);
+    createGroup(hasGroup, isLeader);
+
 });
+
+function createGroup(hasGroup){
+    console.log("hasGroup: "+hasGroup);
+}
+
+
+
 
 
 var Group = function(leaderID, members, groupName, _id){

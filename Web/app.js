@@ -16,6 +16,8 @@ const localStrategy = require('passport-local').Strategy;
 const mailer = require('express-mailer');
 const helpers = require('handlebars-helpers')();
 
+
+
 // DATABASE CONNECTION
 const mongo = require('mongodb');
 const mongoose = require('mongoose');
@@ -149,7 +151,7 @@ app.use("*", function (req, res) {
 //Set Port
 app.set('port', (process.env.PORT || 3000));
 
-app.listen(app.get('port'), function () {
+app.listen(app.get('port'), "0.0.0.0", function () {
     console.log('Server started on port ' + app.get('port'));
 });
 
@@ -166,6 +168,11 @@ mailer.extend(app, {
         pass: 'userpass'
     }
 });
+
+
+
+
+
 // CONSOLE LOGS
 db.on('error', console.error.bind(console, 'connection error:'));
 db.once('open', function () {

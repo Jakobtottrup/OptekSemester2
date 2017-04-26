@@ -45,7 +45,7 @@ router.get('/users', function (req, res) {
         User.find({},{__v:0, password:0}, function(err, data){
             if(err) throw err;
             res.json(data);
-            console.log("ADMIN API API CALL"); // TODO
+            console.log("ADMIN API CALL"); // TODO
         });
     } else if (typeof req.user === "object") {                          // IF USER REQUESTING IS NOT ADMIN - USER
         User.find({},{__v:0, password:0}, function(err, data) {
