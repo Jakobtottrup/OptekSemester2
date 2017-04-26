@@ -45,19 +45,16 @@ router.get('/users', function (req, res) {
         User.find({},{__v:0, password:0}, function(err, data){
             if(err) throw err;
             res.json(data);
-            console.log("ADMIN API CALL"); // TODO
         });
     } else if (typeof req.user === "object") {                          // IF USER REQUESTING IS NOT ADMIN - USER
         User.find({},{__v:0, password:0}, function(err, data) {
             if (err) throw err;
             res.json(data);
-            console.log("USER API CALL"); // TODO
         });
     } else {                                                            // IF THERE IS NO USER LOGGED IN - PUBLIC
         User.find({},{__v:0, password:0, age:0, email:0, studie:0, steam:0, bnet:0, isAdmin:0, fakultet:0}, function(err, data) {
             if (err) throw err;
             res.json(data);
-            console.log("PUBLIC API CALL"); // TODO
         });
     }
 });
@@ -69,19 +66,16 @@ router.get('/seats', function (req, res) {
         seats.find({},{__v:0, _id:0}, function(err, data){
             if(err) throw err;
             res.json(data);
-            console.log("ADMIN API CALL"); // TODO
         });
     } else if (typeof req.user === "object") {                          // IF USER REQUESTING IS NOT ADMIN - USER
         seats.find({},{__v:0}, function(err, data) {
             if (err) throw err;
             res.json(data);
-            console.log("USER API CALL"); // TODO
         });
     } else {                                                            // IF THERE IS NO USER LOGGED IN - PUBLIC
         seats.find({},{__v:0}, function(err, data) {
             if (err) throw err;
             res.json(data);
-            console.log("PUBLIC API CALL"); // TODO
         });
     }
 });
@@ -93,13 +87,11 @@ router.get('/seatgroups', function (req, res) {
         Group.find({},{__v:0, password:0}, function(err, data){
             if(err) throw err;
             res.json(data);
-            console.log("ADMIN API CALL"); // TODO
         });
     } else if (typeof req.user === "object") {                          // IF USER REQUESTING IS NOT ADMIN - USER
         Group.find({},{__v:0, password:0, createdAt:0}, function(err, data) {
             if (err) throw err;
             res.json(data);
-            console.log("USER API CALL"); // TODO
         });
     } else {                                                            // IF THERE IS NO USER LOGGED IN - PUBLIC
         req.flash('error_msg', 'Du er ikke logget ind');
@@ -114,19 +106,16 @@ router.get('/sponsors', function (req, res) {
         Sponsors.find({},{__v:0}, function(err, data){
             if(err) throw err;
             res.json(data);
-            console.log("ADMIN API CALL"); // TODO
         });
     } else if (typeof req.user === "object") {                          // IF USER REQUESTING IS NOT ADMIN - USER
         Sponsors.find({},{__v:0}, function(err, data) {
             if (err) throw err;
             res.json(data);
-            console.log("USER API CALL"); // TODO
         });
     } else {                                                            // IF THERE IS NO USER LOGGED IN - PUBLIC
         Sponsors.find({},{__v:0}, function(err, data) {
             if (err) throw err;
             res.json(data);
-            console.log("PUBLIC API CALL"); // TODO
         });
     }
 });
@@ -138,19 +127,17 @@ router.get('/tournaments', function (req, res) {
         Tournaments.find({},{__v:0}, function(err, data){
             if(err) throw err;
             res.json(data);
-            console.log("ADMIN API CALL"); // TODO
+
         });
     } else if (typeof req.user === "object") {                          // IF USER REQUESTING IS NOT ADMIN - USER
         Tournaments.find({},{__v:0}, function(err, data) {
             if (err) throw err;
             res.json(data);
-            console.log("USER API CALL"); // TODO
         });
     } else {                                                            // IF THERE IS NO USER LOGGED IN - PUBLIC
         Tournaments.find({},{__v:0}, function(err, data) {
             if (err) throw err;
             res.json(data);
-            console.log("PUBLIC API CALL"); // TODO
         });
     }
 });
@@ -162,19 +149,16 @@ router.get('/event', function (req, res) {
         Event.find({},{__v:0}, function(err, data){
             if(err) throw err;
             res.json(data);
-            console.log("ADMIN API CALL"); // TODO
         });
     } else if (typeof req.user === "object") {                          // IF USER REQUESTING IS NOT ADMIN - USER
         Event.find({},{__v:0}, function(err, data) {
             if (err) throw err;
             res.json(data);
-            console.log("USER API CALL"); // TODO
         });
     } else {                                                            // IF THERE IS NO USER LOGGED IN - PUBLIC
         Event.find({},{__v:0}, function(err, data) {
             if (err) throw err;
             res.json(data);
-            console.log("PUBLIC API CALL"); // TODO
         });
     }
 });

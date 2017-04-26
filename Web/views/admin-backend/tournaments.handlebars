@@ -10,6 +10,8 @@
                 <button type="button" class="btn btn-lg btn-primary" id="getUsersBtn" data-toggle="modal" data-target="#modal-edit"
                         style="margin-top:5px;margin-bottom: 5px; float:right;">Ændre oplysninger
                 </button>
+                <br>
+                <br>
 
                 <tr>
                     <th>#</th>
@@ -18,7 +20,7 @@
                     <th>Beskrivelse</th>
                     <th>Billede</th>
                     <th>Hold</th>
-                    <th>Åben for tilmelding</th>
+                    <th>Deltagere</th>
                     <th>Præmier</th>
                 </tr>
                 <tbody id="data_insert">
@@ -42,10 +44,10 @@
             </div>
             <div class="modal-body">
                 <h4>Indtast oplysninger for en ny turnering</h4>
-                <p>Indtast navnet for turneringen</p>
+                <p>Indtast navn for turneringen</p>
                 <div>
-                    <input type="text" class="form-control" id="input_name" placeholder="Navn" name="tour_name" style="width: 60%">
-                    <input type="button" value="Upload billede" onclick="upLoadPic()"/>
+                    <input type="text" class="form-control" id="input_name" placeholder="Navn" name="tour_name" style="width: 60%; flost:left">
+                    <input type="button" class="btn btn-lg btn-primary" value="Upload billede" onclick="upLoadPic()" style="float: right"/>
                 </div>
                 <br>
 
@@ -75,7 +77,7 @@
         <div class="modal-content">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal">&times;</button>
-                <h4 class="modal-title">Ændre</h4>
+                <h4 class="modal-title">Informationer</h4>
             </div>
             <div class="modal-body">
                 <p></p>
@@ -90,3 +92,13 @@
 </div>
 
 <script src="/js/tournaments_admin.js"></script>
+
+<style>
+    .open {
+        background-color: rgba(0, 255, 0, 0.2);
+    }
+    .closed{
+        background-color: rgba(255, 0, 0, 0.2);
+    }
+
+</style>
