@@ -67,11 +67,11 @@ body {
 
 }
 
-/**  ********   **
- ** USER PANEL  **
-/**  ********   **/
+/**  ************   **
+ ** ADMIN USERVIEW  **
+/**  ************   **/
 
-.col-lg-offset-2 {
+#userpanel1{
     color: #122b40;
     text-shadow: 0px 0px 0px rgba(0, 0, 0, 0.00);
     font-size: 13px;
@@ -79,6 +79,16 @@ body {
 #userpanel1 h2{
     color: #122b40;
 
+}
+ /*/ **************** */
+ /*/ TOURNAMENT PANEL */
+ /*/ **************** */
+
+#tournamentpanel1 {
+
+    color: #122b40;
+    text-shadow: 0px 0px 0px rgba(0, 0, 0, 0.00);
+    font-size: 13px;
 }
 
 /** ******* **/
