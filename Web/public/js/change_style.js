@@ -59,23 +59,23 @@ function update_style() {
  */
 
 col_set = [
-    {main:"#003B46",menu:"#07575B",info:"#66A5AD",text:"#C4DFE6",order:"1234",name:"Cool Blues"},//1
-    {main:"#021C1E",menu:"#004445",info:"#2C7873",text:"#6FB98F",order:"1234",name:"Watery Blue-Greens"},//2
-    {main:"#011A27",menu:"#063852",info:"#F0810F",text:"#E6DF44",order:"1234",name:"Day & Night"},//3
+    //{main:"#003B46",menu:"#07575B",info:"#66A5AD",text:"#C4DFE6",order:"1234",name:"Cool Blues"},//1
+    //{main:"#021C1E",menu:"#004445",info:"#2C7873",text:"#6FB98F",order:"1234",name:"Watery Blue-Greens"},//2
+    //{main:"#011A27",menu:"#063852",info:"#F0810F",text:"#E6DF44",order:"1234",name:"Day & Night"},//3
     {main:"#1E1F26",menu:"#283655",info:"#4D648D",text:"#D0E1F9",order:"1234",name:"Berry Blues"},//4
-    {main:"#F9BA32",menu:"#426E86",info:"#F8F1E5",text:"#2F3131",order:"1234",name:"Modern & Urban"},//5
+    //{main:"#F9BA32",menu:"#426E86",info:"#F8F1E5",text:"#2F3131",order:"1234",name:"Modern & Urban"},//5
 
     {main:"#04202C",menu:"#304040",info:"#5B7065",text:"#C9D1C8",order:"1234",name:"Misty Greens"},//6
-    {main:"#217CA3",menu:"#E29930",info:"#32384D",text:"#211D30",order:"1234",name:"Sun & Sky"},//7
-    {main:"#004D47",menu:"#128277",info:"#52958B",text:"#B9C4C9",order:"1234",name:"Aqua Blues"},//8
-    {main:"#335252",menu:"#D4DDE1",info:"#AA4B41",text:"#2D3033",order:"1234",name:"Understated & Versatile"},//9
+    //{main:"#217CA3",menu:"#E29930",info:"#32384D",text:"#211D30",order:"1234",name:"Sun & Sky"},//7
+    //{main:"#004D47",menu:"#128277",info:"#52958B",text:"#B9C4C9",order:"1234",name:"Aqua Blues"},//8
+    //{main:"#335252",menu:"#D4DDE1",info:"#AA4B41",text:"#2D3033",order:"1234",name:"Understated & Versatile"},//9
     {main:"#2C4A52",menu:"#537072",info:"#8E9B97",text:"#F4EBDB",order:"1234",name:"Hazy Grays"},//10
 
-    {main:"#2F2E33",menu:"#D5D6D2",info:"#FFFFFF",text:"#3A5199",order:"1234",name:"Sleek & Modern"},//11
+    //{main:"#2F2E33",menu:"#D5D6D2",info:"#FFFFFF",text:"#3A5199",order:"1234",name:"Sleek & Modern"},//11
     {main:"#756867",menu:"#D5D6D2",info:"#353C3F",text:"#FF8D3F",order:"1234",name:"Orange Accent"},//12
-    {main:"#962715",menu:"#FFFFFF",info:"#1E1E20",text:"#BBC3C6",order:"1234",name:"Professional & Traditional"},//13
-    {main:"#A3A599",menu:"#FBCD4B",info:"#282623",text:"#88A550",order:"1234",name:"Technology Meets Nature"},//14
-    {main:"#DDDEDE",menu:"#232122",info:"#A5C05B",text:"#7BA4A8",order:"1234",name:"Urban Living"},//15
+    //{main:"#962715",menu:"#FFFFFF",info:"#1E1E20",text:"#BBC3C6",order:"1234",name:"Professional & Traditional"},//13
+    //{main:"#A3A599",menu:"#FBCD4B",info:"#282623",text:"#88A550",order:"1234",name:"Technology Meets Nature"},//14
+    //{main:"#DDDEDE",menu:"#232122",info:"#A5C05B",text:"#7BA4A8",order:"1234",name:"Urban Living"},//15
 
     {main:"#2C4A52",menu:"#8E9B97",info:"#537072",text:"#F4EBDB",order:"1234",name:"Gustav test 1"}//16
 ];
