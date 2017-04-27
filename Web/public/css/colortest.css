@@ -8,6 +8,13 @@
 /** ****** **/
 /* Old Main */
 /** ****** **/
+/*>> STYLING FOR seatgroup<<*/
+@import url(/font-awesome/css/font-awesome.min.css);
+/*body{margin-top:20px;}*/
+.fa-fw {width: 2em;}
+
+
+
 html, body {
     margin:0;
     padding:0;

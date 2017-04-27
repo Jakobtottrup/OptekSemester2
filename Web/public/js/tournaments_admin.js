@@ -21,19 +21,32 @@ $.when(document, getTournamentsData()).done(function(){
     var output = "";
     $.each(tournamentsData, function(key, data){
         output += "<tr class='data_row "+data.isOpen+"' id='"+data._id+"'>";
-        output += "<td>" + (key+1) + "</td>";                                                                                                           // index
-        output += "<td><b>" + data.name + "</b></td>";                                                                                                  // navn
-        output += "<td>Start: " + data.begintime + "<br>Slut: " + data.endtime + "</td>";                                                               // start/slut
-        output += "<td><input class='btn btn-primary' type='button' value='Se beskrivelse' onclick='showTourDescription(' +data.description+ ')'/></td>";     // beskrivelse TODO
-        output += "<td><input class='btn btn-primary' type='button' value='Se billede' onclick='showPic(' +data.description+ ')'/></td>";                     // billede
-        output += "<td>Max antal: "+ data.max_teams +"<br>Tilmeldte: "+ data.teams.length +"</td><br>";                                                 // hold
-        output += "<td><input class='btn btn-primary' type='button' value='Se deltagere' onclick='showMembers(' +data.teams+ ')'/></td>";                     // medlemmer
-        output += "<td>" + prizes(data.prices) + "</td>";                                                                                               // præmier
+        output += "<td>" + (key+1) + "</td>";
+        output += "<td><b>" + data.name + "</b></td>";
+        output += "<td>Start: " + data.begintime + "<br>Slut: " + data.endtime + "</td>";
+        output += "<td><input class='btn btn-primary' type='button' value='Se beskrivelse' onclick='showTourDescription(this)'/></td>";
+        output += "<td><input class='btn btn-primary' type='button' value='Se billede' onclick='showPic(this)'/></td>";
+        output += "<td>Max antal: "+ data.max_teams +"<br>Tilmeldte: "+ data.teams.length +"</td><br>";
+        output += "<td><input class='btn btn-primary' type='button' value='Se deltagere' onclick='showMembers(this)'/></td>";
+        output += "<td>" + prizes(data.prices) + "</td>";
         output += "</tr>";
     });
     output += "";
     $('#data_insert').append(output);
 });
+
+
+//show tournament description
+function showTourDescription(source){
+    getID(source);
+}
+
+
+function getID(source){
+    var id = $(source).closest("tr").prop("id");
+    console.log(id);
+    return id;
+}
 
 
 // stack prices
@@ -59,11 +72,6 @@ function showPic(data){
 }
 
 
-//show tournament description
-function showTourDescription(data){
-    console.log(data);
-
-}
 
 function editTournament(data){
 

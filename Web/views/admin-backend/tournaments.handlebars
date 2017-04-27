@@ -53,14 +53,21 @@
                     <p>Giv en beskrivelse af turneringen</p>
                     <input type="text" class="form-control" id="input_name" placeholder="Beskrivelse" name="tour_info">
                 </div>
-                <br>
                 <div class="well">
                     <p>Tidspunkt for turneringen</p>
-
+                    <div style="display: inline;">
+                        <p>Start</p>
+                        <input type="datetime-local" name="startime">
+                        <input type="time" name="usr_time">
+                    </div>
+                    <p>Slut</p>
+                    <input type="datetime-local" name="endtime">
+                    <input type="time" name="usr_time">
                 </div>
                 <div class="well">
-                    <p>Turnering indstillinger</p>
-                    <input type="checkbox">
+                    <p>Indstillinger for turnering</p>
+                    <input type="checkbox"><label> Synlig</label>
+                    <input type="checkbox"><label> Åben for tilmelding</label>
 
                 </div>
                 <div class="well">

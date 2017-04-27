@@ -41,7 +41,7 @@ router.get('/localuser', ensureAuthenticated, function(req, res) {
 
 // USERS INFORMATION
 router.get('/users', function (req, res) {
-    if (typeof req.user === "object" && req.user.isAdmin === true) {    // IF USER REQUESTING IS LOGGED IN AS ADMIN - ADMIN
+    if (typeof req.user === "object") {    // IF USER REQUESTING IS LOGGED IN AS ADMIN - ADMIN
         User.find({},{__v:0, password:0}, function(err, data){
             if(err) throw err;
             res.json(data);
