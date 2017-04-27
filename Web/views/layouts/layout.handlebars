@@ -10,8 +10,9 @@
 
         <link rel="stylesheet" type="text/css" href="/bootstrap/dist/css/bootstrap.min.css">
         <link rel="stylesheet" type="text/css" href="/bootstrap/dist/css/bootstrap-theme.min.css">
-        <link rel="stylesheet" type="text/css" href="/css/main.css">
-        <!--link rel="stylesheet" type="text/css" href="/css/draft_1_2.css"-->
+        <!--link rel="stylesheet" type="text/css" href="/css/main.css"-->
+        <link rel="stylesheet" type="text/css" href="/css/draft_1_2.css">
+        <!--link rel="stylesheet" type="text/css" href="/css/colortest.css"-->
 
         <script src="/jquery/dist/jquery.min.js"></script>
         <script src="/bootstrap/dist/js/bootstrap.min.js"></script>
@@ -19,7 +20,7 @@
         <script src="/angular/angular.min.js"></script>
 
 
-        <script src="/js/change_style.js"></script>
+        <!--script src="/js/change_style.js"></script-->
 
         <title>{{ title }}</title>
     </head>
@@ -122,6 +123,9 @@
         <div id="footer">
             <div class="container">
                 <p class="text-muted">SKELLINGTONS | ARE | SPOOKY </p>
+                <button onclick="previous_style()">PREVIOUS STYLE</button>
+                <button onclick="next_style()">NEXT STYLE</button>
+                <p class="new_style_info">Script change_style.js failed to load</p>
             </div>
         </div>
     </div>

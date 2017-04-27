@@ -1,0 +1,114 @@
+/*:root{*/
+/*--main-:#04202C; !*main*!*/
+/*--menu-:#304040; !*footer, menu*!*/
+/*--info-:#5B7065; !*info-box*!*/
+/*--text-:#C9D1C8; !*text*!*/
+/*}*/
+
+/** ****** **/
+/* Old Main */
+/** ****** **/
+html, body {
+    margin:0;
+    padding:0;
+    height:100%;
+}
+
+#wrapper {
+    min-height:100%;
+    position:relative;
+}
+
+.content-center {
+    padding-bottom:100px; /* Height of the footer element */
+}
+#footer {
+    background-color: orange;
+    width:100%;
+    height:100px;
+    position:absolute;
+    bottom:0;
+    left:0;
+}
+
+
+
+/** ******* **/
+/* Main page */
+/** ******* **/
+body {
+    background-color: var(--main-);
+}
+
+#footer {
+    background-color: var(--menu-);
+}
+
+#footer p {
+    color: var(--info-);
+}
+
+
+
+/** ****** **/
+/* Top Menu */
+/** ****** **/
+.top-menu, .top-menu-back {
+    background-color: var(--text-);
+    border-color: var(--info-);
+    width: 100%;
+    z-index: 100;
+    border-radius: 0px 0px 10px 10px;
+    top: 0;
+    border-top: 0;
+}
+
+
+
+/** ******* **/
+/* Dash Menu */
+/** ******* **/
+.dash-menu {
+    background-color: var(--menu-);
+    margin-top: -20px;
+    border-radius: 0px 0px 16px 16px;
+}
+
+.dash-menu a {
+    color: var(--text-);
+}
+
+
+
+
+/** ********** **/
+/* Content page */
+/** ********** **/
+.content-background {
+    background-color: var(--info-);
+    max-width: 90%;
+    margin: auto;
+    margin-bottom: 120px;
+    border-radius: 20px 20px 20px 20px;
+}
+
+.content-background h1, .content-background h2, .content-background h3, .content-background h4, .content-background h5, .content-background h6 {
+    color: var(--text-);
+}
+
+.content-background p {
+    color: var(--text-);
+}
+
+.content-background li {
+    color: var(--text-);
+    padding: 8px;
+}
+
+.content-background .important {
+    font-weight: 900;
+}
+
+.content-background a {
+    color: var(--main-);
+}
