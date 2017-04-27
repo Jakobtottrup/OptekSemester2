@@ -1,0 +1,166 @@
+:root{
+    --main-:#2C4A52; /*main*/
+    --menu-:#8E9B97; /*footer, menu*/
+    --info-:#537072; /*info-box*/
+    --text-:#F4EBDB; /*text*/
+}
+
+/** ****** **/
+/* Old Main */
+/** ****** **/
+html, body {
+    margin:0;
+    padding:0;
+    height:100%;
+}
+
+#wrapper {
+    min-height:100%;
+    position:relative;
+}
+
+.content-center {
+    box-shadow:-1px 1px 1px rgba(0, 0, 0, 0.46);
+
+}
+
+
+
+/** ******* **/
+/* Main page */
+/** ******* **/
+body {
+    box-shadow:-1px 3px 1px rgba(0, 0, 0, 0.46);
+    text-shadow:-1px 1px 1px rgba(0, 0, 0, 0.46);
+    margin-top: 55px;
+    background: #2C4A52; /* For browsers that do not support gradients */
+    background: -webkit-linear-gradient(left, #2C4A52, #8E9B97 , #2C4A52); /* For Safari 5.1 to 6.0 */
+    background: -o-linear-gradient(left, #2C4A52, #8E9B97 , #2C4A52); /* For Opera 11.1 to 12.0 */
+    background: -moz-linear-gradient(left, #2C4A52, #8E9B97 , #2C4A52); /* For Firefox 3.6 to 15 */
+    background: linear-gradient(left, #2C4A52, #8E9B97  , #2C4A52); /* Standard syntax */
+
+
+}
+
+#footer {
+    background-color: #2C4A52;
+    position: fixed;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    height: 60px;
+}
+
+#footer p {
+    color: var(--info-);
+}
+
+
+
+/** ****** **/
+/* Top Menu */
+/** ****** **/
+.top-menu, .top-menu-back {
+    background-color: var(--text-);
+    width: 100%;
+    z-index: 100;
+    border-radius: 0px 0px 10px 10px;
+    top: 0;
+    border-top: 0;
+    position: fixed;
+
+}
+
+/**  ************   **
+ ** ADMIN USERVIEW  **
+/**  ************   **/
+
+#userpanel1{
+    color: #122b40;
+    text-shadow: 0px 0px 0px rgba(0, 0, 0, 0.00);
+    font-size: 13px;
+}
+#userpanel1 h2{
+    color: #122b40;
+
+}
+/*/ **************** */
+/*/ TOURNAMENT PANEL */
+/*/ **************** */
+
+#tournamentpanel1 {
+
+    color: #122b40;
+    text-shadow: 0px 0px 0px rgba(0, 0, 0, 0.00);
+    font-size: 13px;
+}
+
+/** ******* **/
+/* Dash Menu */
+/** ******* **/
+.dash-menu {
+    background-color: var(--menu-);
+    margin-top: -20px;
+    border-radius: 0px 0px 16px 16px;
+    box-shadow:-1px 3px 1px rgba(0, 0, 0, 0.46);
+    position: fixed;
+    width: 15%;
+    margin-top: -10px;
+
+}
+
+.dash-menu a {
+    color: var(--text-);
+    text-shadow: -1px 1px 1px rgba(0, 0, 0, 0.46);
+
+}
+
+/** ********** **/
+/*  COUNTDOWN  **/
+/*  ********** **/
+
+#countdown {
+    border-radius: 16px 16px 16px 16px;
+    box-shadow: -1px 3px 1px rgba(0, 0, 0, 0.46);
+    width: 295px;
+    height: 40px;
+    padding: 10px;
+    position: center;
+    color: #F4EBDB;
+    margin-left: 35%;
+    background-color: #2C4A52;
+}
+
+/** ********** **/
+/* Content page */
+/** ********** **/
+.content-background {
+    background-color: var(--info-);
+    max-width: 90%;
+    margin: auto;
+    margin-bottom: 120px;
+    border-radius: 20px 20px 20px 20px;
+    box-shadow:-1px 3px 1px rgba(0, 0, 0, 0.46);
+
+}
+
+.content-background h1, .content-background h2, .content-background h3, .content-background h4, .content-background h5, .content-background h6 {
+    color: var(--text-);
+}
+
+.content-background p {
+    color: var(--text-);
+}
+
+.content-background li {
+    color: var(--text-);
+    padding: 8px;
+}
+
+.content-background .important {
+    font-weight: 900;
+}
+
+.content-background a {
+    color: var(--main-);
+}
