@@ -2,9 +2,7 @@
  * Created by chris on 26-04-2017.
  */
 
-
-
-// gather data from database
+// retrieve data from database
 function getTournamentsData(){
     return $.ajax({
         type: 'GET',
@@ -16,8 +14,20 @@ function getTournamentsData(){
     });
 }
 
+// retrieve data from database
+function getUsersData(){
+    return $.ajax({
+        type: 'GET',
+        url: "/api/users",
+        dataType: "json"
+    }).done(function(data){
+        usersData = data;
+
+    });
+}
+
 // list tournaments
-$.when(document, getTournamentsData()).done(function(){
+$.when(document, getTournamentsData(), getUsersData()).done(function(){
     var output = "";
     $.each(tournamentsData, function(key, data){
         output += "<tr class='data_row "+data.isOpen+"' id='"+data._id+"'>";
@@ -35,20 +45,6 @@ $.when(document, getTournamentsData()).done(function(){
     $('#data_insert').append(output);
 });
 
-
-//show tournament description
-function showTourDescription(source){
-    getID(source);
-}
-
-
-function getID(source){
-    var id = $(source).closest("tr").prop("id");
-    console.log(id);
-    return id;
-}
-
-
 // stack prices
 function prizes(data){
     var output = "";
@@ -60,17 +56,63 @@ function prizes(data){
     return output;
 }
 
+//show tournament description
+function showTourDescription(source){
+    var tour_id = $(source).closest("tr").prop("id");   // get ID of table row
+    var tour = $.grep(tournamentsData, function(tour){  // search for id property in objects
+        return tour._id === tour_id;    // and return array index for found object
+    });
 
-// see members of tournament
-function showMembers(data){
-
+    if (tour.length === 0) {
+        window.alert("En fejl er opstået - Ingen beskrivelse blev fundet.");
+    } else {
+        $("#show-data-header").empty().append(tour[0].name);    // append tournament name into header
+        $("#show-data-body").empty().append(tour[0].description);   // append description into body
+        $('#modal-edit').modal('show'); // show modal
+    }
 }
 
 
-function showPic(data){
+// show members in tournament
+function showMembers(source){
+    var tour_id = $(source).closest("tr").prop("id");
+    var tour = $.grep(tournamentsData, function(tour){
+        return tour._id === tour_id;
+    });
+    $("#show-data-body").empty();
 
+    // match ID's with names in users
+    $.each(tour[0].teams, function(key, data){
+        $("#show-data-body").append("<b>"+data.name+"</b>").append("<br>");
+
+        for(i=0; i<data.members.length; i++){
+            var user = $.grep(usersData, function(usersData){
+                return usersData._id === data.members[i];
+            });
+            $("#show-data-body").append("User: "+user[0].username + " - " +user[0].email).append("<br>");
+        }
+        $("#show-data-body").append("<br>");
+    });
+    $("#show-data-header").empty().append(tour[0].name);    // append tournament name into header
+    $('#modal-edit').modal('show');
 }
 
+
+function showPic(source){
+    var tour_id = $(source).closest("tr").prop("id");   // get ID of table row
+    var tour = $.grep(tournamentsData, function(tour){  // search for id property in objects
+        return tour._id === tour_id;    // and return array index for found object
+    });
+
+    if (tour.length === 0) {
+        window.alert("En fejl er opstået - Ingen beskrivelse blev fundet.");
+    } else {
+        $("#show-data-header").empty().append(tour[0].name);    // insert tournament name into header
+        $("#show-data-body").empty().append(tour[0].description);   // insert description into body
+        $('#modal-edit').modal('show'); // show modal
+    }
+
+}
 
 
 function editTournament(data){

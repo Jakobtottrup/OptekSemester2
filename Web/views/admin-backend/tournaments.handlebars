@@ -77,12 +77,6 @@
                     <p>Hold indstillinger</p>
 
                 </div>
-
-
-
-
-
-
             </div>
             <div class="modal-footer">
                 <button type="button" method="post" class="btn btn-success" data-dismiss="modal">Opret</button>
@@ -100,11 +94,31 @@
         <div class="modal-content">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal">&times;</button>
-                <h4 class="modal-title">Informationer</h4>
+                <h4 class="modal-title" id="show-data-header"></h4>
             </div>
-            <div class="modal-body">
-                <p></p>
+            <div class="modal-body" id="show-data-body">
             </div>
+            <div class="modal-footer">
+                <button type="button" method="post" class="btn btn-danger" data-dismiss="modal">Luk</button>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+
+
+<!-- Modal for editing information -->
+<div id="modal-edit" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title" id="edit-data-header"></h4>
+            </div>
+            <div class="modal-body" id="edit-data-body"></div>
             <div class="modal-footer">
                 <button type="button" method="post" class="btn btn-danger" data-dismiss="modal">Annuller</button>
                 <button type="button" method="post" class="btn btn-success" data-dismiss="modal">Gem</button>
