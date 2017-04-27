@@ -82,19 +82,23 @@ function showMembers(source){
     $("#show-data-body").empty();
 
     // match ID's with names in users
-    $.each(tour[0].teams, function(key, data){
-        $("#show-data-body").append("<b>"+data.name+"</b>").append("<br>");
+    if (tour[0].teams.length > 0) {
+        $.each(tour[0].teams, function (key, data) {
+            $("#show-data-body").append("<b>" + data.name + "</b>").append("<br>");
 
-        for(i=0; i<data.members.length; i++){
-            var user = $.grep(usersData, function(usersData){
-                return usersData._id === data.members[i];
-            });
-            $("#show-data-body").append("User: "+user[0].username + " - " +user[0].email).append("<br>");
-        }
-        $("#show-data-body").append("<br>");
-    });
-    $("#show-data-header").empty().append(tour[0].name);    // append tournament name into header
-    $('#modal-edit').modal('show');
+            for (i = 0; i < data.members.length; i++) {
+                var user = $.grep(usersData, function (usersData) {
+                    return usersData._id === data.members[i];
+                });
+                $("#show-data-body").append(user[0].username + " - " + user[0].email).append("<br>");
+            }
+            $("#show-data-body").append("<br>");
+        });
+        $("#show-data-header").empty().append(tour[0].name);
+        $('#modal-edit').modal('show');
+    } else {
+        window.alert("Ingen deltagere fundet")
+    }
 }
 
 
@@ -107,13 +111,12 @@ function showPic(source){
     if (tour.length === 0) {
         window.alert("En fejl er opstået - Ingen beskrivelse blev fundet.");
     } else {
-        $("#show-data-header").empty().append(tour[0].name);    // insert tournament name into header
-        $("#show-data-body").empty().append(tour[0].description);   // insert description into body
+        $("#show-data-header").empty().append(tour[0].name);    // append tournament name into header
+        $("#show-data-body").empty().append("<img src='"+tour[0].image+"'style='width:100%'/>");   // append description into body
         $('#modal-edit').modal('show'); // show modal
     }
 
 }
-
 
 function editTournament(data){
 
