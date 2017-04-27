@@ -62,6 +62,7 @@
                         </form>
                         {{#if user}}
                             <li><a href="/logout">LOG UD</a></li>
+
                         {{else}}
                             <li><a href="/signup">TILMELD</a></li>
                             <li><a href="/login">LOG IND</a></li>
@@ -93,7 +94,7 @@
                     {{#if user}}
                     <div class="col-lg-2">
                         <ul class="nav nav-pills nav-stacked dash-menu">
-                            <li><a href="/dashboard"><i class="fa fa-crosshairs fa-fw "></i>{{uppercase user.username}}'s Dashboard</a></li>
+                            <li><a href="/dashboard"><i class="fa fa-crosshairs fa-fw "></i>{{user.username}}'s Dashboard</a></li>
                             {{#unless user.isAdmin}}
                             <li><a href="/users/userinfo"><i class="fa fa-edit fa-fw"></i>Bruger info</a></li>
                             <li><a href="/users/getseat"><i class="fa fa-th fa-fw"></i>Din Plads</a></li>
