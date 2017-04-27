@@ -115,7 +115,6 @@ function showPic(source){
         $("#show-data-body").empty().append("<img src='"+tour[0].image+"'style='width:100%'/>");   // append description into body
         $('#modal-edit').modal('show'); // show modal
     }
-
 }
 
 function editTournament(data){
