@@ -15,7 +15,7 @@ var ctx = canvas.getContext('2d');
 
 var temp;
 
-mycanvas = {width: 640, height: 360};
+mycanvas = {width: 640, height: 320};
 
 col_state = ["green", "yellow", "red"];
 col_state_m = ["darkgreen", "gold", "brown"];
@@ -25,11 +25,11 @@ col_state_m = ["darkgreen", "gold", "brown"];
 /*** ********************** ***/
 
 canvas.style.width = '100%';
-canvas.style.height = (canvas.style.width / 16) * 9;
+canvas.style.height = canvas.style.width / (mycanvas.width / mycanvas.height);
 
 // ...then set the internal size to match
 canvas.width  = canvas.offsetWidth;
-canvas.height = (canvas.width / 16) * 9;
+canvas.height = canvas.width / (mycanvas.width / mycanvas.height);
 
 //set the drawing surface dimensions to match the canvas
 canvas.width = canvas.scrollWidth;
@@ -91,13 +91,11 @@ function savemap() {
 function seatmapCleanup(json_seat) {
     if (json_seat == false || json_seat == []) {
         var thiswidth = 16;
-        var thisheight = 9;
+        var thisheight = 8;
 
         temp = [];
         for (var i = 0; i < thiswidth * thisheight; i++) {
             temp.push({
-                x: Math.floor(Math.random()*600),
-                y: Math.floor(Math.random()*300),
                 type: 0,
                 label: i,
                 state: Math.floor(Math.random()*3)
@@ -130,24 +128,42 @@ function seatmapCleanup(json_seat) {
 /*** *********** ***/
 
 function setVariables() {
-    temp = (mycanvas.width * 0.9) / seatmap.room_width;
-    seat_size = temp * 0.9;
-    seat_offset = (mycanvas.width - (seat_size * seatmap.room_width)) / (seatmap.room_width + 1);
+    ctx.scale(scaling, scaling);
+
+    seat_size = Math.min(mycanvas.width / seatmap.room_width, mycanvas.height / seatmap.room_height);
+
+    m_pixel_type = -1;
 }
+
 
 /*** ********** ****/
 /** set functions **/
 /*** ********** ****/
 
-function drawPixels() {
-    var i = 0;
-    for (var j = 0; j < seatmap.room_height; j++) {
-        for (var k = 0; k < seatmap.room_width; k++) {
-            ctx.fillStyle = col_state[seatmap.seats[i].state];
-            ctx.fillRect(k * (seat_size + seat_offset) + seat_offset, j * (seat_size + seat_offset) + seat_offset, seat_size, seat_size);
-            i++;
-        }
+function getSeatColor(seat) {
+    //void
+    if (seat.type == 0) {
+        return "gray";
     }
+    //wall
+    if (seat.type == 1) {
+        return "black";
+    }
+    //seat
+    if (seat.type == 2) {
+        return "green";
+    }
+    //admin area
+    if (seat.type == 3) {
+        return "darkred";
+    }
+    //kiosk
+    if (seat.type == 4) {
+        return "blue";
+    }
+    //error
+    console.log(seat);
+    return "purple";
 }
 
 /*** *********** ***/
@@ -155,7 +171,7 @@ function drawPixels() {
 /*** *********** ***/
 
 function drawScreen() {
-    ctx.scale(scaling, scaling);
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
     if (screen_level == 0) {
         //phone
         ctx.fillStyle = "#bfbfbf";
@@ -167,6 +183,51 @@ function drawScreen() {
         ctx.fillText("Dette er skrøbeligt data.",320,160);
         ctx.fillText("Benyt en anden enhed.",320,200);
     } else {
-        drawPixels();
+        //ctx.clearRect(0, 0, canvas.width, canvas.height);
+        for (var i = 0; i < seatmap.seats.length; i++) {
+            ctx.fillStyle = getSeatColor(seatmap.seats[i]);
+            var _x = i % seatmap.room_width;
+            var _y = (i - _x) / seatmap.room_width;
+            ctx.fillRect(_x * seat_size, _y * seat_size, seat_size, seat_size);
+        }
     }
 }
+
+/**** ********* ****/
+/*** Mouse Hover ***/
+/**** ********* ****/
+
+//test for mouse over
+canvas.addEventListener("click", function(e){
+    //get mouse coordinates according to canvas position on screen
+    var canvasBounds = canvas.getBoundingClientRect();
+    var mouseX = Math.floor(e.pageX - canvasBounds.left + 1);
+    var mouseY = Math.floor(e.pageY - canvasBounds.top + 1);
+
+    var screenWidth = Math.floor(canvasBounds.right - canvasBounds.left + 1);
+    var screenHeight = Math.floor(canvasBounds.bottom - canvasBounds.top + 1);
+
+    var mx = Math.floor(seatmap.room_width / screenWidth * mouseX);
+    if (mx >= seatmap.room_width) {
+        mx = seatmap.room_width - 1;
+    }
+    if (mx < 0) {
+        mx = 0;
+    }
+
+    var my = Math.floor(seatmap.room_height / screenHeight * mouseY);
+    if (my >= seatmap.room_height) {
+        my = seatmap.room_height - 1;
+    }
+    if (my < 0) {
+        my = 0;
+    }
+
+    var m_index = mx + (my * seatmap.room_width);
+
+    if (m_pixel_type >= 0) {
+        seatmap.seats[m_index].type = m_pixel_type;
+    }
+
+    drawScreen();
+});
