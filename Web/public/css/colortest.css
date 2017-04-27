@@ -30,16 +30,20 @@ html, body {
 /* Main page */
 /** ******* **/
 body {
-    background-color: var(--main-);
     box-shadow:-1px 3px 1px rgba(0, 0, 0, 0.46);
     text-shadow:-1px 1px 1px rgba(0, 0, 0, 0.46);
     margin-top: 55px;
+    background: #2C4A52; /* For browsers that do not support gradients */
+    background: -webkit-linear-gradient(left, #2C4A52, #8E9B97 , #2C4A52); /* For Safari 5.1 to 6.0 */
+    background: -o-linear-gradient(left, #2C4A52, #8E9B97 , #2C4A52); /* For Opera 11.1 to 12.0 */
+    background: -moz-linear-gradient(left, #2C4A52, #8E9B97 , #2C4A52); /* For Firefox 3.6 to 15 */
+    background: linear-gradient(left, #2C4A52, #8E9B97  , #2C4A52); /* Standard syntax */
 
 
 }
 
 #footer {
-    background-color: var(--menu-);
+    background-color: #2C4A52;
     position: fixed;
     right: 0;
     bottom: 0;
