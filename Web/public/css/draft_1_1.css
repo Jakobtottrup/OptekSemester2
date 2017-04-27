@@ -21,7 +21,7 @@ body{
     border-radius: 30px;
     background: #3c3c3c;
     padding: 25px;
-    width: 320px;
+    width: 350px;
     height: 75px;
     box-shadow: -1px 3px 1px rgba(0, 0, 0, 0.46);
     color: #8fa6bd;
@@ -30,6 +30,7 @@ body{
     position: center;
     font-family: "Agency FB";
     font-size: 20px;
+    position:center;
 }
 .pagecontent{
     border-radius: 30px;
@@ -54,29 +55,29 @@ body{
     height: 420px;
     box-shadow:-1px 3px 1px rgba(0, 0, 0, 0.46);
     color: #8fa6bd;
-    position: center;
-    margin-left: 260px;
-    margin-top: 20px;
-
+    top: 20%;
+    left: 20%;
+    margin-top:20px;
 
 }
 
 
 .nav-pills{
-    border-radius: 30px;
+    border-radius: 10px;
     background: #3c3c3c;
-    padding: 10px;
+    padding: 15px;
     width: 220px;
-    height: 450px;
+    height: 480px;
     box-shadow:-1px 3px 1px rgba(0, 0, 0, 0.46);
     color: #8fa6bd;
     margin-left: -10px;
-    margin-top: -15px;
+    margin-top: 60px;
     font-family: "Agency FB";
     font-size: 15px;
+    position:fixed;
 }
 .navbar {
-    border-radius: 10px;
+    border-radius: 8px;
     padding: 1px;
     box-shadow:-1px 3px 1px rgba(0, 0, 0, 0.46);
     text-shadow:-1px 3px 1px rgba(0, 0, 0, 0.46);
@@ -84,8 +85,9 @@ body{
     font-family: "Agency FB";
     font-size: 19px;
     border-color:#3c3c3c;
-    margin-top: 10px;
-    margin-right: 1;
+    margin-top: 1px;
+    margin-right: 1px;
+    color:#8fa6bd;
 }
 .page-header{
     margin-left: 260px;
@@ -93,16 +95,16 @@ body{
 .page-header h1{
     font-family:"Agency FB";
     margin-left: 360px;
+    margin-top: 60px;
     border-radius: 10px;
-    padding: 18px;
+    padding: 20px;
     background: #3c3c3c;
     box-shadow:-1px 3px 1px rgba(0, 0, 0, 0.46);
     text-shadow:-1px 3px 1px rgba(0, 0, 0, 0.46);
     background: #3c3c3c;
     border-color:#3c3c3c;
-    width: 120px;
+    width: 110px;
     height: 70px;
-    position:center;
     color:#8fa6bd;
 }
 /*>> STYLING FOR seatgroup<<*/
@@ -193,4 +195,8 @@ html, body {
 
 .content-center{
     margin: 0px;
+}
+
+#pladskort {
+    margin-left: 250px;
 }

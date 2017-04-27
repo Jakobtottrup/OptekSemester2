@@ -1,9 +1,9 @@
-/*:root{*/
-    /*--main-:#04202C; !*main*!*/
-    /*--menu-:#304040; !*footer, menu*!*/
-    /*--info-:#5B7065; !*info-box*!*/
-    /*--text-:#C9D1C8; !*text*!*/
-/*}*/
+:root{
+    --main-:#2C4A52; /*main*/
+    --menu-:#8E9B97; /*footer, menu*/
+    --info-:#537072; /*info-box*/
+    --text-:#F4EBDB; /*text*/
+}
 
 /** ****** **/
 /* Old Main */
@@ -21,6 +21,8 @@ html, body {
 
 .content-center {
     padding-bottom:100px; /* Height of the footer element */
+    box-shadow:-1px 1px 1px rgba(0, 0, 0, 0.46);
+
 }
 #footer {
     background-color: orange;
@@ -38,10 +40,20 @@ html, body {
 /** ******* **/
 body {
     background-color: var(--main-);
+    box-shadow:-1px 3px 1px rgba(0, 0, 0, 0.46);
+    text-shadow:-1px 1px 1px rgba(0, 0, 0, 0.46);
+    margin-top: 55px;
+
+
 }
 
 #footer {
     background-color: var(--menu-);
+    position: fixed;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    height: 60px;
 }
 
 #footer p {
@@ -60,6 +72,8 @@ body {
     border-radius: 0px 0px 10px 10px;
     top: 0;
     border-top: 0;
+    position: fixed;
+
 }
 
 
@@ -71,14 +85,34 @@ body {
     background-color: var(--menu-);
     margin-top: -20px;
     border-radius: 0px 0px 16px 16px;
+    box-shadow:-1px 3px 1px rgba(0, 0, 0, 0.46);
+    position: fixed;
+    width: 15%;
+    margin-top: -10px;
+
 }
 
 .dash-menu a {
     color: var(--text-);
+    text-shadow: -1px 1px 1px rgba(0, 0, 0, 0.46);
+
 }
 
+/** ********** **/
+/*  COUNTDOWN  **/
+/*  ********** **/
 
-
+#countdown {
+    border-radius: 16px 16px 16px 16px;
+    box-shadow: -1px 3px 1px rgba(0, 0, 0, 0.46);
+    width: 295px;
+    height: 40px;
+    padding: 10px;
+    position: center;
+    color: #F4EBDB;
+    margin-left: 35%;
+    background-color: #2C4A52;
+}
 
 /** ********** **/
 /* Content page */
@@ -89,6 +123,8 @@ body {
     margin: auto;
     margin-bottom: 120px;
     border-radius: 20px 20px 20px 20px;
+    box-shadow:-1px 3px 1px rgba(0, 0, 0, 0.46);
+
 }
 
 .content-background h1, .content-background h2, .content-background h3, .content-background h4, .content-background h5, .content-background h6 {
