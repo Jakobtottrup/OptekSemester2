@@ -56,7 +56,9 @@ router.post('/signup', function (req, res) {
     var fakultet = req.body.fakultet.toString();
     var bnet = req.body.bnet;
     var steam = req.body.steam;
-    var isAdmin = req.body.admin;
+    var isAdmin = req.body.isAdmin;
+    var hasPaid = req.body.hasPaid;
+    var isActive = req.body.isActive;
 
     //validation
 
@@ -84,7 +86,9 @@ router.post('/signup', function (req, res) {
             fakultet: fakultet,
             bnet: bnet,
             steam: steam,
-            isAdmin: false
+            isAdmin: false,
+            hasPaid: false,
+            isActive: true
         });
         /*
          User.findOne({'local.email': email}, function (err, user) {

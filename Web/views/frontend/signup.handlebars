@@ -34,7 +34,7 @@
                 <div class="form-group">
                     <label for="input_name" class="col-sm-4 control-label">Navn:</label>
                     <div class="col-sm-6 req">
-                        <input type="text" class="form-control" id="input_name" placeholder="Fulde Navn" name="username">
+                        <input type="text" class="form-control" id="input_name" placeholder="Brugernavn" name="username">
                     </div>
                 </div>
 
@@ -149,5 +149,25 @@
             if (this.value.length > 2) {
                 this.value = this.value.slice(0, 2);
             }
-        }
+        };
+        document.getElementById('input_name').oninput = function () {
+            if (this.value.length > 30) {
+                this.value = this.value.slice(0, 30);
+            }
+        };
+        document.getElementById('input_email').oninput = function () {
+            if (this.value.length > 40) {
+                this.value = this.value.slice(0, 40);
+            }
+        };
+        document.getElementById('input_bnet').oninput = function () {
+            if (this.value.length > 17) {
+                this.value = this.value.slice(0, 17);
+            }
+        };
+        document.getElementById('input_steam').oninput = function () {
+            if (this.value.length > 15) {
+                this.value = this.value.slice(0, 15);
+            }
+        };
     </script>
