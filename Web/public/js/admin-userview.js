@@ -6,6 +6,8 @@
 
 var selected = [];
 var deleteUserId = [];
+var adminClicked = false;
+var paymentClicked = false;
 function getUsersData() {
     return $.ajax({
         type: 'GET',
@@ -23,13 +25,23 @@ function deleteUser(id) {
         dataType: 'json'
     });
 }
-function updateUser(id) {
+function updateUsers(id, adminClicked, paymentClicked) {
+    console.log("testing hasPaid: "+paymentClicked);
+    console.log("testing isAdmin: "+adminClicked);
     $.ajax({
         type: 'PUT',
-        url: '/admins/users/' + id,
+        url: '/admins/users/' + id +"/"+ adminClicked + "/" + paymentClicked,
         dataType: 'json'
     });
 }
+/*function updateAdmin(id, isAdmin) {
+    console.log("testing isAdmin: "+isAdmin);
+    $.ajax({
+        type: 'PUT',
+        url: '/admins/users/' + id +"/"+ isAdmin,
+        dataType: 'json'
+    });
+}*/
 $.when(getUsersData().done(function () {
 
     $("#data_insert").empty();
@@ -62,9 +74,28 @@ $.when(getUsersData().done(function () {
         })
     });
 }));
+// ===================== Make admin button ========================
+$(function() {
+    $('#toggleAdminBtn').click(function() {
+        adminClicked = true;
+        paymentClicked = false;
+        for (i = 0; i < deleteUserId.length; i++) {
+            updateUsers(deleteUserId[i]._id, adminClicked, paymentClicked);
+        }
+       // paymentClicked, adminClicked = false;
+        //location.reload(true);
+    });
+});
 
 $(function () {
-    $("#paidBtn").click(function () {
+    $("#togglePaymentBtn").click(function () {
+        paymentClicked = true;
+        adminClicked = false;
+        for (i=0;i<deleteUserId.length; i++) {
+            updateUsers(deleteUserId[i]._id, adminClicked, paymentClicked);
+        }
+        //paymentClicked, adminClicked = false;
+        //location.reload(true);
     });
 });
 
@@ -84,15 +115,6 @@ $(function () {
         });
     });
 });
-// ===================== Make admin button ========================
-$(function() {
-    $('#makeAdminBtn').click(function() {
-        for (i = 0; i < deleteUserId.length; i++) {
-            updateUser(deleteUserId[i]._id);
-        }
-        location.reload(true);
-    });
-})
 
 
 // ===================== Remove User Button ======================= //

@@ -15,7 +15,7 @@ const router = express.Router();
 
 const seats = require('../models/seats');
 const User = require('../models/user');
-var userRoute = router.route('/users/:_id');
+var userRoute = router.route('/users/:_id/:adminClicked/:paymentClicked');
 
 
 // ADMIN AUTHENTICATION
@@ -79,87 +79,6 @@ router.get('/mails', ensureAdminAuthenticated, function (req, res) {
     res.render('admin-backend/mails', {title: "Admin Panel", name: "Brugers navn"});
 });
 
-
-/*
-
- // REGISTER SEAT
- router.post('/create_seats', ensureAdminAuthenticated, function(req, res){
- var seatName = req.body.seatName;
-
- // VALIDATION
- req.checkBody('seatName', 'Pladsnavn er nødvendigt').notEmpty();
-
- var errors = req.validationErrors();
- if(errors){ // if validation fails
- res.render('frontend/index',{
- errors:errors
- });
- console.log(errors);
- } else { //if validation succeeds server sends data to database using modelschema "users.js"
- var newSeat = new seats({
- test: seatName
- /*
- seatName: seatName,
- seatState: 0,
- seatOpen: false,
- seatUserID: 0,
- seatGroupID: 0*//*
- });
-
-
- */
-
-
-/*
-
- // get a user with ID of 1
- User.findById(1, function(err, user) {
- if (err) throw err;
-
- // change the users location
- seats = 'uk';
-
- // save the user
- user.save(function(err) {
- if (err) throw err;
-
- console.log('User successfully updated!');
- });
-
- });
- */
-/*
-
-
-
- // find the user starlord55
- // update him to starlord 88
- seats.findOneAndUpdate({test: 'asdfgjkljhgfdsaSDFKJLJHGFDSA'}, { test: 'abcba' }, function(err, user) {
- if (err) throw err;
-
- // we have the updated user returned to us
- console.log(user);
- });
-
-
- */
-/*
- console.log(seats.find({test: 'ddeeff'}));
-
- newSeat.save(function(err) {
- if (err) throw err;
-
- console.log("Seat created!");
- });
- res.redirect('/admins/create_seats');
-
-
- }
- });
-
- */
-
-
 router.post('/create_seats', ensureAdminAuthenticated, function (req, res) {
     var seatName = req.body.seatName;
 
@@ -200,45 +119,6 @@ router.post('/create_seats', ensureAdminAuthenticated, function (req, res) {
 });
 
 
-/*
-
- router.put('/create_seats/:id', function(req, res){
- var id = req.params.id;
- console.log("HEEEEEY YO CONSOLE LOG");
- seats.findOne({_id: id}, function(err, foundObject) {
- if (err) {
- console.log(err);
- res.status(500).send();
- } else {
- if (!foundObject) {
- res.status(404).send();
- } else {
- if (req.body.name) {
- foundObject.name = req.body.name;
- }
-
- if (req.body.icecreamname) {
- foundObject.icecreamname = req.body.icecreamname;
- }
-
- foundObject.save(function(err, updatedObject) {
- if (err) {
- console.log(err);
- res.status(500).send();
- } else {
- res.send(updatedObject);
- }
- });
- }
- }
- });
-
- });
- */
-
-
-
-
 // RENDER EVENT VIEW
 router.get('/events', ensureAdminAuthenticated, function (req, res) {
     res.render('admin-backend/events', {title: "Admin Panel"});
@@ -263,12 +143,67 @@ userRoute.get(function (req, res) {
         res.json(user);
     });
 });
-userRoute.put(function (req, res) {
-    User.findById(req.params._id, function (err, user) {
+
+/*userRoute.post(ensureAdminAuthenticated, function(req, res) {
+ var paymentClicked = req.body.paymentClicked;
+ User.findById(req.params._id, function(err, user) {
+ if (err)
+ res.send(err);
+ console.log("1. paymentClicked should be true: " + paymentClicked);
+ user.save(function (err) {
+ if (err)
+ res.send(err);
+ res.json(user);
+ });
+ })
+ });*/
+
+
+userRoute.put(ensureAdminAuthenticated, function (req, res) {
+    User.findByIdAndUpdate(req.params._id, req.params.adminClicked, req.params.paymentClicked, function (err, user) {
         if (err)
             res.send(err);
-        user.isAdmin = false;
-        //user.hasPaid = false;
+        var ac = req.params.adminClicked;
+        var pc = req.params.paymentClicked;
+/*        console.log(req.params.adminClicked);
+        console.log(ac);
+        console.log("\n");
+        console.log(req.params.paymentClicked);
+        console.log(pc);*/
+
+        if (pc !== "true") {
+            console.log("admin was clicked");
+            user.isAdmin = !user.isAdmin;
+        }
+        if (pc === "true") {
+            console.log("payment was clicked!");
+            user.hasPaid = !user.hasPaid;
+        }
+
+
+        /*console.log(req.params.adminClicked.toString());
+         console.log(req.params.paymentClicked.toString());
+         if ((pc === true) && (ac === false)) {
+         console.log("payclick is true");
+         //if (adminClick === false) {
+         console.log("payclick is true AND adminclick is false!");
+
+         console.log("payment clicked, admin not clicked");
+         //user.hasPaid = user.hasPaid === false;
+         //console.log("pc is: "+ payClick + " payment status changed!\n" + "ac is: "+ adminClick);
+         //}
+         }
+         if (ac === true) {
+         console.log("adminclick is true");
+         if (pc === false) {
+         console.log("adminclick is true AND payclick is false!");
+
+         //user.isAdmin = user.isAdmin === false;
+         //console.log("ac is: "+ adminClick + " admin status changed!\n" + "pc is: "+payClick);
+         console.log("admin clicked, payment not clicked");
+         }
+         }*/
+
         user.save(function (err) {
             if (err)
                 res.send(err);
