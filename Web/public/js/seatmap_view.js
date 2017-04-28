@@ -162,6 +162,12 @@ function updateInfoBox(index) {
                 infoText3 = seat.groupid;
             }
         }
+    } else if (seat.type == 3) {
+        infoText1 = "Administration";
+        infoText2 = "Henvend dig her hvis du har problemer";
+    } else if (seat.type == 4) {
+        infoText1 = "Kiosk";
+        infoText2 = "Åbent 10.00 - 22.00";
     }
 
     $(".pladskort-info").html("<p>" + infoText1 + "</p><p>" + infoText2 + "</p><p>" + infoText3 + "</p>");
