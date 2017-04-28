@@ -29,6 +29,7 @@ html, body {
 .content-center {
     padding-bottom:100px; /* Height of the footer element */
 }
+
 #footer {
     background-color: orange;
     width:100%;
@@ -114,4 +115,18 @@ body {
 
 .content-background a {
     color: var(--main-);
+}
+
+/* seatmap */
+.pladskort-info {
+    background-color: var(--text-);
+    margin-bottom: 12px;
+    margin-top: 6px;
+    border-radius: 10px 10px 10px 10px;
+    padding: 10px;
+    min-height: 110px;
+}
+
+.pladskort-info p {
+    color: var(--menu-);
 }

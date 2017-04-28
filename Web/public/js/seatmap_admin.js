@@ -43,7 +43,7 @@ if (canvas.width > 800) {
     screen_level = 0; //phone
 }
 
-$("#screen_level").html("<p>Screen level: " + screen_level + "</p>");
+$(".screen_level").html("<p>Screen level: " + screen_level + "</p>");
 
 if (screen_level == 0) {
     $("#new_map").hide();
@@ -98,7 +98,9 @@ function seatmapCleanup(json_seat) {
             temp.push({
                 type: 0,
                 label: i,
-                state: Math.floor(Math.random()*3)
+                open: false,
+                userid: 0,
+                groupid: 0
             });
         }
 
@@ -134,7 +136,6 @@ function setVariables() {
 
     m_pixel_type = -1;
 }
-
 
 /*** ********** ****/
 /** set functions **/
