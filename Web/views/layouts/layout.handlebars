@@ -46,24 +46,22 @@
                     <ul class="nav navbar-nav">
                         <li><a href="/events">EVENTET</a></li>
                         <li><a href="/rules">REGLER</a></li>
-                        <li><a href="/tournaments">TURNERINGER</a></li>
                         {{#if user}}
+                        {{#unless user.isAdmin}}
+                        <li><a href="/users/tournaments">TURNERINGER</a></li>
                         <li><a href="/users/getseat">PLADSKORT</a></li>
                         {{else}}
-                        <li><a href="seats">PLADSKORT</a></li>
+                        <li><a href="/admins/tournaments">TURNERINGER</a></li>
+                        <li><a href="/seats">PLADSKORT</a></li>
+                        {{/unless}}
+                        {{else}}
+                        <li><a href="/tournaments">TURNERINGER</a></li>
+                        <li><a href="/seats">PLADSKORT</a></li>
                         {{/if}}
                         <li><a href="/contact">KONTAKT</a></li>
                     </ul>
 
                     <ul class="nav navbar-nav navbar-right">
-                        <form class="navbar-form navbar-left">
-                            <div class="form-group">
-                                <!--<input type="text" class="form-control" placeholder="Søg">-->
-                            </div>
-<!--
-                            <button type="submit" class="btn btn-default">SØG</button>
--->
-                        </form>
                         {{#if user}}
                             <li><a href="/logout">LOG UD</a></li>
 
@@ -103,7 +101,7 @@
                             <li><a href="/users/userinfo"><i class="fa fa-edit fa-fw"></i>Bruger info</a></li>
                             <li><a href="/users/getseat"><i class="fa fa-th fa-fw"></i>Din Plads</a></li>
                             <li><a href="/users/seatgroups"><i class="fa fa-users fa-fw"></i>Siddegruppe</a></li>
-                            <li><a href="/users/usertournaments"><i class="fa fa-sitemap fa-fw"></i>Dine Turneringer</a></li>
+                            <li><a href="/users/tournaments"><i class="fa fa-sitemap fa-fw"></i>Dine Turneringer</a></li>
                             {{else}}
                             <li><a href="/admins/posts"><i class="fa fa-edit fa-fw"></i>Opslag</a></li>
                             <li><a href="/admins/events"><i class="fa fa-cogs fa-fw"></i>Dette LAN</a></li>
@@ -140,7 +138,7 @@
 <script>
 $(document).ready(function(){
     var path = window.location.pathname;
-    $("#dashboard-nav").find('a[href$="' +path+ '"]').parent().addClass("active").addClass("my_active");
+    $("#dashboard-nav").find('a[href$="' +path+ '"]').parent().addClass("active");
 });
 </script>
 

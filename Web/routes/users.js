@@ -28,7 +28,7 @@ router.get('/userinfo', ensureAuthenticated, function(req, res){
 
 
 // USER TOURNAMENTS
-router.get('/usertournaments', ensureAuthenticated, function(req, res){
+router.get('/tournaments', ensureAuthenticated, function(req, res){
     res.render('user-backend/usertournaments', {title: "Dine Turneringer"});
 });
 
