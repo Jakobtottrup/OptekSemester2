@@ -65,7 +65,18 @@ function getSeatData(){
     });
 }
 
-$.when(getSeatData()).done(function() {
+function getUserData(){
+    return $.ajax({
+        type: 'GET',
+        url: "/api/users",
+        dataType: "json"
+    }).done(function(data){
+        userIDs = data;
+    });
+}
+
+$.when(getSeatData(), getUserData()).done(function() {
+    console.log(userIDs);
     seatmapCleanup(seatmap);
     setVariables();
     drawScreen();
@@ -73,26 +84,7 @@ $.when(getSeatData()).done(function() {
 
 function seatmapCleanup(json_seat) {
     if (json_seat == false || json_seat == []) {
-        var thiswidth = 16;
-        var thisheight = 8;
-
-        temp = [];
-        for (var i = 0; i < thiswidth * thisheight; i++) {
-            temp.push({
-                type: 0,
-                label: i,
-                state: Math.floor(Math.random()*3)
-            });
-        }
-
-        seatmap = {
-            room_width: thiswidth,
-            room_height: thisheight,
-            seats_tot: 0,
-            map_open: false,
-            seats: temp
-        };
-
+        //seatmap is not defined
     } else {
         temp = JSON.stringify(json_seat).split("\\");
         var res = "";
@@ -153,14 +145,12 @@ function updateInfoBox(index) {
     var infoText3 = "";
 
     if (seat.type == 2) {
-        infoText1 = "Plads " + seat.label;
-        if (seat.open == true) {
+        infoText1 = "Plads: " + seat.label;
+        if (seat.userid == 0) {
             infoText2 = "Status: Ledig";
         } else {
-            infoText2 = seat.userid;
-            if (seat.groupid) {
-                infoText3 = seat.groupid;
-            }
+            var userinfo = infoFromID(seat.userid);
+            infoText2 = "Navn: " + userinfo.username;
         }
     } else if (seat.type == 3) {
         infoText1 = "Administration";
@@ -171,6 +161,10 @@ function updateInfoBox(index) {
     }
 
     $(".pladskort-info").html("<p>" + infoText1 + "</p><p>" + infoText2 + "</p><p>" + infoText3 + "</p>");
+}
+
+function infoFromID(id) {
+    return (userIDs.filter(function(a){ return a._id == id })[0]);
 }
 
 /*** *********** ***/
@@ -225,7 +219,7 @@ canvas.addEventListener("mousemove", function(e){
 
     var m_index = mx + (my * seatmap.room_width);
 
-    console.log(m_index);
+    //console.log(m_index);
 
     updateInfoBox(m_index);
 

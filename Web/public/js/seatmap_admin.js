@@ -97,10 +97,8 @@ function seatmapCleanup(json_seat) {
         for (var i = 0; i < thiswidth * thisheight; i++) {
             temp.push({
                 type: 0,
-                label: i,
-                open: false,
-                userid: 0,
-                groupid: 0
+                label: "A" + i,
+                userid: 0
             });
         }
 
