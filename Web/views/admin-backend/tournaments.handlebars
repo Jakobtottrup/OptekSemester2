@@ -28,7 +28,6 @@
 <!-- Modal for creating tournaments -->
 <div id="modal-create" class="modal fade" role="dialog">
     <div class="modal-dialog modal-lg">
-
         <!-- Modal content-->
         <div class="modal-content">
             <div class="modal-header">
@@ -36,44 +35,46 @@
                 <h3 class="modal-title">Opret turnering</h3>
             </div>
             <div class="modal-body">
-                <h4>Indtast oplysninger for en ny turnering</h4>
-                <div class="well">
-                    <p>Indtast navn for turneringen</p>
-                    <input type="text" class="form-control" id="input_name" placeholder="Navn" name="tour_name" style="width: 80%; display: inline">
-                    <input type="button" class="btn btn-lg btn-primary" value="Upload billede" onclick="upLoadPic()" style="float:right"/>
-                </div>
-                <div class="well">
-                    <p>Giv en beskrivelse af turneringen</p>
-                    <input type="text" class="form-control" id="input_name" placeholder="Beskrivelse" name="tour_info">
-                </div>
-                <div class="well">
-                    <p>Tidspunkt for turneringen</p>
-                    <div style="display: inline;">
-                        <p>Åbningsdato for tilmelding</p>
-                        <input type="datetime-local" name="time1">
+                <form>
+                    <h4>Indtast oplysninger for en ny turnering</h4>
+                    <div class="well">
+                        <p>Indtast navn for turneringen</p>
+                        <input type="text" class="form-control" id="input_name" placeholder="Navn" name="tour_name" required style="width: 80%; display: inline">
+                        <input type="button" class="btn btn-lg btn-primary" value="Upload billede" onclick="upLoadPic()" style="float:right"/>
                     </div>
-                    <p>Data for turneringen</p>
-                    <input type="datetime-local" name="time2">
-                </div>
-                <div class="well">
-                    <p>Indstillinger for turnering</p>
-                    <input type="checkbox"><label><p>Synlig</p></label><br>
-                    <input type="checkbox"><label><p>Åben for tilmelding</p></label>
+                    <div class="well">
+                        <p>Giv en beskrivelse af turneringen</p>
+                        <input type="text" class="form-control" id="input_name" placeholder="Beskrivelse" name="tour_info">
+                    </div>
+                    <div class="well">
+                        <p>Tidspunkt for turneringen</p>
+                        <div style="display: inline;">
+                            <p>Åbningsdato for tilmelding</p>
+                            <input type="datetime-local" name="time1">
+                        </div>
+                        <p>Data for turneringen</p>
+                        <input type="datetime-local" name="time2">
+                    </div>
+                    <div class="well">
+                        <p>Indstillinger for turnering</p>
+                        <input type="checkbox"><label><p>Synlig</p></label><br>
+                        <input type="checkbox"><label><p>Åben for tilmelding</p></label>
 
-                </div>
-                <div class="well">
-                    <p>Præmier</p>
-                    <table>
-                        <th>1. Plads</th>
-                        <th>2. Plads</th>
-                        <th>3. Plads</th>
-                        <th>4. Plads</th>
-                    </table>
                     </div>
-            </div>
-            <div class="modal-footer">
-                <button type="button" method="post" class="btn btn-success" data-dismiss="modal">Opret</button>
-            </div>
+                    <div class="well">
+                        <p>Præmier</p>
+                        <table>
+                            <th>1. Plads</th>
+                            <th>2. Plads</th>
+                            <th>3. Plads</th>
+                            <th>4. Plads</th>
+                        </table>
+                        </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" method="post" class="btn btn-success" data-dismiss="modal">Opret</button>
+                </div>
+            </form>
         </div>
     </div>
 </div>

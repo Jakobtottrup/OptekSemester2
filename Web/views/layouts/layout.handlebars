@@ -10,12 +10,9 @@
 
         <link rel="stylesheet" type="text/css" href="/bootstrap/dist/css/bootstrap.min.css">
         <link rel="stylesheet" type="text/css" href="/bootstrap/dist/css/bootstrap-theme.min.css">
-        <link rel="stylesheet" type="text/css" href="/css/main.css">
-<!--
-        <link rel="stylesheet" type="text/css" href="/css/draft_1_2.css">
--->
-        <!--
-        <link rel="stylesheet" type="text/css" href="/css/colortest.css">-->
+        <!--<link rel="stylesheet" type="text/css" href="/css/main.css">-->
+        <!--<link rel="stylesheet" type="text/css" href="/css/draft_1_2.css">-->
+        <link rel="stylesheet" type="text/css" href="/css/colortest.css">
 
         <script src="/jquery/dist/jquery.min.js"></script>
         <script src="/bootstrap/dist/js/bootstrap.min.js"></script>
@@ -50,7 +47,11 @@
                         <li><a href="/events">EVENTET</a></li>
                         <li><a href="/rules">REGLER</a></li>
                         <li><a href="/tournaments">TURNERINGER</a></li>
-                        <li><a href="/seats">PLADSKORT</a></li>
+                        {{#if user}}
+                        <li><a href="/users/getseat">PLADSKORT</a></li>
+                        {{else}}
+                        <li><a href="seats">PLADSKORT</a></li>
+                        {{/if}}
                         <li><a href="/contact">KONTAKT</a></li>
                     </ul>
 

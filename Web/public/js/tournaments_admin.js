@@ -2,6 +2,7 @@
  * Created by chris on 26-04-2017.
  */
 
+// ============== SHOWING ============== //
 // retrieve data from database
 function getTournamentsData(){
     return $.ajax({
@@ -117,7 +118,12 @@ function showPic(source){
     }
 }
 
+
+
+
+// ============== EDIT ============== //
 function editTournament(data){
+
 
 
 }
