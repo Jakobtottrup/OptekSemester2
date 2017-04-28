@@ -34,47 +34,92 @@
                 <button type="button" class="close" data-dismiss="modal">&times;</button>
                 <h3 class="modal-title">Opret turnering</h3>
             </div>
+            <form id="input_form" method="post" action="/admins/tournaments">
             <div class="modal-body">
-                <form>
                     <h4>Indtast oplysninger for en ny turnering</h4>
                     <div class="well">
                         <p>Indtast navn for turneringen</p>
-                        <input type="text" class="form-control" id="input_name" placeholder="Navn" name="tour_name" required style="width: 80%; display: inline">
-                        <input type="button" class="btn btn-lg btn-primary" value="Upload billede" onclick="upLoadPic()" style="float:right"/>
+                        <input type="text" class="form-control" id="input_name" placeholder="Navn" name="tour_name" style="width: 80%; display: inline">
+                        <input type="button" value="Upload billede" name="upload-pic" onclick="upLoadPic()" style="display:inline; float:right;"/>
                     </div>
+
                     <div class="well">
                         <p>Giv en beskrivelse af turneringen</p>
                         <input type="text" class="form-control" id="input_name" placeholder="Beskrivelse" name="tour_info">
                     </div>
-                    <div class="well">
-                        <p>Tidspunkt for turneringen</p>
-                        <div style="display: inline;">
-                            <p>Åbningsdato for tilmelding</p>
-                            <input type="datetime-local" name="time1">
-                        </div>
-                        <p>Data for turneringen</p>
-                        <input type="datetime-local" name="time2">
-                    </div>
-                    <div class="well">
-                        <p>Indstillinger for turnering</p>
-                        <input type="checkbox"><label><p>Synlig</p></label><br>
-                        <input type="checkbox"><label><p>Åben for tilmelding</p></label>
 
-                    </div>
+                <div class="well">
+                    <b>Tidspunkt for turneringen</b><br><br>
+                    <table class="table table-condensed">
+                        <td>Åbningsdato for tilmelding</td>
+                        <td>Lukningsdato for tilmelding</td>
+                        <td>Dato for turneringsstart</td>
+                        <td>Forventet varighed</td>
+                        <td>Synlig</td>
+                        <tbody>
+                            <tr>
+                                <td><input type="datetime-local" class="form-control" name="startDate"></td>
+                                <td><input type="datetime-local" class="form-control" name="startDate"></td>
+                                <td><input type="datetime-local" class="form-control" name="startDate"></td>
+                                <td><input type="number" class="form-control" placeholder="Tid" name="tour_duration"></td>
+                                <td><input type="checkbox" name="visibility" value="true" checked></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <div class="well">
+                    <b>Holdindstillinger</b><br><br>
+                    <table class="table table-condensed">
+                        <td>Max antal hold</td>
+                        <td>Deltagere pr. hold</td>
+                        <tbody>
+                            <tr>
+                                <td><input type="number" class="form-control" placeholder="Maximum antal" name="team_size"></td>
+                                <td><input type="number" min="1" class="form-control" placeholder="Minimum antal" name="team_minsize"></td>
+                            </tr>
+                            <tr>
+                                <td><br></td>
+                                <td><input type="number" min="1" class="form-control" placeholder="Maximum antal" name="team_maxsize"></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+
+
                     <div class="well">
-                        <p>Præmier</p>
-                        <table>
-                            <th>1. Plads</th>
-                            <th>2. Plads</th>
-                            <th>3. Plads</th>
-                            <th>4. Plads</th>
+                        <b>Præmier</b><br><br>
+                        <table class="table table-condensed">
+                            <td>1. Plads</td>
+                            <td>2. Plads</td>
+                            <td>3. Plads</td>
+                            <tbody>
+                                <tr>
+                                    <td><input type="text" class="form-control" placeholder="Navn" name="price1_name"></td>
+                                    <td><input type="text" class="form-control" placeholder="Navn" name="price2_name"></td>
+                                    <td><input type="text" class="form-control" placeholder="Navn" name="price3_name"></td>
+                                </tr>
+                                <tr>
+                                    <td><input type="text" class="form-control" placeholder="Beskrivelse" name="price1_info"></td>
+                                    <td><input type="text" class="form-control" placeholder="Beskrivelse" name="price2_info"></td>
+                                    <td><input type="text" class="form-control" placeholder="Beskrivelse" name="price3_info"></td>
+                                </tr>
+                                <tr>
+                                    <td><input type="button" value="Upload billede" name="price1_img" onclick="upLoadPic()"/></td>
+                                    <td><input type="button" value="Upload billede" name="price2_img" onclick="upLoadPic()"/></td>
+                                    <td><input type="button" value="Upload billede" name="price3_img" onclick="upLoadPic()"/></td>
+                                </tr>
+                            </tbody>
                         </table>
-                        </div>
+                    </div>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" method="post" class="btn btn-success" data-dismiss="modal">Opret</button>
+                    <!--<button type="submit" name="submit" method="post" class="btn btn-success" data-dismiss="modal">Opret<utnput>-->
+                    <input type="submit" name="submit" value="Opret" class="btn btn-success btn-lg">
                 </div>
-            </form>
+                </form>
+            </div>
         </div>
     </div>
 </div>

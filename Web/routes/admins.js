@@ -285,4 +285,53 @@ userRoute.delete(ensureAdminAuthenticated, function (req, res) {
         res.json({message: 'User removed from the DB!'});
     });
 });
+
+
+
+
+// CREATE TOURNAMENT
+router.post('/tournaments', function (req, res) {
+    var name = req.body.tour_name;
+    var description = req.body.tour_info;
+    var startDate = req.body.startDate;
+    var endDate = req.body.endDate;
+    var endDate = req.body.endDate;
+
+    console.log("start: " + startDate);
+    console.log("end: " + endDate);
+
+    /*
+    //validation
+    req.checkBody('username', 'Name required').notEmpty();
+    req.checkBody('age', 'Age required').notEmpty();
+    req.checkBody('email', 'Email required').notEmpty();
+    req.checkBody('email', 'Invalid email format').isEmail();
+    req.checkBody('password', 'Password required').notEmpty();
+    req.checkBody('studie', 'Studie required').notEmpty();
+    req.checkBody('fakultet', 'Fakultet required').notEmpty();
+    req.checkBody('password2', 'Passwords do not match').equals(req.body.password);
+
+
+    var errors = req.validationErrors();
+
+    if (errors) {
+        res.render('frontend/signup', {errors: errors});
+    } else {
+        var newTournament = new User({
+            username: username,
+            age: age,
+            email: email,
+            password: password,
+            studie: studie,
+            fakultet: fakultet,
+            bnet: bnet,
+            steam: steam,
+            isAdmin: false
+        });
+    }*/
+    res.redirect("/admins/tournaments");
+});
+
+
+
 module.exports = router;
