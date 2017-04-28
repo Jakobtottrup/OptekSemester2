@@ -144,66 +144,17 @@ userRoute.get(function (req, res) {
     });
 });
 
-/*userRoute.post(ensureAdminAuthenticated, function(req, res) {
- var paymentClicked = req.body.paymentClicked;
- User.findById(req.params._id, function(err, user) {
- if (err)
- res.send(err);
- console.log("1. paymentClicked should be true: " + paymentClicked);
- user.save(function (err) {
- if (err)
- res.send(err);
- res.json(user);
- });
- })
- });*/
-
 
 userRoute.put(ensureAdminAuthenticated, function (req, res) {
     User.findByIdAndUpdate(req.params._id, req.params.adminClicked, req.params.paymentClicked, function (err, user) {
         if (err)
             res.send(err);
-        var ac = req.params.adminClicked;
-        var pc = req.params.paymentClicked;
-/*        console.log(req.params.adminClicked);
-        console.log(ac);
-        console.log("\n");
-        console.log(req.params.paymentClicked);
-        console.log(pc);*/
-
-        if (pc !== "true") {
-            console.log("admin was clicked");
+        if (req.params.paymentClicked !== "true") {
             user.isAdmin = !user.isAdmin;
         }
-        if (pc === "true") {
-            console.log("payment was clicked!");
+        if (req.params.paymentClicked === "true") {
             user.hasPaid = !user.hasPaid;
         }
-
-
-        /*console.log(req.params.adminClicked.toString());
-         console.log(req.params.paymentClicked.toString());
-         if ((pc === true) && (ac === false)) {
-         console.log("payclick is true");
-         //if (adminClick === false) {
-         console.log("payclick is true AND adminclick is false!");
-
-         console.log("payment clicked, admin not clicked");
-         //user.hasPaid = user.hasPaid === false;
-         //console.log("pc is: "+ payClick + " payment status changed!\n" + "ac is: "+ adminClick);
-         //}
-         }
-         if (ac === true) {
-         console.log("adminclick is true");
-         if (pc === false) {
-         console.log("adminclick is true AND payclick is false!");
-
-         //user.isAdmin = user.isAdmin === false;
-         //console.log("ac is: "+ adminClick + " admin status changed!\n" + "pc is: "+payClick);
-         console.log("admin clicked, payment not clicked");
-         }
-         }*/
-
         user.save(function (err) {
             if (err)
                 res.send(err);
@@ -222,8 +173,6 @@ userRoute.delete(ensureAdminAuthenticated, function (req, res) {
 });
 
 
-
-
 // CREATE TOURNAMENT
 router.post('/tournaments', function (req, res) {
     var name = req.body.tour_name;
@@ -236,37 +185,36 @@ router.post('/tournaments', function (req, res) {
     console.log("end: " + endDate);
 
     /*
-    //validation
-    req.checkBody('username', 'Name required').notEmpty();
-    req.checkBody('age', 'Age required').notEmpty();
-    req.checkBody('email', 'Email required').notEmpty();
-    req.checkBody('email', 'Invalid email format').isEmail();
-    req.checkBody('password', 'Password required').notEmpty();
-    req.checkBody('studie', 'Studie required').notEmpty();
-    req.checkBody('fakultet', 'Fakultet required').notEmpty();
-    req.checkBody('password2', 'Passwords do not match').equals(req.body.password);
+     //validation
+     req.checkBody('username', 'Name required').notEmpty();
+     req.checkBody('age', 'Age required').notEmpty();
+     req.checkBody('email', 'Email required').notEmpty();
+     req.checkBody('email', 'Invalid email format').isEmail();
+     req.checkBody('password', 'Password required').notEmpty();
+     req.checkBody('studie', 'Studie required').notEmpty();
+     req.checkBody('fakultet', 'Fakultet required').notEmpty();
+     req.checkBody('password2', 'Passwords do not match').equals(req.body.password);
 
 
-    var errors = req.validationErrors();
+     var errors = req.validationErrors();
 
-    if (errors) {
-        res.render('frontend/signup', {errors: errors});
-    } else {
-        var newTournament = new User({
-            username: username,
-            age: age,
-            email: email,
-            password: password,
-            studie: studie,
-            fakultet: fakultet,
-            bnet: bnet,
-            steam: steam,
-            isAdmin: false
-        });
-    }*/
+     if (errors) {
+     res.render('frontend/signup', {errors: errors});
+     } else {
+     var newTournament = new User({
+     username: username,
+     age: age,
+     email: email,
+     password: password,
+     studie: studie,
+     fakultet: fakultet,
+     bnet: bnet,
+     steam: steam,
+     isAdmin: false
+     });
+     }*/
     res.redirect("/admins/tournaments");
 });
-
 
 
 module.exports = router;

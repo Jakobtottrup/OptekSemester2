@@ -3,11 +3,15 @@
  */
 
 
-
 var selected = [];
 var deleteUserId = [];
 var adminClicked = false;
 var paymentClicked = false;
+
+/**
+ * Sends GET request to router localhost:3000/api/users as admin
+ * returns userdata in JSON format.
+ */
 function getUsersData() {
     return $.ajax({
         type: 'GET',
@@ -17,33 +21,41 @@ function getUsersData() {
         usersData = data;
     });
 }
+
+
+/**
+ * Sends DELETE request to router localhost:3000/admins/users/USER_ID as admin
+ * @param id
+ */
 function deleteUser(id) {
-    //console.log(deleteUserId);
     $.ajax({
         type: 'DELETE',
         url: '/admins/users/' + id,
         dataType: 'json'
     });
 }
+
+
+/**
+ * Sends PUT request to router localhost:3000/admins/users/USER_ID/
+ * @param id - the unique object_id of the user(s) selected
+ * @param adminClicked - boolean value indicating if update admin button was clicked
+ * @param paymentClicked - boolean value indicating if update payment button was clicked
+ */
 function updateUsers(id, adminClicked, paymentClicked) {
-    console.log("testing hasPaid: "+paymentClicked);
-    console.log("testing isAdmin: "+adminClicked);
     $.ajax({
         type: 'PUT',
         url: '/admins/users/' + id +"/"+ adminClicked + "/" + paymentClicked,
         dataType: 'json'
     });
 }
-/*function updateAdmin(id, isAdmin) {
-    console.log("testing isAdmin: "+isAdmin);
-    $.ajax({
-        type: 'PUT',
-        url: '/admins/users/' + id +"/"+ isAdmin,
-        dataType: 'json'
-    });
-}*/
-$.when(getUsersData().done(function () {
 
+/**
+ * Function runs when getUserData() is finished loading.
+ * - generates table with each row having unique id of row + i
+ * - inserts each users' data into the table cells.
+ */
+$.when(getUsersData().done(function () {
     $("#data_insert").empty();
     for (i = 0; i < usersData.length; i++) {
         $('#data_insert').append("<tr class='data_row' id='row" + i + "'>" +
@@ -62,6 +74,11 @@ $.when(getUsersData().done(function () {
             "<td>" + usersData[i].isActive + "</td></tr>");
     }
 
+    /**
+     * Enables and disables user manipulation buttons when 0-* are selected
+     * deleteUserID.push selects the checkbox that was clicked, traverses up to closest <tr> element,
+     * and then finds the 3rd <td> element's text value (user ID)
+     */
     $(function () {
         $('.user_checkbox').click(function () {
             if ($(this).is(':checked')) {
@@ -74,7 +91,14 @@ $.when(getUsersData().done(function () {
         })
     });
 }));
-// ===================== Make admin button ========================
+
+
+/**
+ * Admin toggle button click function
+ *  - sets two boolean values indicating which button was clicked.
+ *  - for each selected user, updateUsers() is called
+ *  - after updates, the page is reloaded.
+ */
 $(function() {
     $('#toggleAdminBtn').click(function() {
         adminClicked = true;
@@ -82,11 +106,17 @@ $(function() {
         for (i = 0; i < deleteUserId.length; i++) {
             updateUsers(deleteUserId[i]._id, adminClicked, paymentClicked);
         }
-       // paymentClicked, adminClicked = false;
-        //location.reload(true);
+        location.reload(true);
     });
 });
 
+
+/**
+ * Payment toggle button click function
+ *  - sets two boolean values indicating which button was clicked.
+ *  - for each selected user, updateUsers() is called
+ *  - after updates, the page is reloaded.
+ */
 $(function () {
     $("#togglePaymentBtn").click(function () {
         paymentClicked = true;
@@ -94,12 +124,38 @@ $(function () {
         for (i=0;i<deleteUserId.length; i++) {
             updateUsers(deleteUserId[i]._id, adminClicked, paymentClicked);
         }
-        //paymentClicked, adminClicked = false;
-        //location.reload(true);
+        location.reload(true);
     });
 });
 
-//============ Checkbox kontrol===================
+/**
+ * Delete user button
+ * - Prompts the user to confirm deletion of selected user(s)
+ * - runs deleteUser() on each user_ID in deleteUserId
+ * - unchecks all checkboxes and clears deleteUserId[] and selected[]
+ * - reloads page when function is complete.
+ */
+$(function () {
+    $('#removeUserBtn').click(function (e) {
+        /*console.log(deleteUserId[i]._id);*/
+        alert("Are you sure you wish to delete selected users?"); //todo: enable dobbelt-check på user delete
+        for (i = 0; i < deleteUserId.length; i++) {
+            deleteUser(deleteUserId[i]._id);
+        }
+        $(':checkbox').prop('checked', false);
+        var table = $(e.target).closest('table');
+        selected = [];
+        deleteUserId = [];
+        location.reload(true);
+    })
+});
+
+/**
+ * Checkbox control
+ * - When the checkbox with id="selectAll" is clicked, the buttons are enabled or disabled
+ * - Each <td> element containing a :checkbox is also checked/unchecked
+ * - for each checked checkbox, the userID is pushed into deleteUserId.
+ */
 $(function () {
     $('#selectAll').click(function (e) {
         if ($(this).is(':checked')) {
@@ -117,18 +173,3 @@ $(function () {
 });
 
 
-// ===================== Remove User Button ======================= //
-$(function () {
-    $('#removeUserBtn').click(function (e) {
-        /*console.log(deleteUserId[i]._id);*/
-        alert("Are you sure you wish to delete selected users?"); //todo: enable dobbelt-check på user delete
-        for (i = 0; i < deleteUserId.length; i++) {
-            deleteUser(deleteUserId[i]._id);
-        }
-        $(':checkbox').prop('checked', false);
-        var table = $(e.target).closest('table');
-        selected = [];
-        deleteUserId = [];
-        location.reload(true);
-    })
-});
