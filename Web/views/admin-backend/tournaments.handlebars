@@ -10,7 +10,7 @@
                 <tr>
                     <th>#</th>
                     <th>Navn</th>
-                    <th>Start/Slut</th>
+                    <th>Tid</th>
                     <th>Beskrivelse</th>
                     <th>Billede</th>
                     <th>Hold</th>
@@ -38,13 +38,13 @@
             <div class="modal-body">
                     <h4>Indtast oplysninger for en ny turnering</h4>
                     <div class="well">
-                        <p>Indtast navn for turneringen</p>
+                        <b>Indtast navn for turneringen</b><br><br>
                         <input type="text" class="form-control" id="input_name" placeholder="Navn" name="tour_name" style="width: 80%; display: inline">
                         <input type="button" value="Upload billede" name="upload-pic" onclick="upLoadPic()" style="display:inline; float:right;"/>
                     </div>
 
                     <div class="well">
-                        <p>Giv en beskrivelse af turneringen</p>
+                        <b>Giv en beskrivelse af turneringen</b><br><br>
                         <input type="text" class="form-control" id="input_name" placeholder="Beskrivelse" name="tour_info">
                     </div>
 
@@ -58,11 +58,11 @@
                         <td>Synlig</td>
                         <tbody>
                             <tr>
-                                <td><input type="datetime-local" class="form-control" name="startDate"></td>
-                                <td><input type="datetime-local" class="form-control" name="startDate"></td>
-                                <td><input type="datetime-local" class="form-control" name="startDate"></td>
+                                <td><input type="datetime-local" class="form-control" name="opening_date"></td>
+                                <td><input type="datetime-local" class="form-control" name="closing_date"></td>
+                                <td><input type="datetime-local" class="form-control" name="start_date"></td>
                                 <td><input type="number" class="form-control" placeholder="Tid" name="tour_duration"></td>
-                                <td><input type="checkbox" name="visibility" value="true" checked></td>
+                                <td><input type="checkbox" name="visibility" value="true" checked="true"></td>
                             </tr>
                         </tbody>
                     </table>
@@ -96,19 +96,19 @@
                             <td>3. Plads</td>
                             <tbody>
                                 <tr>
-                                    <td><input type="text" class="form-control" placeholder="Navn" name="price1_name"></td>
-                                    <td><input type="text" class="form-control" placeholder="Navn" name="price2_name"></td>
-                                    <td><input type="text" class="form-control" placeholder="Navn" name="price3_name"></td>
+                                    <td><input type="text" class="form-control" placeholder="Navn" name="prize_name"></td>
+                                    <td><input type="text" class="form-control" placeholder="Navn" name="prize_name"></td>
+                                    <td><input type="text" class="form-control" placeholder="Navn" name="prize_name"></td>
                                 </tr>
                                 <tr>
-                                    <td><input type="text" class="form-control" placeholder="Beskrivelse" name="price1_info"></td>
-                                    <td><input type="text" class="form-control" placeholder="Beskrivelse" name="price2_info"></td>
-                                    <td><input type="text" class="form-control" placeholder="Beskrivelse" name="price3_info"></td>
+                                    <td><input type="text" class="form-control" placeholder="Beskrivelse" name="prize_info"></td>
+                                    <td><input type="text" class="form-control" placeholder="Beskrivelse" name="prize_info"></td>
+                                    <td><input type="text" class="form-control" placeholder="Beskrivelse" name="prize_info"></td>
                                 </tr>
                                 <tr>
-                                    <td><input type="button" value="Upload billede" name="price1_img" onclick="upLoadPic()"/></td>
-                                    <td><input type="button" value="Upload billede" name="price2_img" onclick="upLoadPic()"/></td>
-                                    <td><input type="button" value="Upload billede" name="price3_img" onclick="upLoadPic()"/></td>
+                                    <td><input type="button" value="Upload billede" name="prize_image" onclick="upLoadPic()"/></td>
+                                    <td><input type="button" value="Upload billede" name="prize_image" onclick="upLoadPic()"/></td>
+                                    <td><input type="button" value="Upload billede" name="prize_image" onclick="upLoadPic()"/></td>
                                 </tr>
                             </tbody>
                         </table>

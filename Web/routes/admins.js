@@ -15,6 +15,7 @@ const router = express.Router();
 
 const seats = require('../models/seats');
 const User = require('../models/user');
+const Tournament = require('../models/tournaments');
 var userRoute = router.route('/users/:_id/:adminClicked/:paymentClicked');
 var delRoute = router.route('/users/:_id');
 
@@ -175,46 +176,67 @@ delRoute.delete(ensureAdminAuthenticated, function (req, res) {
 
 
 // CREATE TOURNAMENT
-router.post('/tournaments', function (req, res) {
-    var name = req.body.tour_name;
-    var description = req.body.tour_info;
-    var startDate = req.body.startDate;
-    var endDate = req.body.endDate;
-    var endDate = req.body.endDate;
+router.post('/tournaments', ensureAdminAuthenticated, function (req, res) {
+    const name = req.body.tour_name;
+    const description = req.body.tour_info;
+    const openingDate = req.body.opening_date;
+    const closingDate = req.body.closing_date;
+    const startDate = req.body.start_date;
+    const tourDuration = req.body.tour_duration;
+    const isVisibel = req.body.visibility;
+    const maxTeams = req.body.team_size;
+    const maxTeamSize = req.body.team_maxsize;
+    const minTeamSize = req.body.team_minsize;
 
-    console.log("start: " + startDate);
-    console.log("end: " + endDate);
+    var prizes = new Array();
+    const prize_name = req.body.prize_name;
+    const prize_info = req.body.prize_info;
+    //const prize_image = req.body.prize_image;
 
-    /*
-     //validation
-     req.checkBody('username', 'Name required').notEmpty();
-     req.checkBody('age', 'Age required').notEmpty();
-     req.checkBody('email', 'Email required').notEmpty();
-     req.checkBody('email', 'Invalid email format').isEmail();
-     req.checkBody('password', 'Password required').notEmpty();
-     req.checkBody('studie', 'Studie required').notEmpty();
-     req.checkBody('fakultet', 'Fakultet required').notEmpty();
-     req.checkBody('password2', 'Passwords do not match').equals(req.body.password);
+    for(i=0; i<prize_name.length; i++){
+        var p_index = i;
+        var p_name = prize_name[i];
+        var p_description = prize_info[i];
+        //var p_image = prize_image[i]; //TODO: Skal også tilføjes til objektet 'prizes'
+        prizes.push({p_index, p_name, p_description});
+    }
 
+    //validation
+    // req.checkBody('name', 'Name required').notEmpty();
+    // req.checkBody('openingDate', 'Åbningsdato for tilmelding er nødvendig').notEmpty();
+    // req.checkBody('closigDate', 'Lukkedato for tilmelding er nødvendig').notEmpty();
+    // req.checkBody('startDate', 'Start dato er nødvendig').notEmpty();
+    // req.checkBody('minTeamSize', 'Holdbegrænsning er nødvendigt').notEmpty();
+    // req.checkBody('maxTeamSize', 'Maximum kan ikke være mindre end minimum').notEmpty(); //TODO: Skal samlignes med minTeamSize, for at undgå negativt tal
 
-     var errors = req.validationErrors();
+    var errors = req.validationErrors();
 
-     if (errors) {
-     res.render('frontend/signup', {errors: errors});
-     } else {
-     var newTournament = new User({
-     username: username,
-     age: age,
-     email: email,
-     password: password,
-     studie: studie,
-     fakultet: fakultet,
-     bnet: bnet,
-     steam: steam,
-     isAdmin: false
-     });
-     }*/
-    res.redirect("/admins/tournaments");
+    if (errors) {
+        //res.render('/admin-backend/tournaments', {errors: errors});
+        console.log(errors);
+    } else {
+        var newTournament = new Tournament({
+            name: name,
+            description: description,
+            openingDate: openingDate,
+            closingDate: closingDate,
+            startDate: startDate,
+            isVisibel: isVisibel,
+            maxTeams: maxTeams,
+            maxTeamSize: maxTeamSize,
+            minTeamSize: minTeamSize,
+            tourDuration: tourDuration,
+            prizes: prizes,
+
+        });
+
+        newTournament.save(function (err) {
+            if (err) throw err;
+            req.flash('success_msg', 'Turneringen er nu oprettet');
+            res.redirect('/admins/tournaments');
+        });
+    }
+//res.redirect("/admins/tournaments");
 });
 
 

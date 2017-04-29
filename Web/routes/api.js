@@ -52,13 +52,12 @@ router.get('/users', function (req, res) {
             res.json(data);
         });
     } else {                                                            // IF THERE IS NO USER LOGGED IN - PUBLIC
-        User.find({},{__v:0, password:0, age:0, email:0, studie:0, steam:0, bnet:0, isAdmin:0, fakultet:0}, function(err, data) {
+        User.find({},{__v:0, password:0, age:0, email:0, studie:0, steam:0, bnet:0, isAdmin:0, fakultet:0, hasPaid:0}, function(err, data) {
             if (err) throw err;
             res.json(data);
         });
     }
 });
-
 
 // SEATS INFORMATION
 router.get('/seats', function (req, res) {
