@@ -165,6 +165,10 @@ function getSeatColor(seat) {
     return "purple";
 }
 
+function pen(col) {
+    m_pixel_type = col;
+}
+
 /*** *********** ***/
 /** draw on screen */
 /*** *********** ***/
