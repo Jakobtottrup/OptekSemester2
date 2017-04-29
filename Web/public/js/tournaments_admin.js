@@ -34,8 +34,8 @@ $.when(document, getTournamentsData(), getUsersData()).done(function(){
         output += "<tr class='data_row "+data.isOpen+"' id='"+data._id+"'>";
         output += "<td>" + (key+1) + "</td>";
         output += "<td><b>" + data.name + "</b></td>";
-        output += "<td><b>Åbner:</b> " + convertDate(data.openingDate) + "<br><b>Lukker:</b> " + convertDate(data.closingDate) + "<br><b>Start: </b>" +
-                convertDate(data.startDate) + "<br><b>Varighed:</b> " + data.tourDuration + " time(r)" + "</td>";
+        output += "<td><b>Åbner:</b> " + convertTime(data.openingDate) + "<br><b>Lukker:</b> " + convertTime(data.closingDate) + "<br><b>Start: </b>" +
+                convertTime(data.startDate) + "<br><b>Varighed:</b> " + convertTime(data.tourDuration) + "</td>";
         output += "<td><input class='btn btn-primary' type='button' value='Se beskrivelse' onclick='showTourDescription(this)'/></td>";
         output += "<td><input class='btn btn-primary' type='button' value='Se billede' onclick='showPic(this)'/></td>";
         output += "<td>Max antal: "+ data.maxTeams +"<br>Tilmeldte: "+ data.teams.length +"</td><br>";
@@ -47,14 +47,20 @@ $.when(document, getTournamentsData(), getUsersData()).done(function(){
     $('#data_insert').append(output);
 });
 
-// used to convert UTC date to understandable text
-function convertDate(date){
-    var date = new Date(date);
-    date.toString();
-    return date;
+// used for warping time space into understandable text for human species
+function convertTime(time){
+    if (typeof time === "number"){
+        if(time === 1) {
+            return time+" time";
+        } else {
+            return time+" timer";
+        }
+    } else {
+        var time = new Date(time);
+        time.toString();
+        return time;
+    }
 }
-
-
 
 // stack prices
 function prizes(data){

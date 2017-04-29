@@ -188,7 +188,7 @@ router.post('/tournaments', ensureAdminAuthenticated, function (req, res) {
     const maxTeamSize = req.body.team_maxsize;
     const minTeamSize = req.body.team_minsize;
 
-    var prizes = new Array();
+    var prizes = [];
     const prize_name = req.body.prize_name;
     const prize_info = req.body.prize_info;
     //const prize_image = req.body.prize_image;
