@@ -138,7 +138,7 @@ $(function () {
 $(function () {
     $('#removeUserBtn').click(function (e) {
         /*console.log(deleteUserId[i]._id);*/
-        alert("Are you sure you wish to delete selected users?"); //todo: enable dobbelt-check på user delete
+        //alert("Are you sure you wish to delete selected users?"); //todo: enable dobbelt-check på user delete
         for (i = 0; i < deleteUserId.length; i++) {
             deleteUser(deleteUserId[i]._id);
         }

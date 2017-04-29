@@ -16,6 +16,7 @@ const router = express.Router();
 const seats = require('../models/seats');
 const User = require('../models/user');
 var userRoute = router.route('/users/:_id/:adminClicked/:paymentClicked');
+var delRoute = router.route('/users/:_id');
 
 
 // ADMIN AUTHENTICATION
@@ -163,7 +164,7 @@ userRoute.put(ensureAdminAuthenticated, function (req, res) {
     });
 });
 
-userRoute.delete(ensureAdminAuthenticated, function (req, res) {
+delRoute.delete(ensureAdminAuthenticated, function (req, res) {
     console.log("deleting user");
     User.findByIdAndRemove(req.params._id, function (err) {
         if (err)
