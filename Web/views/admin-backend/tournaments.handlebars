@@ -2,6 +2,7 @@
 <div class="col-lg-offset-2">
     <div class="col-lg-10 content-background">
         <h1>Administrer turneringer</h1>
+        <p style="display:inline; float:right; position: absolute"><a href="/api/tournaments">Se rå data</a></p>
         <div>
             <button type="button" class="btn btn-lg btn-primary" id="getUsersBtn" data-toggle="modal" data-target="#modal-create"
                     style="margin-top:5px;margin-bottom: 10px; float:right;">Opret turnering
@@ -90,8 +91,8 @@
 
 
                     <div class="well">
-                        <b>Præmier</b><td><input class='btn btn-primary' type='button' value='Tilføj præmie' onclick='addPrize()' style="float:right; margin-left: 10px":/></td>
-                        <td><input class='btn btn-primary' type='button' value='Fjern præmie' onclick='removePrize()' style="float:right"/></td>
+                        <b>Præmier</b><td><input class='btn btn-success' type='button' value='Tilføj præmie' onclick='addPrize()' style="float:right; margin-left: 10px":/></td>
+                        <td><input class='btn btn-danger' type='button' value='Fjern præmie' onclick='removePrize()' style="float:right"/></td>
                         <br><br>
                         <table class="table table-condensed">
                             <thead id="prize-head">

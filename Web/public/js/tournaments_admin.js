@@ -29,7 +29,7 @@ function getUsersData(){
 $.when(document, getTournamentsData(), getUsersData()).done(function(){
     var output = "";
     $.each(tournamentsData, function(key, data){
-        output += "<tr class='data_row "+data.isOpen+"' id='"+data._id+"'>";
+        output += "<tr class='data_row "+data.isVisibel+" "+data.isOpen+"' id='"+data._id+"'>";
         output += "<td>" + (key+1) + "</td>";
         output += "<td><b>" + data.name + "</b></td>";
         output += "<td><b>Åbner:</b> " + convertTime(data.openingDate) + "<br><b>Lukker:</b> " + convertTime(data.closingDate) + "<br><b>Start: </b>" +
@@ -118,7 +118,7 @@ function showMembers(source){
         $("#show-data-header").empty().append(tour[0].name);
         $('#modal-edit').modal('show');
     } else {
-        window.alert("Ingen deltagere fundet")
+        window.alert("Ingen deltagere på nuværende tidspunkt")
     }
 }
 
@@ -147,8 +147,13 @@ function convertTime(time){
             return time+" timer";
         }
     } else {
-        var time = new Date(time);
-        time.toString();
+        var month = new Date(time).getDate();
+        var day = new Date(time).getDay();
+        var hour = new Date(time).getHours();
+        var min = new Date(time).getMinutes();
+        time = month +"/"+ day +" - "+ hour +":"+ min;
+        // var time = new Date(time);
+        // time.toString();
         return time;
     }
 }
