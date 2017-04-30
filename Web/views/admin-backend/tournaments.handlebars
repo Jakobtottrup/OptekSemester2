@@ -89,27 +89,16 @@
 
 
                     <div class="well">
-                        <b>Præmier</b><br><br>
+                        <b>Præmier</b><td><input class='btn btn-primary' type='button' value='Tilføj præmie' onclick='addPrize()' style="float:right; margin-left: 10px":/></td>
+                        <td><input class='btn btn-primary' type='button' value='Fjern præmie' onclick='removePrize()' style="float:right"/></td>
+                        <br><br>
                         <table class="table table-condensed">
-                            <td>1. Plads</td>
-                            <td>2. Plads</td>
-                            <td>3. Plads</td>
+                            <thead id="prize-head">
+                            </thead>
                             <tbody>
-                                <tr>
-                                    <td><input type="text" class="form-control" placeholder="Navn" name="prize_name"></td>
-                                    <td><input type="text" class="form-control" placeholder="Navn" name="prize_name"></td>
-                                    <td><input type="text" class="form-control" placeholder="Navn" name="prize_name"></td>
-                                </tr>
-                                <tr>
-                                    <td><input type="text" class="form-control" placeholder="Beskrivelse" name="prize_info"></td>
-                                    <td><input type="text" class="form-control" placeholder="Beskrivelse" name="prize_info"></td>
-                                    <td><input type="text" class="form-control" placeholder="Beskrivelse" name="prize_info"></td>
-                                </tr>
-                                <tr>
-                                    <td><input type="button" value="Upload billede" name="prize_image" onclick="upLoadPic()"/></td>
-                                    <td><input type="button" value="Upload billede" name="prize_image" onclick="upLoadPic()"/></td>
-                                    <td><input type="button" value="Upload billede" name="prize_image" onclick="upLoadPic()"/></td>
-                                </tr>
+                                <tr id="prize-name"></tr>
+                                <tr id="prize-info"></tr>
+                                <tr id="prize-image"></tr>
                             </tbody>
                         </table>
                     </div>

@@ -189,18 +189,19 @@ router.post('/tournaments', ensureAdminAuthenticated, function (req, res) {
     const minTeamSize = req.body.team_minsize;
 
     var prizes = [];
-    const prize_name = req.body.prize_name;
-    const prize_info = req.body.prize_info;
-    //const prize_image = req.body.prize_image;
+    if (typeof req.body.prize_name != "undefined"){
+        const prize_name = req.body.prize_name;
+        const prize_info = req.body.prize_info;
+        //const prize_image = req.body.prize_image;
 
-    for(i=0; i<prize_name.length; i++){
-        var p_index = i;
-        var p_name = prize_name[i];
-        var p_description = prize_info[i];
-        //var p_image = prize_image[i]; //TODO: Skal også tilføjes til objektet 'prizes'
-        prizes.push({p_index, p_name, p_description});
+        for(i=0; i<prize_name.length; i++){
+            var p_index = i;
+            var p_name = prize_name[i];
+            var p_description = prize_info[i];
+            //var p_image = prize_image[i]; //TODO: Skal også tilføjes til objektet 'prizes'
+            prizes.push({p_index, p_name, p_description});
+        }
     }
-
     //validation
     // req.checkBody('name', 'Name required').notEmpty();
     // req.checkBody('openingDate', 'Åbningsdato for tilmelding er nødvendig').notEmpty();

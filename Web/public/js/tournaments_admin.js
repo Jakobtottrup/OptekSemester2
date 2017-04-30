@@ -2,7 +2,7 @@
  * Created by chris on 26-04-2017.
  */
 
-// ============== SHOWING ============== //
+// ============== SHOWING TOURNAMENTS ============== //
 // retrieve data from database
 function getTournamentsData(){
     return $.ajax({
@@ -11,7 +11,6 @@ function getTournamentsData(){
         dataType: "json"
     }).done(function(data){
         tournamentsData = data;
-
     });
 }
 
@@ -23,7 +22,6 @@ function getUsersData(){
         dataType: "json"
     }).done(function(data){
         usersData = data;
-
     });
 }
 
@@ -47,20 +45,6 @@ $.when(document, getTournamentsData(), getUsersData()).done(function(){
     $('#data_insert').append(output);
 });
 
-// used for warping time space into understandable text for human species
-function convertTime(time){
-    if (typeof time === "number"){
-        if(time === 1) {
-            return time+" time";
-        } else {
-            return time+" timer";
-        }
-    } else {
-        var time = new Date(time);
-        time.toString();
-        return time;
-    }
-}
 
 // stack prices
 function prizes(data){
@@ -86,6 +70,27 @@ function showTourDescription(source){
         $("#show-data-header").empty().append(tour[0].name);    // append tournament name into header
         $("#show-data-body").empty().append(tour[0].description);   // append description into body
         $('#modal-edit').modal('show'); // show modal
+    }
+}
+
+var maxPrizes = 0;
+function addPrize(){
+    if (maxPrizes <= 6) {
+        maxPrizes++;
+        $("#prize-head").append('<td id="prize'+maxPrizes+'">'+maxPrizes+'. Plads</td>');
+        $("#prize-name").append('<td id="prize'+maxPrizes+'"><input type="text" class="form-control" placeholder="Navn" name="prize_name"></td>');
+        $("#prize-info").append('<td id="prize'+maxPrizes+'"><input type="text" class="form-control" placeholder="Beskrivelse" name="prize_info"></td>');
+        $("#prize-image").append('<td id="prize'+maxPrizes+'"><input type="button" value="Upload billede" name="prize_image" onclick="upLoadPic()"/></td>');
+
+    }
+}
+function removePrize(){
+    if (maxPrizes >= 1){
+        $("#prize-head").find("#prize"+maxPrizes).remove();
+        $("#prize-name").find("#prize"+maxPrizes).remove();
+        $("#prize-info").find("#prize"+maxPrizes).remove();
+        $("#prize-image").find("#prize"+maxPrizes).remove();
+        maxPrizes--;
     }
 }
 
@@ -134,10 +139,24 @@ function showPic(source){
     }
 }
 
+// used for warping time space into understandable text for human species
+function convertTime(time){
+    if (typeof time === "number"){
+        if(time === 1) {
+            return time+" time";
+        } else {
+            return time+" timer";
+        }
+    } else {
+        var time = new Date(time);
+        time.toString();
+        return time;
+    }
+}
 
 
 
-// ============== EDIT ============== //
+// ============== EDITING TOURNAMENTS ============== //
 function editTournament(data){
 
 
