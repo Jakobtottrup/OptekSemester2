@@ -6,7 +6,8 @@
             <button type="button" class="btn btn-lg btn-primary" id="getUsersBtn" data-toggle="modal" data-target="#modal-create"
                     style="margin-top:5px;margin-bottom: 10px; float:right;">Opret turnering
             </button>
-            <table class="table table-condensed table-hover">
+            <input type="text" class="form-control" id="search-field" onkeyup="sortTournaments()" placeholder="Søg efter turnering.."><br>
+            <table class="table table-condensed table-hover" id="tournament-table">
                 <tr>
                     <th>#</th>
                     <th>Navn</th>

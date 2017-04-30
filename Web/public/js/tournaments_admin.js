@@ -81,7 +81,6 @@ function addPrize(){
         $("#prize-name").append('<td id="prize'+maxPrizes+'"><input type="text" class="form-control" placeholder="Navn" name="prize_name"></td>');
         $("#prize-info").append('<td id="prize'+maxPrizes+'"><input type="text" class="form-control" placeholder="Beskrivelse" name="prize_info"></td>');
         $("#prize-image").append('<td id="prize'+maxPrizes+'"><input type="button" value="Upload billede" name="prize_image" onclick="upLoadPic()"/></td>');
-
     }
 }
 function removePrize(){
@@ -157,8 +156,36 @@ function convertTime(time){
 
 
 // ============== EDITING TOURNAMENTS ============== //
+function updateTournamentsData(){
+    $.ajax({
+        type: 'UPDATE',
+        url: "/api/tournaments",
+        dataType: "json"
+    })
+}
+
 function editTournament(data){
 
+}
 
 
+function sortTournaments() {
+    // Declare variables
+    var input, filter, table, tr, td, i;
+    input = document.getElementById("search-field");
+    filter = input.value.toUpperCase();
+    table = document.getElementById("tournament-table");
+    tr = table.getElementsByTagName("tr");
+
+    // Loop through all table rows, and hide those who don't match the search query
+    for (i = 0; i < tr.length; i++) {
+        td = tr[i].getElementsByTagName("td")[1];
+        if (td) {
+            if (td.innerHTML.toUpperCase().indexOf(filter) > -1) {
+                tr[i].style.display = "";
+            } else {
+                tr[i].style.display = "none";
+            }
+        }
+    }
 }
