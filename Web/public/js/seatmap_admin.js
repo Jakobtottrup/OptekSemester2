@@ -152,6 +152,47 @@ function mapDel(w, h) {
     drawScreen();
 }
 
+function buildFrame() {
+    //top
+    for (var i = 0; i < seatmap.room_width; i++) {
+        seatmap.seats[i].type = 1;
+    }
+
+    //bottom
+    for (var i = 0; i < seatmap.room_width; i++) {
+        seatmap.seats[seatmap.room_width * (seatmap.room_height - 1) + i].type = 1;
+    }
+
+    //left
+    for (var i = 0; i < seatmap.room_height; i++) {
+        seatmap.seats[i * seatmap.room_width].type = 1;
+    }
+
+    //right
+    for (var i = 0; i < seatmap.room_height; i++) {
+        seatmap.seats[i * seatmap.room_width + seatmap.room_width - 1].type = 1;
+    }
+
+    drawScreen();
+}
+
+function expandFrame(dir, val) {
+    /*
+    dir
+      1
+    2   0
+      3
+
+    val
+    0 = -
+    1 = +
+    */
+
+    var tempdir = ["right", "up", "left", "down"];
+    var tempval = ["-", "+"];
+    console.log(tempdir[dir] + " " + tempval[val]);
+}
+
 /**** ********* ****/
 /*** Mouse Hover ***/
 /**** ********* ****/
