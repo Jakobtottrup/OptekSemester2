@@ -39,22 +39,28 @@ $.when(document, getTournamentsData(), getUsersData()).done(function(){
         output += "<td>Max antal: "+ data.maxTeams +"<br>Tilmeldte: "+ data.teams.length +"</td><br>";
         output += "<td><input class='btn btn-primary' type='button' value='Se deltagere' onclick='showMembers(this)'/></td>";
         output += "<td>" + prizes(data.prizes) + "</td>";
+        output += "<td>" + editTournament(this) + "</td>";
         output += "</tr>";
     });
     output += "";
     $('#data_insert').append(output);
+    $("#tournament-table").tablesorter();
 });
 
 
 // stack prices
 function prizes(data){
-    var output = "";
-    $.each(data, function(key, data){
-        output += "#"+(data.p_index+1)+": ";
-        output += ""+ data.p_description +"";
-        output += "<br>";
-    });
-    return output;
+    if (data.length > 0) {
+        var output = "";
+        $.each(data, function (key, data) {
+            output += "#" + (data.p_index + 1) + ": ";
+            output += "" + data.p_name + "";
+            output += "<br>";
+        });
+        return output;
+    } else {
+        return "<b>Ingen præmier angivet!</b>";
+    }
 }
 
 //show tournament description
@@ -73,23 +79,26 @@ function showTourDescription(source){
     }
 }
 
-var maxPrizes = 0;
+var totalPrizes = 0;
 function addPrize(){
-    if (maxPrizes <= 6) {
-        maxPrizes++;
-        $("#prize-head").append('<td id="prize'+maxPrizes+'">'+maxPrizes+'. Plads</td>');
-        $("#prize-name").append('<td id="prize'+maxPrizes+'"><input type="text" class="form-control" placeholder="Navn" name="prize_name"></td>');
-        $("#prize-info").append('<td id="prize'+maxPrizes+'"><input type="text" class="form-control" placeholder="Beskrivelse" name="prize_info"></td>');
-        $("#prize-image").append('<td id="prize'+maxPrizes+'"><input type="button" value="Upload billede" name="prize_image" onclick="upLoadPic()"/></td>');
+    // if ($('input[id^=prize]').length < 7) {
+    if (totalPrizes < 7) {
+        totalPrizes++;
+        // console.log(totalPrizes);
+        $("#prize-head").append('<td id="prize'+totalPrizes+'">'+totalPrizes+'. Plads</td>');
+        $("#prize-name").append('<td id="prize'+totalPrizes+'"><input type="text" class="form-control" placeholder="Navn" name="prize_name" required></td>');
+        $("#prize-info").append('<td id="prize'+totalPrizes+'"><input type="text" class="form-control" placeholder="Beskrivelse" name="prize_info" required></td>');
+        $("#prize-image").append('<td id="prize'+totalPrizes+'"><input type="button" value="Upload billede" name="prize_image" onclick="upLoadPic()"/></td>');
     }
 }
 function removePrize(){
-    if (maxPrizes >= 1){
-        $("#prize-head").find("#prize"+maxPrizes).remove();
-        $("#prize-name").find("#prize"+maxPrizes).remove();
-        $("#prize-info").find("#prize"+maxPrizes).remove();
-        $("#prize-image").find("#prize"+maxPrizes).remove();
-        maxPrizes--;
+    if (totalPrizes >= 1){
+        // console.log(totalPrizes);
+        $("#prize-head").find("#prize"+totalPrizes).remove();
+        $("#prize-name").find("#prize"+totalPrizes).remove();
+        $("#prize-info").find("#prize"+totalPrizes).remove();
+        $("#prize-image").find("#prize"+totalPrizes).remove();
+        totalPrizes--;
     }
 }
 
@@ -141,12 +150,13 @@ function showPic(source){
 // used for warping time space into understandable text for human species
 function convertTime(time){
     if (typeof time === "number"){
-        if(time === 1) {
+        if(time === 1 || time === 0.1) {
             return time+" time";
         } else {
             return time+" timer";
         }
-    } else {
+    } else if (typeof time !== "number") {
+        // console.log(time);
         var month = new Date(time).getDate();
         var day = new Date(time).getDay();
         var hour = new Date(time).getHours();
@@ -169,8 +179,11 @@ function updateTournamentsData(){
     })
 }
 
-function editTournament(data){
-
+function editTournament(source){
+    var output = "<p class='fa fa-pencil-square-o fa-fw'> Edit</p><br>";
+    var output = "<p class='fa fa-trash fa-fw'> Slet</p><br>";
+    output += "<br>";
+    return output;
 }
 
 

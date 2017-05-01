@@ -48,5 +48,4 @@ var TournamentSchema = mongoose.Schema({
 
     }
 });
-console.log("Tournament created");
 var Tournament = module.exports = mongoose.model('tournament', TournamentSchema);

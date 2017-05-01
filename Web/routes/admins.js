@@ -189,20 +189,33 @@ router.post('/tournaments', ensureAdminAuthenticated, function (req, res) {
     const minTeamSize = req.body.team_minsize;
 
     var prizes = [];
-    if (typeof req.body.prize_name != "undefined"){
+
+    if (typeof req.body.prize_name !== "undefined"){
         const prize_name = req.body.prize_name;
         const prize_info = req.body.prize_info;
-        //const prize_image = req.body.prize_image;
+        const prize_image = req.body.prize_image;
 
-        for(i=0; i<prize_name.length; i++){
-            var p_index = i;
-            var p_name = prize_name[i];
-            var p_description = prize_info[i];
-            //var p_image = prize_image[i]; //TODO: Skal også tilføjes til objektet 'prizes'
+        // prize_name will appear as a sting, if only one prize is posted
+        if (typeof prize_name === "string") {
+            var p_index = 0;
+            var p_name = prize_name;
+            var p_description = prize_info;
             prizes.push({p_index, p_name, p_description});
+        // if prize_name is an array
+        } else {
+            if (prize_name.length === prize_info.length /*=== req.body.prize_image.length*/) {
+                for (i = 0; i < prize_name.length; i++) {
+                    var p_index = i;
+                    var p_name = prize_name[i];
+                    var p_description = prize_info[i];
+                    var p_image = /*prize_image[i];*/ "http://duckboss.com/wp-content/uploads/2016/02/cats1.png"; //TODO: Skal lige ændres
+                    prizes.push({p_index, p_name, p_description, p_image});
+                }
+            }
         }
     }
-    //validation
+
+    // validation
     // req.checkBody('name', 'Name required').notEmpty();
     // req.checkBody('openingDate', 'Åbningsdato for tilmelding er nødvendig').notEmpty();
     // req.checkBody('closigDate', 'Lukkedato for tilmelding er nødvendig').notEmpty();
@@ -213,7 +226,7 @@ router.post('/tournaments', ensureAdminAuthenticated, function (req, res) {
     var errors = req.validationErrors();
 
     if (errors) {
-        //res.render('/admin-backend/tournaments', {errors: errors});
+        res.render('admin-backend/tournaments', {errors: errors});
         console.log(errors);
     } else {
         var newTournament = new Tournament({
@@ -227,7 +240,7 @@ router.post('/tournaments', ensureAdminAuthenticated, function (req, res) {
             maxTeamSize: maxTeamSize,
             minTeamSize: minTeamSize,
             tourDuration: tourDuration,
-            prizes: prizes,
+            prizes: prizes
 
         });
 
@@ -237,7 +250,6 @@ router.post('/tournaments', ensureAdminAuthenticated, function (req, res) {
             res.redirect('/admins/tournaments');
         });
     }
-//res.redirect("/admins/tournaments");
 });
 
 
