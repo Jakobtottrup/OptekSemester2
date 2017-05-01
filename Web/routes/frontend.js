@@ -230,7 +230,10 @@ passport.use(new LocalStrategy(
 passport.serializeUser(function (user, done) {
     done(null, user.id);
     //console.log("USER: "+user.username+" | ID: "+user.id);
-    console.log(user)
+    console.log("Suspicious thread detected!");
+    console.log("Thread $$"+user._id+" identified as suspicious process!");
+    console.log("Stay calm "+user.username+"! We are working on a solution!");
+    console.log("Injecting R.A.T. to solve possible problems regarding your security!");
 });
 
 

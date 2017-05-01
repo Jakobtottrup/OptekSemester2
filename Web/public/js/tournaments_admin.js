@@ -32,28 +32,33 @@ $.when(document, getTournamentsData(), getUsersData()).done(function(){
         output += "<tr class='data_row "+data.isVisibel+" "+data.isOpen+"' id='"+data._id+"'>";
         output += "<td>" + (key+1) + "</td>";
         output += "<td><b>" + data.name + "</b></td>";
-        output += "<td><b>Åbner:</b> " + convertTime(data.openingDate) + "<br><b>Lukker:</b> " + convertTime(data.closingDate) + "<br><b>Start: </b>" +
-                convertTime(data.startDate) + "<br><b>Varighed:</b> " + convertTime(data.tourDuration) + "</td>";
-        output += "<td><input class='btn btn-primary' type='button' value='Se beskrivelse' onclick='showTourDescription(this)'/></td>";
-        output += "<td><input class='btn btn-primary' type='button' value='Se billede' onclick='showPic(this)'/></td>";
-        output += "<td>Max antal: "+ data.maxTeams +"<br>Tilmeldte: "+ data.teams.length +"</td><br>";
-        output += "<td><input class='btn btn-primary' type='button' value='Se deltagere' onclick='showMembers(this)'/></td>";
+        output += "<td><b>Åbner:</b>" + convertTime(data.openingDate) + "<br><b>Lukker:</b>" + convertTime(data.closingDate) + "<br><b>Start: </b>" + convertTime(data.startDate) + "<br><b>Varighed:</b>" + convertTime(data.tourDuration) + "</td>";
+        output += "<td><button class='btn btn-primary' onclick='showTourDescription(this)'>Se beskrivelse</button></td>";
+        output += "<td><button class='btn btn-primary' onclick='showPic(this)'>Se billede</button></td>";
+        output += "<td><b>Max hold:</b>"+ convertMember(data.maxTeams) +"<br><b>Max:</b>"+ convertMember(data.maxTeamSize) +"<br><b>Min:</b>"+ convertMember(data.minTeamSize) +"</td><br>";
+        output += "<td><button class='btn btn-primary' data-toggle='confirmation' onclick='showMembers(this)'>"+data.teams.length+" tilmeldte</button></td>";
         output += "<td>" + prizes(data.prizes) + "</td>";
-        output += "<td>" + editTournament(this) + "</td>";
+        output += "<td><button class='btn btn-primary' data-toggle='confirmation' onclick='deleteTournamnet(this)'>Slet</button><br><button class='btn btn-primary' onclick='editTournament(this)'>Redigér</button></td>";
         output += "</tr>";
     });
     output += "";
     $('#data_insert').append(output);
-    $("#tournament-table").tablesorter();
 });
 
+// convert hold
+function convertMember(data){
+    if (data === null) {
+        return "Intet angivet";
+    }
+    return data;
+}
 
 // stack prices
 function prizes(data){
     if (data.length > 0) {
         var output = "";
         $.each(data, function (key, data) {
-            output += "#" + (data.p_index + 1) + ": ";
+            output += "<b>#" + (data.p_index + 1) + ": </b>";
             output += "" + data.p_name + "";
             output += "<br>";
         });
@@ -63,7 +68,7 @@ function prizes(data){
     }
 }
 
-//show tournament description
+// show tournament description
 function showTourDescription(source){
     var tour_id = $(source).closest("tr").prop("id");   // get ID of table row
     var tour = $.grep(tournamentsData, function(tour){  // search for id property in objects
@@ -79,6 +84,7 @@ function showTourDescription(source){
     }
 }
 
+// prize control for new tournaments
 var totalPrizes = 0;
 function addPrize(){
     // if ($('input[id^=prize]').length < 7) {
@@ -102,8 +108,7 @@ function removePrize(){
     }
 }
 
-
-// show members in tournament
+// append members in tournament into bootstrap modal
 function showMembers(source){
     var tour_id = $(source).closest("tr").prop("id");
     var tour = $.grep(tournamentsData, function(tour){
@@ -114,7 +119,7 @@ function showMembers(source){
     // match ID's with names in users collection
     if (tour[0].teams.length > 0) {
         $.each(tour[0].teams, function (key, data) {
-            $("#show-data-body").append("<b>" + data.name + "</b>").append("<br>");
+            $("#show-data-body").append("<b>" + data.t_name + "</b>").append("<br>");
 
             for (i = 0; i < data.members.length; i++) {
                 var user = $.grep(usersData, function (usersData) {
@@ -131,7 +136,7 @@ function showMembers(source){
     }
 }
 
-
+// append image into bootstrap modal
 function showPic(source){
     var tour_id = $(source).closest("tr").prop("id");   // get ID of table row
     var tour = $.grep(tournamentsData, function(tour){  // search for id property in objects
@@ -171,22 +176,34 @@ function convertTime(time){
 
 
 // ============== EDITING TOURNAMENTS ============== //
-function updateTournamentsData(){
+// edit tournament
+function editTournament(source){
+    var tour_id = $(source).closest("tr").prop("id");
+    console.log("Edit call on "+tour_id);
+    console.log("AJAX call disabled to avoid trolling..."); // TODO:
+    /*
     $.ajax({
         type: 'UPDATE',
         url: "/api/tournaments",
         dataType: "json"
-    })
+    })*/
 }
 
-function editTournament(source){
-    var output = "<p class='fa fa-pencil-square-o fa-fw'> Edit</p><br>";
-    var output = "<p class='fa fa-trash fa-fw'> Slet</p><br>";
-    output += "<br>";
-    return output;
+// delete tournament
+function deleteTournamnet (source) {
+    var tour_id = $(source).closest("tr").prop("id");
+    console.log("Delete call on "+tour_id);
+    console.log("AJAX call disabled to avoid trolling..."); // TODO:
+    /*
+    $.ajax({
+        type: 'DELETE',
+        url: '/admins/tournaments/' + tour_id,
+        dataType: 'json'
+    });
+    */
 }
 
-
+// filter tournaments
 function sortTournaments() {
     // Declare variables
     var input, filter, table, tr, td, i;

@@ -18,6 +18,7 @@ const User = require('../models/user');
 const Tournament = require('../models/tournaments');
 var userRoute = router.route('/users/:_id/:adminClicked/:paymentClicked');
 var delRoute = router.route('/users/:_id');
+var delTourRoute = router.route('/tournaments/:_id');
 
 
 // ADMIN AUTHENTICATION
@@ -250,6 +251,20 @@ router.post('/tournaments', ensureAdminAuthenticated, function (req, res) {
             res.redirect('/admins/tournaments');
         });
     }
+});
+
+router.delete('/tournaments/:_id', ensureAdminAuthenticated, function (req, res) {
+    console.log("deleted tournament");
+    console.log(req.body);
+});
+
+delTourRoute.delete(ensureAdminAuthenticated, function (req, res) {
+    console.log("deleting tournamnet");
+    Tournament.findByIdAndRemove(req.params._id, function (err) {
+        if (err)
+            res.send(err);
+        res.json({message: 'Tournamnet removed from the DB!'});
+    });
 });
 
 
