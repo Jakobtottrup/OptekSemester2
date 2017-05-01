@@ -92,8 +92,8 @@ function savemap() {
 
 function seatmapCleanup(json_seat) {
     if (json_seat == false || json_seat == []) {
-        var thiswidth = 16;
-        var thisheight = 8;
+        var thiswidth = 32;
+        var thisheight = 16;
 
         mapDel(thiswidth, thisheight);
 
@@ -163,7 +163,11 @@ function initMousemove() {
         convertMouse(e);
 
         if (m_pixel_type >= 0) {
-            seatmap.seats[m_index].type = m_pixel_type;
+            if (seatmap.seats[m_index].type == m_pixel_type) {
+                seatmap.seats[m_index].type = 0;
+            } else {
+                seatmap.seats[m_index].type = m_pixel_type;
+            }
         }
 
         drawScreen();
