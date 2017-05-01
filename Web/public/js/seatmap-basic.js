@@ -427,10 +427,16 @@ function drawScreen() {
 
 
 
+function getMousePos(canvas, e) {
+    var rect = canvas.getBoundingClientRect();
+    mouseX = e.clientX - rect.left;
+    mouseY = e.clientY - rect.top
+}
+
 function convertMouse(e) {
+    getMousePos(canvas, e);
+
     var canvasBounds = canvas.getBoundingClientRect();
-    var mouseX = Math.floor(e.pageX - canvasBounds.left + 1);
-    var mouseY = Math.floor(e.pageY - canvasBounds.top + 1);
 
     var screenWidth = Math.floor(canvasBounds.right - canvasBounds.left + 1);
     var screenHeight = Math.floor(canvasBounds.bottom - canvasBounds.top + 1);

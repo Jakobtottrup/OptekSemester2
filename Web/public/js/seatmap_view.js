@@ -167,12 +167,9 @@ function infoFromID(id) {
 
 function initMousemove() {
 //test for mouse over
-    canvas.addEventListener("mousemove", function (e) {
-        //get mouse coordinates according to canvas position on screen
+    canvas.addEventListener('mousemove', function(e) {
         convertMouse(e);
-
         updateInfoBox(m_index);
-
         drawScreen();
-    });
+    }, false);
 }
