@@ -12,7 +12,7 @@ function drawPixel(x, y, seat, hover) {
     if (seat.type == 1) {
         drawWall(x, y);
     } else if (seat.type == 2) {
-        drawSeat(x, y, seat.userid, hover);
+        drawSeat(x, y, seat.userid, hover, seat.label);
     } else if (seat.type == 3) {
         drawOther(x, y, 3);
     } else if (seat.type == 4) {
@@ -20,7 +20,7 @@ function drawPixel(x, y, seat, hover) {
     }
 }
 
-function drawSeat(x, y, id, hover) {
+function drawSeat(x, y, id, hover, label) {
     var offset = 6; //%
     offset = (seat_size / 100) * offset;
     var newsize = seat_size - (2 * offset);
@@ -76,6 +76,13 @@ function drawSeat(x, y, id, hover) {
 
     ctx.fill();
     ctx.stroke();
+
+    //label
+    ctx.textBaseline="middle";
+    ctx.textAlign="center";
+    ctx.fillStyle="yellow";
+    ctx.font = "7px Arial";
+    ctx.fillText(label, x * seat_size + (seat_size / 2), y * seat_size + (seat_size / 2));
 }
 
 function drawWall(x, y) {
@@ -421,11 +428,6 @@ function drawScreen() {
         }
     }
 }
-
-
-
-
-
 
 function getMousePos(canvas, e) {
     var rect = canvas.getBoundingClientRect();

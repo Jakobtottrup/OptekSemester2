@@ -36,10 +36,11 @@
         </canvas>
 
         <button id="new_map_btn" onclick="savemap()">Konverter kort til JSON</button>
+        <button id="new_map_btn" onclick="createLabels()">Udregn Labels</button>
 
         <form id="new_map" accept-charset="utf-8" method="post" action="/admins/create_seats">
             <div class="form-group">
-                <input type="text" id="seatName" name="seatName" class="form-control" placeholder="JSON fil" required readonly> <!-- readonly -->
+                <input type="text" id="seatName" name="seatName" class="form-control" placeholder="JSON fil" required readonly>
             </div>
             <input type="submit" name="submit" value="Gem kort" class="btn btn-primary">
         </form>

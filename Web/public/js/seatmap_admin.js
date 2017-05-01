@@ -96,7 +96,6 @@ function seatmapCleanup(json_seat) {
         var thisheight = 16;
 
         mapDel(thiswidth, thisheight);
-
     } else {
         temp = JSON.stringify(json_seat).split("\\");
         var res = "";
@@ -186,11 +185,151 @@ function expandFrame(dir, val) {
     val
     0 = -
     1 = +
+
     */
 
-    var tempdir = ["right", "up", "left", "down"];
-    var tempval = ["-", "+"];
-    console.log(tempdir[dir] + " " + tempval[val]);
+    if (dir == 0) {
+        expandFrameRight(val);
+    } else if (dir == 1) {
+        expandFrameUp(val);
+    } else if (dir == 2) {
+        expandFrameLeft(val);
+    } else {
+        expandFrameDown(val);
+    }
+}
+
+function expandFrameUp(val) {
+    console.log("up " + val);
+}
+
+function expandFrameDown(val) {
+    console.log("down " + val);
+}
+
+function expandFrameRight(val) {
+    console.log("right " + val);
+}
+
+function expandFrameLeft(val) {
+    console.log("left " + val);
+}
+
+function createLabels() {
+    var i, j;
+    var _x, _y;
+    var dir;
+
+    alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+
+    var curTabels = 0;
+
+    //remove all labels
+    for (i = 0; i < seatmap.seats.length; i++) {
+        seatmap.seats[i].label = 0;
+    }
+
+    //count tabels
+    for (i = 0; i < seatmap.seats.length; i++) {
+        if (seatmap.seats[i].label == 0 && seatmap.seats[i].type == 2) {
+            var testRight = 0;
+            var testDown = 0;
+            _x = i % seatmap.room_width;
+            _y = (i - _x) / seatmap.room_width;
+
+            j = _x;
+            while (j < seatmap.room_width && seatmap.seats[_y * seatmap.room_width + j].type == 2) {
+                j++;
+                testRight++;
+            }
+            //console.log(testRight);
+            j = _y;
+            while (j < seatmap.room_height && seatmap.seats[j * seatmap.room_width + _x].type == 2) {
+                j++;
+                testDown++;
+            }
+            //console.log(testDown);
+            if (testRight < testDown) {
+                dir = 1; //label dir left
+            } else {
+                dir = 0; //label dir right
+
+            }
+
+            //label right
+            if (dir == 0) {
+                for (j = 0; j < testRight; j++) {
+                    seatmap.seats[_y * seatmap.room_width + (_x + j)].label = 1;
+                }
+            } else {
+                for (j = 0; j < testDown; j++) {
+                    seatmap.seats[(_y + j) * seatmap.room_width + _x].label = 1;
+                }
+            }
+
+            curTabels++;
+        }
+    }
+
+    totTabels = curTabels;
+    curTabels = 0;
+
+    //remove all labels
+    for (i = 0; i < seatmap.seats.length; i++) {
+        seatmap.seats[i].label = 0;
+    }
+
+    //draw labels
+    for (i = 0; i < seatmap.seats.length; i++) {
+        if (seatmap.seats[i].label == 0 && seatmap.seats[i].type == 2) {
+            var testRight = 0;
+            var testDown = 0;
+            _x = i % seatmap.room_width;
+            _y = (i - _x) / seatmap.room_width;
+
+            j = _x;
+            while (j < seatmap.room_width && seatmap.seats[_y * seatmap.room_width + j].type == 2) {
+                j++;
+                testRight++;
+            }
+            //console.log(testRight);
+            j = _y;
+            while (j < seatmap.room_height && seatmap.seats[j * seatmap.room_width + _x].type == 2) {
+                j++;
+                testDown++;
+            }
+            //console.log(testDown);
+            if (testRight < testDown) {
+                dir = 1; //label dir left
+            } else {
+                dir = 0; //label dir right
+
+            }
+
+            var firLetter = curTabels % alphabet.length;
+            var secLetter = (curTabels - firLetter) / alphabet.length;
+
+            if (totTabels > alphabet.length) {
+                thisLabel = alphabet.charAt(secLetter) + alphabet.charAt(firLetter);
+            } else {
+                thisLabel = alphabet.charAt(firLetter);
+            }
+
+            //label right
+            if (dir == 0) {
+                for (j = 0; j < testRight; j++) {
+                    seatmap.seats[_y * seatmap.room_width + (_x + j)].label = "" + thisLabel + (j+1);
+                }
+            } else {
+                for (j = 0; j < testDown; j++) {
+                    seatmap.seats[(_y + j) * seatmap.room_width + _x].label = "" + thisLabel + (j+1);
+                }
+            }
+            curTabels++;
+        }
+    }
+
+    drawScreen();
 }
 
 /**** ********* ****/
@@ -210,7 +349,7 @@ function initMousemove() {
                 seatmap.seats[m_index].type = m_pixel_type;
             }
         }
-
+        createLabels();
         drawScreen();
     });
 
