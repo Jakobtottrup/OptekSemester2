@@ -5,11 +5,12 @@
             <div class="screen_level"></div>
         </div>
 
-        <button onclick="pen(0)">Slet</button>
+        <button onclick="pen(0)">Gulv</button>
         <button onclick="pen(1)">Væg</button>
         <button onclick="pen(2)">Plads</button>
         <button onclick="pen(3)">Admin</button>
         <button onclick="pen(4)">Kiosk</button>
+        <button onclick="mapDel(seatmap.room_width, seatmap.room_height)">Ryd kort</button>
 
         <canvas id="pladskort-admin" style="border: 1px solid;">
             <p>Din browser understøtter ikke canvas</p>
@@ -26,5 +27,7 @@
     </div>
 </div>
 
+
+<script src="/js/seatmap-basic.js"></script>
 <script src="/js/seatmap_admin.js"></script>
 

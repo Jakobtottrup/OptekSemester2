@@ -78,6 +78,8 @@ $.when(getSeatData()).done(function() {
     seatmapCleanup(seatmap);
     setVariables();
     drawScreen();
+
+    initMousemove();
 });
 
 
@@ -93,22 +95,7 @@ function seatmapCleanup(json_seat) {
         var thiswidth = 16;
         var thisheight = 8;
 
-        temp = [];
-        for (var i = 0; i < thiswidth * thisheight; i++) {
-            temp.push({
-                type: 0,
-                label: "A" + i,
-                userid: 0
-            });
-        }
-
-        seatmap = {
-            room_width: thiswidth,
-            room_height: thisheight,
-            seats_tot: 0,
-            map_open: false,
-            seats: temp
-        };
+        mapDel(thiswidth, thisheight);
 
     } else {
         temp = JSON.stringify(json_seat).split("\\");
@@ -139,98 +126,54 @@ function setVariables() {
 /** set functions **/
 /*** ********** ****/
 
-function getSeatColor(seat) {
-    //void
-    if (seat.type == 0) {
-        return "gray";
-    }
-    //wall
-    if (seat.type == 1) {
-        return "black";
-    }
-    //seat
-    if (seat.type == 2) {
-        return "green";
-    }
-    //admin area
-    if (seat.type == 3) {
-        return "darkred";
-    }
-    //kiosk
-    if (seat.type == 4) {
-        return "blue";
-    }
-    //error
-    console.log(seat);
-    return "purple";
-}
-
 function pen(col) {
     m_pixel_type = col;
 }
 
-/*** *********** ***/
-/** draw on screen */
-/*** *********** ***/
-
-function drawScreen() {
-    ctx.clearRect(0, 0, canvas.width, canvas.height);
-    if (screen_level == 0) {
-        //phone
-        ctx.fillStyle = "#bfbfbf";
-        ctx.fillRect(10, 10, mycanvas.width - 20, mycanvas.height - 20);
-
-        ctx.fillStyle = "red";
-        ctx.font = "30px Arial";
-        ctx.textAlign="center";
-        ctx.fillText("Dette er skrøbeligt data.",320,160);
-        ctx.fillText("Benyt en anden enhed.",320,200);
-    } else {
-        //ctx.clearRect(0, 0, canvas.width, canvas.height);
-        for (var i = 0; i < seatmap.seats.length; i++) {
-            ctx.fillStyle = getSeatColor(seatmap.seats[i]);
-            var _x = i % seatmap.room_width;
-            var _y = (i - _x) / seatmap.room_width;
-            ctx.fillRect(_x * seat_size, _y * seat_size, seat_size, seat_size);
-        }
+function mapDel(w, h) {
+    temp = [];
+    for (var i = 0; i < w * h; i++) {
+        temp.push({
+            type: 0,
+            label: "A" + i,
+            userid: 0
+        });
     }
+
+    seatmap = {
+        room_width: w,
+        room_height: h,
+        seats_tot: 0,
+        map_open: false,
+        seats: temp
+    };
+
+    m_index = 0;
+    drawScreen();
 }
 
 /**** ********* ****/
 /*** Mouse Hover ***/
 /**** ********* ****/
 
+function initMousemove() {
 //test for mouse over
-canvas.addEventListener("click", function(e){
-    //get mouse coordinates according to canvas position on screen
-    var canvasBounds = canvas.getBoundingClientRect();
-    var mouseX = Math.floor(e.pageX - canvasBounds.left + 1);
-    var mouseY = Math.floor(e.pageY - canvasBounds.top + 1);
+    canvas.addEventListener("click", function (e) {
+        //get mouse coordinates according to canvas position on screen
+        convertMouse(e);
 
-    var screenWidth = Math.floor(canvasBounds.right - canvasBounds.left + 1);
-    var screenHeight = Math.floor(canvasBounds.bottom - canvasBounds.top + 1);
+        if (m_pixel_type >= 0) {
+            seatmap.seats[m_index].type = m_pixel_type;
+        }
 
-    var mx = Math.floor(seatmap.room_width / screenWidth * mouseX);
-    if (mx >= seatmap.room_width) {
-        mx = seatmap.room_width - 1;
-    }
-    if (mx < 0) {
-        mx = 0;
-    }
+        drawScreen();
+    });
 
-    var my = Math.floor(seatmap.room_height / screenHeight * mouseY);
-    if (my >= seatmap.room_height) {
-        my = seatmap.room_height - 1;
-    }
-    if (my < 0) {
-        my = 0;
-    }
+//test for mouse over
+    canvas.addEventListener("mousemove", function (e) {
+        //get mouse coordinates according to canvas position on screen
+        convertMouse(e);
 
-    var m_index = mx + (my * seatmap.room_width);
-
-    if (m_pixel_type >= 0) {
-        seatmap.seats[m_index].type = m_pixel_type;
-    }
-
-    drawScreen();
-});
+        drawScreen();
+    });
+}
