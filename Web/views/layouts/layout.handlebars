@@ -1,108 +1,98 @@
 <!DOCTYPE html>
 <html lang="en">
-    <head>
-        <meta charset="utf-8">
-        <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
-        <meta name="description" content="">
-        <meta name="author" content="">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+    <meta name="description" content="">
+    <meta name="author" content="">
 
-        <link rel="stylesheet" type="text/css" href="/bootstrap/dist/css/bootstrap.min.css">
-        <link rel="stylesheet" type="text/css" href="/bootstrap/dist/css/bootstrap-theme.min.css">
-        <!--<link rel="stylesheet" type="text/css" href="/css/main.css">-->
-        <!--<link rel="stylesheet" type="text/css" href="/css/draft_1_2.css">-->
-        <!--<link rel="stylesheet" type="text/css" href="/css/colortest.css">-->
-        <link rel="stylesheet" type="text/css" href="/css/draft_mistygreens.css">
+    <link rel="stylesheet" type="text/css" href="/bootstrap/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="/bootstrap/dist/css/bootstrap-theme.min.css">
+    <!--<link rel="stylesheet" type="text/css" href="/css/main.css">-->
+    <!--<link rel="stylesheet" type="text/css" href="/css/draft_1_2.css">-->
+    <!--<link rel="stylesheet" type="text/css" href="/css/colortest.css">-->
+    <link rel="stylesheet" type="text/css" href="/css/draft_5.css">
 
-        <script src="/jquery/dist/jquery.min.js"></script>
-        <script src="/bootstrap/dist/js/bootstrap.min.js"></script>
-        <script src="/ajax/dist/ajax.min.js"></script>
-        <script src="/angular/angular.min.js"></script>
+    <script src="/jquery/dist/jquery.min.js"></script>
+    <script src="/bootstrap/dist/js/bootstrap.min.js"></script>
+    <script src="/ajax/dist/ajax.min.js"></script>
+    <script src="/angular/angular.min.js"></script>
 
 
-        <!--<script src="/js/change_style.js"></script>-->
+    <!--<script src="/js/change_style.js"></script>-->
 
-        <title>{{ title }}</title>
-    </head>
+    <title>{{ title }}</title>
+</head>
 
-    <body>
+<body>
+<div id="wrapper" class="container-fluid">
+    <!--navigations bar -->
+    <nav class="navbar navbar-default top-menu-back">
+        <div class="top-menu">
+            <!-- Brand and toggle get grouped for better mobile display -->
+            <div class="navbar-header row">
+                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="/">S7 LAN</a>
+            </div>
 
-    <div id="wrapper">
-        <!--navigations bar -->
-        <nav class="navbar navbar-default top-menu-back">
-            <div class="container-fluid top-menu">
-                <!-- Brand and toggle get grouped for better mobile display -->
-                <div class="navbar-header">
-                    <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false"><span class="sr-only">Toggle navigation</span>
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                    </button>
-                    <a class="navbar-brand" href="/">S7 LAN</a>
-                </div>
+            <!-- Collect the nav links, forms, and other content for toggling -->
+            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                <ul class="nav navbar-nav">
+                    <li><a href="/events">EVENTET</a></li>
+                    <li><a href="/rules">REGLER</a></li>
+                    <li><a href="/tournaments">TURNERINGER</a></li>
+                    <li><a href="/seats">PLADSKORT</a></li>
+                    <li><a href="/contact">KONTAKT</a></li>
+                    <li><a href="/gallery">GALLERY</a></li>
+                </ul>
 
-                <!-- Collect the nav links, forms, and other content for toggling -->
-                <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-                    <ul class="nav navbar-nav">
-                        <li><a href="/events">EVENTET</a></li>
-                        <li><a href="/rules">REGLER</a></li>
-                        <li><a href="/tournaments">TURNERINGER</a></li>
-                        <li><a href="/seats">PLADSKORT</a></li>
-                        <li><a href="/contact">KONTAKT</a></li>
-                        <li><a href="/gallery">GALLERY</a></li>
-                    </ul>
+                <ul class="nav navbar-nav navbar-right">
+                    {{#if user}}
+                        <li><a href="/logout">LOG UD</a></li>
 
-                    <ul class="nav navbar-nav navbar-right">
-                        <form class="navbar-form navbar-left">
-                            <div class="form-group">
-                                <!--<input type="text" class="form-control" placeholder="Søg">-->
-                            </div>
-<!--
-                            <button type="submit" class="btn btn-default">SØG</button>
--->
-                        </form>
-                        {{#if user}}
-                            <li><a href="/logout">LOG UD</a></li>
-
-                        {{else}}
-                            <li><a href="/signup">TILMELD</a></li>
-                            <li><a href="/login">LOG IND</a></li>
-                        {{/if}}
-                    </ul>
-                </div><!-- /.navbar-collapse -->
-            </div><!-- /.container-fluid -->
-        </nav>
+                    {{else}}
+                        <li><a href="/signup">TILMELD</a></li>
+                        <li><a href="/login">LOG IND</a></li>
+                    {{/if}}
+                </ul>
+            </div><!-- /.navbar-collapse -->
+        </div><!-- /.container-fluid -->
+    </nav>
     <!-- dashboard panels -->
 
-        <div>
-            <div class="container">
-                {{#if success_msg}}
-                    <div class="alert alert-success">{{success_msg}}</div>
-                {{/if}}
-                {{#if error_msg}}
-                    <div class="alert alert-danger">{{error_msg}}</div>
-                {{/if}}
-                {{#if error}}
-                    <div class="alert alert-danger">{{error}}</div>
-                {{/if}}
-            </div>
+    <div>
+        <div class="container">
+            {{#if success_msg}}
+                <div class="alert alert-success">{{success_msg}}</div>
+            {{/if}}
+            {{#if error_msg}}
+                <div class="alert alert-danger">{{error_msg}}</div>
+            {{/if}}
+            {{#if error}}
+                <div class="alert alert-danger">{{error}}</div>
+            {{/if}}
         </div>
+    </div>
 
-        <div id="dashboard-nav">
-        <!--<div class="left-dashboard-menu">-->
-            <div class="container-fluid">
-                <div class="row">
-                    {{#if user}}
-                    <div>
-                        <ul class="nav nav-pills nav-stacked dash-menu col-lg-2 col-md-2 col-2 col-sm-2">
-                            <li><a href="/dashboard"><i class="fa fa-crosshairs fa-fw "></i>{{user.username}}'s Dashboard</a></li>
-                            {{#unless user.isAdmin}}
+    <div id="dashboard-nav">
+        <div class="row">
+            {{#if user}}
+                <div class="col-md-2">
+                    <ul class="nav nav-pills nav-stacked dash-menu">
+                        <li><a href="/dashboard"><i class="fa fa-crosshairs fa-fw "></i>{{user.username}}'s Dashboard</a></li>
+                        {{#unless user.isAdmin}}
                             <li><a href="/users/userinfo"><i class="fa fa-edit fa-fw"></i>Bruger info</a></li>
                             <li><a href="/users/getseat"><i class="fa fa-th fa-fw"></i>Din Plads</a></li>
                             <li><a href="/users/seatgroups"><i class="fa fa-users fa-fw"></i>Siddegruppe</a></li>
                             <li><a href="/users/tournaments"><i class="fa fa-sitemap fa-fw"></i>Dine Turneringer</a></li>
-                            {{else}}
+                        {{else}}
                             <li><a href="/admins/posts"><i class="fa fa-edit fa-fw"></i>Opslag</a></li>
                             <li><a href="/admins/events"><i class="fa fa-cogs fa-fw"></i>Dette LAN</a></li>
                             <li><a href="/admins/users"><i class="fa fa-user fa-fw"></i>Se brugere</a></li>
@@ -111,45 +101,51 @@
                             <li><a href="/admins/tournaments"><i class="fa fa-sitemap fa-fw"></i>Opret turnering</a></li>
                             <li><a href="/admins/mails"><i class="fa fa-envelope fa-fw"></i>Send mails</a></li>
                             <li><a href="/admins/sponsors"><i class="fa fa-tasks fa-fw"></i>Sponsors</a></li>
-                            {{/unless}}
-                        </ul>
-                    </div>
-                    {{/if}}
-                    <div>
-                        {{{body}}}
-                    </div>
+                        {{/unless}}
+                    </ul>
                 </div>
-            <!--</div>-->
+            {{else}}
+                <div class="col-md-2">
+                </div>
+            {{/if}}
+            <div class="col col-md-8 content-background">
+            <div class="content-center">
+                {{{body}}}
+            </div>
         </div>
-            <!--<div id="sponsor-bar">-->
-                <!--<div class="container">-->
-                    <!--<div class="sponsor col-lg-offset-10 col-md-offset-10 col-lg-2 col-md-2 clearfix hidden-xs hidden-md hidden-sm">-->
-                        <!--<div class="row">-->
-                            <!--<ul class="sponsor-bar col-lg-2 col-md-2">-->
-                                <!--<li><img src="/img/sponsors/IDA-logo.png"></li>-->
-                                <!--<li><img src="/img/sponsors/DragonsLair-logo.png"></li>-->
-                                <!--<li><img src="/img/sponsors/Prosa-logo.jpg"></li>-->
-                                <!--<li><img src="/img/sponsors/SDU-logo.png"></li>-->
-                            <!--</ul>-->
-                        <!--</div>-->
-                    <!--</div>-->
-                <!--</div>-->
-            <!--</div>-->
+            <div class="sponsor-bar col-md-2 hidden-xs hidden-sm">
+                <div>
+                    <img src="/img/sponsors/IDA-logo.png">
+                </div>
+                <div>
+                    <img src="/img/sponsors/DragonsLair-logo.png">
+                </div>
+                <div>
+                    <img src="/img/sponsors/Prosa-logo.jpg">
+                </div>
+                <div>
+                    <img src="/img/sponsors/SDU-logo.png">
+                </div>
+            </div>
+        </div>
+        </div>
+
         <div id="footer">
-            <div class="container col-lg-12">
-                <p class="text-muted">SKELLINGTONS | ARE | SPOOKY </p>
+            <div class="container">
+                <p class="text-muted">BOOTSTRAP | STYLE | FINISHED</p>
+                <p class="text-muted">EVERYTHING | IS | RESPONSIVE</p>
+                <p class="text-muted">PLEASE | DONT | TOUCH</p>
             </div>
         </div>
     </div>
-    </div>
-    </body>
+</body>
 </html>
 
 <script>
-$(document).ready(function(){
-    var path = window.location.pathname;
-        $("#dashboard-nav").find('a[href$="' +path+ '"]').parent().addClass("active").addClass("my_active");
-});
+    $(document).ready(function(){
+        var path = window.location.pathname;
+        $("#dashboard-nav").find('a[href$="' +path+ '"]').parent().addClass("active");
+    });
 </script>
 
 
