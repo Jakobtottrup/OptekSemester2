@@ -94,8 +94,8 @@
             <div class="container-fluid">
                 <div class="row">
                     {{#if user}}
-                    <div class="col-lg-2 col-md-2 col-xs-2 col-sm-2">
-                        <ul class="nav nav-pills nav-stacked dash-menu">
+                    <div>
+                        <ul class="nav nav-pills nav-stacked dash-menu col-lg-2 col-md-2 col-2 col-sm-2">
                             <li><a href="/dashboard"><i class="fa fa-crosshairs fa-fw "></i>{{user.username}}'s Dashboard</a></li>
                             {{#unless user.isAdmin}}
                             <li><a href="/users/userinfo"><i class="fa fa-edit fa-fw"></i>Bruger info</a></li>
