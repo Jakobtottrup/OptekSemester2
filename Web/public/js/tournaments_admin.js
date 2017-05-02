@@ -32,10 +32,10 @@ $.when(document, getTournamentsData(), getUsersData()).done(function(){
         output += "<tr class='data_row "+data.isVisibel+" "+data.isOpen+"' id='"+data._id+"'>";
         output += "<td>" + (key+1) + "</td>";
         output += "<td><b>" + data.name + "</b></td>";
-        output += "<td><b>Åbner:</b>" + convertTime(data.openingDate) + "<br><b>Lukker:</b>" + convertTime(data.closingDate) + "<br><b>Start: </b>" + convertTime(data.startDate) + "<br><b>Varighed:</b>" + convertTime(data.tourDuration) + "</td>";
+        output += "<td><b>Åbner: </b>" + convertTime(data.openingDate) + "<br><b>Lukker: </b>" + convertTime(data.closingDate) + "<br><b>Start: </b>" + convertTime(data.startDate) + "<br><b>Varighed: </b>" + convertTime(data.tourDuration) + "</td>";
         output += "<td><button class='btn btn-primary' onclick='showTourDescription(this)'>Se beskrivelse</button></td>";
         output += "<td><button class='btn btn-primary' onclick='showPic(this)'>Se billede</button></td>";
-        output += "<td><b>Max hold:</b>"+ convertMember(data.maxTeams) +"<br><b>Max:</b>"+ convertMember(data.maxTeamSize) +"<br><b>Min:</b>"+ convertMember(data.minTeamSize) +"</td><br>";
+        output += "<td><b>Max hold: </b>"+ convertMember(data.maxTeams) +"<br><b>Max: </b>"+ convertMember(data.maxTeamSize) +"<br><b>Min: </b>"+ convertMember(data.minTeamSize) +"</td><br>";
         output += "<td><button class='btn btn-primary' data-toggle='confirmation' onclick='showMembers(this)'>"+data.teams.length+" tilmeldte</button></td>";
         output += "<td>" + prizes(data.prizes) + "</td>";
         output += "<td><button class='btn btn-primary' data-toggle='confirmation' onclick='deleteTournamnet(this)'>Slet</button><br><button class='btn btn-primary' onclick='editTournament(this)'>Redigér</button></td>";
@@ -201,6 +201,7 @@ function deleteTournamnet (source) {
         dataType: 'json'
     });
     */
+    location.reload(true);
 }
 
 // filter tournaments
