@@ -1,3 +1,8 @@
+/*>> STYLING FOR seatgroup<<*/
+@import url(/font-awesome/css/font-awesome.min.css);
+/*body{margin-top:20px;}*/
+.fa-fw {width: 2em;}
+
 :root{
     --main-:#04202C; /*main*/
     --menu-:#304040; /*footer, menu*/
