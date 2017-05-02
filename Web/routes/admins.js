@@ -5,20 +5,19 @@
 
 //// USED TO DISPLAY ADMIN BACKEND PANEL ////
 
+// DECLARING MODULES
 const mongo = require('mongodb');
 const mongoose = require('mongoose');
 const db = mongoose.connection;
-
 const nodemailer = require('nodemailer');
 const express = require('express');
 const multer = require('multer');
-//var upload = multer({ dest: '/public'});
-const router = express.Router();
 
-
+// DECLARING MODELS AND ROUTES
 const seats = require('../models/seats');
 const User = require('../models/user');
 const Tournament = require('../models/tournaments');
+const router = express.Router();
 var userRoute = router.route('/users/:_id/:adminClicked/:paymentClicked');
 var delRoute = router.route('/users/:_id');
 var delTourRoute = router.route('/tournaments/:_id');
@@ -180,10 +179,11 @@ delRoute.delete(ensureAdminAuthenticated, function (req, res) {
 });
 
 
+
 // CREATE TOURNAMENT
 var tourUploads = multer({ dest: 'public/uploads/image/tournaments' });
 var tourPrizeUploads = multer({ dest: 'public/uploads/image/tournaments/prizes' });
-router.post('/tournaments', /*tourUploads.single('upload-pic'),*/ tourPrizeUploads.array("prize_name"), ensureAdminAuthenticated, function (req, res) {
+router.post('/tournaments', tourUploads.single('tour-image'),/* tourPrizeUploads.array("prize_name"),*/ ensureAdminAuthenticated, function (req, res) {
     console.log(req.file);
 
     const name = req.body.tour_name;
@@ -196,14 +196,17 @@ router.post('/tournaments', /*tourUploads.single('upload-pic'),*/ tourPrizeUploa
     const maxTeams = req.body.team_size;
     const maxTeamSize = req.body.team_maxsize;
     const minTeamSize = req.body.team_minsize;
-    const image = req.file.path;
 
+    const imagePath = req.file.destination + "/" + req.file.filename; console.log(imagePath);
+    const image = imagePath.substring(6, Infinity);
+
+
+    // spilt arrey and push values into object
     var prizes = [];
-
     if (typeof req.body.prize_name !== "undefined"){
         const prize_name = req.body.prize_name;
         const prize_info = req.body.prize_info;
-        const prize_image = req.body.prize_image;
+        //const prize_image = req.body.prize_image;
 
         // prize_name will appear as a sting, if only one prize is posted
         if (typeof prize_name === "string") {
@@ -250,8 +253,8 @@ router.post('/tournaments', /*tourUploads.single('upload-pic'),*/ tourPrizeUploa
             maxTeamSize: maxTeamSize,
             minTeamSize: minTeamSize,
             tourDuration: tourDuration,
-            prizes: prizes
-
+            prizes: prizes,
+            image: image
         });
 
         newTournament.save(function (err) {

@@ -194,13 +194,11 @@ function deleteTournamnet (source) {
     var tour_id = $(source).closest("tr").prop("id");
     console.log("Delete call on "+tour_id);
     console.log("AJAX call disabled to avoid trolling..."); // TODO:
-    /*
     $.ajax({
         type: 'DELETE',
         url: '/admins/tournaments/' + tour_id,
         dataType: 'json'
     });
-    */
     location.reload(true);
 }
 

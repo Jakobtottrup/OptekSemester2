@@ -35,13 +35,13 @@
                 <button type="button" class="close" data-dismiss="modal">&times;</button>
                 <h3 class="modal-title">Opret turnering</h3>
             </div>
-            <form id="input_form" method="post" action="/admins/tournaments">
+            <form id="input_form" enctype="multipart/form-data" method="post" action="/admins/tournaments">
             <div class="modal-body">
                     <h4>Indtast oplysninger for en ny turnering</h4>
                     <div class="well">
                         <b>Indtast navn for turneringen</b><br><br>
                         <input type="text" class="form-control" id="input_name" placeholder="Navn" name="tour_name" style="width: 80%; display: inline">
-                        <input type="button" value="Upload billede" name="upload-pic" onclick="upLoadPic()" style="display:inline; float:right;"/>
+                        <input type="file" value="Upload billede" name="tour-image" style="display:inline; float:right;"/>
                     </div>
 
                     <div class="well">
@@ -115,7 +115,7 @@
 </div>
 
 
-<!-- Modal for editing information -->
+<!-- Modal for showing information -->
 <div id="modal-edit" class="modal fade" role="dialog">
     <div class="modal-dialog">
 

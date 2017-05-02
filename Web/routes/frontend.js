@@ -249,7 +249,7 @@ router.post('/login',
 
     function (req, res) {
         console.log("LOGGED IN!");
-        res.redirect('/dashboard')
+        res.redirect('/dashboard');
     });
 
 // ENSURE USER IS LOGGED IN
@@ -266,9 +266,7 @@ function ensureAuthenticated(req, res, next) {
 var uploads = multer({ dest: 'public/uploads/image/gallery' });
 router.post('/', uploads.single('upl'),function(req, res, next){
     console.log(req.body);
-
     console.log(req.file);
-
     res.status(204).end();
 });
 
