@@ -3,33 +3,34 @@
 <div class="col-lg-offset-3 col-md-offset-3 col-sm-offset-3 col-xs-offset-3">
     <div class="col-lg-10 col-md-10 col-sm-10 col-xs-10 content-background">
         <h1>Admin panel - mails</h1>
+        <div>
+            <form class="form-horizontal col-md-12" id="input_form" method="post" action="/admins/mails">
+                <div class="form-group">
+                    <label for="input_modtager" class="col-sm-1 control-label">Modtager:</label>
+                    <div class="col-sm-10 req">
+                        <select class="form-control" name="modtager" id="data_insert"></select>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="input_name" class="col-sm-1 control-label">Emne:</label>
+                    <div class="col-sm-10 req">
+                        <input type="text" class="form-control" id="input_emne" placeholder="Emne" name="emne">
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="input_email" class="col-sm-1 control-label"> Tekst: </label>
+                    <div class="col-sm-10 req">
+                        <textarea name="text" id="input_text" cols="30" rows="10" class="form-control"></textarea>
+                    </div>
+                </div>
+
+                <div class="col-sm-1 col-sm-offset-5">
+                    <input type="submit" name="submit" value="Send Email" class="btn btn-primary btn-lg">
+                </div>
+            </form>
+        </div>
+    </div>
+
 </div>
-<div>
-    <form class="form-horizontal col-md-10 col-md-offset-2" id="input_form" method="post" action="/admins/mails">
-        <div class="form-group">
-            <label for="input_modtager" class="col-sm-2 control-label">Modtager:</label>
-            <div class="col-sm-10 req">
-                <select class="form-control" name="modtager" id="data_insert"></select>
-            </div>
-        </div>
-
-        <div class="form-group">
-            <label for="input_name" class="col-sm-2 control-label">Emne:</label>
-            <div class="col-sm-10 req">
-                <input type="text" class="form-control" id="input_emne" placeholder="Emne" name="emne">
-            </div>
-        </div>
-
-        <div class="form-group">
-            <label for="input_email" class="col-sm-2 control-label"> Tekst: </label>
-            <div class="col-sm-10 req">
-                <textarea name="text" id="input_text" cols="30" rows="10" class="form-control"></textarea>
-            </div>
-        </div>
-
-        <div class="col-sm-1 col-sm-offset-1" style="margin-left: 98px">
-            <input type="submit" name="submit" value="Send Email" class="btn btn-primary btn-lg">
-        </div>
-    </form>
-</div>
-
