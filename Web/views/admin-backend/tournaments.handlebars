@@ -1,12 +1,6 @@
-<script src="/bootstrap-confirmation2/bootstrap-confirmation.min.js"></script>
-<script src="/bootstrap/js/tooltip.js"></script>
-<style>
-    #footer {
-        position:relative;
-    }
-</style>
-<div class="col-lg-8 col-md-8 col-sm-8 col-sx-9 content-background">
-        <h1>Administrér turneringer</h1>
+<div class="col-lg-offset-2 col-md-offset-2 col-sm-offset-2 col-xs-offset-">
+    <div class="col-lg-10 col-md-10 col-sm-10 col-xs-10 content-background">
+        <h1>Administrer turneringer</h1>
         <p style="display:inline; float:right; position: absolute"><a href="/api/tournaments">Se rå data</a></p>
         <div>
             <button type="button" class="btn btn-lg btn-primary" id="getUsersBtn" data-toggle="modal" data-target="#modal-create"
@@ -23,7 +17,6 @@
                     <th>Hold</th>
                     <th>Deltagere</th>
                     <th>Præmier</th>
-                    <th>Redigér</th>
                 </tr>
                 <tbody id="data_insert">
                 </tbody>
@@ -47,18 +40,18 @@
                     <h4>Indtast oplysninger for en ny turnering</h4>
                     <div class="well">
                         <b>Indtast navn for turneringen</b><br><br>
-                        <input type="text" class="form-control" id="input_name" placeholder="Navn" name="tour_name" style="width: 80%; display: inline" required>
-                        <input type="button" value="Upload billede" name="upload-pic" onclick="upLoadPic()" style="display:inline; float:right;">
+                        <input type="text" class="form-control" id="input_name" placeholder="Navn" name="tour_name" style="width: 80%; display: inline">
+                        <input type="button" value="Upload billede" name="upload-pic" onclick="upLoadPic()" style="display:inline; float:right;"/>
                     </div>
 
                     <div class="well">
                         <b>Giv en beskrivelse af turneringen</b><br><br>
-                        <input type="text" class="form-control" id="input_name" placeholder="Beskrivelse" name="tour_info" required>
+                        <input type="text" class="form-control" id="input_name" placeholder="Beskrivelse" name="tour_info">
                     </div>
 
                 <div class="well">
                     <b>Tidspunkt for turneringen</b><br><br>
-                    <table class="table table-condensed" id="tournament-table" >
+                    <table class="table table-condensed">
                         <td>Åbningsdato for tilmelding</td>
                         <td>Lukningsdato for tilmelding</td>
                         <td>Dato for turneringsstart</td>
@@ -66,10 +59,10 @@
                         <td>Synlig</td>
                         <tbody>
                             <tr>
-                                <td><input type="datetime-local" class="form-control" name="opening_date" required></td>
-                                <td><input type="datetime-local" class="form-control" name="closing_date" required></td>
-                                <td><input type="datetime-local" class="form-control" name="start_date" required></td>
-                                <td><input type="number" class="form-control" placeholder="Tid" step="0." min="0" name="tour_duration" required></td>
+                                <td><input type="datetime-local" class="form-control" name="opening_date"></td>
+                                <td><input type="datetime-local" class="form-control" name="closing_date"></td>
+                                <td><input type="datetime-local" class="form-control" name="start_date"></td>
+                                <td><input type="number" class="form-control" placeholder="Tid" step="0.1" name="tour_duration"></td>
                                 <td><input type="checkbox" name="visibility" value="true" checked="true"></td>
                             </tr>
                         </tbody>
@@ -122,8 +115,8 @@
 </div>
 
 
-<!-- Modal for showing information -->
-<div id="modal-edit" class="modal-fade" role="dialog">
+<!-- Modal for editing information -->
+<div id="modal-edit" class="modal fade" role="dialog">
     <div class="modal-dialog">
 
         <!-- Modal content-->

@@ -36,6 +36,9 @@ html, body {
     margin-bottom: 75px;
 
 }
+#tournament-table{
+    float: left;
+}
 
 /*.fade.in {*/
 /*z-index: 2;*/
@@ -185,6 +188,7 @@ body {
     padding:10px;
     min-height: 0px;
     min-width: 0px;
+    float:right;
 }
 /*#sponsor-container{*/
     /*position: relative;*/
