@@ -1,14 +1,18 @@
-<script src="/js/admin-userview.js"></script>
 <style>
-    tbody {
-        wid
+    .sponsor-bar{
+        visibility: hidden;
+    }
+    .content-center {
+        width: 1050px;
     }
 </style>
-<div class="col-lg-9 col-md-9 col-sm-9 col-sx 9 content-background">
+
+<script src="/js/admin-userview.js"></script>
+<div class="col-lg-11 col-md-9 col-sm-9 col-sx 9 content-center">
         <h1>Admin Panel - Brugere</h1>
         <br><br><br>
 
-    < class="panel panel-primary">
+    <div class="panel panel-primary">
         <!-- Table -->
         <h2>Brugeradministration</h2>
         <form method="post" role="presentation" action="/users.handlebars">
@@ -46,9 +50,10 @@
                     <th>isActive</th>
                 </tr>
 
+
                 <tbody id="data_insert">
                 </tbody>
             </table>
         </form>
     </div>
-
+</div>

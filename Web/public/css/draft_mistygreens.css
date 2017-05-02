@@ -36,6 +36,10 @@ html, body {
 
 }
 
+.fade.in {
+z-index: 2;
+}
+
 #footer {
     background-color: #04202C;
     width:100%;
@@ -44,6 +48,12 @@ html, body {
     bottom:0;
     left:0;
     margin-top: 20px;
+}
+
+.panel-primary {
+    border-radius: 10px 10px 10px 10px;
+    background-color: white;
+    width: 1000px;
 }
 
 
