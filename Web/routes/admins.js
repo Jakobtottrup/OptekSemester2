@@ -179,12 +179,11 @@ delRoute.delete(ensureAdminAuthenticated, function (req, res) {
 });
 
 
+// TOURNAMENT CONTROLLERS
+var tourUploads = multer({ dest: 'public/uploads/image/tournaments' }).fields([{name: 'tour_image', maxCount: 1}, {name: 'prize_image', maxCount: 7}]);
+router.post('/tournaments', tourUploads, ensureAdminAuthenticated, function (req, res, next) {
 
-// CREATE TOURNAMENT
-var tourUploads = multer({ dest: 'public/uploads/image/tournaments' });
-var tourPrizeUploads = multer({ dest: 'public/uploads/image/tournaments/prizes' });
-router.post('/tournaments', tourUploads.single('tour-image'),/* tourPrizeUploads.array("prize_name"),*/ ensureAdminAuthenticated, function (req, res) {
-    console.log(req.file);
+    console.log(req.files);
 
     const name = req.body.tour_name;
     const description = req.body.tour_info;
@@ -197,23 +196,27 @@ router.post('/tournaments', tourUploads.single('tour-image'),/* tourPrizeUploads
     const maxTeamSize = req.body.team_maxsize;
     const minTeamSize = req.body.team_minsize;
 
-    const imagePath = req.file.destination + "/" + req.file.filename; console.log(imagePath);
-    const image = imagePath.substring(6, Infinity);
+    // define path for cover image
+    const coverImagePath = req.files.tour_image[0].destination + "/" + req.files.tour_image[0].filename;
+    const coverImage = coverImagePath.substring(6, Infinity);
 
 
-    // spilt arrey and push values into object
+    // spilt array and put values into object, then push objects into array
     var prizes = [];
     if (typeof req.body.prize_name !== "undefined"){
         const prize_name = req.body.prize_name;
         const prize_info = req.body.prize_info;
-        //const prize_image = req.body.prize_image;
+        const prize_image = req.files.prize_image;
+
 
         // prize_name will appear as a sting, if only one prize is posted
         if (typeof prize_name === "string") {
             var p_index = 0;
             var p_name = prize_name;
             var p_description = prize_info;
-            prizes.push({p_index, p_name, p_description});
+            var p_image = prize_image;
+            prizes.push({p_index, p_name, p_description, p_image});
+
         // if prize_name is an array
         } else {
             if (prize_name.length === prize_info.length /*=== req.body.prize_image.length*/) {
@@ -221,7 +224,8 @@ router.post('/tournaments', tourUploads.single('tour-image'),/* tourPrizeUploads
                     var p_index = i;
                     var p_name = prize_name[i];
                     var p_description = prize_info[i];
-                    var p_image = /*prize_image[i];*/ "http://duckboss.com/wp-content/uploads/2016/02/cats1.png"; //TODO: Skal lige ændres
+                    var p_imagePath = prize_image[i].destination + "/" + prize_image[i].filename;
+                    var p_image = p_imagePath.substring(6, Infinity);
                     prizes.push({p_index, p_name, p_description, p_image});
                 }
             }
@@ -229,6 +233,7 @@ router.post('/tournaments', tourUploads.single('tour-image'),/* tourPrizeUploads
     }
 
     // validation
+    //req.checkBody('imagePath', 'Cover billede mangler').notEmpty();
     // req.checkBody('name', 'Name required').notEmpty();
     // req.checkBody('openingDate', 'Åbningsdato for tilmelding er nødvendig').notEmpty();
     // req.checkBody('closigDate', 'Lukkedato for tilmelding er nødvendig').notEmpty();
@@ -240,7 +245,6 @@ router.post('/tournaments', tourUploads.single('tour-image'),/* tourPrizeUploads
 
     if (errors) {
         res.render('admin-backend/tournaments', {errors: errors});
-        console.log(errors);
     } else {
         var newTournament = new Tournament({
             name: name,
@@ -254,30 +258,34 @@ router.post('/tournaments', tourUploads.single('tour-image'),/* tourPrizeUploads
             minTeamSize: minTeamSize,
             tourDuration: tourDuration,
             prizes: prizes,
-            image: image
+            coverImage: coverImage
         });
 
         newTournament.save(function (err) {
             if (err) throw err;
             req.flash('success_msg', 'Turneringen er nu oprettet');
+            res.status(204).end();
             res.redirect('/admins/tournaments');
         });
     }
 });
 
 router.delete('/tournaments/:_id', ensureAdminAuthenticated, function (req, res) {
-    console.log("deleted tournament");
-    console.log(req.body);
 });
 
 delTourRoute.delete(ensureAdminAuthenticated, function (req, res) {
-    console.log("deleting tournamnet");
     Tournament.findByIdAndRemove(req.params._id, function (err) {
         if (err)
             res.send(err);
         res.json({message: 'Tournamnet removed from the DB!'});
     });
 });
+
+
+
+
+
+
 mailRoute.post(function (req, res, next) {
     var modtager = req.body.modtager;
     var emne = req.body.emne;

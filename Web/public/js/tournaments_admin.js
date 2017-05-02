@@ -94,7 +94,8 @@ function addPrize(){
         $("#prize-head").append('<td id="prize'+totalPrizes+'">'+totalPrizes+'. Plads</td>');
         $("#prize-name").append('<td id="prize'+totalPrizes+'"><input type="text" class="form-control" placeholder="Navn" name="prize_name" required></td>');
         $("#prize-info").append('<td id="prize'+totalPrizes+'"><input type="text" class="form-control" placeholder="Beskrivelse" name="prize_info" required></td>');
-        $("#prize-image").append('<td id="prize'+totalPrizes+'"><input type="file" value="Upload billede" name="prize_image" onclick="upLoadPic()"/></td>');
+        $("#prize-image").append('<td id="prize'+totalPrizes+'"><label class="btn btn-primary">Browse&hellip;<input name="prize_image" type="file" style="display: none;" required></label></td>');
+        // $("#prize-image").append('<td id="prize'+totalPrizes+'"><input type="file" value="Upload billede" name="prize_image"/></td>');
     }
 }
 function removePrize(){
@@ -194,11 +195,13 @@ function deleteTournamnet (source) {
     var tour_id = $(source).closest("tr").prop("id");
     console.log("Delete call on "+tour_id);
     console.log("AJAX call disabled to avoid trolling..."); // TODO:
+    /*
     $.ajax({
         type: 'DELETE',
         url: '/admins/tournaments/' + tour_id,
         dataType: 'json'
     });
+    */
     location.reload(true);
 }
 
@@ -223,3 +226,29 @@ function sortTournaments() {
         }
     }
 }
+
+// used to display filenames in input  - some default bootstrap
+$(function() {
+    // We can attach the `fileselect` event to all file inputs on the page
+    $(document).on('change', ':file', function() {
+        var input = $(this),
+            numFiles = input.get(0).files ? input.get(0).files.length : 1,
+            label = input.val().replace(/\\/g, '/').replace(/.*\//, '');
+        input.trigger('fileselect', [numFiles, label]);
+    });
+
+    // We can watch for our custom `fileselect` event like this
+    $(document).ready( function() {
+        $(':file').on('fileselect', function(event, numFiles, label) {
+
+            var input = $(this).parents('.input-group').find(':text'),
+                log = numFiles > 1 ? numFiles + ' files selected' : label;
+
+            if( input.length ) {
+                input.val(log);
+            } else {
+                if( log ) alert(log);
+            }
+        });
+    });
+});

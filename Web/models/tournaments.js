@@ -40,12 +40,15 @@ var TournamentSchema = mongoose.Schema({
     tourDuration: {
         type: Number
     },
-     image: {
+     coverImage: {
         type: String
     },
     prizes: {
         type: Array
-
+    },
+    createdAt: {
+        type: Date,
+        default: Date.now
     }
 });
 var Tournament = module.exports = mongoose.model('tournament', TournamentSchema);
