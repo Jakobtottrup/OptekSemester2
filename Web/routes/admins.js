@@ -12,10 +12,10 @@ const db = mongoose.connection;
 
 const express = require('express');
 const multer = require('multer');
-//var upload = multer({ dest: '/public'});
+var upload = multer({ dest: '/public'});
 const router = express.Router();
 
-var nodemailer = require('nodemailer');
+
 const seats = require('../models/seats');
 const User = require('../models/user');
 const Tournament = require('../models/tournaments');
@@ -181,7 +181,11 @@ delRoute.delete(ensureAdminAuthenticated, function (req, res) {
 
 
 // CREATE TOURNAMENT
-router.post('/tournaments', ensureAdminAuthenticated, function (req, res) {
+var tourUploads = multer({ dest: 'public/uploads/image/tournaments' });
+var tourPrizeUploads = multer({ dest: 'public/uploads/image/tournaments/prizes' });
+router.post('/tournaments', /*tourUploads.single('upload-pic'),*/ tourPrizeUploads.array("prize_name"), ensureAdminAuthenticated, function (req, res) {
+    console.log(req.file);
+
     const name = req.body.tour_name;
     const description = req.body.tour_info;
     const openingDate = req.body.opening_date;
@@ -192,10 +196,11 @@ router.post('/tournaments', ensureAdminAuthenticated, function (req, res) {
     const maxTeams = req.body.team_size;
     const maxTeamSize = req.body.team_maxsize;
     const minTeamSize = req.body.team_minsize;
+    const image = req.file.path;
 
     var prizes = [];
 
-    if (typeof req.body.prize_name !== "undefined") {
+    if (typeof req.body.prize_name !== "undefined"){
         const prize_name = req.body.prize_name;
         const prize_info = req.body.prize_info;
         const prize_image = req.body.prize_image;
@@ -206,7 +211,7 @@ router.post('/tournaments', ensureAdminAuthenticated, function (req, res) {
             var p_name = prize_name;
             var p_description = prize_info;
             prizes.push({p_index, p_name, p_description});
-            // if prize_name is an array
+        // if prize_name is an array
         } else {
             if (prize_name.length === prize_info.length /*=== req.body.prize_image.length*/) {
                 for (i = 0; i < prize_name.length; i++) {

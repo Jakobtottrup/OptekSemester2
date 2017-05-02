@@ -15,8 +15,8 @@ const passport = require('passport');
 const localStrategy = require('passport-local').Strategy;
 //const mailer = require('express-mailer');
 const helpers = require('handlebars-helpers')();
-const nodemailer = require('nodemailer');
-var router = express.Router();
+
+
 
 // DATABASE CONNECTION
 const mongo = require('mongodb');
@@ -42,8 +42,7 @@ app.use(session({
 }));
 
 //Upload files
-const multer = require('multer');
-var uploads = multer({ dest: './uploads/image' });
+var uploads = multer({ dest: 'public/uploads/image' });
 app.post('/', uploads.single('upl'),function(req, res, next){
     console.log(req.body);
 
@@ -155,7 +154,6 @@ app.use('/users', users);
 app.use('/admins', admins);
 app.use('/api', api);
 //app.use('/mail', mail);
-//app.use('/mail', router);
 app.use("*", function (req, res) {
     res.status(404).render('layouts/error404', {title: "Siden blev ikke fundet"});
 });
