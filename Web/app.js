@@ -31,7 +31,6 @@ const admins = require('./routes/admins'); //admin-backend route
 const api = require('./routes/api'); // used for exporting data to client-scripts
 const mail = require('./routes/mail');
 
-
 // Init App
 const app = express();
 
@@ -41,6 +40,17 @@ app.use(session({
     resave: false,
     saveUninitialized: false
 }));
+
+//Upload files
+const multer = require('multer');
+var uploads = multer({ dest: './uploads/image' });
+app.post('/', uploads.single('upl'),function(req, res, next){
+    console.log(req.body);
+
+    console.log(req.file);
+
+    res.status(204).end();
+});
 
 
 // View Engine

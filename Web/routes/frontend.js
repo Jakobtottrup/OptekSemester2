@@ -43,7 +43,10 @@ router.post('/passwordreset', function (req, res, next) {
         res.send('Email Sent');
     });
 });
-
+// render gallery view
+router.get('/gallery', function (req, res) {
+    res.render('frontend/gallery', {title: "Gallery"});
+});
 
 // Register User
 router.post('/signup', function (req, res) {

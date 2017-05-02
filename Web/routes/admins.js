@@ -11,7 +11,10 @@ const db = mongoose.connection;
 
 
 const express = require('express');
+const multer = require('multer');
+var upload = multer({ dest: '/public'});
 const router = express.Router();
+
 
 const seats = require('../models/seats');
 const User = require('../models/user');
@@ -19,6 +22,8 @@ const Tournament = require('../models/tournaments');
 var userRoute = router.route('/users/:_id/:adminClicked/:paymentClicked');
 var delRoute = router.route('/users/:_id');
 var delTourRoute = router.route('/tournaments/:_id');
+
+
 
 
 // ADMIN AUTHENTICATION
