@@ -45,7 +45,7 @@ function deleteUser(id) {
 function updateUsers(id, adminClicked, paymentClicked) {
     $.ajax({
         type: 'PUT',
-        url: '/admins/users/' + id +"/"+ adminClicked + "/" + paymentClicked,
+        url: '/admins/users/' + id + "/" + adminClicked + "/" + paymentClicked,
         dataType: 'json'
     });
 }
@@ -68,9 +68,9 @@ $.when(getUsersData().done(function () {
             "<td class='hidden-xs'>" + usersData[i].studie + "</td>" +
             "<td class='hidden-xs hidden-sm hidden-md'>" + usersData[i].fakultet + "</td>" +
             "<td class='hidden-xs hidden-sm hidden-md'>" + usersData[i].bnet + "</td>" +
-            "<td class='hidden-xs hidden-sm hidden-md'>" + usersData[i].steam + "</td>"+
-            "<td class='hidden-xs'>" + usersData[i].isAdmin + "</td>"+
-            "<td>" + usersData[i].hasPaid + "</td>"+
+            "<td class='hidden-xs hidden-sm hidden-md'>" + usersData[i].steam + "</td>" +
+            "<td class='hidden-xs'>" + usersData[i].isAdmin + "</td>" +
+            "<td>" + usersData[i].hasPaid + "</td>" +
             "<td class='hidden-xs'>" + usersData[i].isActive + "</td></tr>");
     }
 
@@ -99,8 +99,8 @@ $.when(getUsersData().done(function () {
  *  - for each selected user, updateUsers() is called
  *  - after updates, the page is reloaded.
  */
-$(function() {
-    $('#toggleAdminBtn').click(function() {
+$(function () {
+    $('#toggleAdminBtn').click(function () {
         adminClicked = true;
         paymentClicked = false;
         for (i = 0; i < deleteUserId.length; i++) {
@@ -121,7 +121,7 @@ $(function () {
     $("#togglePaymentBtn").click(function () {
         paymentClicked = true;
         adminClicked = false;
-        for (i=0;i<deleteUserId.length; i++) {
+        for (i = 0; i < deleteUserId.length; i++) {
             updateUsers(deleteUserId[i]._id, adminClicked, paymentClicked);
         }
         location.reload(true);
@@ -137,10 +137,11 @@ $(function () {
  */
 $(function () {
     $('#removeUserBtn').click(function (e) {
-        /*console.log(deleteUserId[i]._id);*/
-        //alert("Are you sure you wish to delete selected users?"); //todo: enable dobbelt-check på user delete
-        for (i = 0; i < deleteUserId.length; i++) {
-            deleteUser(deleteUserId[i]._id);
+        var confirm = confirm("Confirm User Deletion");
+        if (confirm == true) {
+            for (i = 0; i < deleteUserId.length; i++) {
+                deleteUser(deleteUserId[i]._id);
+            }
         }
         $(':checkbox').prop('checked', false);
         var table = $(e.target).closest('table');
