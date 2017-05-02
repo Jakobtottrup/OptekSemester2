@@ -9,10 +9,10 @@ const mongo = require('mongodb');
 const mongoose = require('mongoose');
 const db = mongoose.connection;
 
-
+const nodemailer = require('nodemailer');
 const express = require('express');
 const multer = require('multer');
-var upload = multer({ dest: '/public'});
+//var upload = multer({ dest: '/public'});
 const router = express.Router();
 
 
@@ -276,7 +276,9 @@ delTourRoute.delete(ensureAdminAuthenticated, function (req, res) {
     });
 });
 mailRoute.post(function (req, res, next) {
-
+    var modtager = req.body.modtager;
+    var emne = req.body.emne;
+    var txt = req.body.text;
 
     var transporter = nodemailer.createTransport({
         service: 'Gmail',
@@ -290,10 +292,10 @@ mailRoute.post(function (req, res, next) {
 
     var mailOptions = {
         from: 'sdulan.optek@gmail.com', // sender address
-        to: 'cskje16@student.sdu.dk', // list of receivers
-        subject: 'Email Test Example', // Subject line
-        text: text, //, // plaintext body
-        html: '<b>Hello world </b>' // You can choose to send an HTML body instead
+        to: modtager, // list of receivers
+        subject: emne, // Subject line
+        text: txt, //, // plaintext body
+        //html: '<b>Hello world </b>' // You can choose to send an HTML body instead
     };
 
     transporter.sendMail(mailOptions, function (error, info) {
@@ -304,7 +306,7 @@ mailRoute.post(function (req, res, next) {
             console.log('Message sent: ' + info.response);
             res.json({yo: info.response});
         }
-        ;
+
     });
     /*app.mailer.send('email', {
      to: 'christianskjerning@gmail.com', // REQUIRED. This can be a comma delimited string just like a normal email to field.
