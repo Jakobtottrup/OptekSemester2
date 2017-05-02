@@ -61,17 +61,17 @@ $.when(getUsersData().done(function () {
         $('#data_insert').append("<tr class='data_row' id='row" + i + "'>" +
             "<td hidden>" + usersData[i]._id + "</td>" +
             "<td><input type='checkbox' class='user_checkbox'></td>" +
-            "<td class='hidden-xs hidden-sm'>" + i + "</td>" +
+            "<td class='hidden-xs hidden-sm hidden-md'>" + i + "</td>" +
             "<td>" + usersData[i].username + "</td>" +
-            "<td class='hidden-xs hidden-sm'>" + usersData[i].age + "</td>" +
+            "<td class='hidden-xs hidden-sm hidden-md'>" + usersData[i].age + "</td>" +
             "<td>" + usersData[i].email + "</td>" +
-            "<td class='hidden-xs hidden-sm'>" + usersData[i].studie + "</td>" +
-            "<td class='hidden-xs hidden-sm'>" + usersData[i].fakultet + "</td>" +
-            "<td class='hidden-xs hidden-sm'>" + usersData[i].bnet + "</td>" +
-            "<td class='hidden-xs hidden-sm'>" + usersData[i].steam + "</td>"+
-            "<td class='hidden-xs hidden-sm'>" + usersData[i].isAdmin + "</td>"+
+            "<td class='hidden-xs'>" + usersData[i].studie + "</td>" +
+            "<td class='hidden-xs hidden-sm hidden-md'>" + usersData[i].fakultet + "</td>" +
+            "<td class='hidden-xs hidden-sm hidden-md'>" + usersData[i].bnet + "</td>" +
+            "<td class='hidden-xs hidden-sm hidden-md'>" + usersData[i].steam + "</td>"+
+            "<td class='hidden-xs'>" + usersData[i].isAdmin + "</td>"+
             "<td>" + usersData[i].hasPaid + "</td>"+
-            "<td class='hidden-xs hidden-sm'" + usersData[i].isActive + "</td></tr>");
+            "<td class='hidden-xs'>" + usersData[i].isActive + "</td></tr>");
     }
 
     /**
