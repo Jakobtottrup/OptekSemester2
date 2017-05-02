@@ -208,6 +208,11 @@ body {
 /** ********** **/
 /* Content page */
 /** ********** **/
+.content-main {
+    background-color:black;
+    border-radius: 16px 16px 16px 16px;
+}
+
 .content-background {
     background-color: var(--info-);
     border-radius: 20px 20px 20px 20px;
