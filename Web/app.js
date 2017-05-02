@@ -41,15 +41,7 @@ app.use(session({
     saveUninitialized: false
 }));
 
-//Upload files
-var uploads = multer({ dest: 'public/uploads/image' });
-app.post('/', uploads.single('upl'),function(req, res, next){
-    console.log(req.body);
 
-    console.log(req.file);
-
-    res.status(204).end();
-});
 
 
 // View Engine

@@ -6,7 +6,7 @@ const router = express.Router();
 const passport = require('passport');
 const LocalStrategy = require('passport-local').Strategy;
 const User = require('../models/user');
-
+const multer = require('multer');
 
 // GET HOMEPAGE
 router.get('/', function (req, res) {
@@ -262,6 +262,15 @@ function ensureAuthenticated(req, res, next) {
     }
 }
 
+//Upload files
+var uploads = multer({ dest: 'public/uploads/image/gallery' });
+router.post('/', uploads.single('upl'),function(req, res, next){
+    console.log(req.body);
+
+    console.log(req.file);
+
+    res.status(204).end();
+});
 
 
 module.exports = router;
