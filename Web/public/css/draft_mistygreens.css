@@ -29,7 +29,7 @@ html, body {
     background-color: #04202C;
     width:100%;
     height:60px;
-    position: fixed;
+    position: relative;
     bottom:0;
     left:0;
 }
@@ -99,11 +99,12 @@ body {
 /** ******* **/
 .dash-menu {
     background-color: var(--menu-);
-    margin-top: -10px;
-    border-radius: 0px 0px 16px 16px;
+    margin-top: 50px;
+    border-radius: 0px 10px 10px 0px;
     box-shadow:-1px 3px 1px rgba(0, 0, 0, 0.46);
     position: fixed;
     z-index: 10;
+    margin-left:-15px;
     /*margin-top: -10px;*/
 
 }
@@ -148,7 +149,6 @@ body {
     margin-top: 100px;
     color:#C9D1C8;
     background-color:#304040;
-    height: 450px;
 
 }
 .sponsor-bar li{
