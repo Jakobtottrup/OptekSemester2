@@ -80,9 +80,10 @@ $.when(getSeatData(), getUserData()).done(function() {
     seatmapCleanup(seatmap);
     checkforDeletedUsers();
     setVariables();
+    initMousemove();
     drawScreen();
 
-    initMousemove();
+
 });
 
 function seatmapCleanup(json_seat) {
@@ -166,6 +167,7 @@ function infoFromID(id) {
 /**** ********* ****/
 
 function initMousemove() {
+    m_index = 0;
 //test for mouse over
     canvas.addEventListener('mousemove', function(e) {
         convertMouse(e);

@@ -77,9 +77,8 @@ function getSeatData(){
 $.when(getSeatData()).done(function() {
     seatmapCleanup(seatmap);
     setVariables();
-    drawScreen();
-
     initMousemove();
+    drawScreen();
 });
 
 
@@ -337,6 +336,7 @@ function createLabels() {
 /**** ********* ****/
 
 function initMousemove() {
+    m_index = 0;
 //test for mouse over
     canvas.addEventListener("click", function (e) {
         //get mouse coordinates according to canvas position on screen
@@ -357,7 +357,6 @@ function initMousemove() {
     canvas.addEventListener("mousemove", function (e) {
         //get mouse coordinates according to canvas position on screen
         convertMouse(e);
-
         drawScreen();
     });
 }

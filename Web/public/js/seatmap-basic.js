@@ -4,19 +4,44 @@
 
 m_index = 0;
 
-/*** ******** ***/
-/** draw object */
-/*** ******** ***/
+color = {
+    admin: {
+        neutral: "darkred",
+        stroke: "white",
+        hover: "#aa0000"
+    },
+    shop: {
+        neutral: "darkblue",
+        stroke: "white",
+        hover: "#0000bb"
+    },
+    seat: {
+        free: {
+            neutral: "darkgreen",
+            stroke: "white",
+            hover: "green"
+        },
+        taken: {
+            neutral: "darkred",
+            stroke: "white",
+            hover: "red"
+        },
+        label: "yellow"
+    },
+    wall: "black"
+};
 
-function drawPixel(x, y, seat, hover) {
+/*** ********* ***/
+/** draw object **/
+/*** ********* ***/
+
+function drawPixel(x, y, seat, hover, hoverType) {
     if (seat.type == 1) {
         drawWall(x, y);
     } else if (seat.type == 2) {
         drawSeat(x, y, seat.userid, hover, seat.label);
-    } else if (seat.type == 3) {
-        drawOther(x, y, 3);
-    } else if (seat.type == 4) {
-        drawOther(x, y, 4);
+    } else if (seat.type > 2) {
+        drawOther(x, y, seat.type, hoverType);
     }
 }
 
@@ -59,20 +84,20 @@ function drawSeat(x, y, id, hover, label) {
     if (id == 0) {
         //if seat is free
         if (hover) {
-            ctx.fillStyle = "green";
+            ctx.fillStyle = color.seat.free.hover;
         } else {
-            ctx.fillStyle = "darkgreen";
+            ctx.fillStyle = color.seat.free.neutral;
         }
+        ctx.strokeStyle = color.seat.free.stroke;
     } else {
         //if seat is taken
         if (hover) {
-            ctx.fillStyle = "red";
+            ctx.fillStyle = color.seat.taken.hover;
         } else {
-            ctx.fillStyle = "darkred";
+            ctx.fillStyle = color.seat.taken.neutral;
         }
+        ctx.strokeStyle = color.seat.taken.stroke;
     }
-
-    ctx.strokeStyle = "white";
 
     ctx.fill();
     ctx.stroke();
@@ -80,17 +105,17 @@ function drawSeat(x, y, id, hover, label) {
     //label
     ctx.textBaseline="middle";
     ctx.textAlign="center";
-    ctx.fillStyle="yellow";
+    ctx.fillStyle=color.seat.label;
     ctx.font = "7px Arial";
     ctx.fillText(label, x * seat_size + (seat_size / 2), y * seat_size + (seat_size / 2));
 }
 
 function drawWall(x, y) {
-    ctx.fillStyle = "black";
+    ctx.fillStyle = color.wall;
     ctx.fillRect(x * seat_size, y * seat_size, seat_size, seat_size);
 }
 
-function drawOther(x, y, type) {
+function drawOther(x, y, type, hoverType) {
     var offset = 6; //%
     offset = seat_size / 100 * offset;
     var newsize = seat_size - (2 * offset);
@@ -115,11 +140,23 @@ function drawOther(x, y, type) {
     var p_right = x_center + halfsize;
 
     if (type == 3) {
-        ctx.fillStyle = "darkred";
+        if (hoverType == 3) {
+            ctx.fillStyle = color.admin.hover;
+        } else {
+            ctx.fillStyle = color.admin.neutral;
+        }
+        ctx.strokeStyle = color.admin.stroke;
+    } else if (type == 4) {
+        if (hoverType == 4) {
+            ctx.fillStyle = color.shop.hover;
+        } else {
+            ctx.fillStyle = color.shop.neutral;
+        }
+        ctx.strokeStyle = color.shop.stroke;
     } else {
-        ctx.fillStyle = "darkblue";
+        ctx.fillStyle = "pink";
+        ctx.strokeStyle = "yellow";
     }
-    ctx.strokeStyle = "white";
 
     /*
      pixel position
@@ -424,7 +461,7 @@ function drawScreen() {
         if (seatmap.seats[i].type != 0) {
             var _x = i % seatmap.room_width;
             var _y = (i - _x) / seatmap.room_width;
-            drawPixel(_x, _y, seatmap.seats[i], (m_index == i));
+            drawPixel(_x, _y, seatmap.seats[i], (m_index == i), seatmap.seats[m_index].type);
         }
     }
 }
