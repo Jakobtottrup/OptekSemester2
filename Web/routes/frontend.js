@@ -28,7 +28,7 @@ router.get('/signup', function (req, res) {
 router.get('/passwordreset', function (req, res) {
     res.render('frontend/reset_password', {title: "Gendan kodeord"});
 });
-router.post('/passwordreset', function (req, res, next) {
+/*router.post('/passwordreset', function (req, res, next) {
     app.mailer.send('email', {
         to: 'req.body.username', // REQUIRED. This can be a comma delimited string just like a normal email to field.
         subject: 'Kodeord gendannelse', // REQUIRED.
@@ -42,7 +42,7 @@ router.post('/passwordreset', function (req, res, next) {
         }
         res.send('Email Sent');
     });
-});
+});*/
 // render gallery view
 router.get('/gallery', function (req, res) {
     res.render('frontend/gallery', {title: "Gallery"});

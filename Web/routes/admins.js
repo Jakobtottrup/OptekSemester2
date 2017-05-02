@@ -12,18 +12,17 @@ const db = mongoose.connection;
 
 const express = require('express');
 const multer = require('multer');
-var upload = multer({ dest: '/public'});
+//var upload = multer({ dest: '/public'});
 const router = express.Router();
 
-
+var nodemailer = require('nodemailer');
 const seats = require('../models/seats');
 const User = require('../models/user');
 const Tournament = require('../models/tournaments');
 var userRoute = router.route('/users/:_id/:adminClicked/:paymentClicked');
 var delRoute = router.route('/users/:_id');
 var delTourRoute = router.route('/tournaments/:_id');
-
-
+var mailRoute = router.route('/mails');
 
 
 // ADMIN AUTHENTICATION
@@ -196,7 +195,7 @@ router.post('/tournaments', ensureAdminAuthenticated, function (req, res) {
 
     var prizes = [];
 
-    if (typeof req.body.prize_name !== "undefined"){
+    if (typeof req.body.prize_name !== "undefined") {
         const prize_name = req.body.prize_name;
         const prize_info = req.body.prize_info;
         const prize_image = req.body.prize_image;
@@ -207,7 +206,7 @@ router.post('/tournaments', ensureAdminAuthenticated, function (req, res) {
             var p_name = prize_name;
             var p_description = prize_info;
             prizes.push({p_index, p_name, p_description});
-        // if prize_name is an array
+            // if prize_name is an array
         } else {
             if (prize_name.length === prize_info.length /*=== req.body.prize_image.length*/) {
                 for (i = 0; i < prize_name.length; i++) {
@@ -270,6 +269,51 @@ delTourRoute.delete(ensureAdminAuthenticated, function (req, res) {
             res.send(err);
         res.json({message: 'Tournamnet removed from the DB!'});
     });
+});
+mailRoute.post(function (req, res, next) {
+
+
+    var transporter = nodemailer.createTransport({
+        service: 'Gmail',
+        auth: {
+            user: 'sdulan.optek@gmail.com', // Your email id
+            pass: 'OpTek2016' // Your password
+        }
+    });
+
+    var text = 'HEJ CHRISTIAN from \n\n' + req.body.name + "\n\nDU ER DÅM";
+
+    var mailOptions = {
+        from: 'sdulan.optek@gmail.com', // sender address
+        to: 'cskje16@student.sdu.dk', // list of receivers
+        subject: 'Email Test Example', // Subject line
+        text: text, //, // plaintext body
+        html: '<b>Hello world </b>' // You can choose to send an HTML body instead
+    };
+
+    transporter.sendMail(mailOptions, function (error, info) {
+        if (error) {
+            console.log(error);
+            res.json({yo: 'error'});
+        } else {
+            console.log('Message sent: ' + info.response);
+            res.json({yo: info.response});
+        }
+        ;
+    });
+    /*app.mailer.send('email', {
+     to: 'christianskjerning@gmail.com', // REQUIRED. This can be a comma delimited string just like a normal email to field.
+     subject: 'Test Email', // REQUIRED.
+     otherProperty: 'Other Property' // All additional properties are also passed to the template as local variables.
+     }, function (err) {
+     if (err) {
+     // handle error
+     console.log(err);
+     res.send('There was an error sending the email');
+     return;
+     }
+     res.send('Email Sent');
+     });*/
 });
 
 

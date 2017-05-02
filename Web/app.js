@@ -13,10 +13,10 @@ const bodyParser = require('body-parser');
 const flash = require('connect-flash');
 const passport = require('passport');
 const localStrategy = require('passport-local').Strategy;
-const mailer = require('express-mailer');
+//const mailer = require('express-mailer');
 const helpers = require('handlebars-helpers')();
-
-
+const nodemailer = require('nodemailer');
+var router = express.Router();
 
 // DATABASE CONNECTION
 const mongo = require('mongodb');
@@ -155,6 +155,7 @@ app.use('/users', users);
 app.use('/admins', admins);
 app.use('/api', api);
 //app.use('/mail', mail);
+//app.use('/mail', router);
 app.use("*", function (req, res) {
     res.status(404).render('layouts/error404', {title: "Siden blev ikke fundet"});
 });
@@ -169,7 +170,7 @@ app.listen(app.get('port'), "0.0.0.0", function () {
 
 
 // EXPRESS MAILER
-mailer.extend(app, {
+/*mailer.extend(app, {
     from: 'no-reply@s7lan.dk',
     host: 'smtp.gmail.com', // hostname
     secureConnection: false, // use SSL
@@ -179,7 +180,7 @@ mailer.extend(app, {
         user: 'gmail.user@gmail.com',
         pass: 'userpass'
     }
-});
+});*/
 
 
 // CONSOLE LOGS
