@@ -180,94 +180,104 @@ delRoute.delete(ensureAdminAuthenticated, function (req, res) {
 
 
 // TOURNAMENT CONTROLLERS
-var tourUploads = multer({ dest: 'public/uploads/image/tournaments' }).fields([{name: 'tour_image', maxCount: 1}, {name: 'prize_image', maxCount: 7}]);
+const limits = { fileSize: 512 * 512 * 512 };
+//const fileFilter = { fileType: "jpg", "png", "gif"};
+const tourUploads = multer({ dest: 'public/uploads/image/tournaments', limits: limits}).fields([{name: 'tour_image', maxCount: 1}, {name: 'prize_image', maxCount: 7}]);
 router.post('/tournaments', tourUploads, ensureAdminAuthenticated, function (req, res, next) {
+    // tourUploads(req, res, function (err) {
+    //     if (err) {
+    //         req.flash('error_msg', 'Der opstod en fejl under upload');
+    //         res.redirect('/admin-backend/tournaments');
+    //     }
 
-    console.log(req.files);
-
-    const name = req.body.tour_name;
-    const description = req.body.tour_info;
-    const openingDate = req.body.opening_date;
-    const closingDate = req.body.closing_date;
-    const startDate = req.body.start_date;
-    const tourDuration = req.body.tour_duration;
-    const isVisibel = req.body.visibility;
-    const maxTeams = req.body.team_size;
-    const maxTeamSize = req.body.team_maxsize;
-    const minTeamSize = req.body.team_minsize;
-
-    // define path for cover image
-    const coverImagePath = req.files.tour_image[0].destination + "/" + req.files.tour_image[0].filename;
-    const coverImage = coverImagePath.substring(6, Infinity);
-
-
-    // spilt array and put values into object, then push objects into array
-    var prizes = [];
-    if (typeof req.body.prize_name !== "undefined"){
-        const prize_name = req.body.prize_name;
-        const prize_info = req.body.prize_info;
-        const prize_image = req.files.prize_image;
-
-
-        // prize_name will appear as a sting, if only one prize is posted
-        if (typeof prize_name === "string") {
-            var p_index = 0;
-            var p_name = prize_name;
-            var p_description = prize_info;
-            var p_image = prize_image;
-            prizes.push({p_index, p_name, p_description, p_image});
-
-        // if prize_name is an array
+        const name = req.body.tour_name;
+        const description = req.body.tour_info;
+        const openingDate = req.body.opening_date;
+        const closingDate = req.body.closing_date;
+        const startDate = req.body.start_date;
+        const tourDuration = req.body.tour_duration;
+        const maxTeams = req.body.team_size;
+        const maxTeamSize = req.body.team_maxsize;
+        const minTeamSize = req.body.team_minsize;
+        var isVisibel = req.body.visibility;
+        if (typeof isVisibel === "undefined") {
+            var isVisibel = false;
         } else {
-            if (prize_name.length === prize_info.length /*=== req.body.prize_image.length*/) {
-                for (i = 0; i < prize_name.length; i++) {
-                    var p_index = i;
-                    var p_name = prize_name[i];
-                    var p_description = prize_info[i];
-                    var p_imagePath = prize_image[i].destination + "/" + prize_image[i].filename;
-                    var p_image = p_imagePath.substring(6, Infinity);
-                    prizes.push({p_index, p_name, p_description, p_image});
+            var isVisibel = true;
+        }
+
+        // define path for cover image
+        const coverImagePath = req.files.tour_image[0].destination + "/" + req.files.tour_image[0].filename;
+        const coverImage = coverImagePath.substring(6, Infinity);
+
+        // spilt array and put values into object, then push objects into array
+        var prizes = [];
+        if (typeof req.body.prize_name !== "undefined") {
+            const prize_name = req.body.prize_name;
+            const prize_info = req.body.prize_info;
+            const prize_image = req.files.prize_image;
+
+
+            // prize_name will appear as a sting, if only one prize is posted
+            if (typeof prize_name === "string") {
+                var p_index = 0;
+                var p_name = prize_name;
+                var p_description = prize_info;
+                var p_image = prize_image;
+                prizes.push({p_index, p_name, p_description, p_image});
+
+                // if prize_name is an array
+            } else {
+                if (prize_name.length === prize_info.length /*=== req.body.prize_image.length*/) {
+                    for (i = 0; i < prize_name.length; i++) {
+                        var p_index = i;
+                        var p_name = prize_name[i];
+                        var p_description = prize_info[i];
+                        var p_imagePath = prize_image[i].destination + "/" + prize_image[i].filename;
+                        var p_image = p_imagePath.substring(6, Infinity);
+                        prizes.push({p_index, p_name, p_description, p_image});
+                    }
                 }
             }
         }
-    }
 
-    // validation
-    //req.checkBody('imagePath', 'Cover billede mangler').notEmpty();
-    // req.checkBody('name', 'Name required').notEmpty();
-    // req.checkBody('openingDate', 'Åbningsdato for tilmelding er nødvendig').notEmpty();
-    // req.checkBody('closigDate', 'Lukkedato for tilmelding er nødvendig').notEmpty();
-    // req.checkBody('startDate', 'Start dato er nødvendig').notEmpty();
-    // req.checkBody('minTeamSize', 'Holdbegrænsning er nødvendigt').notEmpty();
-    // req.checkBody('maxTeamSize', 'Maximum kan ikke være mindre end minimum').notEmpty(); //TODO: Skal samlignes med minTeamSize, for at undgå negativt tal
+        // validation
+        //req.checkBody('imagePath', 'Cover billede mangler').notEmpty();
+        // req.checkBody('name', 'Name required').notEmpty();
+        // req.checkBody('openingDate', 'Åbningsdato for tilmelding er nødvendig').notEmpty();
+        // req.checkBody('closigDate', 'Lukkedato for tilmelding er nødvendig').notEmpty();
+        // req.checkBody('startDate', 'Start dato er nødvendig').notEmpty();
+        // req.checkBody('minTeamSize', 'Holdbegrænsning er nødvendigt').notEmpty();
+        // req.checkBody('maxTeamSize', 'Maximum kan ikke være mindre end minimum').notEmpty(); //TODO: Skal samlignes med minTeamSize, for at undgå negativt tal
 
-    var errors = req.validationErrors();
+        var errors = req.validationErrors();
 
-    if (errors) {
-        res.render('admin-backend/tournaments', {errors: errors});
-    } else {
-        var newTournament = new Tournament({
-            name: name,
-            description: description,
-            openingDate: openingDate,
-            closingDate: closingDate,
-            startDate: startDate,
-            isVisibel: isVisibel,
-            maxTeams: maxTeams,
-            maxTeamSize: maxTeamSize,
-            minTeamSize: minTeamSize,
-            tourDuration: tourDuration,
-            prizes: prizes,
-            coverImage: coverImage
-        });
+        if (errors) {
+            res.render('admin-backend/tournaments', {errors: errors});
+        } else {
+            var newTournament = new Tournament({
+                name: name,
+                description: description,
+                openingDate: openingDate,
+                closingDate: closingDate,
+                startDate: startDate,
+                isVisibel: isVisibel,
+                maxTeams: maxTeams,
+                maxTeamSize: maxTeamSize,
+                minTeamSize: minTeamSize,
+                tourDuration: tourDuration,
+                prizes: prizes,
+                coverImage: coverImage
+            });
 
-        newTournament.save(function (err) {
-            if (err) throw err;
-            req.flash('success_msg', 'Turneringen er nu oprettet');
-            res.status(204).end();
-            res.redirect('/admins/tournaments');
-        });
-    }
+            newTournament.save(function (err) {
+                if (err) throw err;
+                req.flash('success_msg', 'Turneringen er nu oprettet');
+                res.status(204).end();
+                res.redirect('/admins/tournaments');
+            });
+        }
+    // });
 });
 
 router.delete('/tournaments/:_id', ensureAdminAuthenticated, function (req, res) {
@@ -280,9 +290,6 @@ delTourRoute.delete(ensureAdminAuthenticated, function (req, res) {
         res.json({message: 'Tournamnet removed from the DB!'});
     });
 });
-
-
-
 
 
 

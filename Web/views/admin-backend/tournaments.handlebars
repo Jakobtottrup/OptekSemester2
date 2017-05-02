@@ -39,19 +39,19 @@
                     <h4>Indtast oplysninger for en ny turnering</h4>
                     <div class="well">
                         <b>Indtast navn for turneringen</b><br><br>
-                        <input type="text" class="form-control" id="input_name" placeholder="Navn" name="tour_name" required>
+                        <input type="text" class="form-control" maxlength="250" id="input_name" placeholder="Navn" name="tour_name" required>
                         <br>
                         <div class="input-group">
                             <label class="input-group-btn">
                                 <span class="btn btn-primary">Browse&hellip; <input name="tour_image" type="file" accept="image/*" style="display: none;" required></span>
                             </label>
-                            <input type="text" class="form-control" readonly required>
+                            <input type="text" class="form-control" value="Maximum filstørrelse er 130MB" readonly required>
                         </div>
                     </div>
 
                     <div class="well">
                         <b>Giv en beskrivelse af turneringen</b><br><br>
-                        <input type="text" class="form-control" id="input_name" placeholder="Beskrivelse" name="tour_info" required>
+                        <input type="text" class="form-control" maxlength="1000" id="input_name" placeholder="Beskrivelse" name="tour_info" required>
                     </div>
 
                 <div class="well">
@@ -67,8 +67,8 @@
                                 <td><input type="datetime-local" class="form-control" name="opening_date" required></td>
                                 <td><input type="datetime-local" class="form-control" name="closing_date" required></td>
                                 <td><input type="datetime-local" class="form-control" name="start_date" required></td>
-                                <td><input type="number" class="form-control" placeholder="Tid" step="0.25" min="0" name="tour_duration" required></td>
-                                <td><input type="checkbox" name="visibility" value="true" checked="true"></td>
+                                <td><input type="number" class="form-control" maxlength="10" placeholder="Tid" step="0.25" min="0" name="tour_duration" required></td>
+                                <td><input type="checkbox" name="visibility" checked="true"></td>
                             </tr>
                         </tbody>
                     </table>
@@ -81,12 +81,12 @@
                         <td>Deltagere pr. hold</td>
                         <tbody>
                             <tr>
-                                <td><input type="number" class="form-control" placeholder="Maximum antal" name="team_size" required></td>
-                                <td><input type="number" min="1" class="form-control" placeholder="Minimum antal" name="team_minsize" required></td>
+                                <td><input type="number" min="0" maxlength="10" class="form-control" placeholder="Maximum antal" name="team_size" required></td>
+                                <td><input type="number" min="0" maxlength="10" class="form-control" placeholder="Minimum antal" name="team_minsize" required></td>
                             </tr>
                             <tr>
                                 <td><br></td>
-                                <td><input type="number" min="1" class="form-control" placeholder="Maximum antal" name="team_maxsize" required></td>
+                                <td><input type="number" min="0" maxlength="10" class="form-control" placeholder="Maximum antal" name="team_maxsize" required></td>
                             </tr>
                         </tbody>
                     </table>

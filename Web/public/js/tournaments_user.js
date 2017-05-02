@@ -24,7 +24,7 @@ function getUsersData(){
         usersData = data;
     });
 }
-
+/*
 // list tournaments
 $.when(document, getTournamentsData(), getUsersData()).done(function(){
     var output = "";
@@ -186,22 +186,21 @@ function editTournament(source){
         type: 'UPDATE',
         url: "/api/tournaments",
         dataType: "json"
-    })*/
+    })
 }
 
 // delete tournament
 function deleteTournamnet (source) {
     var tour_id = $(source).closest("tr").prop("id");
-    console.log("Delete call on "+tour_id);
-    console.log("AJAX call disabled to avoid trolling..."); // TODO:
-    /*
-    $.ajax({
-        type: 'DELETE',
-        url: '/admins/tournaments/' + tour_id,
-        dataType: 'json'
-    });
-    */
-    location.reload(true);
+    var delTour = confirm("Vil du slette denne turnering?");
+    if(delTour === true) {
+        $.ajax({
+            type: 'DELETE',
+            url: '/admins/tournaments/' + tour_id,
+            dataType: 'json'
+        });
+        location.reload(true);
+    }
 }
 
 // filter tournaments
@@ -224,4 +223,4 @@ function sortTournaments() {
             }
         }
     }
-}
+}*/
