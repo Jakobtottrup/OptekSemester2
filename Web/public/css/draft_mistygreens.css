@@ -1,9 +1,8 @@
 :root{
-    --main-:#2C4A52; /*main*/
-    --menu-:#8E9B97; /*footer, menu*/
-    --info-:#537072; /*info-box*/
-    --text-:#F4EBDB; /*text*/
-    --main-grad:
+    --main-:#04202C; /*main*/
+    --menu-:#304040; /*footer, menu*/
+    --info-:#5B7065; /*info-box*/
+    --text-:#C9D1C8; /*text*/
 }
 
 /** ****** **/
@@ -21,35 +20,35 @@ html, body {
 }
 
 .content-center {
-    box-shadow:-1px 1px 1px rgba(0, 0, 0, 0.46);
+    padding-bottom:100px; /* Height of the footer element */
+    z-index: 5;
 
 }
 
+#footer {
+    background-color: #04202C;
+    width:100%;
+    height:60px;
+    position: fixed;
+    bottom:0;
+    left:0;
+}
 
 
 /** ******* **/
 /* Main page */
 /** ******* **/
 body {
-    box-shadow:-1px 3px 1px rgba(0, 0, 0, 0.46);
+    /*box-shadow:-1px 3px 1px rgba(0, 0, 0, 0.46);*/
     text-shadow: 0px 0px 0px rgba(0, 0, 0, 0);
     margin-top: 55px;
-    background: #2C4A52; /* For browsers that do not support gradients */
-    background: -webkit-linear-gradient(left, #2C4A52, #8E9B97 , #2C4A52); /* For Safari 5.1 to 6.0 */
-    background: -o-linear-gradient(left, #2C4A52, #8E9B97 , #2C4A52); /* For Opera 11.1 to 12.0 */
-    background: -moz-linear-gradient(left, #2C4A52, #8E9B97 , #2C4A52); /* For Firefox 3.6 to 15 */
-    background: linear-gradient(left, #2C4A52, #8E9B97  , #2C4A52); /* Standard syntax */
+    background: #304040; /* For browsers that do not support gradients */
+    background: -webkit-linear-gradient(left, #04202C, #304040 , #04202C); /* For Safari 5.1 to 6.0 */
+    background: -o-linear-gradient(left, #04202C, #304040 ,#04202C); /* For Opera 11.1 to 12.0 */
+    background: -moz-linear-gradient(left, #04202C, #304040 ,#04202C); /* For Firefox 3.6 to 15 */
+    background: linear-gradient(left, #04202C, #304040  ,#04202C); /* Standard syntax */
 
 
-}
-
-#footer {
-    background-color: #2C4A52;
-    position: fixed;
-    right: 0;
-    bottom: 0;
-    left: 0;
-    height: 60px;
 }
 
 #footer p {
@@ -77,13 +76,12 @@ body {
 /**  ************   **/
 
 #userpanel1{
-    color: #122b40;
+    color: var(--menu-);
     text-shadow: 0px 0px 0px rgba(0, 0, 0, 0.00);
     font-size: 13px;
 }
 #userpanel1 h2{
-    color: #122b40;
-
+    color: var(--menu-);
 }
 /*/ **************** */
 /*/ TOURNAMENT PANEL */
@@ -91,7 +89,7 @@ body {
 
 #tournamentpanel1 {
 
-    color: #122b40;
+    color: var(--menu-);
     text-shadow: 0px 0px 0px rgba(0, 0, 0, 0.00);
     font-size: 13px;
 }
@@ -101,12 +99,12 @@ body {
 /** ******* **/
 .dash-menu {
     background-color: var(--menu-);
-    margin-top: -20px;
+    margin-top: -10px;
     border-radius: 0px 0px 16px 16px;
     box-shadow:-1px 3px 1px rgba(0, 0, 0, 0.46);
     position: fixed;
-    width: 15%;
-    margin-top: -10px;
+    z-index: 10;
+    /*margin-top: -10px;*/
 
 }
 
@@ -115,6 +113,10 @@ body {
     text-shadow: -1px 1px 1px rgba(0, 0, 0, 0.46);
 
 }
+/*#dashboard-nav-collapse button{*/
+    /*margin-right: 500px;*/
+    /*position: absolute;*/
+/*}*/
 
 /** ********** **/
 /*  COUNTDOWN  **/
@@ -129,17 +131,61 @@ body {
     position: center;
     color: #F4EBDB;
     margin-left: 35%;
-    background-color: #2C4A52;
+    background-color:var(--menu-);
 }
+
+/** ********** **/
+/*   SPONSOR   **/
+/*  ********** **/
+
+.sponsor-bar{
+    border-radius: 16px 0px 0px 16px;
+    box-shadow: -1px 3px 1px rgba(0, 0, 0, 0.46);
+    position: fixed;
+    right: 0;
+    top: 0;
+    left: 100;
+    margin-top: 100px;
+    color:#C9D1C8;
+    background-color:#304040;
+    height: 450px;
+
+}
+.sponsor-bar li{
+    list-style-type: none;
+
+}
+.sponsor-bar img {
+    max-width: 200px;
+    max-height: 150px;
+    padding:10px;
+    min-height: 0px;
+    min-width: 0px;
+}
+/*#sponsor-container{*/
+    /*position: relative;*/
+}
+/*.sponsor-bar button{*/
+    /*position: absolute;*/
+    /*background-color: #304040;*/
+    /*padding: 10px 15px;*/
+    /*text-align: center;*/
+    /*text-decoration: none;*/
+    /*display: inline-block;*/
+    /*font-size: 12px;*/
+    /*margin: 4px 2px;*/
+    /*cursor: pointer;*/
+    /*right: 0px;*/
+    /*top: -290px;*/
+    /*color:#C9D1C8;*/
+    /*border-radius: 16px 0px 0px 16px;*/
+/*}*/
 
 /** ********** **/
 /* Content page */
 /** ********** **/
 .content-background {
     background-color: var(--info-);
-    max-width: 90%;
-    margin: auto;
-    margin-bottom: 120px;
     border-radius: 20px 20px 20px 20px;
     box-shadow:-1px 3px 1px rgba(0, 0, 0, 0.46);
 

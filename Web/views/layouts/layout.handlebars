@@ -10,9 +10,10 @@
 
         <link rel="stylesheet" type="text/css" href="/bootstrap/dist/css/bootstrap.min.css">
         <link rel="stylesheet" type="text/css" href="/bootstrap/dist/css/bootstrap-theme.min.css">
-        <!--<link rel="stylesheet" type="text/css" href="/css/main.css">-->
+        <!--link rel="stylesheet" type="text/css" href="/css/main.css"-->
         <!--<link rel="stylesheet" type="text/css" href="/css/draft_1_2.css">-->
-        <link rel="stylesheet" type="text/css" href="/css/colortest.css">
+        <!--<link rel="stylesheet" type="text/css" href="/css/colortest.css">-->
+        <link rel="stylesheet" type="text/css" href="/css/draft_mistygreens.css">
 
         <script src="/jquery/dist/jquery.min.js"></script>
         <script src="/bootstrap/dist/js/bootstrap.min.js"></script>
@@ -20,7 +21,7 @@
         <script src="/angular/angular.min.js"></script>
 
 
-        <script src="/js/change_style.js"></script>
+        <!--<script src="/js/change_style.js"></script>-->
 
         <title>{{ title }}</title>
     </head>
@@ -32,8 +33,7 @@
             <div class="container-fluid top-menu">
                 <!-- Brand and toggle get grouped for better mobile display -->
                 <div class="navbar-header">
-                    <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
-                        <span class="sr-only">Toggle navigation</span>
+                    <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false"><span class="sr-only">Toggle navigation</span>
                         <span class="icon-bar"></span>
                         <span class="icon-bar"></span>
                         <span class="icon-bar"></span>
@@ -46,23 +46,21 @@
                     <ul class="nav navbar-nav">
                         <li><a href="/events">EVENTET</a></li>
                         <li><a href="/rules">REGLER</a></li>
-                        {{#if user}}
-                        {{#unless user.isAdmin}}
-                        <li><a href="/users/tournaments">TURNERINGER</a></li>
-                        <li><a href="/users/getseat">PLADSKORT</a></li>
-                        {{else}}
-                        <li><a href="/admins/tournaments">TURNERINGER</a></li>
-                        <li><a href="/seats">PLADSKORT</a></li>
-                        {{/unless}}
-                        {{else}}
                         <li><a href="/tournaments">TURNERINGER</a></li>
                         <li><a href="/seats">PLADSKORT</a></li>
-                        {{/if}}
                         <li><a href="/contact">KONTAKT</a></li>
                         <li><a href="/gallery">GALLERY</a></li>
                     </ul>
 
                     <ul class="nav navbar-nav navbar-right">
+                        <form class="navbar-form navbar-left">
+                            <div class="form-group">
+                                <!--<input type="text" class="form-control" placeholder="Søg">-->
+                            </div>
+<!--
+                            <button type="submit" class="btn btn-default">SØG</button>
+-->
+                        </form>
                         {{#if user}}
                             <li><a href="/logout">LOG UD</a></li>
 
@@ -95,14 +93,14 @@
             <div class="container-fluid">
                 <div class="row">
                     {{#if user}}
-                    <div class="col-lg-2">
+                    <div class="col-lg-2 col-md-2 col-xs-2 col-sm-2">
                         <ul class="nav nav-pills nav-stacked dash-menu">
                             <li><a href="/dashboard"><i class="fa fa-crosshairs fa-fw "></i>{{user.username}}'s Dashboard</a></li>
                             {{#unless user.isAdmin}}
                             <li><a href="/users/userinfo"><i class="fa fa-edit fa-fw"></i>Bruger info</a></li>
                             <li><a href="/users/getseat"><i class="fa fa-th fa-fw"></i>Din Plads</a></li>
                             <li><a href="/users/seatgroups"><i class="fa fa-users fa-fw"></i>Siddegruppe</a></li>
-                            <li><a href="/users/tournaments"><i class="fa fa-sitemap fa-fw"></i>Dine Turneringer</a></li>
+                            <li><a href="/users/usertournaments"><i class="fa fa-sitemap fa-fw"></i>Dine Turneringer</a></li>
                             {{else}}
                             <li><a href="/admins/posts"><i class="fa fa-edit fa-fw"></i>Opslag</a></li>
                             <li><a href="/admins/events"><i class="fa fa-cogs fa-fw"></i>Dette LAN</a></li>
@@ -116,19 +114,29 @@
                         </ul>
                     </div>
                     {{/if}}
-                    <div class="content-center">
+                    <div class="content-center col-lg-9 col-md-9 col-s-9 col-xs-9">
                         {{{body}}}
                     </div>
                 </div>
             <!--</div>-->
         </div>
-
+            <div id="sponsor-bar">
+                <div class="container-fluid">
+                    <div class="row">
+                        <div class="sponsor col-lg-offset-10 col-md-offset-10 col-lg-2 col-md-2 hidden-xs">
+                            <ul class="sponsor-bar">
+                                <li><img src="/img/sponsors/IDA-logo.png"></li>
+                                <li><img src="/img/sponsors/DragonsLair-logo.png"></li>
+                                <li><img src="/img/sponsors/Prosa-logo.jpg"></li>
+                                <li><img src="/img/sponsors/SDU-logo.png"></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
         <div id="footer">
-            <div class="container">
+            <div class="container col-lg-12">
                 <p class="text-muted">SKELLINGTONS | ARE | SPOOKY </p>
-                <button onclick="previous_style()" id="previous_style_btn">&#8249;</button>
-                <button onclick="next_style()" id="next_style_btn">&#8250;</button>
-                <p class="new_style_info">Script change_style.js failed to load</p>
             </div>
         </div>
     </div>
@@ -139,7 +147,7 @@
 <script>
 $(document).ready(function(){
     var path = window.location.pathname;
-    $("#dashboard-nav").find('a[href$="' +path+ '"]').parent().addClass("active");
+    $("#dashboard-nav").find('a[href$="' +path+ '"]').parent().addClass("active").addClass("my_active");
 });
 </script>
 
