@@ -33,6 +33,7 @@ html, body {
     width: 850px;
     left: 50;
     bottom: 50;
+    margin-bottom: 75px;
 
 }
 
@@ -47,7 +48,6 @@ html, body {
     position: absolute;
     bottom:0;
     left:0;
-    margin-top: 20px;
 }
 
 .panel-primary {
@@ -180,7 +180,7 @@ body {
 
 }
 .sponsor-bar img {
-    max-width: 200px;
+    max-width: 150px;
     max-height: 150px;
     padding:10px;
     min-height: 0px;
