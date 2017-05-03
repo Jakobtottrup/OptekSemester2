@@ -25,15 +25,21 @@ function createTours() {
         output += "<div class='tour-title'><h2>" + tour[i].name + "</h2></div>";
         output += "<div class='tour-cover'><img src='" + tour[i].coverImage + "'></div>";
         output += "<div class='tour-countdown'><p>Turneringen begynder " + tour[i].openingDate + "</p></div>";
-        output += "<div class='tour-price-list'>";
-        for (var j = 0; j < tour[i].prizes.length; j++) {
-            output += "<div class='tour-price'>";
-            output += "<p>" + (j+1) + ". Plads</p>";
-            output += "<img src='" + tour[i].prizes[j].p_image + "'>";
-            output += "<p>" + tour[i].prizes[j].p_name + "</p>";
+        if (tour[i].prizes.length > 0) {
+            output += "<div class='tour-price-list'>";
+            output += "<table><tr>";
+            for (var j = 0; j < tour[i].prizes.length; j++) {
+                output += "<td>";
+                output += "<div class='tour-price'>";
+                output += "<p>" + (j+1) + ". Plads</p>";
+                output += "<img src='" + tour[i].prizes[j].p_image + "'>";
+                output += "<p>" + tour[i].prizes[j].p_name + "</p>";
+                output += "</div>";
+                output += "</td>";
+            }
+            output += "</tr></table>";
             output += "</div>";
         }
-        output += "</div>";
         output += "</div>";
 
         $('#all_tours').append(output);
