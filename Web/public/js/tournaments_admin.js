@@ -83,6 +83,13 @@ function showTourDescription(source){
         $('#modal-edit').modal('show'); // show modal
     }
 }
+// preview image on upload
+var loadFile = function(source) {
+    var output = $(source).closest("td").prop("id");
+    var id = output.substring(5,Infinity);
+    var result = document.getElementById("image"+id);
+    result.src = URL.createObjectURL(event.target.files[0]);
+};
 
 // prize control for new tournaments
 var totalPrizes = 0;
@@ -94,18 +101,12 @@ function addPrize(){
         $("#prize-head").append('<td id="prize'+totalPrizes+'">'+totalPrizes+'. Plads</td>');
         $("#prize-name").append('<td id="prize'+totalPrizes+'"><input type="text" class="form-control" maxlength="200" placeholder="Navn" name="prize_name" required></td>');
         $("#prize-info").append('<td id="prize'+totalPrizes+'"><input type="text" class="form-control" maxlength="200" placeholder="Beskrivelse" name="prize_info" required></td>');
-        $("#prize-image").append('<td id="prize'+totalPrizes+'"><label class="btn btn-primary" style="width:100%">Browse&hellip;<input name="prize_image" type="file" accept="image/*" onchange="loadFile(this, event, totalPrizes)" style="display:none;"required></label>' +
+        $("#prize-image").append('<td id="prize'+totalPrizes+'"><label class="btn btn-primary" style="width:100%">Browse&hellip;<input name="prize_image" type="file" accept="image/*" onchange="loadFile(this)" style="display:none;"required></label>' +
             '<br><img id="image'+totalPrizes+'" style="width:100%; margin-top:10px"/></td>');
     }
-}
-// preview image on upload
-var loadFile = function(source, event, id) {
-    // var output = $(source).find("#image"+id);
-    var output = document.getElementById("image"+id);
-    output.src = URL.createObjectURL(event.target.files[0]);
-    console.log(output);
-};
 
+    console.log("TP: " + totalPrizes);
+}
 function removePrize(){
     if (totalPrizes >= 1){
         // console.log(totalPrizes);

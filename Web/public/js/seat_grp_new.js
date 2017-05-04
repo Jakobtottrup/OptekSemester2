@@ -33,7 +33,6 @@ function getUserData(){
     });
 }
 
-
 $.when(getGroupData(), getUsersData(), getUserData()).done(function(){
     // find current user in group
     var hasGroup = false, isLeader = false;
@@ -48,32 +47,14 @@ $.when(getGroupData(), getUsersData(), getUserData()).done(function(){
             isLeader = true;
         }
     });
-    createGroup(hasGroup, isLeader);
-
-    $.ajax({
-            type: 'PUT',
-            url: "/api/test",
-            dataType: "json"
-        });
+    if (!hasGroup) {
+        createGroup();
+    }
 });
 
 function createGroup(hasGroup){
     console.log("hasGroup: "+hasGroup);
 }
-
-
-
-
-
-var Group = function(leaderID, members, groupName, _id){
-    this.id = _id;
-    this.groupName = groupName;
-    this.leaderID = leaderID;
-    this.members = members;
-};
-
-
-
 
 function checkGroup(hasGroup, isLeader){
     console.log("user is in group: "+hasGroup+" || user is leader: "+isLeader);

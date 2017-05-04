@@ -1,6 +1,4 @@
-
-
-    <template>
+        <template>
             <div class="group-container">
             <div id="create-div">
                 <p>Opret siddegruppe</p>
@@ -13,12 +11,18 @@
         </template>
 
 
-        <h3 id="create-group-header">Opret siddegruppe</h3>
-        <div class="group-wrapper" id="create-group"></div>
-        <br>
-        <br>
-        <h3>Andre siddegrupper</h3>
-        <div id="current-group-container"></div>
+        <div class="table-responsive">
+
+            <table class="table table-condensed table-hover" id="tournament-table">
+                <tr>
+                    <th>#</th>
+                    <th>Gruppe</th>
+                    <th>Medlemmer</th>
+                </tr>
+                <tbody id="data_insert">
+                </tbody>
+            </table>
+        </div>
 
         <!-- Modal -->
         <div id="group-modal" class="modal fade" role="dialog">
@@ -52,9 +56,5 @@
                 </div>
             </div>
         </div>
-
-
-<script src="/jquery/dist/jquery.min.js"></script>
-<script src="/ajax/dist/ajax.min.js"></script>
 
 <script src="/js/seat_grp_new.js"></script>
