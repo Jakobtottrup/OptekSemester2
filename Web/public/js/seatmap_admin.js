@@ -337,8 +337,10 @@ function createLabels() {
 
 function initMousemove() {
     m_index = 0;
+    myMouseDown = false;
+    drawType = 0;
 //test for mouse over
-    canvas.addEventListener("click", function (e) {
+    /*canvas.addEventListener("click", function (e) {
         //get mouse coordinates according to canvas position on screen
         convertMouse(e);
 
@@ -351,12 +353,41 @@ function initMousemove() {
         }
         createLabels();
         drawScreen();
-    });
+    });*/
 
 //test for mouse over
     canvas.addEventListener("mousemove", function (e) {
         //get mouse coordinates according to canvas position on screen
         convertMouse(e);
+
+        if (myMouseDown) {
+            console.log(drawType);
+            seatmap.seats[m_index].type = drawType;
+        }
+
+        createLabels();
         drawScreen();
+    });
+
+    canvas.addEventListener("mousedown", function (e) {
+        //get mouse coordinates according to canvas position on screen
+        myMouseDown = true;
+        if (m_pixel_type >= 0) {
+            if (seatmap.seats[m_index].type == m_pixel_type) {
+                drawType = 0;
+            } else {
+                drawType = m_pixel_type;
+            }
+        } else {
+            drawType = 0;
+        }
+        seatmap.seats[m_index].type = drawType;
+        createLabels();
+        drawScreen();
+    });
+
+    canvas.addEventListener("mouseup", function (e) {
+        //get mouse coordinates according to canvas position on screen
+        myMouseDown = false;
     });
 }
