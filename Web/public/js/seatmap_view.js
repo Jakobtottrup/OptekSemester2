@@ -47,9 +47,6 @@ $(".screen_level").html("<p>Screen level: " + screen_level + "</p>");
 
 scaling = canvas.width / mycanvas.width;
 
-//reload on resize
-$(window).resize(function(){location.reload();});
-
 /*** ***************** ***/
 /** get map from databse */
 /*** ***************** ***/
@@ -79,11 +76,10 @@ function getUserData(){
 $.when(getSeatData(), getUserData()).done(function() {
     seatmapCleanup(seatmap);
     checkforDeletedUsers();
+    rescaleCanvas();
     setVariables();
     initMousemove();
     drawScreen();
-
-
 });
 
 function seatmapCleanup(json_seat) {

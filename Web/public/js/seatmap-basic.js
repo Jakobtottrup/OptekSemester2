@@ -31,6 +31,30 @@ color = {
     wall: "black"
 };
 
+/*** *********** ***/
+/** canvas resize **/
+/*** *********** ***/
+
+function rescaleCanvas() {
+    mycanvas.width = 640;
+    mycanvas.height = mycanvas.width / seatmap.room_width * seatmap.room_height;
+
+    canvas.style.width = '100%';
+    canvas.style.height = canvas.style.width / (mycanvas.width / mycanvas.height);
+
+// ...then set the internal size to match
+    canvas.width  = canvas.offsetWidth;
+    canvas.height = canvas.width / (mycanvas.width / mycanvas.height);
+
+    scaling = canvas.width / mycanvas.width;
+}
+
+function mapResize() {
+    ctx.scale(1 / scaling, 1 / scaling);
+    rescaleCanvas();
+    ctx.scale(scaling, scaling);
+}
+
 /*** ********* ***/
 /** draw object **/
 /*** ********* ***/
