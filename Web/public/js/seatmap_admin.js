@@ -13,12 +13,11 @@ var ctx = canvas.getContext('2d');
 /** settings **/
 /*** ****** ***/
 
+mapBorder = {height: {min: 4, max: 30}, width: {min: 10, max: 20}};
+
 var temp;
 
 mycanvas = {width: 640, height: 320};
-
-col_state = ["green", "yellow", "red"];
-col_state_m = ["darkgreen", "gold", "brown"];
 
 /*** ********************** ***/
 /** scale for responsive page */
@@ -32,8 +31,8 @@ canvas.width  = canvas.offsetWidth;
 canvas.height = canvas.width / (mycanvas.width / mycanvas.height);
 
 //set the drawing surface dimensions to match the canvas
-canvas.width = canvas.scrollWidth;
-canvas.height = canvas.scrollHeight;
+// canvas.width = canvas.scrollWidth;
+// canvas.height = canvas.scrollHeight;
 
 if (canvas.width > 800) {
     screen_level = 2; //big screen
@@ -76,7 +75,8 @@ function getSeatData(){
 
 $.when(getSeatData()).done(function() {
     seatmapCleanup(seatmap);
-    setVariables();
+    rescaleCanvas();
+    initVariables();
     initMousemove();
     drawScreen();
 });
@@ -92,7 +92,7 @@ function savemap() {
 function seatmapCleanup(json_seat) {
     if (json_seat == false || json_seat == []) {
         var thiswidth = 32;
-        var thisheight = 16;
+        var thisheight = 40;
 
         mapDel(thiswidth, thisheight);
     } else {
@@ -112,12 +112,30 @@ function seatmapCleanup(json_seat) {
 /** set variables **/
 /*** *********** ***/
 
-function setVariables() {
+function initVariables() {
     ctx.scale(scaling, scaling);
 
-    seat_size = Math.min(mycanvas.width / seatmap.room_width, mycanvas.height / seatmap.room_height);
+    setVariables();
 
     m_pixel_type = -1;
+}
+
+function setVariables() {
+    seat_size = Math.min(mycanvas.width / seatmap.room_width, mycanvas.height / seatmap.room_height);
+}
+
+function rescaleCanvas() {
+    mycanvas.width = 640;
+    mycanvas.height = mycanvas.width / seatmap.room_width * seatmap.room_height;
+
+    canvas.style.width = '100%';
+    canvas.style.height = canvas.style.width / (mycanvas.width / mycanvas.height);
+
+// ...then set the internal size to match
+    canvas.width  = canvas.offsetWidth;
+    canvas.height = canvas.width / (mycanvas.width / mycanvas.height);
+
+    scaling = canvas.width / mycanvas.width;
 }
 
 /*** ********** ****/
@@ -198,8 +216,34 @@ function expandFrame(dir, val) {
     }
 }
 
+function mapResize() {
+    ctx.scale(1 / scaling, 1 / scaling);
+    rescaleCanvas();
+    ctx.scale(scaling, scaling);
+}
+
 function expandFrameUp(val) {
     console.log("up " + val);
+
+    if (val) {
+        if (seatmap.room_height < mapBorder.height.max) {
+
+            for (var i = 0; i < seatmap.room_width; i++) {
+                seatmap.seats.splice(0, 0, {type: 1, label: 0, userid: 0});
+            }
+
+            seatmap.room_height++;
+            mapResize();
+            drawScreen();
+        }
+    } else {
+        if (seatmap.room_height > mapBorder.height.min) {
+            seatmap.seats.splice(0, seatmap.room_width);
+            seatmap.room_height--;
+            mapResize();
+            drawScreen();
+        }
+    }
 }
 
 function expandFrameDown(val) {
@@ -339,21 +383,6 @@ function initMousemove() {
     m_index = 0;
     myMouseDown = false;
     drawType = 0;
-//test for mouse over
-    /*canvas.addEventListener("click", function (e) {
-        //get mouse coordinates according to canvas position on screen
-        convertMouse(e);
-
-        if (m_pixel_type >= 0) {
-            if (seatmap.seats[m_index].type == m_pixel_type) {
-                seatmap.seats[m_index].type = 0;
-            } else {
-                seatmap.seats[m_index].type = m_pixel_type;
-            }
-        }
-        createLabels();
-        drawScreen();
-    });*/
 
 //test for mouse over
     canvas.addEventListener("mousemove", function (e) {
@@ -361,11 +390,11 @@ function initMousemove() {
         convertMouse(e);
 
         if (myMouseDown) {
-            console.log(drawType);
-            seatmap.seats[m_index].type = drawType;
+            if (seatmap.seats[m_index].type != drawType) {
+                seatmap.seats[m_index].type = drawType;
+                createLabels();
+            }
         }
-
-        createLabels();
         drawScreen();
     });
 
