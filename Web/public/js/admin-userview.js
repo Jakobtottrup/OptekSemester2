@@ -137,12 +137,12 @@ $(function () {
  */
 $(function () {
     $('#removeUserBtn').click(function (e) {
-        var confirm = confirm("Confirm User Deletion");
-        if (confirm == true) {
+/*        var confirm = confirm("Confirm User Deletion");
+        if (confirm === true) {*/
             for (i = 0; i < deleteUserId.length; i++) {
                 deleteUser(deleteUserId[i]._id);
             }
-        }
+        //}
         $(':checkbox').prop('checked', false);
         var table = $(e.target).closest('table');
         selected = [];

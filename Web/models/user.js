@@ -23,6 +23,12 @@ var UserSchema = mongoose.Schema({
             type: String,
             required: true
         },
+        resetPasswordToken: {
+            type: String
+        },
+        resetPasswordExpires: {
+            type: Number
+        },
         studie: {
             type: String,
             required: true
@@ -45,6 +51,7 @@ var UserSchema = mongoose.Schema({
     }
 );
 
+
 var User = module.exports = mongoose.model('User', UserSchema);
 
 module.exports.createUser = function (newUser, callback) {
@@ -63,6 +70,11 @@ module.exports.getUserByUsername = function (username, callback) {
     User.findOne(query, callback);
 };
 
+module.exports.getUserByEmail = function (email, callback) {
+    var query = {email: email};
+    User.findOne(query, callback);
+};
+
 module.exports.getUserById = function (id, callback) {
     User.findById(id, callback);
 };
@@ -74,5 +86,4 @@ module.exports.comparePassword = function (candidatePassword, hash, callback) {
         //console.log("Password match: " + isMatch);
     });
 };
-
 

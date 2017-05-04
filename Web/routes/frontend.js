@@ -7,6 +7,14 @@ const passport = require('passport');
 const LocalStrategy = require('passport-local').Strategy;
 const User = require('../models/user');
 const multer = require('multer');
+const async = require('async');
+const crypto = require('crypto');
+const nodemailer = require('nodemailer');
+const flash = require('connect-flash');
+var mongoose = require('mongoose');
+mongoose.Promise = require('bluebird');
+const bcrypt = require('bcryptjs');
+
 
 // GET HOMEPAGE
 router.get('/', function (req, res) {
@@ -16,7 +24,7 @@ router.get('/', function (req, res) {
 
 // RENDER 'REGISTER' VIEW
 router.get('/signup', function (req, res) {
-    if (typeof req.user !== "undefined"){
+    if (typeof req.user !== "undefined") {
         res.redirect('/dashboard');
     } else {
         res.render('frontend/signup', {title: "Tilmelding"});
@@ -26,23 +34,126 @@ router.get('/signup', function (req, res) {
 
 // RENDER 'FORGOT PASSWORD' VIEW
 router.get('/passwordreset', function (req, res) {
-    res.render('frontend/reset_password', {title: "Gendan kodeord"});
+    res.render('frontend/passwordreset', {title: "Gendan kodeord"});
 });
-/*router.post('/passwordreset', function (req, res, next) {
-    app.mailer.send('email', {
-        to: 'req.body.username', // REQUIRED. This can be a comma delimited string just like a normal email to field.
-        subject: 'Kodeord gendannelse', // REQUIRED.
-        otherProperty: 'Other Property' // All additional properties are also passed to the template as local variables.
-    }, function (err) {
-        if (err) {
-            // handle error
-            console.log("err" + err);
-            res.send('There was an error sending the email');
-            return;
+
+
+router.post('/passwordreset', function (req, res, next) {
+    async.waterfall([
+        function (done) {
+            crypto.randomBytes(20, function (err, buf) {
+                var token = buf.toString('hex');
+                done(err, token);
+            });
+        },
+        function (token, done) {
+            User.findOne({email: req.body.email}, function (err, user) {
+                if (!user) {
+                    req.flash('error_msg', 'No account with that email address exists.');
+                    return res.redirect('/passwordreset');
+                }
+                user.resetPasswordToken = token;
+                user.resetPasswordExpires = Date.now() + 3600000;
+                user.save(function (err) {
+                    done(err, token, user);
+                });
+            });
+        },
+        function (token, user, done) {
+            var transporter = nodemailer.createTransport({
+                service: 'Gmail',
+                auth: {
+                    user: 'sdulan.optek@gmail.com',
+                    pass: 'OpTek2016'
+                }
+            });
+            var mailOptions = {
+                to: user.email,
+                from: 'sdulan.optek@gmail.com',
+                subject: 'S7-Lan Password Reset',
+                text: 'You are receiving this because you (or someone else) have requested the reset of the password for your account.\n\n' +
+                'Please click on the following link, or paste this into your browser to complete the process:\n\n' +
+                'http://' + req.headers.host + '/reset/' + token + '\n\n' +
+                'If you did not request this, please ignore this email and your password will remain unchanged.\n'
+            };
+            transporter.sendMail(mailOptions, function (err) {
+                req.flash('success_msg', 'An e-mail has been sent to ' + user.email + ' with further instructions.');
+                done(err, 'done');
+            });
         }
-        res.send('Email Sent');
+    ], function (err) {
+        if (err) return next(err);
+        res.redirect('/passwordreset');
     });
-});*/
+});
+router.get('/reset/:token', function (req, res) {
+    var date2 = Date.now();
+    User.findOne({resetPasswordToken: req.params.token, resetPasswordExpires: {$gt: date2}}, function (err, user) {
+        if (!user) {
+            req.flash('error_msg', 'TEST: Password reset token is invalid or has expired.');
+            return res.redirect('/passwordreset');
+        }
+        res.render('frontend/reset', {user});
+    });
+});
+
+
+router.post('/reset/:token', function (req, res) {
+    req.flash('success_msg', 'Password reset successfully!');
+    res.redirect('/login');
+
+    var date3 = Date.now();
+    async.waterfall([
+            function (done) {
+                User.findOne({
+                    resetPasswordToken: req.params.token,
+                    resetPasswordExpires: {$gt: date3}
+                }, function (err, user) {
+                    if (!user) {
+                        req.flash('error_msg', 'Password reset token is invalid or has expired.');
+                        return res.redirect('/reset/:token');
+                    }
+                    user.password = req.body.password;
+                    user.resetPasswordToken = undefined;
+                    user.resetPasswordExpires = undefined;
+                    bcrypt.genSalt(10, function (err, salt) {
+                        bcrypt.hash(user.password, salt, function (err, hash) {
+                            user.password = hash;
+                            user.save(function (err) {
+                                done(err, user)
+                            });
+                        });
+                    });
+                });
+            },
+            function (user, done) {
+                var transporter = nodemailer.createTransport({
+                    service: 'Gmail',
+                    auth: {
+                        user: 'sdulan.optek@gmail.com',
+                        pass: 'OpTek2016'
+                    }
+                });
+                var mailOptions = {
+                    to: user.email,
+                    from: 'sdulan.optek@gmail.com',
+                    subject: 'S7-Lan Password reset Success!',
+                    text: 'Hello,\n\n' +
+                    'This is a confirmation that the password for your account ' + user.email + ' has just been changed.\n'
+                };
+                transporter.sendMail(mailOptions, function (err) {
+                    req.flash('success_msg', 'Password reset complete!');
+                    res.render('/reset/'+req.params.token);
+                    done(err);
+                });
+            }
+        ],
+        function (err) {
+            res.redirect('/');
+        });
+});
+
+
 // render gallery view
 router.get('/gallery', function (req, res) {
     res.render('frontend/gallery', {title: "Gallery"});
@@ -93,35 +204,6 @@ router.post('/signup', function (req, res) {
             hasPaid: false,
             isActive: true
         });
-        /*
-         User.findOne({'local.email': email}, function (err, user) {
-         // if there are any errors, return the error
-         if (err)
-         return done(err);
-
-         // check to see if theres already a user with that email
-         if (user) {
-         return done(null, false, req.flash('error_msg', 'That email is already taken.'));
-         } else {
-
-         // if there is no user with that email
-         // create the user
-         var newUser = new User();
-
-         // set the user's local credentials
-         newUser.local.email = email;
-         newUser.local.password = newUser.generateHash(password);
-
-         // save the user
-         newUser.save(function (err) {
-         if (err)
-         throw err;
-         return done(null, newUser);
-         });
-         }
-
-         });
-         */
 
         User.findOne({username: username}, function (err, user) {
             if (err)
@@ -181,7 +263,7 @@ router.get('/events', function (req, res) {
 
 // RENDER LOGIN VIEW
 router.get('/login', function (req, res) {
-    if (typeof req.user !== "undefined"){
+    if (typeof req.user !== "undefined") {
         res.redirect('/dashboard');
     } else {
         res.render('frontend/login', {title: "Dashboard"});
@@ -263,8 +345,8 @@ function ensureAuthenticated(req, res, next) {
 }
 
 //Upload files
-var uploads = multer({ dest: 'public/uploads/image/gallery' });
-router.post('/', uploads.single('upl'),function(req, res, next){
+var uploads = multer({dest: 'public/uploads/image/gallery'});
+router.post('/', uploads.single('upl'), function (req, res, next) {
     console.log(req.body);
     console.log(req.file);
     res.status(204).end();
