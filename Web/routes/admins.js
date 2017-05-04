@@ -124,6 +124,10 @@ router.post('/create_seats', ensureAdminAuthenticated, function (req, res) {
     }
 });
 
+// RENDER GALLERY UPLOAD VIEW
+router.get('/gallery',ensureAdminAuthenticated, function(req,res){
+   res.render('admin-backend/gallery',{title:'Admin panel'});
+});
 
 // RENDER EVENT VIEW
 router.get('/events', ensureAdminAuthenticated, function (req, res) {
@@ -134,6 +138,15 @@ router.get('/events', ensureAdminAuthenticated, function (req, res) {
 router.get('/mails', ensureAdminAuthenticated, function (req, res) {
     res.render('admin-backend/mails', {title: "Admin Panel", name: "Brugers navn"});
 });
+
+//Upload files
+var uploads = multer({ dest: 'public/uploads/image/gallery'});
+router.post('/gallery',ensureAdminAuthenticated, uploads.single('upl'),function(req, res, next){
+    console.log(req.body);
+    console.log(req.file);
+    res.status(204).end();
+});
+
 
 router.delete('/users/:_id', ensureAdminAuthenticated, function (req, res) {
     console.log("deleted");
