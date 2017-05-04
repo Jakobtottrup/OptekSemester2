@@ -13,7 +13,7 @@ var ctx = canvas.getContext('2d');
 /** settings **/
 /*** ****** ***/
 
-mapBorder = {height: {min: 4, max: 30}, width: {min: 10, max: 20}};
+mapBorder = {height: {min: 8, max: 64}, width: {min: 8, max: 64}};
 expandType = 0;
 
 var temp;
