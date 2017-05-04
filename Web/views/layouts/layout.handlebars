@@ -55,8 +55,12 @@
 
                 <ul class="nav navbar-nav navbar-right">
                     {{#if user}}
-                        <li><a href="/logout">LOG UD</a></li>
-
+                        {{#unless user.resetPasswordToken}}
+                            <li><a href="/logout">LOG UD</a></li>
+                        {{else}}
+                            <li><a href="/signup">TILMELD</a></li>
+                            <li><a href="/login">LOG IND</a></li>
+                        {{/unless}}
                     {{else}}
                         <li><a href="/signup">TILMELD</a></li>
                         <li><a href="/login">LOG IND</a></li>
@@ -83,31 +87,30 @@
 
     <div id="dashboard-nav">
         <div class="row">
-            {{#if user}}
-                <div class="col-md-2">
-                    <ul class="nav nav-pills nav-stacked dash-menu">
-                        <li><a href="/dashboard"><i class="fa fa-crosshairs fa-fw "></i>{{user.username}}'s Dashboard</a></li>
-                        {{#unless user.isAdmin}}
-                            <li><a href="/users/userinfo"><i class="fa fa-edit fa-fw"></i>Bruger info</a></li>
-                            <li><a href="/users/getseat"><i class="fa fa-th fa-fw"></i>Din Plads</a></li>
-                            <li><a href="/users/seatgroups"><i class="fa fa-users fa-fw"></i>Siddegruppe</a></li>
-                            <li><a href="/users/tournaments"><i class="fa fa-sitemap fa-fw"></i>Dine Turneringer</a></li>
-                        {{else}}
-                            <li><a href="/admins/posts"><i class="fa fa-edit fa-fw"></i>Opslag</a></li>
-                            <li><a href="/admins/events"><i class="fa fa-cogs fa-fw"></i>Dette LAN</a></li>
-                            <li><a href="/admins/users"><i class="fa fa-user fa-fw"></i>Se brugere</a></li>
-                            <li><a href="/admins/create_seats"><i class="fa fa-th fa-fw"></i>Opret bordopstilling</a></li>
-                            <li><a href="/admins/seating_groups"><i class="fa fa-users fa-fw "></i>Se siddegrupper</a></li>
-                            <li><a href="/admins/tournaments"><i class="fa fa-sitemap fa-fw"></i>Opret turnering</a></li>
-                            <li><a href="/admins/mails"><i class="fa fa-envelope fa-fw"></i>Send mails</a></li>
-                            <li><a href="/admins/sponsors"><i class="fa fa-tasks fa-fw"></i>Sponsors</a></li>
-                        {{/unless}}
-                    </ul>
-                </div>
-            {{else}}
-                <div class="col-md-2">
-                </div>
-            {{/if}}
+            <div class="col-md-2">
+                {{#if user}}
+                    {{#unless user.resetPasswordToken}}
+                        <ul class="nav nav-pills nav-stacked dash-menu">
+                            <li><a href="/dashboard"><i class="fa fa-crosshairs fa-fw "></i>{{user.username}}'s Dashboard</a></li>
+                            {{#unless user.isAdmin}}
+                                <li><a href="/users/userinfo"><i class="fa fa-edit fa-fw"></i>Bruger info</a></li>
+                                <li><a href="/users/getseat"><i class="fa fa-th fa-fw"></i>Din Plads</a></li>
+                                <li><a href="/users/seatgroups"><i class="fa fa-users fa-fw"></i>Siddegruppe</a></li>
+                                <li><a href="/users/tournaments"><i class="fa fa-sitemap fa-fw"></i>Dine Turneringer</a></li>
+                            {{else}}
+                                <li><a href="/admins/posts"><i class="fa fa-edit fa-fw"></i>Opslag</a></li>
+                                <li><a href="/admins/events"><i class="fa fa-cogs fa-fw"></i>Dette LAN</a></li>
+                                <li><a href="/admins/users"><i class="fa fa-user fa-fw"></i>Se brugere</a></li>
+                                <li><a href="/admins/create_seats"><i class="fa fa-th fa-fw"></i>Opret bordopstilling</a></li>
+                                <li><a href="/admins/seating_groups"><i class="fa fa-users fa-fw "></i>Se siddegrupper</a></li>
+                                <li><a href="/admins/tournaments"><i class="fa fa-sitemap fa-fw"></i>Opret turnering</a></li>
+                                <li><a href="/admins/mails"><i class="fa fa-envelope fa-fw"></i>Send mails</a></li>
+                                <li><a href="/admins/sponsors"><i class="fa fa-tasks fa-fw"></i>Sponsors</a></li>
+                            {{/unless}}
+                        </ul>
+                    {{/unless}}
+                {{/if}}
+            </div>
             <div class="col col-md-8 content-background">
             <div class="content-center">
                 {{{body}}}
