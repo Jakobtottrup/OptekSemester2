@@ -143,7 +143,6 @@ router.post('/reset/:token', function (req, res) {
                 };
                 transporter.sendMail(mailOptions, function (err) {
                     req.flash('success_msg', 'Password reset complete!');
-                    res.render('/reset/'+req.params.token);
                     done(err);
                 });
             }
