@@ -1,5 +1,4 @@
-<link rel="stylesheet" type="text/css" href="/css/user.css">
-
+<script src="/js/dashboard_info.js"></script>
 
     <div>
         <h1> Velkommen, {{user.username}}</h1>
@@ -10,20 +9,3 @@
 
         </ul>
 
-
-<script>
-    function getUserData(){
-        return $.ajax({
-            type: 'GET',
-            url: "/api/localuser",
-            dataType: "json"
-        }).done(function(data){
-            userData = data;
-        });
-    }
-
-    $.when(getUserData(), document).done(function(){
-        console.log(userData);
-        $("#user-info").append("<li>Brugernan "+userData.username+"</li>")
-        });
-</script>

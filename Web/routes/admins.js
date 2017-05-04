@@ -181,7 +181,7 @@ delRoute.delete(ensureAdminAuthenticated, function (req, res) {
 
 // TOURNAMENT CONTROLLERS
 const limits = { fileSize: 512 * 512 * 512 };
-const fileFilter = { fileType: "jpg", "png", "gif"};
+// const fileFilter = { fileType: "jpg", "png", "gif"};
 const tourUploads = multer({ dest: 'public/uploads/image/tournaments', limits: limits}).fields([{name: 'tour_image', maxCount: 1}, {name: 'prize_image', maxCount: 7}]);
 router.post('/tournaments', tourUploads, ensureAdminAuthenticated, function (req, res, next) {
     // tourUploads(req, res, function (err) {
