@@ -14,6 +14,7 @@ var ctx = canvas.getContext('2d');
 /*** ****** ***/
 
 mapBorder = {height: {min: 4, max: 30}, width: {min: 10, max: 20}};
+expandType = 0;
 
 var temp;
 
@@ -54,9 +55,6 @@ if (screen_level == 0) {
 
 scaling = canvas.width / mycanvas.width;
 
-//reload on resize
-$(window).resize(function(){location.reload();});
-
 /*** ***************** ***/
 /** get map from databse */
 /*** ***************** ***/
@@ -91,8 +89,8 @@ function savemap() {
 
 function seatmapCleanup(json_seat) {
     if (json_seat == false || json_seat == []) {
-        var thiswidth = 32;
-        var thisheight = 40;
+        var thiswidth = 16;
+        var thisheight = 9;
 
         mapDel(thiswidth, thisheight);
     } else {
@@ -223,15 +221,11 @@ function mapResize() {
 }
 
 function expandFrameUp(val) {
-    console.log("up " + val);
-
     if (val) {
         if (seatmap.room_height < mapBorder.height.max) {
-
             for (var i = 0; i < seatmap.room_width; i++) {
-                seatmap.seats.splice(0, 0, {type: 1, label: 0, userid: 0});
+                seatmap.seats.splice(0, 0, {type: expandType, label: 0, userid: 0});
             }
-
             seatmap.room_height++;
             mapResize();
             drawScreen();
@@ -247,15 +241,75 @@ function expandFrameUp(val) {
 }
 
 function expandFrameDown(val) {
-    console.log("down " + val);
+    if (val) {
+        if (seatmap.room_height < mapBorder.height.max) {
+            for (var i = 0; i < seatmap.room_width; i++) {
+                seatmap.seats.push({type: expandType, label: 0, userid: 0});
+            }
+            seatmap.room_height++;
+            mapResize();
+            drawScreen();
+        }
+    } else {
+        if (seatmap.room_height > mapBorder.height.min) {
+            for (var i = 0; i < seatmap.room_width; i++) {
+                seatmap.seats.pop();
+            }
+            seatmap.room_height--;
+            mapResize();
+            drawScreen();
+        }
+    }
 }
 
 function expandFrameRight(val) {
-    console.log("right " + val);
+    if (val) {
+        if (seatmap.room_width < mapBorder.width.max) {
+            for (var i = seatmap.room_height; i > 0; i--) {
+                seatmap.seats.splice((seatmap.room_width) * i, 0, {type: expandType, label: 0, userid: 0});
+            }
+            seatmap.room_width++;
+            mapResize();
+            setVariables();
+            drawScreen();
+        }
+    } else {
+        if (seatmap.room_width > mapBorder.width.min) {
+            for (var i = seatmap.room_height; i > 0; i--) {
+                seatmap.seats.splice((seatmap.room_width) * i - 1, 1);
+            }
+            seatmap.room_width--;
+            mapResize();
+            setVariables();
+            drawScreen();
+        }
+    }
 }
 
 function expandFrameLeft(val) {
     console.log("left " + val);
+    if (val) {
+        if (seatmap.room_width < mapBorder.width.max) {
+            for (var i = seatmap.room_height-1; i > -1; i--) {
+                //seatmap.seats[i * seatmap.room_width].type = 2;
+                seatmap.seats.splice(i * seatmap.room_width, 0, {type: expandType, label: 0, userid: 0});
+            }
+            seatmap.room_width++;
+            mapResize();
+            setVariables();
+            drawScreen();
+        }
+    } else {
+        if (seatmap.room_width > mapBorder.width.min) {
+            for (var i = seatmap.room_height-1; i > -1; i--) {
+                seatmap.seats.splice(i * seatmap.room_width, 1);
+            }
+            seatmap.room_width--;
+            mapResize();
+            setVariables();
+            drawScreen();
+        }
+    }
 }
 
 function createLabels() {

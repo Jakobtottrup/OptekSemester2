@@ -116,7 +116,7 @@ function drawWall(x, y) {
 }
 
 function drawOther(x, y, type, hoverType) {
-    var offset = 6; //%
+    var offset = 8; //%
     offset = seat_size / 100 * offset;
     var newsize = seat_size - (2 * offset);
     var halfsize = newsize / 2;
@@ -124,8 +124,8 @@ function drawOther(x, y, type, hoverType) {
 
     var check;
 
-    var o_rad = 14;
-    var i_rad = 3;
+    var o_rad = 140;
+    var i_rad = 100;
     //fix radius if set too big
     if (o_rad > newsize / 2) {o_rad = newsize / 2;}
     if (i_rad > offset) {i_rad = offset;}
