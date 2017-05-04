@@ -142,7 +142,7 @@ router.get('/mails', ensureAdminAuthenticated, function (req, res) {
 //Upload files
 var uploads = multer({ dest: 'public/uploads/image/gallery'});
 router.post('/gallery',ensureAdminAuthenticated, uploads.single('upl'),function(req, res, next){
-    console.log(req.body);
+    console.log(req.body); // her
     console.log(req.file);
     res.status(204).end();
 });
