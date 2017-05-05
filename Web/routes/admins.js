@@ -12,6 +12,8 @@ const db = mongoose.connection;
 const nodemailer = require('nodemailer');
 const express = require('express');
 const multer = require('multer');
+const async = require('async');
+const fs = require('fs');
 
 // DECLARING MODELS AND ROUTES
 const seats = require('../models/seats');
@@ -297,11 +299,27 @@ router.delete('/tournaments/:_id', ensureAdminAuthenticated, function (req, res)
 });
 
 delTourRoute.delete(ensureAdminAuthenticated, function (req, res) {
-    Tournament.findByIdAndRemove(req.params._id, function (err) {
-        if (err)
-            res.send(err);
-        res.json({message: 'Tournamnet removed from the DB!'});
+    console.log (req.params._id);
+    Tournament.findOne({_id: req.params._id}, function (err, tournament) {
+
+        console.log(tournament);
+        console.log("" + tournament);
+        console.log("cover image " + tournament.coverImage);
+        for (i=0; i<tournament.prizes.length;i++){
+            var imagePath = tournament.prizes[i].p_image;
+            // imagePath.substring(imagePath.indexOf('/')+12, Infinity);
+            imagePath = imagePath.substring(0, imagePath.lastIndexOf("/"));
+            console.log("Prize image: "+imagePath);
+        }
     });
+
+
+
+    // Tournament.findByIdAndRemove(req.params._id, function (err) {
+    //     if (err)
+    //         res.send(err);
+    //     res.json({message: 'Tournamnet removed from the DB!'});
+    // });
 });
 
 
