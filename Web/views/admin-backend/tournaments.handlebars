@@ -1,30 +1,29 @@
 
-        <h1>Administrer turneringer</h1>
-        <!--<p style="display:inline; float:right; position: absolute"><a href="/api/tournaments">Se rå data</a></p>-->
-        <div>
-            <button type="button" class="btn btn-lg btn-primary" id="getUsersBtn" data-toggle="modal" data-target="#modal-create"
-                    style="margin-top:5px;margin-bottom: 10px; float:right;">Opret turnering
-            </button>
-            <input type="text" class="form-control" id="search-field" onkeyup="sortTournaments()" placeholder="Søg efter turnering.."><br>
-            <div class="table-responsive">
-                <table class="table table-condensed table-hover" id="tournament-table">
-                    <tr>
-                        <th>#</th>
-                        <th>Turnering</th>
-                        <th>Tid</th>
-                        <th>Beskrivelse</th>
-                        <th>Billede</th>
-                        <th>Hold</th>
-                        <th>Deltagere</th>
-                        <th>Præmier</th>
-                        <th>Redigér</th>
-                    </tr>
-                    <tbody id="data_insert">
-                    </tbody>
-                </table>
-            </div>
-        </div>
+<h1>Administrer turneringer</h1>
+<!--<p style="display:inline; float:right; position: absolute"><a href="/api/tournaments">Se rå data</a></p>-->
+<div>
 
+<table class="table table-condensed table-hover">
+
+    <button type="button" class="btn btn-lg btn-primary" id="getUsersBtn" data-toggle="modal" data-target="#modal-create"
+            style="margin-top:5px;margin-bottom: 10px; float:right;">Opret turnering
+    </button>
+    <input type="text" class="form-control" id="search-field" onkeyup="sortTournaments()" placeholder="Søg efter turnering.."><br>
+    <tr>
+        <th>#</th>
+        <th>Turnering</th>
+        <th>Tid</th>
+        <th>Beskrivelse</th>
+        <th>Billede</th>
+        <th>Hold</th>
+        <th>Deltagere</th>
+        <th>Præmier</th>
+        <th>Redigér</th>
+    </tr>
+
+    <tbody id="data_insert">
+    </tbody>
+</table>
 
 
 <!-- Modal for creating tournaments -->

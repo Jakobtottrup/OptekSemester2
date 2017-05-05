@@ -11,50 +11,43 @@
         </template>
 
 
-        <div class="table-responsive">
+        <table class="table table-condensed table-hover">
 
-            <table class="table table-condensed table-hover" id="tournament-table">
-                <tr>
-                    <th>#</th>
-                    <th>Gruppe</th>
-                    <th>Medlemmer</th>
-                </tr>
-                <tbody id="data_insert">
-                </tbody>
-            </table>
-        </div>
+            <button type="button" class="btn btn-lg btn-primary" id="togglePaymentBtn"
+                    style="margin: 5px 5px 5px 0;" disabled="disabled" >Toggle Payment Status
+            </button>
+            <button type="button" class="btn btn-lg btn-primary" id="toggleAdminBtn"
+                    style="margin: 5px;" disabled="disabled">Toggle Admin
+            </button>
+            <button type="button" class="btn btn-lg btn-danger" id="removeUserBtn"
+                    style="float: right;margin-top:5px;margin-bottom: 5px;" disabled="disabled">Delete Selected
+            </button>
+            <!--         <p>
+                     <p>Funktioner:</p>
+                     <p>Knap der ændrer nedenstående tabel data til de data der er i collection. TODO: tilføj søgekriterier
+                         (alle
+                         users fra SDU odense fx). </p>
+                     <p>Knap ved mouseover til højre for brugeren hvor man kan slette denne bruger fra databasen</p>
+                     <p>Ved klik på feltet i tabellen skal man kunne redigere i værdierne</p>-->
 
-        <!-- Modal -->
-        <div id="group-modal" class="modal fade" role="dialog">
-            <div class="modal-dialog">
-                <!-- Modal content-->
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h4 class="modal-title">Opret siddegruppe</h4>
-                    </div>
-                    <div class="modal-body">
-                        <form method="post" action="/users/seatgroups">
-                            <div>
-                                <p>Indtast oplysninger for din siddegruppe.</p>
-                                <p>Andre brugere bruger disse oplysninger til at forbinde til din gruppe.</p>
-                                <label>Navngiv din gruppe</label>
-                                <!--input type="text" id="group-name" class="form-control" placeholder="Gruppenavn" name="name"-->
-                                <input type="text" class="form-control" placeholder="Navn" name="groupName" maxlength="25">
-                                <br>
-                                <label>Giv din gruppe et kodeord</label>
-                                <input type="password" class="form-control" placeholder="Kodeord" name="password">
-                                <br>
-                                <label>Skriv kodeordet igen</label>
-                                <input type="password" class="form-control" placeholder="Kodeord" name="password2">
-                            </div>
-                            <div class="modal-footer">
-                                <button type="submit" class="btn btn-success">Opret</button>
-                                <button type="button" class="btn btn-danger" data-dismiss="modal">Annuller</button>
-                            </div>
-                        </form>
-                    </div>
-                </div>
-            </div>
-        </div>
+            <tr class="data_row">
+                <th><input type="checkbox" id="selectAll"></th>
+                <th class='hidden-xs hidden-sm hidden-md'>#</th>
+                <th>Username</th>
+                <th class='hidden-xs hidden-sm hidden-md'>Age</th>
+                <th>Email</th>
+                <th class='hidden-xs'>Uddannelsessted</th>
+                <th class='hidden-xs hidden-sm hidden-md'>Fakultet</th>
+                <th class='hidden-xs hidden-sm hidden-md'>BattleTag</th>
+                <th class='hidden-xs hidden-sm hidden-md'>SteamID</th>
+                <th class='hidden-xs'>isAdmin</th>
+                <th>hasPaid</th>
+                <th class='hidden-xs'>isActive</th>
+            </tr>
+
+
+            <tbody id="data_insert">
+            </tbody>
+        </table>
 
 <script src="/js/seat_grp_new.js"></script>

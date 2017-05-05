@@ -295,9 +295,7 @@ router.delete('/tournaments/:_id', ensureAdminAuthenticated, function (req, res)
 
 delTourRoute.delete(ensureAdminAuthenticated, function (req, res) {
    Tournament.findOne({_id: req.params._id}, function (err, tournament) {
-
         var tourImages = []; // create empty array for storing files
-        // var dirPath = "E:/GitHub/Repos/OptekSemester2/Web/public/uploads/image/tournaments/"; // directory where files are stored
         var dirPath = "./public/uploads/image/tournaments/"; // directory where files are stored
 
         var imagePath = tournament.coverImage;
@@ -326,6 +324,7 @@ delTourRoute.delete(ensureAdminAuthenticated, function (req, res) {
             }
         }
     });
+
     Tournament.findByIdAndRemove(req.params._id, function (err) {
         if (err) {
             res.send(err);

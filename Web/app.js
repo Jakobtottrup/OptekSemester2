@@ -31,7 +31,7 @@ const routes = require('./routes/frontend'); //main index (front page)
 const users = require('./routes/users'); //user pages
 const admins = require('./routes/admins'); //admin-backend route
 const api = require('./routes/api'); // used for exporting data to client-scripts
-const mail = require('./routes/mail');
+
 
 // Init App
 const app = express();
@@ -73,18 +73,6 @@ exphbs.create({
         }
     }
 });
-
-
-// Express Session
-/*app.configure(function() {
- app.use(express.static('public'));
- app.use(express.cookieParser());
- app.use(express.bodyParser());
- app.use(express.session({ secret: 'keyboard cat' }));
- app.use(passport.initialize());
- app.use(passport.session());
- app.use(app.router);
- });*/
 
 
 // BodyParser Middleware
@@ -147,7 +135,7 @@ app.use('/', routes);
 app.use('/users', users);
 app.use('/admins', admins);
 app.use('/api', api);
-//app.use('/mail', mail);
+
 app.use("*", function (req, res) {
     res.status(404).render('layouts/error404', {title: "Siden blev ikke fundet"});
 });
@@ -159,20 +147,6 @@ app.set('port', (process.env.PORT || 3000));
 app.listen(app.get('port'), "0.0.0.0", function () {
     console.log('Server started on port ' + app.get('port'));
 });
-
-
-// EXPRESS MAILER
-/*mailer.extend(app, {
-    from: 'no-reply@s7lan.dk',
-    host: 'smtp.gmail.com', // hostname
-    secureConnection: false, // use SSL
-    port: 465, // port for secure SMTP
-    transportMethod: 'SMTP', // default is SMTP. Accepts anything that nodemailer accepts
-    auth: {
-        user: 'gmail.user@gmail.com',
-        pass: 'userpass'
-    }
-});*/
 
 
 // CONSOLE LOGS
