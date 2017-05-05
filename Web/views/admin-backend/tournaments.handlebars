@@ -3,7 +3,7 @@
 <!--<p style="display:inline; float:right; position: absolute"><a href="/api/tournaments">Se rå data</a></p>-->
 <div>
 
-<table class="table table-condensed table-hover">
+<table class="table table-condensed table-hover" id="tournament-table">
 
     <button type="button" class="btn btn-lg btn-primary" id="getUsersBtn" data-toggle="modal" data-target="#modal-create"
             style="margin-top:5px;margin-bottom: 10px; float:right;">Opret turnering
@@ -68,7 +68,7 @@
                                 <td><input type="datetime-local" class="form-control" name="opening_date" required></td>
                                 <td><input type="datetime-local" class="form-control" name="closing_date" required></td>
                                 <td><input type="datetime-local" class="form-control" name="start_date" required></td>
-                                <td><input type="number" class="form-control" maxlength="10" placeholder="Tid" step="0.25" min="0" name="tour_duration" required></td>
+                                <td><input type="number" class="form-control" maxlength="10" placeholder="Timer" step="0.25" min="0" name="tour_duration" required></td>
                                 <td><input type="checkbox" name="visibility" checked="true"></td>
                             </tr>
                         </tbody>

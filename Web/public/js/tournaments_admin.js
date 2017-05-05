@@ -35,7 +35,7 @@ $.when(document, getTournamentsData(), getUsersData()).done(function(){
         output += "<td><b>Åbner: </b>" + convertTime(data.openingDate) + "<br><b>Lukker: </b>" + convertTime(data.closingDate) + "<br><b>Start: </b>" + convertTime(data.startDate) + "<br><b>Varighed: </b>" + convertTime(data.tourDuration) + "</td>";
         output += "<td><button class='btn btn-primary' onclick='showTourDescription(this)'>Se beskrivelse</button></td>";
         output += "<td><button class='btn btn-primary' onclick='showPic(this)'>Se billede</button></td>";
-        output += "<td><b>Max hold: </b>"+ convertMember(data.maxTeams) +"<br><b>Pr. hold: </b>"+ convertMember(data.minTeamSize) + " - " + convertMember(data.maxTeamSize) +"</td><br>";
+        output += "<td><b>Max hold: </b>"+ convertMember(data.maxTeams) +"<br><b>Pr. hold: </b>"+ convertMember(data.minTeamSize) + " - " + convertMember(data.maxTeamSize) +" deltagere</td><br>";
         output += "<td><button class='btn btn-primary' data-toggle='confirmation' onclick='showMembers(this)'>"+data.teams.length+" deltagende hold</button></td>";
         output += "<td>" + prizes(data.prizes) + "</td>";
         output += "<td><button class='btn btn-primary' onclick='editTournament(this)' style='width:100px; margin:3px'>Redigér</button><br><button class='btn btn-danger' data-toggle='confirmation' onclick='deleteTournamnet(this)' style='width:100px; margin:3px'>Slet</button></td>";
