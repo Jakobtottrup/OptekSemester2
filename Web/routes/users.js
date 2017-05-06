@@ -7,6 +7,8 @@ const router = express.Router();
 const mongoose = require('mongoose');
 mongoose.Promise = require('bluebird');
 
+const Group = require('../models/seatingGroups');
+const groupRoute = router.route('/seatgroups/:_id');
 
 // THESE VIEWS ARE ONLY ALLOWED IF USER IS LOGGED IN //
 
@@ -41,22 +43,21 @@ router.get('/getseat', ensureAuthenticated, function(req, res){
 
 // USER SEAT
 router.get('/seatgroups', ensureAuthenticated, function(req, res){
-    res.render('user-backend/seatgroups', {title: "Siddegruppe"});
+    res.render('user-backend/seatgroups', {title: "Siddegrupper"});
 });
 
 
 // GROUP
-var Group = require('../models/seatingGroups');
 router.post('/seatgroups', ensureAuthenticated, function(req, res){
-    var groupName = req.body.groupName;
+    var groupName = req.body.group_name;
     var password = req.body.password;
     var password2 = req.body.password2;
-    var members = [req.user.id];
+    var members = [];
     var leaderID = req.user.id;
 
 
     // VALIDATION
-    req.checkBody('groupName', 'Gruppenavn er nødvendigt').notEmpty();
+    req.checkBody('group_name', 'Gruppenavn er nødvendigt').notEmpty();
     req.checkBody('password', 'Kodeord er nødvendigt').notEmpty();
     req.checkBody('password2', 'Tjek venligst at kodeordene stemmer overens').equals(req.body.password);
 
@@ -67,7 +68,7 @@ router.post('/seatgroups', ensureAuthenticated, function(req, res){
             errors:errors
         });
         console.log(errors);
-    } else { //if validation succeeds server sends data to database using modelschema "users.js"
+    } else {
         var newGroup = new Group({
             groupName: groupName,
             password: password,
@@ -75,14 +76,50 @@ router.post('/seatgroups', ensureAuthenticated, function(req, res){
             leaderID: leaderID
         });
 
-        Group.createGroup(newGroup, function(err, group){
-            if(err) throw err;
-            //console.log(group);
+        Group.findOne({groupName: groupName}, function (err, group) {
+            if (err)
+                return done(err);
+
+            if (group) {
+                req.flash('error_msg', 'Gruppenavn eksisterer allerede');
+                res.redirect('/users/seatgroups');
+            } else {
+                Group.createGroup(newGroup, function (err, group) {
+                    if (err) throw err;
+                });
+                req.flash('success_msg', 'Gruppen er nu oprettet');
+                res.redirect('/users/seatgroups');
+            }
         });
-        req.flash('success_msg', 'Gruppen er nu oprettet');
-        res.redirect('/users/seatgroups');
     }
 });
 
+router.put("/seatgroups", ensureAuthenticated, function(req, res){
+
+});
+
+groupRoute.put(ensureAuthenticated, function (req, res) {
+    Group.findByIdAndUpdate(req.params._id, req.body.members, function (err, group) {
+        if (err) {
+            res.send(err);
+        }
+        else {
+            // console.log("active user ID: "+req.user.id);
+            // console.log("Param ID: "+req.params._id);
+            // console.log("found group: "+group);
+            // console.log("group members before push: "+group.members);
+            group.members.push(req.user.id);
+            // console.log("group members after push: "+group.members);
+            group.save(function (err) {
+                if (err) {
+                    res.send(err);
+                }
+            });
+            req.flash('success_msg', 'Du er nu med i gruppen');
+            res.redirect('/users/seatgroups');
+            // res.status(204).end();
+        }
+    });
+});
 
 module.exports = router;

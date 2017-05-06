@@ -15,7 +15,6 @@ function getUserData(){
 }
 
 $.when(document, getUserData()).done(function(){
-
     $("#username").append(userData.username);
     $("#email").append(userData.email);
     $("#age").append(userData.age);
@@ -23,6 +22,4 @@ $.when(document, getUserData()).done(function(){
     $("#fakultet").append(userData.fakultet);
     $("#steam").append(userData.steam);
     $("#bnet").append(userData.bnet);
-
-    console.log(userData);
 });
