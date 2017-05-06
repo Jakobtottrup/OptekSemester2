@@ -3,10 +3,9 @@
  */
 
 // wait for data to arrive
-// $.when(getUsersData()).done(function() {
 
 
-
+// find username from ID
 function findUserName(id) {
     var user = $.grep(usersData, function (usersData) {
         user = usersData._id === id;
@@ -31,3 +30,24 @@ function translateBoolean(statement){
         return "Nej"; // false
     }
 }
+
+
+
+// used to display loading screen
+$(document).ajaxStart(function() {
+    console.log($.active);
+    if($.active > 0) {
+        $('#loader').show();
+    }
+});
+$(document).ajaxComplete(function() {
+    $('#loader').hide();
+});
+
+
+
+// highlights active dashboard menu
+$(document).ready(function(){
+    var path = window.location.pathname;
+    $("#dashboard-nav").find('a[href$="' +path+ '"]').parent().addClass("active");
+});
