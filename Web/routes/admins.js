@@ -19,12 +19,14 @@ const fs = require('fs');
 const seats = require('../models/seats');
 const User = require('../models/user');
 const Tournament = require('../models/tournaments');
+const Group = require('../models/seatingGroups');
 const router = express.Router();
-var userRoute = router.route('/users/:_id/:adminClicked/:paymentClicked');
-var delRoute = router.route('/users/:_id');
+const userRoute = router.route('/users/:_id/:adminClicked/:paymentClicked');
+const delRoute = router.route('/users/:_id');
 const TourRoute = router.route('/tournaments/:_id');
-var mailRoute = router.route('/mails');
-var groupRoute = router.route('/seatgroups/:_id');
+const mailRoute = router.route('/mails');
+const thisEvent = router.route('/events');
+
 
 // ADMIN AUTHENTICATION
 function ensureAdminAuthenticated(req, res, next) {
@@ -388,6 +390,24 @@ mailRoute.post(function (req, res, next) {
      }
      res.send('Email Sent');
      });*/
+});
+
+
+thisEvent.put(ensureAdminAuthenticated, function (req, res) {
+    // reset all users to "hasPaid = false"
+    User.update({ hasPaid: true }, {hasPaid: false}, {multi: true}).exec();
+
+    // delete all tournaments
+    Tournament.collection.drop();
+
+    // delete all seating groups
+    Group.collection.drop();
+
+    // set countdown timer
+
+
+    req.flash('success_msg', 'Alt er nu slettet');
+    res.status(204).redirect('/admins/events');
 });
 
 

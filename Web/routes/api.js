@@ -41,18 +41,18 @@ router.get('/localuser', ensureAuthenticated, function(req, res) {
 
 // USERS INFORMATION
 router.get('/users', function (req, res) {
-    if (typeof req.user === "object") {    // IF USER REQUESTING IS LOGGED IN AS ADMIN - ADMIN
-        User.find({},{__v:0, password:0}, function(err, data){
+    if (typeof req.user === "object" && req.user.isAdmin === true) {    // IF USER REQUESTING IS LOGGED IN AS ADMIN - ADMIN
+        User.find({},{__v:0, password:0, resetPasswordExpires:0, resetPasswordToken:0}, function(err, data){
             if(err) throw err;
             res.json(data);
         });
     } else if (typeof req.user === "object") {                          // IF USER REQUESTING IS NOT ADMIN - USER
-        User.find({},{__v:0, password:0}, function(err, data) {
+        User.find({},{__v:0, password:0, resetPasswordExpires:0, resetPasswordToken:0}, function(err, data) {
             if (err) throw err;
             res.json(data);
         });
     } else {                                                            // IF THERE IS NO USER LOGGED IN - PUBLIC
-        User.find({},{__v:0, password:0, age:0, email:0, studie:0, steam:0, bnet:0, isAdmin:0, fakultet:0, hasPaid:0}, function(err, data) {
+        User.find({},{__v:0, password:0, age:0, email:0, studie:0, steam:0, bnet:0, isAdmin:0, fakultet:0, hasPaid:0, resetPasswordExpires:0, resetPasswordToken:0}, function(err, data) {
             if (err) throw err;
             res.json(data);
         });

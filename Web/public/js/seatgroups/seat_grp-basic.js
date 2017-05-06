@@ -34,7 +34,7 @@ $.when(getGroupData(), getUsersData(), getUserData()).done(function(){
 function placeButtons(data) {
     var output = "<td>";
     if (userData.isAdmin === true || isLeader() === true){
-        if (userData.isAdmin === true && hasGroup() === false) {
+        if (userData.isAdmin === true && hasGroup() === false && isLeader() === false) {
             output += "<button class='btn btn-success' onclick='joinGroup(this)'>Deltag i gruppe</button>";
         } else if (isLeader() === false){
             output += "<button class='btn btn-danger' onclick='leaveGroup(this)'>Forlad gruppe</button>";
