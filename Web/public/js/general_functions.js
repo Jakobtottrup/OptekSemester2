@@ -2,9 +2,6 @@
  * Created by Christian Skjerning on 5/6/2017.
  */
 
-// wait for data to arrive
-
-
 // find username from ID
 function findUserName(id) {
     var user = $.grep(usersData, function (usersData) {
@@ -22,6 +19,7 @@ function findUserName(id) {
     }
 }
 
+
 // used for translating boolean into plain text
 function translateBoolean(statement){
     if (statement) {
@@ -32,10 +30,9 @@ function translateBoolean(statement){
 }
 
 
-
 // used to display loading screen
 $(document).ajaxStart(function() {
-    console.log($.active);
+    //console.log($.active);
     if($.active > 0) {
         $('#loader').show();
     }

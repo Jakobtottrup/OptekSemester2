@@ -22,7 +22,7 @@ const Tournament = require('../models/tournaments');
 const router = express.Router();
 var userRoute = router.route('/users/:_id/:adminClicked/:paymentClicked');
 var delRoute = router.route('/users/:_id');
-var delTourRoute = router.route('/tournaments/:_id');
+const TourRoute = router.route('/tournaments/:_id');
 var mailRoute = router.route('/mails');
 var groupRoute = router.route('/seatgroups/:_id');
 
@@ -298,10 +298,10 @@ router.post('/tournaments', tourUploads, ensureAdminAuthenticated, function (req
     }
 });
 
-router.delete('/tournaments/:_id', ensureAdminAuthenticated, function (req, res) {
-});
+// router.delete('/tournaments/:_id', ensureAdminAuthenticated, function (req, res) {
+// });
 
-delTourRoute.delete(ensureAdminAuthenticated, function (req, res) {
+TourRoute.delete(ensureAdminAuthenticated, function (req, res) {
    Tournament.findOne({_id: req.params._id}, function (err, tournament) {
         var tourImages = []; // create empty array for storing files
         var dirPath = "./public/uploads/image/tournaments/"; // directory where files are stored

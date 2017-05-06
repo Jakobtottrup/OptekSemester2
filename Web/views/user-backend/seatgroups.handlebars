@@ -4,8 +4,8 @@
     <div id="create_btn"></div>
 
     <tr class="data_row">
-        <th>Grupper</th>
-        <th>Medlemmer</th>
+        <th style="width:20%">Grupper</th>
+        <th style="width:100%">Medlemmer</th>
         <!--<th>Tilmeldte turneringer</th>-->
         <th></th>
     </tr>
@@ -15,7 +15,7 @@
 
 
 
-<!-- Modal for showing information -->
+<!-- Modal for creating groups -->
 <div id="modal-create" class="modal fade" role="dialog">
     <div class="modal-dialog">
         <div class="modal-content">
@@ -41,7 +41,29 @@
 </div>
 
 
-
+<!-- Modal for joining groups -->
+<div id="modal-join" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+        <form id="join_form" method="post" action="/users/seatgroups">
+            <!-- Modal content-->
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h4 class="modal-title" id="show-data-header">Indtast adgangekoden for gruppen</h4>
+                </div>
+                <div class="modal-body" id="show-data-body">
+                    <div class='well'>
+                        <p>Indtast adgangskode</p>
+                        <input autocomplete="off" type='password' name='password_confirm' class="form-control" style='width:100%'>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <input type="submit" onclick="update()" name="join" value="Deltag" class="btn btn-success" data-dismiss="modal">
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
 
 
 <script src="/js/seat_grp_user.js"></script>

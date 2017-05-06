@@ -10,6 +10,8 @@ mongoose.Promise = require('bluebird');
 const Group = require('../models/seatingGroups');
 const groupRoute = router.route('/seatgroups/:_id');
 
+
+
 // THESE VIEWS ARE ONLY ALLOWED IF USER IS LOGGED IN //
 
 // ENSURE USER IS LOGGED IN
@@ -55,18 +57,15 @@ router.post('/seatgroups', ensureAuthenticated, function(req, res){
     var members = [];
     var leaderID = req.user.id;
 
-
     // VALIDATION
     req.checkBody('group_name', 'Gruppenavn er nødvendigt').notEmpty();
     req.checkBody('password', 'Kodeord er nødvendigt').notEmpty();
     req.checkBody('password2', 'Tjek venligst at kodeordene stemmer overens').equals(req.body.password);
 
-
     var errors = req.validationErrors();
     if(errors){ // if validation fails
-        res.render('frontend/index',{
-            errors:errors
-        });
+        req.flash("error_msg", "Adgangskoderne skal stemme overens");
+        res.redirect("/users/seatgroups");
         console.log(errors);
     } else {
         var newGroup = new Group({
@@ -94,9 +93,7 @@ router.post('/seatgroups', ensureAuthenticated, function(req, res){
     }
 });
 
-router.put("/seatgroups", ensureAuthenticated, function(req, res){
 
-});
 
 groupRoute.put(ensureAuthenticated, function (req, res) {
     Group.findByIdAndUpdate(req.params._id, req.body.members, function (err, group) {
@@ -121,5 +118,26 @@ groupRoute.put(ensureAuthenticated, function (req, res) {
         }
     });
 });
+
+
+
+groupRoute.delete(ensureAuthenticated, function (req, res) {
+    Group.findOne({_id: req.params._id}, function (err, group) {
+        if(group.leaderID === req.user.id || req.user.isAdmin === true) {
+            Group.findByIdAndRemove(req.params._id, function (err) {
+                if (err) {
+                    res.send(err);
+                }
+            });
+            req.flash('success_msg', 'Gruppen er nu slettet');
+            res.status(204).redirect("/users/seatgroups");
+
+        } else if (group.leaderID !== req.user.id) {
+            req.flash('error_msg', 'Du har ikke rettigheder til at slette denne gruppe!');
+            res.status(204).redirect("/users/seatgroups");
+        }
+    });
+});
+
 
 module.exports = router;

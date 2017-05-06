@@ -33,9 +33,11 @@ function getUserData(){
     });
 }
 
+var ownGroupID;
+var hasGroup = false, isLeader = false;
 $.when(getGroupData(), getUsersData(), getUserData()).done(function(){
-    // find current user in group
-    var hasGroup = false, isLeader = false;
+    // check if current user is in group already
+
     $.each(groupData, function(key, groupData) {
         for (i = 0; i < groupData.members.length; i++) {
             if (userData._id === groupData.members[i]) {
@@ -45,19 +47,23 @@ $.when(getGroupData(), getUsersData(), getUserData()).done(function(){
         if (userData._id === groupData.leaderID){
             hasGroup = true;
             isLeader = true;
+            ownGroupID = groupData;
         }
     });
     if (!hasGroup || !isLeader) {
         var createGroupBtn = '<button type="button" class="btn btn-lg btn-primary" id="create_group" data-toggle="modal" data-target="#modal-create" style="margin-top:5px;margin-bottom: 10px; float:right;">Opret gruppe</button>';
         $("#create_btn").prepend(createGroupBtn);
+    } else if (hasGroup === true) {
+        drawOwnGroup(ownGroupID);
     } else {
         $("#modal-create").remove();
+        // drawOwnGroup(isLeader);
     }
     drawGroups();
 });
 
 
-function drawGroups (hasGroup) {
+function drawGroups () {
     var output = "";
     $.each(groupData, function(key, data){
         output += "<tr class='data_row' id='"+data._id+"'>";
@@ -65,12 +71,15 @@ function drawGroups (hasGroup) {
         output += "<td>"+showMembers(data)+"</td>";
         //output += "<td>"+showTournaments()+"</td>";
         if (!hasGroup){
-            output += "<td><button class='btn btn-primary' onclick='joinGroup(this)'>Deltag i gruppe</button></td>";
+            output += "<td><button class='btn btn-primary'>Deltag i gruppe</button></td>";
+        } else {
+            output += "<td></td>";
         }
         output += "</tr>";
     });
     output += "";
     $('#data_insert').append(output);
+    $('#'+ownGroupID._id).not(':first').remove();
 }
 
 function showMembers(data) {
@@ -82,25 +91,105 @@ function showMembers(data) {
 }
 
 
-// function checkGroup(hasGroup, isLeader){
-//     console.log("user is in group: "+hasGroup+" || user is leader: "+isLeader);
-//     if(hasGroup){
-//         $.each(groupData, function(key, groupData) {
-//             for(i=0;i<groupData.members.length;i++){
-//             new Group(groupData.leaderID, group.members, groupData.groupName, groupData._id);
-//             }
-//         });
-//     }
-// }
+function drawOwnGroup (data) {
+    var output = "<tr class='data_row' id='"+data._id+"'>";
+        output += "<td>"+data.groupName+"</td>";
+        output += "<td>"+showMembers(data)+"</td>";
+        output += "<td><button class='btn btn-primary' style='margin-bottom:5px; width:100%'>Redigér gruppe</button><button onclick='deleteGroup(this)' class='btn btn-danger' style='width:100%'>Slet gruppe</button></td>";
+        output += "</tr>";
+    output += "";
+    $('#data_insert').append(output);
+}
+
+
+function deleteGroup (source) {
+    var groupID = $(source).closest("tr").prop("id");
+    var delGroup = confirm("Vil du slette denne gruppe?");
+    if(delGroup === true) {
+        $.ajax({
+            type: 'DELETE',
+            url: '/users/seatgroups/' + groupID,
+            dataType: 'json',
+            success: location.reload()
+        });
+    }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/*
+
+
 
 
 
 function joinGroup (source) {
+    $("#modal-join").modal('show');
     var groupID = $(source).closest("tr").prop("id");
+
+    var formData = $("#join_form").serialize();
+    PUTdata(formData)
+}
+function PUTdata(formData) {
+
+    console.log($("#join_form").attr('action'));
+    console.log(formData);
+
     $.ajax({
         type: 'PUT',
-        url: '/users/seatgroups/' + groupID,
+        url: $("#join_form").attr('action') + groupID,
         dataType: 'json',
-        //success: location.reload()
-    })
+        data: formData,
+        success: location.reload()
+    });
 }
+
+*/

@@ -28,6 +28,7 @@
 </head>
 
 <body>
+
 <div id="wrapper" class="container-fluid">
     <!--navigations bar -->
     <nav class="navbar navbar-default top-menu-back">
@@ -70,8 +71,6 @@
             </div><!-- /.navbar-collapse -->
         </div><!-- /.container-fluid -->
     </nav>
-    <!-- dashboard panels -->
-
     <div>
         <div class="container">
             {{#if success_msg}}
@@ -86,6 +85,7 @@
         </div>
     </div>
 
+    <!-- dashboard panels -->
     <div id="dashboard-nav">
         <div class="row">
             <div class="col-md-2">
@@ -113,10 +113,10 @@
                 {{/if}}
             </div>
             <div class="col col-md-8 content-background">
-            <div class="content-center">
-                {{{body}}}
+                <div class="content-center">
+                    {{{body}}}
+                </div>
             </div>
-        </div>
             <div class="sponsor-bar col-md-2 hidden-xs hidden-sm">
                 <div>
                     <img src="/img/sponsors/IDA-logo.png">
