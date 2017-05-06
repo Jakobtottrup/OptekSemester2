@@ -54,11 +54,11 @@
                 <div class="modal-body" id="show-data-body">
                     <div class='well'>
                         <p>Indtast adgangskode</p>
-                        <input autocomplete="off" type='password' name='password_confirm' class="form-control" style='width:100%'>
+                        <input autocomplete="off" type='password' name='password_confirm' class="form-control" style='width:100%' required>
                     </div>
                 </div>
                 <div class="modal-footer">
-                    <input type="submit" onclick="update()" name="join" value="Deltag" class="btn btn-success" data-dismiss="modal">
+                    <input type="submit" onclick="joinGroup(this)" name="join" value="Deltag" class="btn btn-success" data-dismiss="modal">
                 </div>
             </form>
         </div>

@@ -8,7 +8,7 @@ const mongoose = require('mongoose');
 mongoose.Promise = require('bluebird');
 
 const Group = require('../models/seatingGroups');
-const groupRoute = router.route('/seatgroups/:_id');
+const groupRoute = router.route('/seatgroups/:_id/:task');
 
 
 
@@ -96,29 +96,51 @@ router.post('/seatgroups', ensureAuthenticated, function(req, res){
 
 
 groupRoute.put(ensureAuthenticated, function (req, res) {
-    Group.findByIdAndUpdate(req.params._id, req.body.members, function (err, group) {
-        if (err) {
-            res.send(err);
-        }
-        else {
-            // console.log("active user ID: "+req.user.id);
-            // console.log("Param ID: "+req.params._id);
-            // console.log("found group: "+group);
-            // console.log("group members before push: "+group.members);
-            group.members.push(req.user.id);
-            // console.log("group members after push: "+group.members);
-            group.save(function (err) {
-                if (err) {
-                    res.send(err);
-                }
-            });
-            req.flash('success_msg', 'Du er nu med i gruppen');
-            res.status(204).render('user-backend/seatgroups');
-            // res.status(204).end();
-        }
-    });
-});
+    switch (req.params.task) {
+        // add user to group
+        case "0": Group.findByIdAndUpdate(req.params._id, req.body.members, function (err, group) {
+            if (err) {
+                res.send(err);
+            } else {
+                // push user ID in to members array
+                group.members.push(req.user.id);
+                // save changes to database
+                group.save(function (err) {
+                    if (err) {
+                        res.send(err);
+                    }
+                });
+                req.flash('success_msg', 'Du er nu med i gruppen');
+                res.status(204).render('user-backend/seatgroups');
+            }
+        }); break;
 
+        // remove user from group
+        case "1": Group.findByIdAndUpdate(req.params._id, req.body.members, function (err, group) {
+            if (err) {
+                res.send(err);
+            } else {
+                // search for user ID in array and then remove matches.
+                var index = group.members.indexOf(req.user.id);
+                if (index >= 0) {
+                    group.members.splice(index, 1);
+                }
+
+                // save changes to database
+                group.save(function (err) {
+                    if (err) {
+                        res.send(err);
+                    }
+                });
+                req.flash('success_msg', 'Du er nu fjernet fra gruppen');
+                res.status(204).render('user-backend/seatgroups');
+            }
+        }); break;
+
+        case "2": console.log("task 2"); break;
+    }
+
+});
 
 
 groupRoute.delete(ensureAuthenticated, function (req, res) {
@@ -138,6 +160,5 @@ groupRoute.delete(ensureAuthenticated, function (req, res) {
         }
     });
 });
-
 
 module.exports = router;

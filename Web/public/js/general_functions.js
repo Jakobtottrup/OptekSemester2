@@ -2,6 +2,42 @@
  * Created by Christian Skjerning on 5/6/2017.
  */
 
+// get all users data
+function getUsersData() {
+    return $.ajax({
+        type: 'GET',
+        url: "/api/users",
+        dataType: "json"
+    }).done(function(data){
+        usersData = data;
+    });
+}
+
+// get current user's data
+function getUserData(){
+    return $.ajax({
+        type: 'GET',
+        url: "/api/localuser",
+        dataType: "json"
+    }).done(function(data){
+        userData = data;
+
+    });
+}
+
+
+// get seatgroup data
+function getGroupData(){
+    return $.ajax({
+        type: 'GET',
+        url: "/api/seatgroups",
+        dataType: "json"
+    }).done(function(data){
+        groupData = data;
+    });
+}
+
+
 // find username from ID
 function findUserName(id) {
     var user = $.grep(usersData, function (usersData) {

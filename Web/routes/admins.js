@@ -298,8 +298,6 @@ router.post('/tournaments', tourUploads, ensureAdminAuthenticated, function (req
     }
 });
 
-// router.delete('/tournaments/:_id', ensureAdminAuthenticated, function (req, res) {
-// });
 
 TourRoute.delete(ensureAdminAuthenticated, function (req, res) {
    Tournament.findOne({_id: req.params._id}, function (err, tournament) {
