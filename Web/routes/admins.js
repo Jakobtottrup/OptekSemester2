@@ -24,7 +24,7 @@ var userRoute = router.route('/users/:_id/:adminClicked/:paymentClicked');
 var delRoute = router.route('/users/:_id');
 var delTourRoute = router.route('/tournaments/:_id');
 var mailRoute = router.route('/mails');
-
+var groupRoute = router.route('/seatgroups/:_id');
 
 // ADMIN AUTHENTICATION
 function ensureAdminAuthenticated(req, res, next) {
@@ -199,6 +199,7 @@ const limits = { fileSize: 512 * 512 * 512 };
 //const fileFilter = { fileType: ".jpg"};
 const tourUploads = multer({ dest: 'public/uploads/image/tournaments', limits: limits}).fields([{name: 'tour_image', maxCount: 1}, {name: 'prize_image', maxCount: 7}]);
 router.post('/tournaments', tourUploads, ensureAdminAuthenticated, function (req, res) {
+    console.log(req.files);
 
     const name = req.body.tour_name;
     const description = req.body.tour_info;
@@ -234,7 +235,11 @@ router.post('/tournaments', tourUploads, ensureAdminAuthenticated, function (req
             var p_index = 0;
             var p_name = prize_name;
             var p_description = prize_info;
-            var p_image = prize_image;
+            console.log("1 "+prize_image[0]);
+            var p_imagePath = prize_image[0].destination + "/" + prize_image[0].filename;
+            console.log("2 "+p_imagePath);
+            var p_image = p_imagePath.substring(6, Infinity);
+            console.log("file "+p_image);
             prizes.push({p_index, p_name, p_description, p_image});
 
             // if prize_name is an array
@@ -248,6 +253,9 @@ router.post('/tournaments', tourUploads, ensureAdminAuthenticated, function (req
                     var p_image = p_imagePath.substring(6, Infinity);
                     prizes.push({p_index, p_name, p_description, p_image});
                 }
+            } else {
+                req.flash('error_msg', 'En opstod under behandling');
+                res.redirect('/admins/tournamnets');
             }
         }
     }
@@ -331,7 +339,7 @@ delTourRoute.delete(ensureAdminAuthenticated, function (req, res) {
         }
     });
     req.flash('success_msg', 'Turneringen er nu slettet');
-    res.status(204).end()
+    res.status(204).redirect("/admins/tournaments");
 });
 
 

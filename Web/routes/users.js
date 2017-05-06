@@ -116,7 +116,7 @@ groupRoute.put(ensureAuthenticated, function (req, res) {
                 }
             });
             req.flash('success_msg', 'Du er nu med i gruppen');
-            res.redirect('/users/seatgroups');
+            res.status(204).render('user-backend/seatgroups');
             // res.status(204).end();
         }
     });
