@@ -393,16 +393,16 @@ mailRoute.post(function (req, res, next) {
      });*/
 });
 
-// delete event
+// reset event
 thisEvent.put(ensureAdminAuthenticated, function (req, res) {
     // reset all users to "hasPaid = false"
-    User.update({ hasPaid: true }, {hasPaid: false}, {multi: true}).exec();
+    User.update({ hasPaid: true }, {hasPaid: false}, {multi: true});
 
     // delete all tournaments
     Tournament.collection.drop();
     var tournamnetDir = 'public/uploads/image/tournaments';
     rimraf(tournamnetDir, function () {
-        if (!fs.existsSync(tournamnetDir)){
+        if (!fs.existsSync(tournamnetDir)){  // TODO: skal ændres, så race condition undgåes
             fs.mkdirSync(tournamnetDir);
         }
     });

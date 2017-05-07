@@ -38,7 +38,7 @@ function getGroupData(){
 }
 
 
-// find username from ID
+// find username using ID
 function findUserName(id) {
     var user = $.grep(usersData, function (usersData) {
         user = usersData._id === id;
@@ -47,9 +47,9 @@ function findUserName(id) {
     if (typeof user[0] === "object"){
         return user[0].username;
 
-    } else if (typeof user[0] !== "object") {
+    /*} else if (typeof user[0] === "") {
         return "Argument is not a proper ID";
-
+*/
     } else if (typeof user[0] === "undefined") {
         return "ID was not found within users";
     }

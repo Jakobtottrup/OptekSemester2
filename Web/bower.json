@@ -18,6 +18,7 @@
     "bootstrap": "^3.3.7",
     "jquery": "^3.2.1",
     "ajax": "^2.1.5",
-    "font-awesome": "fontawesome#^4.7.0"
+    "font-awesome": "fontawesome#^4.7.0",
+    "angular": "^1.6.4"
   }
 }

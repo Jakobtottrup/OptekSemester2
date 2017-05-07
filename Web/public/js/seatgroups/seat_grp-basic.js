@@ -4,10 +4,9 @@
 
 // draw group list
 $.when(getGroupData(), getUsersData(), getUserData()).done(function(){
-    console.log("hasGroup: "+hasGroup());
-    console.log("isLeader: "+isLeader());
-    if (hasGroup() === false && isLeader() === false) {
-        console.log("new user entered site");
+     // console.log("inGroup checked: "+inGroup(groupData));
+     // console.log("isLeader checked: "+isLeader(groupData));
+    if (inGroup(groupData) === false && isLeader(groupData) === false || userData.isAdmin === true) {
         $("#create_btn").prepend('<button type="button" class="btn btn-lg btn-primary" id="create_group" data-toggle="modal" data-target="#modal-create" style="margin-top:5px;margin-bottom: 10px; float:right;">Opret gruppe</button>');
     } else {
         $("#modal-create").remove();
@@ -24,29 +23,43 @@ $.when(getGroupData(), getUsersData(), getUserData()).done(function(){
         });
         output += "";
         $('#data_insert').append(output);
-    } else {
-        console.log("no groups to be rendered");
     }
 });
 
 
+/* available config options
+ output += "<button class='btn btn-danger' onclick='leaveGroup(this)'>Forlad gruppe</button>";
+ output += "<button class='btn btn-success' onclick='joinGroup(this)'>Deltag i gruppe</button>";
+ output += "<button class='btn btn-primary' onclick='editGroup(this)'>Redigér gruppe</button>";
+ output += "<button class='btn btn-danger' onclick='deleteGroup(this)'>Slet gruppe</button>";
+ */
+
 // place control buttons
 function placeButtons(data) {
+    console.log(data.groupName);
+    console.log("isLeader: "+ isLeader(data));
+    console.log("inGroup: "+ inGroup(data));
     var output = "<td>";
-    if (userData.isAdmin === true || isLeader(data) === true){
-        if (userData.isAdmin === true && hasGroup(data) === false && isLeader() === false) {
+
+    // if user is admin
+    if(userData.isAdmin === true){
+        output += "<button class='btn btn-primary' onclick='editGroup(this)'>Redigér gruppe</button>";
+        if (inGroup(data) === false) {
             output += "<button class='btn btn-success' onclick='joinGroup(this)'>Deltag i gruppe</button>";
-        } else if (isLeader(data) === false){
+        } else if (inGroup(data) === true && isLeader(data) === false) {
             output += "<button class='btn btn-danger' onclick='leaveGroup(this)'>Forlad gruppe</button>";
         }
-        output += "<button class='btn btn-primary' onclick='editGroup(this)'>Redigér gruppe</button>";
         output += "<button class='btn btn-danger' onclick='deleteGroup(this)'>Slet gruppe</button>";
-
-    } else if (hasGroup(data) === false) {
-        output += "<button class='btn btn-success' onclick='joinGroup(this)'>Deltag i gruppe</button>";
-
-    } else if (hasGroup(data) === true){
-        output += "<button class='btn btn-danger' onclick='leaveGroup(this)'>Forlad gruppe</button>";
+    } else if (inGroup(groupData) === false){
+        output += "<button class='btn btn-success join-group' onclick='joinGroup(this)'>Deltag i gruppe</button>";
+    // if user is not admin
+    } else {
+        if (isLeader(data) === true) {
+            output += "<button class='btn btn-primary' onclick='editGroup(this)'>Redigér gruppe</button>";
+            output += "<button class='btn btn-danger' onclick='deleteGroup(this)'>Slet gruppe</button>";
+        } else if (inGroup(data) === true && isLeader(data) === false) {
+            output += "<button class='btn btn-danger' onclick='leaveGroup(this)'>Forlad gruppe</button>";
+        }
     }
     output += "</td>";
     return output;
@@ -63,29 +76,45 @@ function showMembers(data) {
 }
 
 
-// check if user is in group already
-function hasGroup(data) {
-    console.log(data);
-    var hasGroup = false;
-    $.each(groupData, function(key, groupData) {
-        for (i = 0; i < groupData.members.length; i++) {
-            if (userData._id === groupData.members[i]) {
-                hasGroup = true;
+// check if user is in group already - returns boolean
+function inGroup(data) {
+    var inGroup = false;
+    if(typeof data.length === "number") {
+        $.each(data, function (key, data) {
+            for (i = 0; i < data.members.length; i++) {
+                if (userData._id === data.members[i]) {
+                    inGroup = true;
+                }
+            }
+        });
+    } else {
+        for (i = 0; i < data.members.length; i++) {
+            if (userData._id === data.members[i]) {
+                inGroup = true;
             }
         }
-    });
-    return hasGroup;
+    }
+    if (inGroup === false) {
+        inGroup = isLeader(data);
+    }
+    return inGroup;
 }
 
 
-// check if user is leader of current group
-function isLeader() {
+// check if user is leader of current group - returns boolean
+function isLeader(data) {
     var isLeader = false;
-    $.each(groupData, function(key, groupData) {
-        if (userData._id === groupData.leaderID){
+    if(typeof data.length === "number") {
+        $.each(data, function (key, data) {
+            if (userData._id === data.leaderID) {
+                isLeader = true;
+            }
+        });
+    } else {
+        if (userData._id === data.leaderID) {
             isLeader = true;
         }
-    });
+    }
     return isLeader;
 }
 
@@ -93,7 +122,6 @@ function isLeader() {
 // add user to group he selected
 function joinGroup (source) {
     var groupID = $(source).closest("tr").prop("id");
-    console.log(groupID);
     var type = "PUT";
     var task = 0;
     sendData(groupID, type, task);
@@ -103,7 +131,6 @@ function joinGroup (source) {
 // leave group
 function leaveGroup(source) {
     var groupID = $(source).closest("tr").prop("id");
-    console.log(groupID);
     var type = "PUT";
     var task = 1;
     sendData(groupID, type, task);
@@ -113,9 +140,8 @@ function leaveGroup(source) {
 // delete group
 function deleteGroup (source) {
     var groupID = $(source).closest("tr").prop("id");
-    console.log(groupID);
     var type = "DELETE";
-    var delGroup = confirm("Vil du slette din gruppe?");
+    var delGroup = confirm("Vil du slette gruppe?");
     var task = 2;
     if (delGroup === true) {
         sendData(groupID, type, task);
@@ -125,8 +151,8 @@ function deleteGroup (source) {
 
 // edit group
 function editGroup (source) {
+    openModal(source);
     var groupID = $(source).closest("tr").prop("id");
-    console.log(groupID);
 }
 
 

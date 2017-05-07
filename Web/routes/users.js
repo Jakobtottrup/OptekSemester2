@@ -8,6 +8,7 @@ const mongoose = require('mongoose');
 mongoose.Promise = require('bluebird');
 
 const Group = require('../models/seatingGroups');
+const Tournament = require('../models/tournaments');
 const groupRoute = router.route('/seatgroups/:_id/:task');
 const tourRoute = router.route('/tournaments/:_id');
 
@@ -98,7 +99,8 @@ router.post('/seatgroups', ensureAuthenticated, function(req, res){
 groupRoute.put(ensureAuthenticated, function (req, res) {
     switch (req.params.task) {
         // add user to group
-        case "0": Group.findByIdAndUpdate(req.params._id, function (err, group) {
+        case "0": console.log("hello from task 0");
+            Group.findById(req.params._id, function (err, group) {
             if (err) {
                 res.send(err);
             } else {
@@ -116,7 +118,7 @@ groupRoute.put(ensureAuthenticated, function (req, res) {
         }); break;
 
         // remove user from group
-        case "1": Group.findByIdAndUpdate(req.params._id, function (err, group) {
+        case "1": Group.findById(req.params._id, function (err, group) {
             if (err) {
                 res.send(err);
             } else {
@@ -125,7 +127,6 @@ groupRoute.put(ensureAuthenticated, function (req, res) {
                 if (index >= 0) {
                     group.members.splice(index, 1);
                 }
-
                 // save changes to database
                 group.save(function (err) {
                     if (err) {
@@ -137,9 +138,23 @@ groupRoute.put(ensureAuthenticated, function (req, res) {
             }
         }); break;
 
-        case "2": console.log("task 2"); break;
-    }
+        // edit group details
+        case "2": Group.findById(req.params._id, function (err, group) {
+            if (err) {
+                res.send(err);
+            } else {
 
+                // save changes to database
+                group.save(function (err) {
+                    if (err) {
+                        res.send(err);
+                    }
+                });
+                req.flash('success_msg', 'Ændringerne er blevet gemt');
+                res.status(204).render('user-backend/seatgroups');
+            }
+        }); break;
+    }
 });
 
 
