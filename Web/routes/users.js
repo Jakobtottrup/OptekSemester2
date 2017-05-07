@@ -9,7 +9,7 @@ mongoose.Promise = require('bluebird');
 
 const Group = require('../models/seatingGroups');
 const Tournament = require('../models/tournaments');
-const groupRoute = router.route('/seatgroups/:_id/:task');
+const groupRoute = router.route('/seatgroups/:_id/:task/:pass');
 const tourRoute = router.route('/tournaments/:_id');
 
 
@@ -97,13 +97,27 @@ router.post('/seatgroups', ensureAuthenticated, function(req, res){
 
 
 groupRoute.put(ensureAuthenticated, function (req, res) {
+    console.log(req.params._id);
+    console.log(req.params.task);
+    console.log(req.params.pass);
+
     switch (req.params.task) {
         // add user to group
-        case "0": console.log("hello from task 0");
-            Group.findById(req.params._id, function (err, group) {
+        case "0": Group.findById(req.params._id, function (err, group) {
             if (err) {
                 res.send(err);
             } else {
+
+               /* Group.comparePassword(req.params.pass, group.password, function (err, isMatch) {
+                    if (err) throw err;
+                    if (isMatch) {
+                        console.log("password match");
+                    } else {
+                        return done(null, false, {message: 'Ukendt kodeord'});
+                    }
+                });*/
+
+
                 // push user ID in to members array
                 group.members.push(req.user.id);
                 // save changes to database
@@ -113,7 +127,7 @@ groupRoute.put(ensureAuthenticated, function (req, res) {
                     }
                 });
                 req.flash('success_msg', 'Du er nu med i gruppen');
-                res.status(204).render('user-backend/seatgroups');
+                res.status(200).render('user-backend/seatgroups');
             }
         }); break;
 
@@ -134,7 +148,7 @@ groupRoute.put(ensureAuthenticated, function (req, res) {
                     }
                 });
                 req.flash('success_msg', 'Du er nu fjernet fra gruppen');
-                res.status(204).render('user-backend/seatgroups');
+                res.status(200).render('user-backend/seatgroups');
             }
         }); break;
 
@@ -151,7 +165,7 @@ groupRoute.put(ensureAuthenticated, function (req, res) {
                     }
                 });
                 req.flash('success_msg', 'Ændringerne er blevet gemt');
-                res.status(204).render('user-backend/seatgroups');
+                res.status(200).render('user-backend/seatgroups');
             }
         }); break;
     }
@@ -167,11 +181,11 @@ groupRoute.delete(ensureAuthenticated, function (req, res) {
                 }
             });
             req.flash('success_msg', 'Gruppen er nu slettet');
-            res.status(204).redirect("/users/seatgroups");
+            res.status(200).redirect("/users/seatgroups");
 
         } else if (group.leaderID !== req.user.id) {
             req.flash('error_msg', 'Du har ikke rettigheder til at slette denne gruppe!');
-            res.status(204).redirect("/users/seatgroups");
+            res.status(406).redirect("/users/seatgroups");
         }
     });
 });
@@ -192,7 +206,7 @@ tourRoute.post(ensureAuthenticated, function (req, res) {
                 }
             });
             req.flash('success_msg', 'Du er nu med i gruppen');
-            res.status(204).render('user-backend/seatgroups');
+            res.status(200).render('user-backend/seatgroups');
         }
     });
 });

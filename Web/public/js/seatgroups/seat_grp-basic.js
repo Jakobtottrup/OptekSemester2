@@ -13,7 +13,7 @@ $.when(getGroupData(), getUsersData(), getUserData()).done(function(){
     }
 
     if (typeof groupData !== "undefined") {
-        var output = "";
+        let output = "";
         $.each(groupData, function (key, data) {
             output += "<tr class='data_row' id='" + data._id + "'>";
             output += "<td><h2>" + data.groupName + "</h2></td>";
@@ -39,19 +39,19 @@ function placeButtons(data) {
     console.log(data.groupName);
     console.log("isLeader: "+ isLeader(data));
     console.log("inGroup: "+ inGroup(data));
-    var output = "<td>";
+    let output = "<td>";
 
     // if user is admin
     if(userData.isAdmin === true){
         output += "<button class='btn btn-primary' onclick='editGroup(this)'>Redigér gruppe</button>";
         if (inGroup(data) === false) {
-            output += "<button class='btn btn-success' onclick='joinGroup(this)'>Deltag i gruppe</button>";
+            output += "<button class='btn btn-success' onclick='openModal(this)'>Deltag i gruppe</button>";
         } else if (inGroup(data) === true && isLeader(data) === false) {
             output += "<button class='btn btn-danger' onclick='leaveGroup(this)'>Forlad gruppe</button>";
         }
         output += "<button class='btn btn-danger' onclick='deleteGroup(this)'>Slet gruppe</button>";
     } else if (inGroup(groupData) === false){
-        output += "<button class='btn btn-success join-group' onclick='joinGroup(this)'>Deltag i gruppe</button>";
+        output += "<button class='btn btn-success join-group' onclick='openModal(this)'>Deltag i gruppe</button>";
     // if user is not admin
     } else {
         if (isLeader(data) === true) {
@@ -68,7 +68,7 @@ function placeButtons(data) {
 
 // list members of each group
 function showMembers(data) {
-    var output = "<b><b>"+findUserName(data.leaderID)+"</b></b>";
+    let output = "<b><b>"+findUserName(data.leaderID)+"</b></b>";
     for (i=0; i<data.members.length; i++){
         output += "<br>"+findUserName(data.members[i]);
     }
@@ -78,7 +78,7 @@ function showMembers(data) {
 
 // check if user is in group already - returns boolean
 function inGroup(data) {
-    var inGroup = false;
+    let inGroup = false;
     if(typeof data.length === "number") {
         $.each(data, function (key, data) {
             for (i = 0; i < data.members.length; i++) {
@@ -103,7 +103,7 @@ function inGroup(data) {
 
 // check if user is leader of current group - returns boolean
 function isLeader(data) {
-    var isLeader = false;
+    let isLeader = false;
     if(typeof data.length === "number") {
         $.each(data, function (key, data) {
             if (userData._id === data.leaderID) {
@@ -121,45 +121,50 @@ function isLeader(data) {
 
 // add user to group he selected
 function joinGroup (source) {
-    var groupID = $(source).closest("tr").prop("id");
-    var type = "PUT";
-    var task = 0;
-    sendData(groupID, type, task);
+    let groupID = $(source).prop("id");
+    let pass = $("#pass_field").val();
+
+    let type = "PUT";
+    let task = 0;
+    console.log(groupID +" : "+ type +" : "+ task +" : "+ pass);
+
+    sendData(groupID, type, task, pass);
 }
 
 
 // leave group
 function leaveGroup(source) {
-    var groupID = $(source).closest("tr").prop("id");
-    var type = "PUT";
-    var task = 1;
-    sendData(groupID, type, task);
+    let groupID = $(source).closest("tr").prop("id");
+    let type = "PUT";
+    let task = 1;
+    let pass = "something";
+    sendData(groupID, type, task, pass);
 }
 
 
 // delete group
 function deleteGroup (source) {
-    var groupID = $(source).closest("tr").prop("id");
-    var type = "DELETE";
-    var delGroup = confirm("Vil du slette gruppe?");
-    var task = 2;
+    let groupID = $(source).closest("tr").prop("id");
+    let type = "DELETE";
+    let delGroup = confirm("Vil du slette gruppe?");
+    let task = 2;
+    let pass = "something";
     if (delGroup === true) {
-        sendData(groupID, type, task);
+        sendData(groupID, type, task, pass);
     }
 }
 
 
 // edit group
 function editGroup (source) {
-    openModal(source);
-    var groupID = $(source).closest("tr").prop("id");
+
 }
 
 
-function sendData(groupID, type, task) {
+function sendData(groupID, type, task, pass) {
     $.ajax({
         type: type,
-        url: "/users/seatgroups/" + groupID + "/" + task,
+        url: "/users/seatgroups/" + groupID + "/" + task + "/" + pass,
         dataType: 'json',
         success: location.reload()
     });
@@ -168,5 +173,7 @@ function sendData(groupID, type, task) {
 
 // open modal for entering password
 function openModal(source) {
+    let groupID = $(source).closest("tr").prop("id");
+    $("#modal-join-sub").attr("id", groupID);
     $("#modal-join").modal('show');
 }
