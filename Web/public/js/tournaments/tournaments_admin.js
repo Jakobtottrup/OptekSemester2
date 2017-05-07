@@ -24,7 +24,7 @@ function getUsersData(){
         usersData = data;
     });
 }
-/*
+
 // list tournaments
 $.when(document, getTournamentsData(), getUsersData()).done(function(){
     var output = "";
@@ -35,10 +35,10 @@ $.when(document, getTournamentsData(), getUsersData()).done(function(){
         output += "<td><b>Åbner: </b>" + convertTime(data.openingDate) + "<br><b>Lukker: </b>" + convertTime(data.closingDate) + "<br><b>Start: </b>" + convertTime(data.startDate) + "<br><b>Varighed: </b>" + convertTime(data.tourDuration) + "</td>";
         output += "<td><button class='btn btn-primary' onclick='showTourDescription(this)'>Se beskrivelse</button></td>";
         output += "<td><button class='btn btn-primary' onclick='showPic(this)'>Se billede</button></td>";
-        output += "<td><b>Max hold: </b>"+ convertMember(data.maxTeams) +"<br><b>Max: </b>"+ convertMember(data.maxTeamSize) +"<br><b>Min: </b>"+ convertMember(data.minTeamSize) +"</td><br>";
-        output += "<td><button class='btn btn-primary' data-toggle='confirmation' onclick='showMembers(this)'>"+data.teams.length+" tilmeldte</button></td>";
+        output += "<td><b>Max hold: </b>"+ convertMember(data.maxTeams) +"<br><b>Pr. hold: </b>"+ convertMember(data.minTeamSize) + " - " + convertMember(data.maxTeamSize) +" deltagere</td><br>";
+        output += "<td><button class='btn btn-primary' data-toggle='confirmation' onclick='showMembers(this)'>"+data.teams.length+" deltagende hold</button></td>";
         output += "<td>" + prizes(data.prizes) + "</td>";
-        output += "<td><button class='btn btn-primary' data-toggle='confirmation' onclick='deleteTournamnet(this)'>Slet</button><br><button class='btn btn-primary' onclick='editTournament(this)'>Redigér</button></td>";
+        output += "<td><button class='btn btn-primary' onclick='editTournament(this)' style='width:100px; margin:3px'>Redigér</button><br><button class='btn btn-danger' data-toggle='confirmation' onclick='deleteTournamnet(this)' style='width:100px; margin:3px'>Slet</button></td>";
         output += "</tr>";
     });
     output += "";
@@ -68,7 +68,7 @@ function prizes(data){
     }
 }
 
-// show tournament description
+// show tournaments description
 function showTourDescription(source){
     var tour_id = $(source).closest("tr").prop("id");   // get ID of table row
     var tour = $.grep(tournamentsData, function(tour){  // search for id property in objects
@@ -78,11 +78,18 @@ function showTourDescription(source){
     if (tour.length === 0) {
         window.alert("En fejl er opstået - Ingen beskrivelse blev fundet.");
     } else {
-        $("#show-data-header").empty().append(tour[0].name);    // append tournament name into header
+        $("#show-data-header").empty().append(tour[0].name);    // append tournaments name into header
         $("#show-data-body").empty().append(tour[0].description);   // append description into body
         $('#modal-edit').modal('show'); // show modal
     }
 }
+// preview image on upload
+var loadFile = function(source) {
+    var output = $(source).closest("td").prop("id");
+    var id = output.substring(5,Infinity);
+    var result = document.getElementById("image"+id);
+    result.src = URL.createObjectURL(event.target.files[0]);
+};
 
 // prize control for new tournaments
 var totalPrizes = 0;
@@ -92,10 +99,13 @@ function addPrize(){
         totalPrizes++;
         // console.log(totalPrizes);
         $("#prize-head").append('<td id="prize'+totalPrizes+'">'+totalPrizes+'. Plads</td>');
-        $("#prize-name").append('<td id="prize'+totalPrizes+'"><input type="text" class="form-control" placeholder="Navn" name="prize_name" required></td>');
-        $("#prize-info").append('<td id="prize'+totalPrizes+'"><input type="text" class="form-control" placeholder="Beskrivelse" name="prize_info" required></td>');
-        $("#prize-image").append('<td id="prize'+totalPrizes+'"><input type="file" value="Upload billede" name="prize_image" onclick="upLoadPic()"/></td>');
+        $("#prize-name").append('<td id="prize'+totalPrizes+'"><input type="text" class="form-control" maxlength="200" placeholder="Navn" name="prize_name" required></td>');
+        $("#prize-info").append('<td id="prize'+totalPrizes+'"><input type="text" class="form-control" maxlength="200" placeholder="Beskrivelse" name="prize_info" required></td>');
+        $("#prize-image").append('<td id="prize'+totalPrizes+'"><label class="btn btn-primary" style="width:100%">Browse&hellip;<input name="prize_image" type="file" accept="image/*" onchange="loadFile(this)" style="display:none;"required></label>' +
+            '<br><img id="image'+totalPrizes+'" style="width:100%; margin-top:10px"/></td>');
     }
+
+    console.log("TP: " + totalPrizes);
 }
 function removePrize(){
     if (totalPrizes >= 1){
@@ -108,7 +118,7 @@ function removePrize(){
     }
 }
 
-// append members in tournament into bootstrap modal
+// append members in tournaments into bootstrap modal
 function showMembers(source){
     var tour_id = $(source).closest("tr").prop("id");
     var tour = $.grep(tournamentsData, function(tour){
@@ -146,8 +156,8 @@ function showPic(source){
     if (tour.length === 0) {
         window.alert("En fejl er opstået - Ingen beskrivelse blev fundet.");
     } else {
-        $("#show-data-header").empty().append(tour[0].name);    // append tournament name into header
-        $("#show-data-body").empty().append("<img src='"+tour[0].image+"'style='width:100%'/>");   // append description into body
+        $("#show-data-header").empty().append(tour[0].name);    // append tournaments name into header
+        $("#show-data-body").empty().append("<img src='"+tour[0].coverImage+"'style='width:100%'/>");   // append description into body
         $('#modal-edit').modal('show'); // show modal
     }
 }
@@ -162,8 +172,8 @@ function convertTime(time){
         }
     } else if (typeof time !== "number") {
         // console.log(time);
-        var month = new Date(time).getDate();
-        var day = new Date(time).getDay();
+        var month = new Date(time).getDate()+1;
+        var day = new Date(time).getDay()+1;
         var hour = new Date(time).getHours();
         var min = new Date(time).getMinutes();
         time = month +"/"+ day +" - "+ hour +":"+ min;
@@ -176,7 +186,7 @@ function convertTime(time){
 
 
 // ============== EDITING TOURNAMENTS ============== //
-// edit tournament
+// edit tournaments
 function editTournament(source){
     var tour_id = $(source).closest("tr").prop("id");
     console.log("Edit call on "+tour_id);
@@ -186,10 +196,10 @@ function editTournament(source){
         type: 'UPDATE',
         url: "/api/tournaments",
         dataType: "json"
-    })
+    })*/
 }
 
-// delete tournament
+// delete tournaments
 function deleteTournamnet (source) {
     var tour_id = $(source).closest("tr").prop("id");
     var delTour = confirm("Vil du slette denne turnering?");
@@ -223,4 +233,30 @@ function sortTournaments() {
             }
         }
     }
-}*/
+}
+
+// used to display filenames in input  - some default bootstrap
+$(function() {
+    // We can attach the `fileselect` event to all file inputs on the page
+    $(document).on('change', ':file', function() {
+        var input = $(this),
+            numFiles = input.get(0).files ? input.get(0).files.length : 1,
+            label = input.val().replace(/\\/g, '/').replace(/.*\//, '');
+        input.trigger('fileselect', [numFiles, label]);
+    });
+
+    // We can watch for our custom `fileselect` event like this
+    $(document).ready( function() {
+        $(':file').on('fileselect', function(event, numFiles, label) {
+
+            var input = $(this).parents('.input-group').find(':text'),
+                log = numFiles > 1 ? numFiles + ' files selected' : label;
+
+            if( input.length ) {
+                input.val(log);
+            } else {
+                if( log ) alert(log);
+            }
+        });
+    });
+});

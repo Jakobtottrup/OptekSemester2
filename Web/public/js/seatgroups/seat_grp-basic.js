@@ -33,19 +33,19 @@ $.when(getGroupData(), getUsersData(), getUserData()).done(function(){
 // place control buttons
 function placeButtons(data) {
     var output = "<td>";
-    if (userData.isAdmin === true || isLeader() === true){
-        if (userData.isAdmin === true && hasGroup() === false && isLeader() === false) {
+    if (userData.isAdmin === true || isLeader(data) === true){
+        if (userData.isAdmin === true && hasGroup(data) === false && isLeader() === false) {
             output += "<button class='btn btn-success' onclick='joinGroup(this)'>Deltag i gruppe</button>";
-        } else if (isLeader() === false){
+        } else if (isLeader(data) === false){
             output += "<button class='btn btn-danger' onclick='leaveGroup(this)'>Forlad gruppe</button>";
         }
         output += "<button class='btn btn-primary' onclick='editGroup(this)'>Redigér gruppe</button>";
         output += "<button class='btn btn-danger' onclick='deleteGroup(this)'>Slet gruppe</button>";
 
-    } else if (hasGroup() === false) {
+    } else if (hasGroup(data) === false) {
         output += "<button class='btn btn-success' onclick='joinGroup(this)'>Deltag i gruppe</button>";
 
-    } else if (hasGroup() === true){
+    } else if (hasGroup(data) === true){
         output += "<button class='btn btn-danger' onclick='leaveGroup(this)'>Forlad gruppe</button>";
     }
     output += "</td>";
@@ -64,7 +64,8 @@ function showMembers(data) {
 
 
 // check if user is in group already
-function hasGroup() {
+function hasGroup(data) {
+    console.log(data);
     var hasGroup = false;
     $.each(groupData, function(key, groupData) {
         for (i = 0; i < groupData.members.length; i++) {

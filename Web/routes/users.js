@@ -9,7 +9,7 @@ mongoose.Promise = require('bluebird');
 
 const Group = require('../models/seatingGroups');
 const groupRoute = router.route('/seatgroups/:_id/:task');
-
+const tourRoute = router.route('/tournaments/:_id');
 
 
 // THESE VIEWS ARE ONLY ALLOWED IF USER IS LOGGED IN //
@@ -33,7 +33,7 @@ router.get('/userinfo', ensureAuthenticated, function(req, res){
 
 // USER TOURNAMENTS
 router.get('/tournaments', ensureAuthenticated, function(req, res){
-    res.render('user-backend/usertournaments', {title: "Dine Turneringer"});
+    res.render('user-backend/tournaments', {title: "Dine Turneringer"});
 });
 
 
@@ -98,7 +98,7 @@ router.post('/seatgroups', ensureAuthenticated, function(req, res){
 groupRoute.put(ensureAuthenticated, function (req, res) {
     switch (req.params.task) {
         // add user to group
-        case "0": Group.findByIdAndUpdate(req.params._id, req.body.members, function (err, group) {
+        case "0": Group.findByIdAndUpdate(req.params._id, function (err, group) {
             if (err) {
                 res.send(err);
             } else {
@@ -116,7 +116,7 @@ groupRoute.put(ensureAuthenticated, function (req, res) {
         }); break;
 
         // remove user from group
-        case "1": Group.findByIdAndUpdate(req.params._id, req.body.members, function (err, group) {
+        case "1": Group.findByIdAndUpdate(req.params._id, function (err, group) {
             if (err) {
                 res.send(err);
             } else {
@@ -160,5 +160,27 @@ groupRoute.delete(ensureAuthenticated, function (req, res) {
         }
     });
 });
+
+
+// not finished
+tourRoute.post(ensureAuthenticated, function (req, res) {
+    Tournament.findByIdAndUpdate(req.params._id, function (err, group) {
+        if (err) {
+            res.send(err);
+        } else {
+            // push user ID in to members array
+            group.members.push(req.user.id);
+            // save changes to database
+            group.save(function (err) {
+                if (err) {
+                    res.send(err);
+                }
+            });
+            req.flash('success_msg', 'Du er nu med i gruppen');
+            res.status(204).render('user-backend/seatgroups');
+        }
+    });
+});
+
 
 module.exports = router;

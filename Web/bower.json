@@ -18,8 +18,6 @@
     "bootstrap": "^3.3.7",
     "jquery": "^3.2.1",
     "ajax": "^2.1.5",
-    "angular": "^1.6.4",
-    "font-awesome": "fontawesome#^4.7.0",
-    "bootstrap-confirmation2": "^2.4.0"
+    "font-awesome": "fontawesome#^4.7.0"
   }
 }

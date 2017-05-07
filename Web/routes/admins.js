@@ -14,6 +14,7 @@ const express = require('express');
 const multer = require('multer');
 const async = require('async');
 const fs = require('fs');
+const rimraf = require('rimraf');
 
 // DECLARING MODELS AND ROUTES
 const seats = require('../models/seats');
@@ -23,7 +24,7 @@ const Group = require('../models/seatingGroups');
 const router = express.Router();
 const userRoute = router.route('/users/:_id/:adminClicked/:paymentClicked');
 const delRoute = router.route('/users/:_id');
-const TourRoute = router.route('/tournaments/:_id');
+const tourRoute = router.route('/tournaments/:_id');
 const mailRoute = router.route('/mails');
 const thisEvent = router.route('/events');
 
@@ -201,7 +202,7 @@ const limits = { fileSize: 512 * 512 * 512 };
 //const fileFilter = { fileType: ".jpg"};
 const tourUploads = multer({ dest: 'public/uploads/image/tournaments', limits: limits}).fields([{name: 'tour_image', maxCount: 1}, {name: 'prize_image', maxCount: 7}]);
 router.post('/tournaments', tourUploads, ensureAdminAuthenticated, function (req, res) {
-    console.log(req.files);
+    //console.log(req.files);
 
     const name = req.body.tour_name;
     const description = req.body.tour_info;
@@ -301,7 +302,7 @@ router.post('/tournaments', tourUploads, ensureAdminAuthenticated, function (req
 });
 
 
-TourRoute.delete(ensureAdminAuthenticated, function (req, res) {
+tourRoute.delete(ensureAdminAuthenticated, function (req, res) {
    Tournament.findOne({_id: req.params._id}, function (err, tournament) {
         var tourImages = []; // create empty array for storing files
         var dirPath = "./public/uploads/image/tournaments/"; // directory where files are stored
@@ -392,13 +393,20 @@ mailRoute.post(function (req, res, next) {
      });*/
 });
 
-
+// delete event
 thisEvent.put(ensureAdminAuthenticated, function (req, res) {
     // reset all users to "hasPaid = false"
     User.update({ hasPaid: true }, {hasPaid: false}, {multi: true}).exec();
 
     // delete all tournaments
     Tournament.collection.drop();
+    var tournamnetDir = 'public/uploads/image/tournaments';
+    rimraf(tournamnetDir, function () {
+        if (!fs.existsSync(tournamnetDir)){
+            fs.mkdirSync(tournamnetDir);
+        }
+    });
+
 
     // delete all seating groups
     Group.collection.drop();

@@ -51,4 +51,4 @@ var TournamentSchema = mongoose.Schema({
         default: Date.now
     }
 });
-var Tournament = module.exports = mongoose.model('tournament', TournamentSchema);
+var Tournament = module.exports = mongoose.model('tournaments', TournamentSchema);
