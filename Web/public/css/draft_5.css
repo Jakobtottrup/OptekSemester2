@@ -41,7 +41,13 @@ html, body {
 /* Main page */
 /** ******* **/
 body {
-    background-color: var(--main-);
+    /*background-color: var(--main-);*/
+    background: #304040; /* For browsers that do not support gradients */
+    background: #304040; /* For browsers that do not support gradients */
+    background: -webkit-linear-gradient(left, #04202C, #304040 , #04202C); /* For Safari 5.1 to 6.0 */
+    background: -o-linear-gradient(left, #04202C, #304040 ,#04202C); /* For Opera 11.1 to 12.0 */
+    background: -moz-linear-gradient(left, #04202C, #304040 ,#04202C); /* For Firefox 3.6 to 15 */
+    background: linear-gradient(left, #04202C, #304040  ,#04202C); /* Standard syntax */
 }
 
 #footer {
@@ -98,6 +104,7 @@ body {
     border-radius: 0px 0px 10px 10px;
     top: 0;
     border-top: 0;
+
 }
 
 /** ******* **/
@@ -107,6 +114,8 @@ body {
     background-color: var(--menu-);
     margin-top: -20px;
     border-radius: 0px 0px 16px 16px;
+    box-shadow: -1px 3px 1px rgba(0, 0, 0, 1);
+
 }
 
 .dash-menu a {
@@ -114,12 +123,16 @@ body {
 }
 
 .sponsor-bar {
-    /*background-color: #00b3ee;*/
+    /*border-radius: 5px 5px 5px 5px;*/
+    /*background-color: grey;*/
+    /*float: bottom;*/
+
 }
 
 .sponsor-bar img {
     width: 100%;
     max-height: 200px;
+
 }
 
 
@@ -131,7 +144,8 @@ body {
     /*max-width: 80%;*/
     margin: auto;
     margin-bottom: 120px;
-    border-radius: 20px 20px 20px 20px;
+    border-radius: 15px 15px 15px 15px;
+    box-shadow: -1px 3px 1px rgba(0, 0, 0, 1);
 }
 
 .content-background h1, .content-background h2, .content-background h3, .content-background h4, .content-background h5, .content-background h6 {
@@ -155,6 +169,33 @@ body {
     color: var(--main-);
 }
 
+#username {
+    color: var(--main-);
+}
+
+#email {
+    color: var(--main-);
+}
+
+#age {
+    color: var(--main-);
+}
+
+#studie {
+    color: var(--main-);
+}
+
+#fakultet {
+    color: var(--main-);
+}
+
+#steam {
+    color: var(--main-);
+}
+
+#bnet {
+    color: var(--main-);
+}
 /* seatmap */
 .pladskort-info {
     background-color: var(--text-);
