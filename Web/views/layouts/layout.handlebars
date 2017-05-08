@@ -74,19 +74,6 @@
             </div><!-- /.navbar-collapse -->
         </div><!-- /.container-fluid -->
     </nav>
-    <div>
-        <div class="container">
-            {{#if success_msg}}
-                <div class="alert alert-success">{{success_msg}}</div>
-            {{/if}}
-            {{#if error_msg}}
-                <div class="alert alert-danger">{{error_msg}}</div>
-            {{/if}}
-            {{#if error}}
-                <div class="alert alert-danger">{{error}}</div>
-            {{/if}}
-        </div>
-    </div>
 
     <!-- dashboard panels -->
     <div id="dashboard-nav">
@@ -115,8 +102,18 @@
                     {{/unless}}
                 {{/if}}
             </div>
-            <div class="col col-md-8 content-background">
-                <div class="content-center">
+            <div class="col col-md-8">
+                {{#if success_msg}}
+                    <div class="alert alert-success">{{success_msg}}</div>
+                {{/if}}
+                {{#if error_msg}}
+                    <div class="alert alert-danger">{{error_msg}}</div>
+                {{/if}}
+                {{#if error}}
+                    <div class="alert alert-danger">{{error}}</div>
+                {{/if}}
+
+                <div class="content-center content-background">
                     {{{body}}}
                 </div>
             </div>

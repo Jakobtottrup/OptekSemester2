@@ -17,9 +17,6 @@ m_index = -1;
 
 mycanvas = {width: 640, height: 320};
 
-col_state = ["green", "yellow", "red"];
-col_state_m = ["darkgreen", "gold", "brown"];
-
 /*** ********************** ***/
 /** scale for responsive page */
 /*** ********************** ***/
