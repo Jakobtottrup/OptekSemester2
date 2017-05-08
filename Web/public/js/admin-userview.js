@@ -74,6 +74,10 @@ $.when(getUsersData().done(function () {
             "<td class='hidden-xs'>" + usersData[i].isActive + "</td></tr>");
     }
 
+    for (i = 0; i < usersData.length; i++) {
+        $('#user_data').append('<input type="text" name="user_data_input" id="user_data_input' + i + '" class="form-control hidden">');
+        $("#user_data_input" + i).val(usersData[i]);
+    }
     /**
      * Enables and disables user manipulation buttons when 0-* are selected
      * deleteUserID.push selects the checkbox that was clicked, traverses up to closest <tr> element,
@@ -103,10 +107,17 @@ $(function () {
     $('#toggleAdminBtn').click(function () {
         adminClicked = true;
         paymentClicked = false;
-        for (i = 0; i < deleteUserId.length; i++) {
+        for (let i = 0; i < deleteUserId.length; i++) {
             updateUsers(deleteUserId[i]._id, adminClicked, paymentClicked);
         }
-        location.reload(true);
+        let i = 0;
+        (function myLoop (i) {
+            setTimeout(function () {
+                location.reload(true);          //  your code here
+                if (--i) myLoop(i);      //  decrement i and call myLoop again if i > 0
+            }, 3000)
+        })(1);
+        //
     });
 });
 
@@ -121,10 +132,18 @@ $(function () {
     $("#togglePaymentBtn").click(function () {
         paymentClicked = true;
         adminClicked = false;
-        for (i = 0; i < deleteUserId.length; i++) {
+        for (let i = 0; i < deleteUserId.length; i++) {
+            console.log("Updating user: " + deleteUserId[i]._id + "with username: " + deleteUserId[i].username);
             updateUsers(deleteUserId[i]._id, adminClicked, paymentClicked);
         }
-        location.reload(true);
+        let i = 0;
+        (function myLoop (i) {
+            setTimeout(function () {
+                location.reload(true);          //  your code here
+                if (--i) myLoop(i);      //  decrement i and call myLoop again if i > 0
+            }, 3000)
+        })(1);
+        // location.reload(true);
     });
 });
 
@@ -137,11 +156,11 @@ $(function () {
  */
 $(function () {
     $('#removeUserBtn').click(function (e) {
-/*        var confirm = confirm("Confirm User Deletion");
-        if (confirm === true) {*/
-            for (i = 0; i < deleteUserId.length; i++) {
-                deleteUser(deleteUserId[i]._id);
-            }
+        /*        var confirm = confirm("Confirm User Deletion");
+         if (confirm === true) {*/
+        for (i = 0; i < deleteUserId.length; i++) {
+            deleteUser(deleteUserId[i]._id);
+        }
         //}
         $(':checkbox').prop('checked', false);
         var table = $(e.target).closest('table');

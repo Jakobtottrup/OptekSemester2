@@ -171,21 +171,33 @@ userRoute.get(function (req, res) {
 
 
 userRoute.put(ensureAdminAuthenticated, function (req, res) {
-    User.findByIdAndUpdate(req.params._id, req.params.adminClicked, req.params.paymentClicked, function (err, user) {
-        if (err)
-            res.send(err);
-        if (req.params.paymentClicked !== "true") {
-            user.isAdmin = !user.isAdmin;
-        }
-        if (req.params.paymentClicked === "true") {
-            user.hasPaid = !user.hasPaid;
-        }
-        user.save(function (err) {
-            if (err)
-                res.send(err);
-            res.json(user);
-        });
-    });
+
+/*    for (i=0;i<29;i++) {
+        (function (i) {
+            setTimeout(function () {*/
+                //console.log("updating user nr: " + i)
+                User.findByIdAndUpdate(req.params._id, req.params.adminClicked, req.params.paymentClicked, function (err, user) {
+                   // console.log(req.body);
+                    //console.log(req.params);
+                    if (err)
+                        res.send(err);
+                    if (req.params.paymentClicked !== "true") {
+                        user.isAdmin = !user.isAdmin;
+                    }
+                    if (req.params.paymentClicked === "true") {
+                        user.hasPaid = !user.hasPaid;
+                    }
+                    user.save(function (err) {
+                        if (err)
+                            res.send(err);
+                        res.json(user);
+                    });
+                });
+/*
+            }, 3000 * i);
+        })(i);
+    }*/
+
 });
 
 delRoute.delete(ensureAdminAuthenticated, function (req, res) {
@@ -385,26 +397,30 @@ mailRoute.post(function (req, res, next) {
 
         if (req.body.modtager === 'ALL UNPAID') {
             for (i = 0; i < noPayment.length; i++) {
-                notPaid.to = noPayment[i];
-                console.log(notPaid.to);
-                transporter.sendMail(notPaid, function (error, info) {
-                    if (error) {
-                        console.log(error);
-                        res.json({yo: 'error'});
-                    } else {
-                        console.log('Message sent: ' + info.response);
-                        req.flash('success_msg', 'Betalingspåmindelse sendt!');
-                        res.redirect('/admins/mails');
-                        //res.json({yo: info.response});
-                    }
-                });
+                (function (i) {
+                    setTimeout(function () {
+                        notPaid.to = noPayment[i];
+                        console.log(notPaid.to);
+                        transporter.sendMail(notPaid, function (error, info) {
+                            if (error) {
+                                console.log(error);
+                                res.json({yo: 'error'});
+                            } else {
+                                console.log('Message sent: ' + info.response);
+                                //res.json({yo: info.response});
+                            }
+                        })
+                    }, 3000 * i);
+                })(i);
             }
+            req.flash('success_msg', 'Betalingspåmindelse sendt!');
+            res.redirect('/admins/mails');
 
         } else if (req.body.modtager === 'ALL USERS') {
             for (i = 0; i < allUsers.length; i++) {
                 (function (i) {
                     setTimeout(function () {
-                        //console.log("Sending email to: "+allUsers[i] + " with a 3 second delay...");
+                        console.log("Sending email to: " + allUsers[i] + " with a 3 second delay...");
                         mailOptions.to = allUsers[i];
                         transporter.sendMail(mailOptions, function (error, info) {
                             if (error) {
@@ -412,13 +428,13 @@ mailRoute.post(function (req, res, next) {
                                 res.json({yo: 'error'});
                             } else {
                                 //console.log('Message sent: ' + info.response);
-                                req.flash('success_msg', 'Email sendt til alle brugere!');
-                                res.redirect('/admins/mails');
                             }
                         })
                     }, 3000 * i);
                 })(i);
             }
+            req.flash('success_msg', 'Email sendt til alle brugere!');
+            res.redirect('/admins/mails');
 
         } else {
             transporter.sendMail(mailOptions, function (error, info) {
