@@ -349,6 +349,9 @@ mailRoute.post(function (req, res, next) {
     var modtager = req.body.modtager;
     var emne = req.body.emne;
     var txt = req.body.text;
+    var noPayment = req.body.emails;
+    console.log(noPayment.length);
+   // console.log(req.body.emails);
 
     var transporter = nodemailer.createTransport({
         service: 'Gmail',
@@ -358,7 +361,15 @@ mailRoute.post(function (req, res, next) {
         }
     });
 
-    var text = 'HEJ CHRISTIAN from \n\n' + req.body.name + "\n\nDU ER DÅM";
+
+    var notPaid = {
+        from: 'sdulan.optek@gmail.com',
+        to: 'jatoe13@student.sdu.dk',
+        subject: 'S7Lan Betalingspåmindelse',
+        text: 'Du modtager denne email, da vi endnu ikke har registreret din betaling for det kommende S7Lan event.\n\n' +
+        'Du bedes venligst indbetale beløbet så hurtigt som muligt, så du også har mulighed for at reservere en plads.\n\n' +
+        'Hvis du mener du allerede har betalt, bedes du venligst kontakte en administrator på email: sdulan.optek@gmail.com'
+    };
 
     var mailOptions = {
         from: 'sdulan.optek@gmail.com', // sender address
@@ -368,16 +379,38 @@ mailRoute.post(function (req, res, next) {
         //html: '<b>Hello world </b>' // You can choose to send an HTML body instead
     };
 
-    transporter.sendMail(mailOptions, function (error, info) {
-        if (error) {
-            console.log(error);
-            res.json({yo: 'error'});
-        } else {
-            console.log('Message sent: ' + info.response);
-            res.json({yo: info.response});
+    if (req.body.modtager === 'ALL UNPAID'){
+        for(i=0;i<noPayment.length;i++){
+            notPaid.to = noPayment[i];
+            console.log(notPaid.to);
+            transporter.sendMail(notPaid, function (error, info) {
+                if (error) {
+                    console.log(error);
+                    res.json({yo: 'error'});
+                } else {
+                    console.log('Message sent: ' + info.response);
+                    req.flash('success_msg', 'Betalingspåmindelse sendt!');
+                    res.redirect('/admins/mails');
+                    //res.json({yo: info.response});
+                }
+            });
         }
 
-    });
+    } else{
+        transporter.sendMail(mailOptions, function (error, info) {
+            if (error) {
+                console.log(error);
+                res.json({yo: 'error'});
+            } else {
+                console.log('Message sent: ' + info.response);
+                req.flash('success_msg', 'Email sendt!');
+                res.redirect('/admins/mails');
+                //res.json({yo: info.response});
+            }
+        });
+    }
+
+
     /*app.mailer.send('email', {
      to: 'christianskjerning@gmail.com', // REQUIRED. This can be a comma delimited string just like a normal email to field.
      subject: 'Test Email', // REQUIRED.

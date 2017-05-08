@@ -344,7 +344,7 @@ passport.deserializeUser(function (id, done) {
 
 // GET DATA FROM LOGIN PAGE
 router.post('/login',
-    passport.authenticate('local', {successRedirect: '/dashboard', failureRedirect: '/login', failureFlash: true}),
+    passport.authenticate('local', {failureFlash: 'Ugyldig kode eller brugernavn!',successRedirect: '/dashboard', failureRedirect: '/login'}),
 
     function (req, res) {
         console.log("LOGGED IN!");

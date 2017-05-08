@@ -24,11 +24,13 @@ function getUsersData() {
  * - inserts each users' data into the table cells.
  */
 $.when(getUsersData().done(function () {
-    $("#data_insert").empty();
+    $("#data_insert").empty().append("<option>ALL UNPAID</option>");
     for (i = 0; i < usersData.length; i++) {
-        $('#data_insert').append(
-            "<option>"+usersData[i].email + "</option>");
+        $('#data_insert').append("<option>"+usersData[i].email + "</option>");
+
     }
+
+
 
     /**
      * Enables and disables user manipulation buttons when 0-* are selected
@@ -46,4 +48,21 @@ $.when(getUsersData().done(function () {
             }
         })
     });*/
+    //console.log(usersData);
+    var unPaid = [];
+    for (i=0;i<usersData.length; i++){
+        if(usersData[i].hasPaid == false){
+            $('#unpaid_emails').append('<input type="text" name="emails" id="emails'+i+'" class="form-control hidden">');
+           // $("#emails").val(usersData[i].email);
+            unPaid.push(usersData[i].email);
+            //$("#emails").append(usersData[i].email);
+
+            $("#emails"+i).val(usersData[i].email);
+        }
+    }
+    //$('#unpaid_hidden').append(unPaid.toString());
+
+    console.log(unPaid);
 }));
+
+
