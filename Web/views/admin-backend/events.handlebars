@@ -5,23 +5,28 @@
     }
 </style>
 
-<form method="POST" action="/admins/events">
-    <h3>Countdown timer</h3>
-    <input type="datetime-local" class="form-control" name="event_date" required>
-
-    <h3>Lokation af event</h3>
-    <textarea type="text"  name="event_location" style="min-width: 100%"></textarea>
-
-    <h3>Beskrivelse af eventet</h3>
-    <textarea type="text"  name="event_description" style="min-width: 100%"></textarea>
-    <h3>Pris</h3>
-    <input type="number"  name="price" required>
-    <h3>Max gæster</h3>
-    <input type="number"  name="max_guests" required>
-    <input type="submit" value="submit" onclick="resetEvent()" name="submit" class="btn btn-primary">
-</form>
-
-<button type="button" class="btn btn-lg" id="reset_event" onclick="resetEvent()">Nuke event</button>
+<button type="button" class="btn btn-lg" id="reset_event" onclick="resetEvent()">Slet eksisterende LAN</button>
 <p> GIV AGT! Denne knap sletter alle turneringer og siddegrupper</p>
+
+
+<form method="POST" action="/admins/events">
+    <div class="well">
+        <h3>Starttid for næste event</h3>
+        <input type="datetime-local" class="form-control" name="event_date" required>
+    </div>
+    <div class="well">
+        <h3>Lokation af event</h3>
+        <textarea type="text"  name="event_location" style="min-width: 100%"></textarea>
+        <h3>Beskrivelse af eventet</h3>
+        <textarea type="text"  name="event_description" style="min-width: 100%"></textarea>
+    </div>
+    <div class="well">
+        <h3>Pris</h3>
+        <input type="number" min="0" name="price" required>
+        <h3>Max gæster</h3>
+        <input type="number" min="0" step="1" name="max_guests" required>
+    </div>
+    <input type="submit" id="nuke_event" value="Opret nyt lan" name="submit" class="btn btn-success">
+</form>
 
 <script src="/js/event/event_nuke.js"></script>

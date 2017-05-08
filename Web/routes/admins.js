@@ -430,11 +430,17 @@ mailRoute.post(function (req, res, next) {
 
 // reset event
 thisEvent.put(ensureAdminAuthenticated, function (req, res) {
-    // reset all users to "hasPaid = false"
-    User.update({ hasPaid: true }, {hasPaid: false}, {multi: true});
-
-    // delete all tournaments
+    // delete collections
+    Event.collection.drop();
+    Group.collection.drop();
     Tournament.collection.drop();
+
+    // reset all users to "hasPaid = false"
+    User.update({ hasPaid: true }, {hasPaid: false}, {multi: true}, function(){
+        console.log("hasPaid set to false for all users");
+    });
+
+    // delete images
     let tournamnetDir = 'public/uploads/image/tournaments';
     rimraf(tournamnetDir, function () {
         if (!fs.existsSync(tournamnetDir)){  // TODO: skal ændres, så race condition undgåes
@@ -442,20 +448,11 @@ thisEvent.put(ensureAdminAuthenticated, function (req, res) {
         }
     });
 
-
-    // delete all seating groups
-    Group.collection.drop();
-    Event.collection.drop();
-
-    // set countdown timer
-
-
-    req.flash('success_msg', 'Alt er nu slettet');
+    req.flash('success_msg', 'Alt er nu klargjort til nyt event');
     res.status(200).redirect('/admins/events');
 });
 
 router.post('/events', ensureAdminAuthenticated, function(req, res){
-
     const location = req.body.event_location;
     const description = req.body.event_description;
     const eventTime = req.body.event_date;

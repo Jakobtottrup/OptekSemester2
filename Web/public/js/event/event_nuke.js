@@ -4,9 +4,7 @@
 
 
 
-function resetEvent() {
-
-
+/*$("#nuke_event").on('click', */function resetEvent() {
     if (window.confirm("Vil du starte nyt event? - Alt bliver seriøst slettet")) {
         $.ajax({
             type: "PUT",
@@ -15,4 +13,4 @@ function resetEvent() {
             success: location.reload()
         });
     }
-}
+}//);
