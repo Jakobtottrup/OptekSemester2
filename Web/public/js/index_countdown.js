@@ -1,36 +1,32 @@
-/**
- * Created by ste on 25-04-2017.
- */
+var target_date = new Date().getTime() + (1000*3600*48); // set the countdown date
+var days, hours, minutes, seconds; // variables for time units
 
+var countdown = document.getElementById("tiles"); // get tag element
 
-// countdown timer
-var end = new Date('05/29/2017 12:00 pm'); // Change the date here
+getCountdown();
 
-var _second = 1000;
-var _minute = _second * 60;
-var _hour = _minute * 60;
-var _day = _hour * 24;
-var timer;
+setInterval(function () { getCountdown(); }, 1000);
 
-function showRemaining(){
-    var now = new Date();
-    var distance = end - now;
-    if (distance < 0) {
-        clearInterval(timer);
-        document.getElementById('countdown').innerHTML = "WOOOO!";
+function getCountdown(){
 
-        return;
-    }
-    var days = Math.floor(distance / _day);
-    var hours = Math.floor((distance % _day) / _hour);
-    var minutes = Math.floor((distance % _hour) / _minute);
-    var seconds = Math.floor((distance % _minute) / _second);
+    // find the amount of "seconds" between now and target
+    var current_date = new Date().getTime();
+    var seconds_left = (target_date - current_date) / 1000;
 
-    document.getElementById('countdown').innerHTML = days + ' Dage ';
-    document.getElementById('countdown').innerHTML += hours + ' Timer ';
-    document.getElementById('countdown').innerHTML += minutes + ' Minutter ';
-    document.getElementById('countdown').innerHTML += seconds + ' Sekunder ';
+    days = pad( parseInt(seconds_left / 86400) );
+    seconds_left = seconds_left % 86400;
+
+    hours = pad( parseInt(seconds_left / 3600) );
+    seconds_left = seconds_left % 3600;
+
+    minutes = pad( parseInt(seconds_left / 60) );
+    seconds = pad( parseInt( seconds_left % 60 ) );
+
+    // format countdown string + set tag value
+    countdown.innerHTML = "<span>" + days + "</span><span>" + hours + "</span><span>" + minutes + "</span><span>" + seconds + "</span>";
 }
 
-timer = setInterval (showRemaining, 1000);
-/* Countdown script ends here */
+function pad(n) {
+    return (n < 10 ? '0' : '') + n;
+}
+
