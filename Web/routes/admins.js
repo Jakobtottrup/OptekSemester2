@@ -131,8 +131,8 @@ router.post('/create_seats', ensureAdminAuthenticated, function (req, res) {
 });
 
 // RENDER GALLERY UPLOAD VIEW
-router.get('/gallery',ensureAdminAuthenticated, function(req,res){
-   res.render('admin-backend/gallery',{title:'Admin panel'});
+router.get('/gallery', ensureAdminAuthenticated, function (req, res) {
+    res.render('admin-backend/gallery', {title: 'Admin panel'});
 });
 
 // RENDER EVENT VIEW
@@ -146,8 +146,8 @@ router.get('/mails', ensureAdminAuthenticated, function (req, res) {
 });
 
 //Upload files
-let uploads = multer({ dest: 'public/uploads/image/gallery'});
-router.post('/gallery',ensureAdminAuthenticated, uploads.single('upl'),function(req, res, next){
+let uploads = multer({dest: 'public/uploads/image/gallery'});
+router.post('/gallery', ensureAdminAuthenticated, uploads.single('upl'), function (req, res, next) {
     console.log(req.body); // her
     console.log(req.file);
     res.status(204).end();
@@ -199,9 +199,12 @@ delRoute.delete(ensureAdminAuthenticated, function (req, res) {
 
 
 // TOURNAMENT CONTROLLERS
-const limits = { fileSize: 512 * 512 * 512 };
+const limits = {fileSize: 512 * 512 * 512};
 //const fileFilter = { fileType: ".jpg"};
-const tourUploads = multer({ dest: 'public/uploads/image/tournaments', limits: limits}).fields([{name: 'tour_image', maxCount: 1}, {name: 'prize_image', maxCount: 7}]);
+const tourUploads = multer({dest: 'public/uploads/image/tournaments', limits: limits}).fields([{
+    name: 'tour_image',
+    maxCount: 1
+}, {name: 'prize_image', maxCount: 7}]);
 router.post('/tournaments', tourUploads, ensureAdminAuthenticated, function (req, res) {
     //console.log(req.files);
 
@@ -239,11 +242,11 @@ router.post('/tournaments', tourUploads, ensureAdminAuthenticated, function (req
             let p_index = 0;
             let p_name = prize_name;
             let p_description = prize_info;
-            console.log("1 "+prize_image[0]);
+            console.log("1 " + prize_image[0]);
             let p_imagePath = prize_image[0].destination + "/" + prize_image[0].filename;
-            console.log("2 "+p_imagePath);
+            console.log("2 " + p_imagePath);
             let p_image = p_imagePath.substring(6, Infinity);
-            console.log("file "+p_image);
+            console.log("file " + p_image);
             prizes.push({p_index, p_name, p_description, p_image});
 
             // if prize_name is an array
@@ -304,23 +307,23 @@ router.post('/tournaments', tourUploads, ensureAdminAuthenticated, function (req
 
 
 tourRoute.delete(ensureAdminAuthenticated, function (req, res) {
-   Tournament.findOne({_id: req.params._id}, function (err, tournament) {
+    Tournament.findOne({_id: req.params._id}, function (err, tournament) {
         let tourImages = []; // create empty array for storing files
         let dirPath = "./public/uploads/image/tournaments/"; // directory where files are stored
 
         let imagePath = tournament.coverImage;
-        let imageFile = imagePath.substring(imagePath.lastIndexOf("/")+1, Infinity);
+        let imageFile = imagePath.substring(imagePath.lastIndexOf("/") + 1, Infinity);
         tourImages.push(imageFile);
 
-        for (i=0; i<tournament.prizes.length;i++){
+        for (i = 0; i < tournament.prizes.length; i++) {
             imagePath = tournament.prizes[i].p_image;
-            imageFile = imagePath.substring(imagePath.lastIndexOf("/")+1, Infinity);
+            imageFile = imagePath.substring(imagePath.lastIndexOf("/") + 1, Infinity);
             tourImages.push(imageFile);
         }
 
         // delete files
-        for (i=0; i<tourImages.length; i++){
-            let delFile = dirPath+tourImages[i];
+        for (i = 0; i < tourImages.length; i++) {
+            let delFile = dirPath + tourImages[i];
             for (let i = 0; i < tourImages.length; i++) {
                 (function (delFile) {
                     fs.exists(delFile, function (exists) {
@@ -345,87 +348,93 @@ tourRoute.delete(ensureAdminAuthenticated, function (req, res) {
 });
 
 
-
 mailRoute.post(function (req, res, next) {
-    let modtager = req.body.modtager;
-    let emne = req.body.emne;
-    let txt = req.body.text;
-    var noPayment = req.body.emails;
-    // console.log(noPayment.length);
-   // console.log(req.body.emails);
+        let modtager = req.body.modtager;
+        let emne = req.body.emne;
+        let txt = req.body.text;
+        let noPayment = req.body.emails;
+        let allUsers = req.body.all_user_emails;
+        // console.log(noPayment.length);
+        // console.log(req.body.emails);
 
-    let transporter = nodemailer.createTransport({
-        service: 'Gmail',
-        auth: {
-            user: 'sdulan.optek@gmail.com', // Your email id
-            pass: 'OpTek2016' // Your password
-        }
-    });
+        let transporter = nodemailer.createTransport({
+            service: 'Gmail',
+            auth: {
+                user: 'sdulan.optek@gmail.com', // Your email id
+                pass: 'OpTek2016' // Your password
+            }
+        });
 
 
-    var notPaid = {
-        from: 'sdulan.optek@gmail.com',
-        to: 'jatoe13@student.sdu.dk',
-        subject: 'S7Lan Betalingspåmindelse',
-        text: 'Du modtager denne email, da vi endnu ikke har registreret din betaling for det kommende S7Lan event.\n\n' +
-        'Du bedes venligst indbetale beløbet så hurtigt som muligt, så du også har mulighed for at reservere en plads.\n\n' +
-        'Hvis du mener du allerede har betalt, bedes du venligst kontakte en administrator på email: sdulan.optek@gmail.com'
-    };
+        var notPaid = {
+            from: 'sdulan.optek@gmail.com',
+            to: 'jatoe13@student.sdu.dk',
+            subject: 'S7Lan Betalingspåmindelse',
+            text: 'Du modtager denne email, da vi endnu ikke har registreret din betaling for det kommende S7Lan event.\n\n' +
+            'Du bedes venligst indbetale beløbet så hurtigt som muligt, så du også har mulighed for at reservere en plads.\n\n' +
+            'Hvis du mener du allerede har betalt, bedes du venligst kontakte en administrator på email: sdulan.optek@gmail.com'
+        };
 
-    let mailOptions = {
-        from: 'sdulan.optek@gmail.com', // sender address
-        to: modtager, // list of receivers
-        subject: emne, // Subject line
-        text: txt, //, // plaintext body
-        //html: '<b>Hello world </b>' // You can choose to send an HTML body instead
-    };
+        let mailOptions = {
+            from: 'sdulan.optek@gmail.com', // sender address
+            to: modtager, // list of receivers
+            subject: emne, // Subject line
+            text: txt, //, // plaintext body
+            //html: '<b>Hello world </b>' // You can choose to send an HTML body instead
+        };
 
-    if (req.body.modtager === 'ALL UNPAID'){
-        for(i=0;i<noPayment.length;i++){
-            notPaid.to = noPayment[i];
-            console.log(notPaid.to);
-            transporter.sendMail(notPaid, function (error, info) {
+        if (req.body.modtager === 'ALL UNPAID') {
+            for (i = 0; i < noPayment.length; i++) {
+                notPaid.to = noPayment[i];
+                console.log(notPaid.to);
+                transporter.sendMail(notPaid, function (error, info) {
+                    if (error) {
+                        console.log(error);
+                        res.json({yo: 'error'});
+                    } else {
+                        console.log('Message sent: ' + info.response);
+                        req.flash('success_msg', 'Betalingspåmindelse sendt!');
+                        res.redirect('/admins/mails');
+                        //res.json({yo: info.response});
+                    }
+                });
+            }
+
+        } else if (req.body.modtager === 'ALL USERS') {
+            for (i = 0; i < allUsers.length; i++) {
+                (function (i) {
+                    setTimeout(function () {
+                        //console.log("Sending email to: "+allUsers[i] + " with a 3 second delay...");
+                        mailOptions.to = allUsers[i];
+                        transporter.sendMail(mailOptions, function (error, info) {
+                            if (error) {
+                                console.log(error);
+                                res.json({yo: 'error'});
+                            } else {
+                                //console.log('Message sent: ' + info.response);
+                                req.flash('success_msg', 'Email sendt til alle brugere!');
+                                res.redirect('/admins/mails');
+                            }
+                        })
+                    }, 3000 * i);
+                })(i);
+            }
+
+        } else {
+            transporter.sendMail(mailOptions, function (error, info) {
                 if (error) {
                     console.log(error);
                     res.json({yo: 'error'});
                 } else {
                     console.log('Message sent: ' + info.response);
-                    req.flash('success_msg', 'Betalingspåmindelse sendt!');
+                    req.flash('success_msg', 'Email sendt!');
                     res.redirect('/admins/mails');
                     //res.json({yo: info.response});
                 }
             });
         }
-
-    } else{
-        transporter.sendMail(mailOptions, function (error, info) {
-            if (error) {
-                console.log(error);
-                res.json({yo: 'error'});
-            } else {
-                console.log('Message sent: ' + info.response);
-                req.flash('success_msg', 'Email sendt!');
-                res.redirect('/admins/mails');
-                //res.json({yo: info.response});
-            }
-        });
     }
-
-
-    /*app.mailer.send('email', {
-     to: 'christianskjerning@gmail.com', // REQUIRED. This can be a comma delimited string just like a normal email to field.
-     subject: 'Test Email', // REQUIRED.
-     otherProperty: 'Other Property' // All additional properties are also passed to the template as local variables.
-     }, function (err) {
-     if (err) {
-     // handle error
-     console.log(err);
-     res.send('There was an error sending the email');
-     return;
-     }
-     res.send('Email Sent');
-     });*/
-});
+);
 
 
 // reset event
@@ -436,14 +445,14 @@ thisEvent.put(ensureAdminAuthenticated, function (req, res) {
     Tournament.collection.drop();
 
     // reset all users to "hasPaid = false"
-    User.update({ hasPaid: true }, {hasPaid: false}, {multi: true}, function(){
+    User.update({hasPaid: true}, {hasPaid: false}, {multi: true}, function () {
         console.log("hasPaid set to false for all users");
     });
 
     // delete images
     let tournamnetDir = 'public/uploads/image/tournaments';
     rimraf(tournamnetDir, function () {
-        if (!fs.existsSync(tournamnetDir)){  // TODO: skal ændres, så race condition undgåes
+        if (!fs.existsSync(tournamnetDir)) {  // TODO: skal ændres, så race condition undgåes
             fs.mkdirSync(tournamnetDir);
         }
     });
@@ -452,7 +461,7 @@ thisEvent.put(ensureAdminAuthenticated, function (req, res) {
     res.status(200).redirect('/admins/events');
 });
 
-router.post('/events', ensureAdminAuthenticated, function(req, res){
+router.post('/events', ensureAdminAuthenticated, function (req, res) {
     const location = req.body.event_location;
     const description = req.body.event_description;
     const eventTime = req.body.event_date;

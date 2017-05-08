@@ -24,45 +24,32 @@ function getUsersData() {
  * - inserts each users' data into the table cells.
  */
 $.when(getUsersData().done(function () {
-    $("#data_insert").empty().append("<option>ALL UNPAID</option>");
+    $("#data_insert").empty().append("<option>ALL UNPAID</option>").append("<option>ALL USERS</option>");
     for (i = 0; i < usersData.length; i++) {
         $('#data_insert').append("<option>"+usersData[i].email + "</option>");
 
     }
-
-
-
-    /**
-     * Enables and disables user manipulation buttons when 0-* are selected
-     * deleteUserID.push selects the checkbox that was clicked, traverses up to closest <tr> element,
-     * and then finds the 3rd <option> element's text value (user ID)
-     */
-    /*$(function () {
-        $('.user_checkbox').click(function () {
-            if ($(this).is(':checked')) {
-                $(':button').prop('disabled', false);
-                deleteUserId.push(usersData[$(this).closest('tr').find('option:eq(2)').text()]);
-                selected.push($(this).closest('tr').find('option:eq(2)').text());
-            } else {
-                $(':button').prop('disabled', true);
-            }
-        })
-    });*/
-    //console.log(usersData);
-    var unPaid = [];
     for (i=0;i<usersData.length; i++){
-        if(usersData[i].hasPaid == false){
-            $('#unpaid_emails').append('<input type="text" name="emails" id="emails'+i+'" class="form-control hidden">');
-           // $("#emails").val(usersData[i].email);
-            unPaid.push(usersData[i].email);
-            //$("#emails").append(usersData[i].email);
+        $('#all_users').append('<input type="text" name="all_user_emails" id="all_user_emails'+i+'" class="form-control hidden">');
+        $("#all_user_emails"+i).val(usersData[i].email);
+    }
 
-            $("#emails"+i).val(usersData[i].email);
+    var unPaid = [];
+    for (i = 0; i < usersData.length; i++) {
+        if (usersData[i].hasPaid == false) {
+            $('#unpaid_emails').append('<input type="text" name="emails" id="emails' + i + '" class="form-control hidden">');
+            unPaid.push(usersData[i].email);
+            $("#emails" + i).val(usersData[i].email);
         }
     }
-    //$('#unpaid_hidden').append(unPaid.toString());
-
     console.log(unPaid);
 }));
 
+/*
+$('#reminder').click(function () {
 
+});
+
+$('#send_to_all').click(function () {
+
+});*/
