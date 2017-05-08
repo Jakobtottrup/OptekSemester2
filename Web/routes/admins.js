@@ -426,7 +426,7 @@ mailRoute.post(function (req, res, next) {
      res.send('Email Sent');
      });*/
 });
-/*
+
 
 // reset event
 thisEvent.put(ensureAdminAuthenticated, function (req, res) {
@@ -453,25 +453,8 @@ thisEvent.put(ensureAdminAuthenticated, function (req, res) {
     req.flash('success_msg', 'Alt er nu slettet');
     res.status(200).redirect('/admins/events');
 });
-*/
 
 router.post('/events', ensureAdminAuthenticated, function(req, res){
-    // reset all users to "hasPaid = false"
-    User.update({ hasPaid: true }, {hasPaid: false}, {multi: true});
-
-    // delete all tournaments
-    Tournament.collection.drop();
-    let tournamnetDir = 'public/uploads/image/tournaments';
-    rimraf(tournamnetDir, function () {
-        if (!fs.existsSync(tournamnetDir)){  // TODO: skal ændres, så race condition undgåes
-            fs.mkdirSync(tournamnetDir);
-        }
-    });
-
-    // delete all seating groups
-    Group.collection.drop();
-    Event.collection.drop();
-
 
     const location = req.body.event_location;
     const description = req.body.event_description;
