@@ -1,15 +1,25 @@
 <style>
-    button {
-        background-color: red;
-        color: white;
+    .btn-danger {
+        margin-top: 20px;
+        margin-left: 35%;
+        margin-bottom: 20px;
+    }
+   .btn-success{
+       /*margin-top: 10px;*/
+       margin-bottom: 10px;
+       margin-left: 40%;
+   }
+    p{
+        text-align: center;
+        font-style: italic;
     }
 </style>
 
-<button type="button" class="btn btn-lg" id="reset_event" onclick="resetEvent()">Slet eksisterende LAN</button>
+<button type="button" class="btn btn-lg btn-danger" id="reset_event" onclick="resetEvent()">Slet eksisterende LAN</button>
 <p> GIV AGT! Denne knap sletter alle turneringer og siddegrupper</p>
 
 
-<form method="POST" action="/admins/events">
+<form method="POST" action="/admins/events" id="event-form">
     <div class="well">
         <h3>Starttid for næste event</h3>
         <input type="datetime-local" class="form-control" name="event_date" required>
@@ -27,6 +37,7 @@
         <input type="number" min="0" step="1" name="max_guests" required>
     </div>
     <input type="submit" id="nuke_event" value="Opret nyt lan" name="submit" class="btn btn-success">
+    <p>Det er kun muligt at oprette et nyt lan efter at have slettet det gamle.</p>
 </form>
 
 <script src="/js/event/event_nuke.js"></script>
