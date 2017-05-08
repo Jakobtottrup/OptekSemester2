@@ -4,15 +4,22 @@
         color: white;
     }
 </style>
-<h1>Dette event</h1>
 
-<h2>COUNTDOWN TIMER</h2>
+<form method="POST" action="/admins/events">
+    <h3>Countdown timer</h3>
+    <input type="datetime-local" class="form-control" name="event_date" required>
 
-<h2>PLACERING AF EVENT</h2>
+    <h3>Lokation af event</h3>
+    <textarea type="text"  name="event_location" style="min-width: 100%"></textarea>
 
-<h2>BESKRIVELSE AF EVENT</h2>
-
-<h2>ÅBEN/LUK LAN</h2>
+    <h3>Beskrivelse af eventet</h3>
+    <textarea type="text"  name="event_description" style="min-width: 100%"></textarea>
+    <h3>Pris</h3>
+    <input type="number"  name="price" required>
+    <h3>Max gæster</h3>
+    <input type="number"  name="max_guests" required>
+    <input type="submit" value="submit" name="submit" class="btn btn-primary">
+</form>
 
 <button type="button" class="btn btn-lg" id="reset_event" onclick="resetEvent()">Nuke event</button>
 <p> GIV AGT! Denne knap sletter alle turneringer og siddegrupper</p>

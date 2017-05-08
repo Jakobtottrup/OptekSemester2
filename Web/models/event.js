@@ -1,42 +1,27 @@
 /**
  * Created by seb on 18-04-2017.
  */
-var mongoose = require('mongoose');
+let mongoose = require('mongoose');
 mongoose.Promise = require('bluebird');
 
 
 // Seat Schema for creating seats
-var EventSchema = mongoose.Schema({
-    name: {
+let EventSchema = mongoose.Schema({
+    eventTime: {
+        type: Date
+    },
+    description: {
         type: String
-    },
-    beginTime: {
-        type: Date
-    },
-    endTime: {
-        type: Date
-    },
-    place: {
-        description: {
-            type: String
-        },
-        coordinates: {
-            type: String
-        }
     },
     price: {
         type: Number
     },
-    isOpen: {
-        type: Boolean
-    },
-    isActive: {
-        type: Boolean
-    },
-    maxUsers: {
+    maxGuests: {
         type: Number
+    },
+    location: {
+        type: String
     }
-
 });
 
-var Event = module.exports = mongoose.model('Event', EventSchema);
+let Event = module.exports = mongoose.model('Event', EventSchema);

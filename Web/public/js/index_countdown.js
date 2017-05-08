@@ -1,32 +1,40 @@
-var target_date = new Date().getTime() + (1000*3600*48); // set the countdown date
-var days, hours, minutes, seconds; // variables for time units
 
-var countdown = document.getElementById("tiles"); // get tag element
 
-getCountdown();
+$.when(getEventData()).done(function() {
+    console.log(EventData[0].eventTime);
 
-setInterval(function () { getCountdown(); }, 1000);
+// let target_date = new Date().getTime() + (1000*3600*48); // set the countdown date
+    let target_date = new Date(EventData[0].eventTime).getTime(); // set the countdown date
+    let days, hours, minutes, seconds; // variables for time units
 
-function getCountdown(){
+    let countdown = document.getElementById("tiles"); // get tag element
 
-    // find the amount of "seconds" between now and target
-    var current_date = new Date().getTime();
-    var seconds_left = (target_date - current_date) / 1000;
+    getCountdown();
 
-    days = pad( parseInt(seconds_left / 86400) );
-    seconds_left = seconds_left % 86400;
+    setInterval(function () { getCountdown(); }, 1000);
 
-    hours = pad( parseInt(seconds_left / 3600) );
-    seconds_left = seconds_left % 3600;
+    function getCountdown(){
 
-    minutes = pad( parseInt(seconds_left / 60) );
-    seconds = pad( parseInt( seconds_left % 60 ) );
+        // find the amount of "seconds" between now and target
+        let current_date = new Date().getTime();
+        let seconds_left = (target_date - current_date) / 1000;
 
-    // format countdown string + set tag value
-    countdown.innerHTML = "<span>" + days + "</span><span>" + hours + "</span><span>" + minutes + "</span><span>" + seconds + "</span>";
-}
+        days = pad( parseInt(seconds_left / 86400) );
+        seconds_left = seconds_left % 86400;
 
-function pad(n) {
-    return (n < 10 ? '0' : '') + n;
-}
+        hours = pad( parseInt(seconds_left / 3600) );
+        seconds_left = seconds_left % 3600;
+
+        minutes = pad( parseInt(seconds_left / 60) );
+        seconds = pad( parseInt( seconds_left % 60 ) );
+
+        // format countdown string + set tag value
+        countdown.innerHTML = "<span>" + days + "</span><span>" + hours + "</span><span>" + minutes + "</span><span>" + seconds + "</span>";
+    }
+
+    function pad(n) {
+        return (n < 10 ? '0' : '') + n;
+    }
+});
+
 

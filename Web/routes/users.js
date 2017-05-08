@@ -97,9 +97,9 @@ router.post('/seatgroups', ensureAuthenticated, function(req, res){
 
 
 groupRoute.put(ensureAuthenticated, function (req, res) {
-    console.log(req.params._id);
-    console.log(req.params.task);
-    console.log(req.params.pass);
+    console.log("ID: "+req.params._id);
+    console.log("Task: "+req.params.task);
+    console.log("Pass: "+req.params.pass);
 
     switch (req.params.task) {
         // add user to group
@@ -107,27 +107,24 @@ groupRoute.put(ensureAuthenticated, function (req, res) {
             if (err) {
                 res.send(err);
             } else {
-
-               /* Group.comparePassword(req.params.pass, group.password, function (err, isMatch) {
+                Group.comparePassword(req.params.pass, group.password, function (err, isMatch) {
                     if (err) throw err;
                     if (isMatch) {
                         console.log("password match");
+                        // push user ID in to members array
+                        group.members.push(req.user.id);
+                        // save changes to database
+                        group.save(function (err) {
+                            if (err) {
+                                res.send(err);
+                            }
+                        });
+                        req.flash('success_msg', 'Du er nu med i gruppen');
+                        res.status(200).render('user-backend/seatgroups');
                     } else {
-                        return done(null, false, {message: 'Ukendt kodeord'});
-                    }
-                });*/
-
-
-                // push user ID in to members array
-                group.members.push(req.user.id);
-                // save changes to database
-                group.save(function (err) {
-                    if (err) {
-                        res.send(err);
+                       console.log("no match")
                     }
                 });
-                req.flash('success_msg', 'Du er nu med i gruppen');
-                res.status(200).render('user-backend/seatgroups');
             }
         }); break;
 

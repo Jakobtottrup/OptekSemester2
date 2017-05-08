@@ -21,6 +21,7 @@ const seats = require('../models/seats');
 const User = require('../models/user');
 const Tournament = require('../models/tournaments');
 const Group = require('../models/seatingGroups');
+const Event = require('../models/event');
 const router = express.Router();
 const userRoute = router.route('/users/:_id/:adminClicked/:paymentClicked');
 const delRoute = router.route('/users/:_id');
@@ -91,12 +92,12 @@ router.get('/mails', ensureAdminAuthenticated, function (req, res) {
 });
 
 router.post('/create_seats', ensureAdminAuthenticated, function (req, res) {
-    var seatName = req.body.seatName;
+    let seatName = req.body.seatName;
 
     // VALIDATION
     req.checkBody('seatName', 'Pladsnavn er nødvendigt').notEmpty();
 
-    var errors = req.validationErrors();
+    let errors = req.validationErrors();
     if (errors) { // if validation fails
         res.render('frontend/index', {
             errors: errors
@@ -104,7 +105,7 @@ router.post('/create_seats', ensureAdminAuthenticated, function (req, res) {
         console.log(errors);
     } else { //if validation succeeds server sends data to database using modelschema "users.js"
 
-        var newSeat = new seats({
+        let newSeat = new seats({
             container: seatName
         });
 
@@ -145,7 +146,7 @@ router.get('/mails', ensureAdminAuthenticated, function (req, res) {
 });
 
 //Upload files
-var uploads = multer({ dest: 'public/uploads/image/gallery'});
+let uploads = multer({ dest: 'public/uploads/image/gallery'});
 router.post('/gallery',ensureAdminAuthenticated, uploads.single('upl'),function(req, res, next){
     console.log(req.body); // her
     console.log(req.file);
@@ -214,11 +215,11 @@ router.post('/tournaments', tourUploads, ensureAdminAuthenticated, function (req
     const maxTeamSize = req.body.team_maxsize;
     const minTeamSize = req.body.team_minsize;
 
-    var isVisibel = req.body.visibility;
+    let isVisibel = req.body.visibility;
     if (typeof isVisibel === "undefined" || isVisibel !== true) {
-        var isVisibel = false;
+        let isVisibel = false;
     } else {
-        var isVisibel = true;
+        let isVisibel = true;
     }
 
     // define path for cover image
@@ -226,7 +227,7 @@ router.post('/tournaments', tourUploads, ensureAdminAuthenticated, function (req
     const coverImage = coverImagePath.substring(6, Infinity);
 
     // spilt array and put values into object, then push objects into array
-    var prizes = [];
+    let prizes = [];
     if (typeof req.body.prize_name !== "undefined") {
         const prize_name = req.body.prize_name;
         const prize_info = req.body.prize_info;
@@ -235,13 +236,13 @@ router.post('/tournaments', tourUploads, ensureAdminAuthenticated, function (req
 
         // prize_name will appear as a sting, if only one prize is posted
         if (typeof prize_name === "string") {
-            var p_index = 0;
-            var p_name = prize_name;
-            var p_description = prize_info;
+            let p_index = 0;
+            let p_name = prize_name;
+            let p_description = prize_info;
             console.log("1 "+prize_image[0]);
-            var p_imagePath = prize_image[0].destination + "/" + prize_image[0].filename;
+            let p_imagePath = prize_image[0].destination + "/" + prize_image[0].filename;
             console.log("2 "+p_imagePath);
-            var p_image = p_imagePath.substring(6, Infinity);
+            let p_image = p_imagePath.substring(6, Infinity);
             console.log("file "+p_image);
             prizes.push({p_index, p_name, p_description, p_image});
 
@@ -249,11 +250,11 @@ router.post('/tournaments', tourUploads, ensureAdminAuthenticated, function (req
         } else {
             if (prize_name.length === prize_info.length /*=== req.body.prize_image.length*/) {
                 for (i = 0; i < prize_name.length; i++) {
-                    var p_index = i;
-                    var p_name = prize_name[i];
-                    var p_description = prize_info[i];
-                    var p_imagePath = prize_image[i].destination + "/" + prize_image[i].filename;
-                    var p_image = p_imagePath.substring(6, Infinity);
+                    let p_index = i;
+                    let p_name = prize_name[i];
+                    let p_description = prize_info[i];
+                    let p_imagePath = prize_image[i].destination + "/" + prize_image[i].filename;
+                    let p_image = p_imagePath.substring(6, Infinity);
                     prizes.push({p_index, p_name, p_description, p_image});
                 }
             } else {
@@ -272,12 +273,12 @@ router.post('/tournaments', tourUploads, ensureAdminAuthenticated, function (req
     // req.checkBody('minTeamSize', 'Holdbegrænsning er nødvendigt').notEmpty();
     // req.checkBody('maxTeamSize', 'Maximum kan ikke være mindre end minimum').notEmpty(); //TODO: Skal samlignes med minTeamSize, for at undgå negativt tal
 
-    var errors = req.validationErrors();
+    let errors = req.validationErrors();
 
     if (errors) {
         res.render('admin-backend/tournaments', {errors: errors});
     } else {
-        var newTournament = new Tournament({
+        let newTournament = new Tournament({
             name: name,
             description: description,
             openingDate: openingDate,
@@ -304,11 +305,11 @@ router.post('/tournaments', tourUploads, ensureAdminAuthenticated, function (req
 
 tourRoute.delete(ensureAdminAuthenticated, function (req, res) {
    Tournament.findOne({_id: req.params._id}, function (err, tournament) {
-        var tourImages = []; // create empty array for storing files
-        var dirPath = "./public/uploads/image/tournaments/"; // directory where files are stored
+        let tourImages = []; // create empty array for storing files
+        let dirPath = "./public/uploads/image/tournaments/"; // directory where files are stored
 
-        var imagePath = tournament.coverImage;
-        var imageFile = imagePath.substring(imagePath.lastIndexOf("/")+1, Infinity);
+        let imagePath = tournament.coverImage;
+        let imageFile = imagePath.substring(imagePath.lastIndexOf("/")+1, Infinity);
         tourImages.push(imageFile);
 
         for (i=0; i<tournament.prizes.length;i++){
@@ -319,8 +320,8 @@ tourRoute.delete(ensureAdminAuthenticated, function (req, res) {
 
         // delete files
         for (i=0; i<tourImages.length; i++){
-            var delFile = dirPath+tourImages[i];
-            for (var i = 0; i < tourImages.length; i++) {
+            let delFile = dirPath+tourImages[i];
+            for (let i = 0; i < tourImages.length; i++) {
                 (function (delFile) {
                     fs.exists(delFile, function (exists) {
                         if (exists) {
@@ -346,14 +347,14 @@ tourRoute.delete(ensureAdminAuthenticated, function (req, res) {
 
 
 mailRoute.post(function (req, res, next) {
-    var modtager = req.body.modtager;
-    var emne = req.body.emne;
-    var txt = req.body.text;
+    let modtager = req.body.modtager;
+    let emne = req.body.emne;
+    let txt = req.body.text;
     var noPayment = req.body.emails;
-    console.log(noPayment.length);
+    // console.log(noPayment.length);
    // console.log(req.body.emails);
 
-    var transporter = nodemailer.createTransport({
+    let transporter = nodemailer.createTransport({
         service: 'Gmail',
         auth: {
             user: 'sdulan.optek@gmail.com', // Your email id
@@ -371,7 +372,7 @@ mailRoute.post(function (req, res, next) {
         'Hvis du mener du allerede har betalt, bedes du venligst kontakte en administrator på email: sdulan.optek@gmail.com'
     };
 
-    var mailOptions = {
+    let mailOptions = {
         from: 'sdulan.optek@gmail.com', // sender address
         to: modtager, // list of receivers
         subject: emne, // Subject line
@@ -425,6 +426,7 @@ mailRoute.post(function (req, res, next) {
      res.send('Email Sent');
      });*/
 });
+/*
 
 // reset event
 thisEvent.put(ensureAdminAuthenticated, function (req, res) {
@@ -433,7 +435,7 @@ thisEvent.put(ensureAdminAuthenticated, function (req, res) {
 
     // delete all tournaments
     Tournament.collection.drop();
-    var tournamnetDir = 'public/uploads/image/tournaments';
+    let tournamnetDir = 'public/uploads/image/tournaments';
     rimraf(tournamnetDir, function () {
         if (!fs.existsSync(tournamnetDir)){  // TODO: skal ændres, så race condition undgåes
             fs.mkdirSync(tournamnetDir);
@@ -443,13 +445,54 @@ thisEvent.put(ensureAdminAuthenticated, function (req, res) {
 
     // delete all seating groups
     Group.collection.drop();
+    Event.collection.drop();
 
     // set countdown timer
 
 
     req.flash('success_msg', 'Alt er nu slettet');
-    res.status(204).redirect('/admins/events');
+    res.status(200).redirect('/admins/events');
 });
+*/
 
+router.post('/events', ensureAdminAuthenticated, function(req, res){
+    // reset all users to "hasPaid = false"
+    User.update({ hasPaid: true }, {hasPaid: false}, {multi: true});
+
+    // delete all tournaments
+    Tournament.collection.drop();
+    let tournamnetDir = 'public/uploads/image/tournaments';
+    rimraf(tournamnetDir, function () {
+        if (!fs.existsSync(tournamnetDir)){  // TODO: skal ændres, så race condition undgåes
+            fs.mkdirSync(tournamnetDir);
+        }
+    });
+
+    // delete all seating groups
+    Group.collection.drop();
+    Event.collection.drop();
+
+
+    const location = req.body.event_location;
+    const description = req.body.event_description;
+    const eventTime = req.body.event_date;
+    const price = req.body.price;
+    const maxGuests = req.body.max_guests;
+
+    let newEvent = new Event({
+        description: description,
+        eventTime: eventTime,
+        price: price,
+        maxGuests: maxGuests,
+        location: location
+    });
+
+    newEvent.save(function (err) {
+        if (err) throw err;
+        req.flash('success_msg', 'Eventet er nu oprettet');
+        res.status(204).end();
+        res.redirect('/admins/events');
+    });
+});
 
 module.exports = router;
