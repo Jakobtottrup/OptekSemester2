@@ -220,25 +220,25 @@ router.post('/signup', function (req, res) {
 
                 });
 
-               /* var transporter = nodemailer.createTransport({
-                    service: 'Gmail',
-                    auth: {
-                        user: 'sdulan.optek@gmail.com',
-                        pass: 'OpTek2016'
-                    }
-                });
-                var mailOptions = {
-                    to: user.email,
-                    from: 'sdulan.optek@gmail.com',
-                    subject: 'S7-Lan Konto Oprettet!',
-                    text: 'Hej,\n\n' +
-                    'Dette er en bekræftelsesmail for at konto med brugernavn: ' + user.username + ' netop er blevet oprettet i vores system.\n'
-                };
-                transporter.sendMail(mailOptions, function (err) {
-                    req.flash('success_msg', 'You are registered!');
-                    res.redirect('/login');
-                    done(err);
-                });*/
+                /* var transporter = nodemailer.createTransport({
+                 service: 'Gmail',
+                 auth: {
+                 user: 'sdulan.optek@gmail.com',
+                 pass: 'OpTek2016'
+                 }
+                 });
+                 var mailOptions = {
+                 to: user.email,
+                 from: 'sdulan.optek@gmail.com',
+                 subject: 'S7-Lan Konto Oprettet!',
+                 text: 'Hej,\n\n' +
+                 'Dette er en bekræftelsesmail for at konto med brugernavn: ' + user.username + ' netop er blevet oprettet i vores system.\n'
+                 };
+                 transporter.sendMail(mailOptions, function (err) {
+                 req.flash('success_msg', 'You are registered!');
+                 res.redirect('/login');
+                 done(err);
+                 });*/
             }
         });
 
@@ -305,6 +305,7 @@ router.get('/dashboard', ensureAuthenticated, function (req, res) {
         //console.log("User entered his dashboard");
         res.render('user-backend/usersDashboard', {title: "Dashboard"});
     } else {
+
         res.redirect('/login', {title: "Login"});
     }
 });
@@ -341,15 +342,36 @@ passport.deserializeUser(function (id, done) {
     });
 });
 
+router.post('/login', function(req, res, next) {
+    passport.authenticate('local', function(err, user, info) {
+        if (err) { return next(err) }
+        if (!user) {
+            // *** Display message using Express 3 locals
+            req.flash('error_msg', 'Ugyldige login detaljer - Husk forskel på store og små bogstaver');
+            return res.redirect('/login');
+        }
+        req.logIn(user, function(err) {
+            if (err) { return next(err); }
+            return res.redirect('/dashboard/');
+        });
+    })(req, res, next);
+});
+
 
 // GET DATA FROM LOGIN PAGE
-router.post('/login',
-    passport.authenticate('local', {failureFlash: 'Ugyldig kode eller brugernavn!',successRedirect: '/dashboard', failureRedirect: '/login'}),
+/*router.post('/login', passport.authenticate('local', {successRedirect: '/dashboard', failureRedirect: '/login', failureFlash: true}),
 
     function (req, res) {
+    if(req.isAuthenticated()){
         console.log("LOGGED IN!");
         res.redirect('/dashboard');
-    });
+    } else{
+        req.flash('error_msg', 'Ugyldig login detaljer');
+        res.redirect('/login');
+    }
+
+
+    });*/
 
 // ENSURE USER IS LOGGED IN
 function ensureAuthenticated(req, res, next) {
