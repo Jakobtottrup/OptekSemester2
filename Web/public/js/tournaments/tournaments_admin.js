@@ -27,7 +27,7 @@ function getUsersData(){
 
 // list tournaments
 $.when(document, getTournamentsData(), getUsersData()).done(function(){
-    var output = "";
+    let output = "";
     $.each(tournamentsData, function(key, data){
         output += "<tr class='data_row "+data.isVisibel+" "+data.isOpen+"' id='"+data._id+"'>";
         output += "<td class='hidden-xs hidden-sm hidden-md'>" + (key+1) + "</td>";
@@ -56,7 +56,7 @@ function convertMember(data){
 // stack prices
 function prizes(data){
     if (data.length > 0) {
-        var output = "";
+        let output = "";
         $.each(data, function (key, data) {
             output += "<b>#" + (data.p_index + 1) + ": </b>";
             output += "" + data.p_name + "";
@@ -70,8 +70,8 @@ function prizes(data){
 
 // show tournaments description
 function showTourDescription(source){
-    var tour_id = $(source).closest("tr").prop("id");   // get ID of table row
-    var tour = $.grep(tournamentsData, function(tour){  // search for id property in objects
+    let tour_id = $(source).closest("tr").prop("id");   // get ID of table row
+    let tour = $.grep(tournamentsData, function(tour){  // search for id property in objects
         return tour._id === tour_id;    // and return array index for found object
     });
 
@@ -84,15 +84,15 @@ function showTourDescription(source){
     }
 }
 // preview image on upload
-var loadFile = function(source) {
-    var output = $(source).closest("td").prop("id");
-    var id = output.substring(5,Infinity);
-    var result = document.getElementById("image"+id);
+let loadFile = function(source) {
+    let output = $(source).closest("td").prop("id");
+    let id = output.substring(5,Infinity);
+    let result = document.getElementById("image"+id);
     result.src = URL.createObjectURL(event.target.files[0]);
 };
 
 // prize control for new tournaments
-var totalPrizes = 0;
+let totalPrizes = 0;
 function addPrize(){
     // if ($('input[id^=prize]').length < 7) {
     if (totalPrizes < 7) {
@@ -120,8 +120,8 @@ function removePrize(){
 
 // append members in tournaments into bootstrap modal
 function showMembers(source){
-    var tour_id = $(source).closest("tr").prop("id");
-    var tour = $.grep(tournamentsData, function(tour){
+    let tour_id = $(source).closest("tr").prop("id");
+    let tour = $.grep(tournamentsData, function(tour){
         return tour._id === tour_id;
     });
     $("#show-data-body").empty();
@@ -132,7 +132,7 @@ function showMembers(source){
             $("#show-data-body").append("<b>" + data.t_name + "</b>").append("<br>");
 
             for (i = 0; i < data.members.length; i++) {
-                var user = $.grep(usersData, function (usersData) {
+                let user = $.grep(usersData, function (usersData) {
                     return usersData._id === data.members[i];
                 });
                 $("#show-data-body").append(user[0].username + " - " + user[0].email).append("<br>");
@@ -148,8 +148,8 @@ function showMembers(source){
 
 // append image into bootstrap modal
 function showPic(source){
-    var tour_id = $(source).closest("tr").prop("id");   // get ID of table row
-    var tour = $.grep(tournamentsData, function(tour){  // search for id property in objects
+    let tour_id = $(source).closest("tr").prop("id");   // get ID of table row
+    let tour = $.grep(tournamentsData, function(tour){  // search for id property in objects
         return tour._id === tour_id;    // and return array index for found object
     });
 
@@ -172,12 +172,12 @@ function convertTime(time){
         }
     } else if (typeof time !== "number") {
         // console.log(time);
-        var month = new Date(time).getDate()+1;
-        var day = new Date(time).getDay()+1;
-        var hour = new Date(time).getHours();
-        var min = new Date(time).getMinutes();
+        let month = new Date(time).getDate()+1;
+        let day = new Date(time).getDay()+1;
+        let hour = new Date(time).getHours();
+        let min = new Date(time).getMinutes();
         time = month +"/"+ day +" - "+ hour +":"+ min;
-        // var time = new Date(time);
+        // let time = new Date(time);
         // time.toString();
         return time;
     }
@@ -188,7 +188,7 @@ function convertTime(time){
 // ============== EDITING TOURNAMENTS ============== //
 // edit tournaments
 function editTournament(source){
-    var tour_id = $(source).closest("tr").prop("id");
+    let tour_id = $(source).closest("tr").prop("id");
     console.log("Edit call on "+tour_id);
     console.log("AJAX call disabled to avoid trolling..."); // TODO:
     /*
@@ -201,8 +201,8 @@ function editTournament(source){
 
 // delete tournaments
 function deleteTournamnet (source) {
-    var tour_id = $(source).closest("tr").prop("id");
-    var delTour = confirm("Vil du slette denne turnering?");
+    let tour_id = $(source).closest("tr").prop("id");
+    let delTour = confirm("Vil du slette denne turnering?");
     if(delTour === true) {
         $.ajax({
             type: 'DELETE',
@@ -216,7 +216,7 @@ function deleteTournamnet (source) {
 // filter tournaments
 function sortTournaments() {
     // Declare variables
-    var input, filter, table, tr, td, i;
+    let input, filter, table, tr, td, i;
     input = document.getElementById("search-field");
     filter = input.value.toUpperCase();
     table = document.getElementById("tournament-table");
@@ -239,7 +239,7 @@ function sortTournaments() {
 $(function() {
     // We can attach the `fileselect` event to all file inputs on the page
     $(document).on('change', ':file', function() {
-        var input = $(this),
+        let input = $(this),
             numFiles = input.get(0).files ? input.get(0).files.length : 1,
             label = input.val().replace(/\\/g, '/').replace(/.*\//, '');
         input.trigger('fileselect', [numFiles, label]);
@@ -249,7 +249,7 @@ $(function() {
     $(document).ready( function() {
         $(':file').on('fileselect', function(event, numFiles, label) {
 
-            var input = $(this).parents('.input-group').find(':text'),
+            let input = $(this).parents('.input-group').find(':text'),
                 log = numFiles > 1 ? numFiles + ' files selected' : label;
 
             if( input.length ) {

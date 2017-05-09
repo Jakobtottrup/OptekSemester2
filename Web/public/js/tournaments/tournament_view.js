@@ -20,7 +20,7 @@ $.when(getTourData()).done(function() {
 
 function createTours() {
     for (i = 0; i < tour.length; i++) {
-        var output = "";
+        let output = "";
         output += "<div class='tour-div'>";
         output += "<div class='tour-title'><h2>" + tour[i].name + "</h2></div>";
         output += "<div class='tour-cover'><img src='" + tour[i].coverImage + "'></div>";
@@ -28,7 +28,7 @@ function createTours() {
         if (tour[i].prizes.length > 0) {
             output += "<div class='tour-price-list'>";
             output += "<table><tr>";
-            for (var j = 0; j < tour[i].prizes.length; j++) {
+            for (let j = 0; j < tour[i].prizes.length; j++) {
                 output += "<td>";
                 output += "<div class='tour-price'>";
                 output += "<p>" + (j+1) + ". Plads</p>";

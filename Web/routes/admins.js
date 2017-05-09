@@ -232,9 +232,9 @@ router.post('/tournaments', tourUploads, ensureAdminAuthenticated, function (req
 
     let isVisibel = req.body.visibility;
     if (typeof isVisibel === "undefined" || isVisibel !== true) {
-        let isVisibel = false;
+        isVisibel = false;
     } else {
-        let isVisibel = true;
+        isVisibel = true;
     }
 
     // define path for cover image
@@ -254,11 +254,8 @@ router.post('/tournaments', tourUploads, ensureAdminAuthenticated, function (req
             let p_index = 0;
             let p_name = prize_name;
             let p_description = prize_info;
-            console.log("1 " + prize_image[0]);
             let p_imagePath = prize_image[0].destination + "/" + prize_image[0].filename;
-            console.log("2 " + p_imagePath);
             let p_image = p_imagePath.substring(6, Infinity);
-            console.log("file " + p_image);
             prizes.push({p_index, p_name, p_description, p_image});
 
             // if prize_name is an array
@@ -280,7 +277,7 @@ router.post('/tournaments', tourUploads, ensureAdminAuthenticated, function (req
     }
 
     // validation
-    //req.checkBody('imagePath', 'Cover billede mangler').notEmpty();
+    // req.checkBody('imagePath', 'Cover billede mangler').notEmpty();
     // req.checkBody('name', 'Name required').notEmpty();
     // req.checkBody('openingDate', 'Åbningsdato for tilmelding er nødvendig').notEmpty();
     // req.checkBody('closigDate', 'Lukkedato for tilmelding er nødvendig').notEmpty();
@@ -311,7 +308,7 @@ router.post('/tournaments', tourUploads, ensureAdminAuthenticated, function (req
         newTournament.save(function (err) {
             if (err) throw err;
             req.flash('success_msg', 'Turneringen er nu oprettet');
-            res.status(204).end();
+            res.status(200).end();
             res.redirect('/admins/tournaments');
         });
     }

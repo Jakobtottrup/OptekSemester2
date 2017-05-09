@@ -42,6 +42,7 @@
                         <b>Indtast navn for turneringen</b><br><br>
                         <input type="text" class="form-control" maxlength="250" id="input_name" placeholder="Navn" name="tour_name" required>
                         <br>
+                        <p>Tilføj coverbillede til turneringen - størrelsesforhold skal være 16:4</p>
                         <div class="input-group">
                             <label class="input-group-btn">
                                 <span class="btn btn-primary">Browse&hellip; <input name="tour_image" type="file" accept="image/*" style="display: none;" required></span>
@@ -51,7 +52,7 @@
                     </div>
                     <div class="well">
                         <b>Giv en beskrivelse af turneringen</b><br><br>
-                        <input type="text" class="form-control" maxlength="1000" id="input_name" placeholder="Beskrivelse" name="tour_info" required>
+                        <textarea type="text" class="form-control" maxlength="1000" id="input_name" placeholder="Beskrivelse" name="tour_info" style="max-width: 100%" required></textarea>
                     </div>
                 <div class="well">
                     <b>Tidspunkt for turneringen</b><br><br>
@@ -90,9 +91,10 @@
                     </table>
                 </div>
                     <div class="well">
-                        <b>Præmier</b><td><input class='btn btn-success' type='button' value='Tilføj præmie' onclick='addPrize()' style="float:right; margin-left: 10px":/></td>
+                        <b>Tilføj præmier</b><td><input class='btn btn-success' type='button' value='Tilføj præmie' onclick='addPrize()' style="float:right; margin-left: 10px":/></td>
                         <td><input class='btn btn-danger' type='button' value='Fjern præmie' onclick='removePrize()' style="float:right"/></td>
-                        <br><br>
+                        <p>Billeder bør være 1:1 i størrelsesforhold</p>
+                        <br>
                         <table class="table table-condensed">
                             <thead id="prize-head">
                             </thead>
