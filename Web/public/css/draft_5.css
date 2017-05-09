@@ -159,6 +159,9 @@ body {
      width: 40%;
  }
 
+ .page-header{
+     text-align: center;
+ }
 /** ********** **/
 /* Content page */
 /** ********** **/
@@ -167,7 +170,7 @@ body {
     /*max-width: 80%;*/
     margin: auto;
     margin-bottom: 120px;
-    padding: 20px;
+    /*padding: 0px;*/
     border-radius: 15px 15px 15px 15px;
     box-shadow: -1px 3px 1px rgba(0, 0, 0, 1);
 }

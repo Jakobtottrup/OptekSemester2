@@ -31,6 +31,14 @@
 </head>
 
 <body>
+<div id="fb-root"></div>
+<script>(function(d, s, id) {
+    var js, fjs = d.getElementsByTagName(s)[0];
+    if (d.getElementById(id)) return;
+    js = d.createElement(s); js.id = id;
+    js.src = "//connect.facebook.net/en_GB/sdk.js#xfbml=1&version=v2.9";
+    fjs.parentNode.insertBefore(js, fjs);
+}(document, 'script', 'facebook-jssdk'));</script>
 
 <div id="wrapper" class="container-fluid">
     <!--navigations bar -->
@@ -44,12 +52,13 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a class="navbar-brand" href="/">S7 LAN</a>
+                <a class="navbar-brand" href="/">S7LAN</a>
             </div>
 
             <!-- Collect the nav links, forms, and other content for toggling -->
             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                 <ul class="nav navbar-nav">
+                    <li><a href="https://www.facebook.com/S7LAN/"target="_blank">FACEBOOK</a></li>
                     <li><a href="/events">EVENTET</a></li>
                     <li><a href="/rules">REGLER</a></li>
                     <li><a href="/tournaments">TURNERINGER</a></li>
@@ -118,20 +127,30 @@
                 </div>
             </div>
             <div class="sponsor-bar col-md-2 hidden-xs hidden-sm">
+                <!--<div>-->
+                    <!--<a href="https://www.facebook.com/S7LAN/" target="_blank">-->
+                    <!--<img src="/img/images/fb-art.png" style="height: 50%; width: 50%; margin-left: 50px;>-->
+                    <!--&lt;!&ndash;</a>&ndash;&gt;-->
+                <!--</div>-->
                 <div>
-                    <img src="/img/images/s7logo.png">
-                </div>
-                <div>
+                    <a href="https://ida.dk/" target="_blank">
                     <img src="/img/sponsors/IDA-logo.png">
+                    </a>
                 </div>
                 <div>
+                    <a href="https://www.google.dk/url?sa=t&rct=j&q=&esrc=s&source=web&cd=1&cad=rja&uact=8&ved=0ahUKEwjkm5jBnuLTAhVDYZoKHTyKDJ0QFggnMAA&url=http%3A%2F%2Fdragonslair.eu%2F&usg=AFQjCNFly-f8bEkvt6rTXATXguT7tArnNg"target="_blank">
                     <img src="/img/sponsors/DragonsLair-logo.png">
+                    </a>
                 </div>
                 <div>
+                    <a href="https://www.prosa.dk/" target="_blank">
                     <img src="/img/sponsors/Prosa-logo.jpg">
+                    </a>
                 </div>
                 <div>
+                    <a href="http://www.sdu.dk/en/" target="_blank">
                     <img src="/img/sponsors/SDU-logo.png">
+                    </a>
                 </div>
 
             </div>
