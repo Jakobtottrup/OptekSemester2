@@ -10,7 +10,6 @@ function getEventData(){
     }).done(function(data){
         EventData = data;
         drawEventInfo();
-        console.log(EventData);
     });
 }
 

@@ -30,15 +30,15 @@ $.when(document, getTournamentsData(), getUsersData()).done(function(){
     var output = "";
     $.each(tournamentsData, function(key, data){
         output += "<tr class='data_row "+data.isVisibel+" "+data.isOpen+"' id='"+data._id+"'>";
-        output += "<td>" + (key+1) + "</td>";
+        output += "<td class='hidden-xs hidden-sm hidden-md'>" + (key+1) + "</td>";
         output += "<td><b>" + data.name + "</b></td>";
         output += "<td><b>Åbner: </b>" + convertTime(data.openingDate) + "<br><b>Lukker: </b>" + convertTime(data.closingDate) + "<br><b>Start: </b>" + convertTime(data.startDate) + "<br><b>Varighed: </b>" + convertTime(data.tourDuration) + "</td>";
-        output += "<td><button class='btn btn-primary' onclick='showTourDescription(this)'>Se beskrivelse</button></td>";
-        output += "<td><button class='btn btn-primary' onclick='showPic(this)'>Se billede</button></td>";
-        output += "<td><b>Max hold: </b>"+ convertMember(data.maxTeams) +"<br><b>Pr. hold: </b>"+ convertMember(data.minTeamSize) + " - " + convertMember(data.maxTeamSize) +" deltagere</td><br>";
+        output += "<td class='hidden-xs hidden-sm hidden-md'><button class='btn btn-primary' onclick='showTourDescription(this)'>Se beskrivelse</button></td>";
+        output += "<td class='hidden-xs hidden-sm hidden-md'><button class='btn btn-primary' onclick='showPic(this)'>Se billede</button></td>";
+        output += "<td class='hidden-xs hidden-sm hidden-md'><b>Max hold: </b>"+ convertMember(data.maxTeams) +"<br><b>Pr. hold: </b>"+ convertMember(data.minTeamSize) + " - " + convertMember(data.maxTeamSize) +" deltagere</td><br>";
         output += "<td><button class='btn btn-primary' data-toggle='confirmation' onclick='showMembers(this)'>"+data.teams.length+" deltagende hold</button></td>";
         output += "<td>" + prizes(data.prizes) + "</td>";
-        output += "<td><button class='btn btn-primary' onclick='editTournament(this)' style='width:100px; margin:3px'>Redigér</button><br><button class='btn btn-danger' data-toggle='confirmation' onclick='deleteTournamnet(this)' style='width:100px; margin:3px'>Slet</button></td>";
+        output += "<td class='hidden-xs hidden-sm hidden-md'><button class='btn btn-primary' onclick='editTournament(this)' style='width:100px; margin:3px'>Redigér</button><br><button class='btn btn-danger' data-toggle='confirmation' onclick='deleteTournamnet(this)' style='width:100px; margin:3px'>Slet</button></td>";
         output += "</tr>";
     });
     output += "";

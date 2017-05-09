@@ -36,9 +36,9 @@ $.when(getGroupData(), getUsersData(), getUserData()).done(function(){
 
 // place control buttons
 function placeButtons(data) {
-    console.log(data.groupName);
-    console.log("isLeader: "+ isLeader(data));
-    console.log("inGroup: "+ inGroup(data));
+    // console.log(data.groupName);
+    // console.log("isLeader: "+ isLeader(data));
+    // console.log("inGroup: "+ inGroup(data));
     let output = "<td>";
 
     // if user is admin
