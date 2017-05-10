@@ -10,7 +10,7 @@ mongoose.Promise = require('bluebird');
 const Group = require('../models/seatingGroups');
 const Tournament = require('../models/tournaments');
 const groupRoute = router.route('/seatgroups/:_id/:task/:pass');
-const tourRoute = router.route('/tournaments/:_id/:task');
+const tourRoute = router.route('/tournaments/:_id/:task/:tn/:tp/:tp2');
 
 
 // THESE VIEWS ARE ONLY ALLOWED IF USER IS LOGGED IN //
@@ -25,7 +25,6 @@ function ensureAuthenticated(req, res, next){
     }
 }
 
-
 // USER INFO
 router.get('/userinfo', ensureAuthenticated, function(req, res){
     res.render('user-backend/userinfo', {title: "Bruger info"});
@@ -35,6 +34,11 @@ router.get('/userinfo', ensureAuthenticated, function(req, res){
 // USER TOURNAMENTS
 router.get('/tournaments', ensureAuthenticated, function(req, res){
     res.render('user-backend/tournaments', {title: "Dine Turneringer"});
+});
+
+// CREATE TEAM
+router.get('/createteam', ensureAuthenticated, function(req, res){
+    res.render('user-backend/create_team', {title: "Opret turneringshold"});
 });
 
 
@@ -93,7 +97,6 @@ router.post('/seatgroups', ensureAuthenticated, function(req, res){
         });
     }
 });
-
 
 
 groupRoute.put(ensureAuthenticated, function (req, res) {
@@ -190,27 +193,44 @@ groupRoute.delete(ensureAuthenticated, function (req, res) {
 
 
 tourRoute.put(ensureAuthenticated, function (req, res) {
-    console.log("ID: "+req.params._id);
-    console.log("Task: "+req.params.task);
+    var t_name = req.params.tn;
+    var t_pass = req.params.tp;
+    var t_pass2 = req.params.tp2;
+    var t_leaderID = req.user.id;
+    var t_members = [];
+    console.log(t_name, t_pass, t_pass2, t_leaderID, t_members);
+
+    req.checkBody('t_name', 'Holdnavn er påkrævet').notEmpty();
+    req.checkBody('t_pass', 'Kodeord er nødvendigt').notEmpty();
+    req.checkBody('t_pass2', 'Tjek venligst at kodeordene stemmer overens').equals(req.params.tp2);
+    var errors = req.validationErrors();
+
 
     switch (req.params.task) {
         // add user to group
-        case "0": Tournament.findById(req.params._id, function (err, tournament) {
+        case "0": Tournament.findById(req.params._id, function (err, tournament, req) {
             if (err) {
                 res.send(err);
             } else {
+                if(errors){ // if validation fails
+                    console.log(errors);
+                    req.flash("error_msg", "Adgangskoderne skal stemme overens");
+                    res.redirect("/users/tournaments");
+                } else {
 
+                    console.log("no errors!");
 
-                tournament.teams.push({t_name, t_members, t_password, });
+                    // tournament.teams.push({t_name, t_members, t_pass, t_leaderID});
 
-                // push user ID in to members array
-                tournament.teams.push(req.user.id);
-                // save changes to database
-                tournament.save(function (err) {
-                    if (err) {
-                        res.send(err);
-                    }
-                });
+                    /*
+                    // save changes to database
+                    tournament.save(function (err) {
+                        if (err) {
+                            res.send(err);
+                        }
+                    });
+                    */
+                }
                 req.flash('success_msg', 'Du er nu med i gruppen');
                 res.status(200).render('user-backend/seatgroups');
             }

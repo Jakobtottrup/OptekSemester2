@@ -6,4 +6,39 @@
     <!--All tournaments are listed here-->
 </div>
 
+
+
+<!-- Modal for joining groups -->
+<div id="modal-join" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+        <!--<form id="join_form" method="post" action="/users/seatgroups">-->
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title" id="show-data-header">Indtast adgangekoden for gruppen</h4>
+            </div>
+            <div class="modal-body" id="show-data-body">
+                <div class="well">
+                    <h3>Giv dit hold et navn</h3>
+                    <input class="form-control" id="t_name" type="text" maxlength="100" placeholder="Indtast holdnavn" required>
+                </div>
+
+                <div class="well">
+                    <h3>Angiv en adgangskode til holdet</h3>
+                    <input class="form-control" id="t_pass" type="password" maxlength="30" minlength="8" name="t_pass" placeholder="Giv holdet en adgangskode" required>
+                    <br>
+                    <input class="form-control" id="t_pass2" type="password" maxlength="30" minlength="8" name="t_pass2" placeholder="Skriv adgangskoden igen" required>
+                </div>
+
+            </div>
+            <div class="modal-footer">
+                <input type="submit" id="modal-join-sub" onclick="joinTournament(this)" name="join" value="Deltag" class="btn btn-success" data-dismiss="modal">
+            </div>
+            <!--</form>-->
+        </div>
+    </div>
+</div>
+
+
 <script src="/js/tournaments/tournaments_user.js"></script>

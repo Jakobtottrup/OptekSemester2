@@ -123,7 +123,6 @@ function isLeader(data) {
 function joinGroup (source) {
     let groupID = $(source).prop("id");
     let pass = $("#pass_field").val();
-
     let type = "PUT";
     let task = 0;
     console.log(groupID +" : "+ type +" : "+ task +" : "+ pass);
