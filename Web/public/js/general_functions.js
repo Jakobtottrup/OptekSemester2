@@ -1,18 +1,6 @@
 /**
  * Created by Christian Skjerning on 5/6/2017.
  */
-getEventData();
-function getEventData(){
-    return $.ajax({
-        type: 'GET',
-        url: "/api/event",
-        dataType: "json"
-    }).done(function(data){
-        EventData = data;
-        drawEventInfo();
-    });
-}
-
 
 // get all users data
 function getUsersData() {

@@ -1,7 +1,15 @@
 
+function getEventData(){
+    return $.ajax({
+        type: 'GET',
+        url: "/api/event",
+        dataType: "json"
+    }).done(function(data){
+        EventData = data;
+    });
+}
 
 $.when(getEventData()).done(function() {
-    console.log(EventData[0].eventTime);
 
 // let target_date = new Date().getTime() + (1000*3600*48); // set the countdown date
     let target_date = new Date(EventData[0].eventTime).getTime(); // set the countdown date

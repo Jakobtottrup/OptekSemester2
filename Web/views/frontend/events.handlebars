@@ -33,3 +33,26 @@
             <li>Lampe til når lyset bliver slukket (smart)</li>
             <li>Digital Camera (ja da!)</li>
         </ul>
+
+
+<script>
+
+    function getEventData(){
+        return $.ajax({
+            type: 'GET',
+            url: "/api/event",
+            dataType: "json"
+        }).done(function(data){
+            EventData = data;
+        });
+    }
+
+    // event informations
+    $.when(getEventData()).done(function(){
+        $("#event_info_div").append("<li>Lokation: "+EventData[0].location+"</li>");
+        $("#event_info_div").append("<li>Beskrivelse: "+EventData[0].description+"</li>");
+        $("#event_info_div").append("<li>Pris: "+EventData[0].price+" DKK</li>");
+        $("#event_info_div").append("<li>Der plads til "+EventData[0].maxGuests+" personer</li>");
+    });
+
+</script>
