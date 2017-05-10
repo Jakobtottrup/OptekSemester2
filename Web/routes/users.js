@@ -199,6 +199,26 @@ tourRoute.put(ensureAuthenticated, function (req, res) {
             if (err) {
                 res.send(err);
             } else {
+
+
+                tournament.teams.push({t_name, t_members, t_password, });
+
+                // push user ID in to members array
+                tournament.teams.push(req.user.id);
+                // save changes to database
+                tournament.save(function (err) {
+                    if (err) {
+                        res.send(err);
+                    }
+                });
+                req.flash('success_msg', 'Du er nu med i gruppen');
+                res.status(200).render('user-backend/seatgroups');
+            }
+        }); break;
+        case "1": Tournament.findById(req.params._id, function (err, tournament) {
+            if (err) {
+                res.send(err);
+            } else {
                 // push user ID in to members array
                 tournament.teams.push(req.user.id);
                 // save changes to database

@@ -5,6 +5,7 @@ const express = require('express');
 const router = express.Router();
 const mongoose = require('mongoose');
 mongoose.Promise = require('bluebird');
+const fs = require('fs');
 
 // REQUIRE MONGOOSE MODELS
 const Group = require('../models/seatingGroups');
@@ -161,5 +162,16 @@ router.get('/event', function (req, res) {
         });
     }
 });
+
+
+// GALLERY IMAGES
+const galleryFolder = './public/uploads/image/gallery';
+router.get('/gallery', function (req, res) {
+    files = [];
+    fs.readdir(galleryFolder, (err, files) => {
+        res.json(files);
+    });
+});
+
 
 module.exports = router;

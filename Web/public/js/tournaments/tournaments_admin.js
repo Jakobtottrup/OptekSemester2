@@ -95,7 +95,7 @@ let loadFile = function(source) {
 let totalPrizes = 0;
 function addPrize(){
     // if ($('input[id^=prize]').length < 7) {
-    if (totalPrizes < 7) {
+    if (totalPrizes < 3) {
         totalPrizes++;
         // console.log(totalPrizes);
         $("#prize-head").append('<td id="prize'+totalPrizes+'">'+totalPrizes+'. Plads</td>');
@@ -104,12 +104,9 @@ function addPrize(){
         $("#prize-image").append('<td id="prize'+totalPrizes+'"><label class="btn btn-primary" style="width:100%">Browse&hellip;<input name="prize_image" type="file" accept="image/*" onchange="loadFile(this)" style="display:none;"required></label>' +
             '<br><img id="image'+totalPrizes+'" style="width:100%; margin-top:10px"/></td>');
     }
-
-    console.log("TP: " + totalPrizes);
 }
 function removePrize(){
     if (totalPrizes >= 1){
-        // console.log(totalPrizes);
         $("#prize-head").find("#prize"+totalPrizes).remove();
         $("#prize-name").find("#prize"+totalPrizes).remove();
         $("#prize-info").find("#prize"+totalPrizes).remove();

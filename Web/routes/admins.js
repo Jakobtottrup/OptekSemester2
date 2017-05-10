@@ -375,7 +375,7 @@ mailRoute.post(function (req, res, next) {
         });
 
 
-        var notPaid = {
+        let notPaid = {
             from: 'sdulan.optek@gmail.com',
             to: 'jatoe13@student.sdu.dk',
             subject: 'S7Lan Betalingspåmindelse',

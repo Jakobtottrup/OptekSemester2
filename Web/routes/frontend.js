@@ -151,10 +151,13 @@ router.post('/reset/:token', function (req, res) {
 });
 
 
+
 // render gallery view
 router.get('/gallery', function (req, res) {
     res.render('frontend/gallery', {title: "Gallery"});
 });
+
+
 
 // Register User
 router.post('/signup', function (req, res) {
@@ -167,9 +170,6 @@ router.post('/signup', function (req, res) {
     var fakultet = req.body.fakultet.toString();
     var bnet = req.body.bnet;
     var steam = req.body.steam;
-    var isAdmin = req.body.isAdmin;
-    var hasPaid = req.body.hasPaid;
-    var isActive = req.body.isActive;
 
     //validation
 
@@ -383,13 +383,10 @@ function ensureAuthenticated(req, res, next) {
     }
 }
 
-//Upload files
-var uploads = multer({dest: 'public/uploads/image/gallery'});
-router.post('/', uploads.single('upl'), function (req, res, next) {
-    console.log(req.body);
-    console.log(req.file);
-    res.status(204).end();
-});
+
+
+
+
 
 
 module.exports = router;
