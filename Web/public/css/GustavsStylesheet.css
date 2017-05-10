@@ -1,8 +1,8 @@
 :root{
---main-:#04202C; /*main*/
---menu-:#304040; /*footer, menu*/
---info-:#5B7065; /*info-box*/
---text-:#C9D1C8; /*text*/
+    --main-:#04202C; /*main*/
+    --menu-:#304040; /*footer, menu*/
+    --info-:#5B7065; /*info-box*/
+    --text-:#C9D1C8; /*text*/
 }
 
 
@@ -113,7 +113,7 @@ body {
 .dash-menu {
     background-color: var(--menu-);
     margin-top: -20px;
-    border-radius: 0px 0px 6px 6px;
+    border-radius: 0px 0px 16px 16px;
     box-shadow: -1px 3px 1px rgba(0, 0, 0, 1);
 }
 
@@ -134,6 +134,33 @@ body {
 
 }
 
+/** *********** **/
+/** EVENTET NAV **/
+/** *********** **/
+
+#event_info_div li {
+    color: var(--text-);
+    list-style-type: none;
+    text-align: center;
+    font-family: "AGENCY FB";
+    font-size: 32px;
+    text-shadow: 0px 3px 3px black
+}
+
+#event-form h3 {
+    font-style: italic;
+    font-style: italic;
+    color: black;
+}
+
+#event-header img{
+    height:40%;
+    width: 40%;
+}
+
+.page-header{
+    text-align: center;
+}
 /** ********** **/
 /* Content page */
 /** ********** **/
@@ -170,6 +197,33 @@ body {
     color: var(--main-);
 }
 
+#username {
+    color: var(--main-);
+}
+
+#email {
+    color: var(--main-);
+}
+
+#age {
+    color: var(--main-);
+}
+
+#studie {
+    color: var(--main-);
+}
+
+#fakultet {
+    color: var(--main-);
+}
+
+#steam {
+    color: var(--main-);
+}
+
+#bnet {
+    color: var(--main-);
+}
 /* seatmap */
 .pladskort-info {
     background-color: var(--text-);
@@ -184,6 +238,7 @@ body {
     color: var(--menu-);
 }
 
+
 /** ************ **/
 /* SEATGROUP PAGE */
 /** ************ **/
@@ -191,32 +246,5 @@ body {
 #seatgroup-table button {
     width: 100%;
     margin-top: 4px;
-}
 
-/** *********** **/
-/** EVENTET NAV **/
-/** *********** **/
-
-#event_info_div li {
-    color: var(--text-);
-    list-style-type: none;
-    text-align: center;
-    font-family: "AGENCY FB";
-    font-size: 32px;
-    text-shadow: 0px 3px 3px black
-}
-
-#event-form h3 {
-    font-style: italic;
-    font-style: italic;
-    color: black;
-}
-
-#event-header img{
-    height:40%;
-    width: 40%;
-}
-
-.page-header{
-    text-align: center;
 }

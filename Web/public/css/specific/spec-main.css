@@ -1,8 +1,8 @@
 :root{
---main-:#04202C; /*main*/
---menu-:#304040; /*footer, menu*/
---info-:#5B7065; /*info-box*/
---text-:#C9D1C8; /*text*/
+    --main-:#04202C; /*main*/
+    --menu-:#304040; /*footer, menu*/
+    --info-:#5B7065; /*info-box*/
+    --text-:#C9D1C8; /*text*/
 }
 
 
@@ -170,53 +170,11 @@ body {
     color: var(--main-);
 }
 
-/* seatmap */
-.pladskort-info {
-    background-color: var(--text-);
-    margin-bottom: 12px;
-    margin-top: 6px;
-    border-radius: 10px 10px 10px 10px;
-    padding: 10px;
-    min-height: 110px;
-}
+   /*** *************************** ***/
+  /*** DETTE STYLESHEET ER KUN FOR ***/
+ /** STYLING DER GÆLDER ALLE SIDER **/
+/*** *************************** ***/
 
-.pladskort-info p {
-    color: var(--menu-);
-}
-
-/** ************ **/
-/* SEATGROUP PAGE */
-/** ************ **/
-
-#seatgroup-table button {
-    width: 100%;
-    margin-top: 4px;
-}
-
-/** *********** **/
-/** EVENTET NAV **/
-/** *********** **/
-
-#event_info_div li {
-    color: var(--text-);
-    list-style-type: none;
-    text-align: center;
-    font-family: "AGENCY FB";
-    font-size: 32px;
-    text-shadow: 0px 3px 3px black
-}
-
-#event-form h3 {
-    font-style: italic;
-    font-style: italic;
-    color: black;
-}
-
-#event-header img{
-    height:40%;
-    width: 40%;
-}
-
-.page-header{
-    text-align: center;
-}
+  /*** ******************* ***/
+ /** LAV ET NYT STYLESHEET **/
+/*** ******************* ***/

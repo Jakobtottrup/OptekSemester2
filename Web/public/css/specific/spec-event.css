@@ -1,0 +1,27 @@
+/** *********** **/
+/** EVENTET NAV **/
+/** *********** **/
+
+#event_info_div li {
+    color: var(--text-);
+    list-style-type: none;
+    text-align: center;
+    font-family: "AGENCY FB";
+    font-size: 32px;
+    text-shadow: 0px 3px 3px black
+}
+
+#event-form h3 {
+    font-style: italic;
+    font-style: italic;
+    color: black;
+}
+
+#event-header img{
+    height:40%;
+    width: 40%;
+}
+
+.page-header{
+    text-align: center;
+}

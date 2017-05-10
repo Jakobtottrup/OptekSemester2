@@ -155,7 +155,7 @@ function checkSeatStatus() {
         }
     });
 
-    inGroup = false;
+    UserInGroup = false;
     isGroupLeader = false;
 
     seatgroups.forEach(function (item, index) {
@@ -164,7 +164,7 @@ function checkSeatStatus() {
         } else {
             item.members.forEach(function (mem_item, mem_index) {
                 if (mem_item == localuser._id) {
-                    inGroup = true;
+                    UserInGroup = true;
                 }
             });
         }
@@ -172,33 +172,15 @@ function checkSeatStatus() {
 }
 
 function chooseSeat() {
-    console.log("------------");
-    if (hasSeat) {
-        console.log("You have a seat");
-    }
-    if (inGroup) {
-        console.log("You are in a group");
-    }
-    if (isGroupLeader) {
-        console.log("You are a group leader");
-    }
-
     seatclick = seatmap.seats[m_index];
     if (seatclick.type == 2) {
+        console.log("------------");
+        console.log("Has seat: " + hasSeat);
+        console.log("in Group: " + UserInGroup);
+        console.log("Group leader: " + isGroupLeader);
+
         updateInfoBox("Denne plads er " + seatclick.label, "", "");
-        if (inGroup) {
-            updateInfoBox("Du kan ikke vælge en plads når du er tilmeldt en gruppe", "Gruppelederen vælger din plads for dig", "");
-        } else {
-            if (seatclick.userid == 0) {
-                if (hasSeat) {
-                    updateInfoBox("Du har allerede en plads", "", "");
-                } else {
-                    seatclick.userid = localuser._id;
-                }
-            } else {
-                updateInfoBox("Denne plads er optaget", "", "");
-            }
-        }
+
     } else {
         updateInfoBox("", "", "");
     }
