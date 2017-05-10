@@ -97,11 +97,3 @@ $(document).ready(function(){
     $("#dashboard-nav").find('a[href$="' +path+ '"]').parent().addClass("active");
 });
 
-
-// event informations
-function drawEventInfo() {
-    $("#event_info_div").append("<li>Lokation: "+EventData[0].location+"</li>");
-    $("#event_info_div").append("<li>Beskrivelse: "+EventData[0].description+"</li>");
-    $("#event_info_div").append("<li>Pris: "+EventData[0].price+" DKK</li>");
-    $("#event_info_div").append("<li>Der plads til "+EventData[0].maxGuests+" personer</li>");
-}
