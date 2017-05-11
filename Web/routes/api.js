@@ -1,46 +1,4 @@
 /**
- Friends
- 28
- PRIVAT BESKEDER
- NatashKa.
-
- Unnamed
- 1 Member
-
- Bubbz
- 2 Members
-
- Shikibo
-
- Vincent AKA Fat Scunt, Shikibo
- 3 Members
-
- discocaramelka
-
- Vincent AKA Fat Scunt, Shikibo
- 3 Members
-
- Tilsluttet til Samtale
- @NatashKa.
-
- Christian
- #8261
-
- NatashKa.
-
-
-
- Søg
-
-
-
-
- LEAVE CALL
-
- region
- Western Europe
- INDLÆS FLERE BESKEDER
-
  * Created by chris on 11-04-2017.
  */
 const express = require('express');
@@ -57,7 +15,7 @@ const Event = require('../models/event');
 const Sponsors = require('../models/sponsors');
 const Tournaments = require('../models/tournaments');
 const FB = require('FB');
-FB.setAccessToken('EAACEdEose0cBAKPMb3zAzkiN8UbxhZBkttMOFGxmd0HrsHmZAagf9h6zWAeOUqpfoZAthvEP7Pbsl7v3qhV3e0TEFfPziwtUohx38NYKjGsZAVt12SIAvPZAFaZB3lhooSbjJawmKPhItZBAhZBRNkY0mBZAKZC6iLVwoV60sweoij1ZBl4VdujPhb0GMSpf932XCwZD');  // Siden læses på vegne af Christian Skjerning's Access Token..
+FB.setAccessToken('EAACEdEose0cBAEeh77AVLqranmD2C2rX5OA3kDHTVGBvHre7nIteuILXkT6WBV8sYIHBB1HtsX22iUAqdQrlnLdqwKPxRaf9LHmaNlDAfd0XRTVS4tPU6BNr9ZC7PwXElqMf4ad9TBxF4Wonzo2WlBze6DVq5KsYLm2ip6t3eyO3UmZCaM');  // Siden læses på vegne af Christian Skjerning's Access Token..
 
 
 

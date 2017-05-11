@@ -1,0 +1,35 @@
+#facebookposts {
+
+}
+
+.fb_container {
+    background-color: var(--text-);
+    color: var(--menu-);
+    margin-top: 10px;
+    border-radius: 15px;
+    padding: 10px;
+}
+
+.fb_message p {
+    color: var(--menu-);
+    margin: 5px;
+}
+
+.fb_posttime {
+    background-color: var(--main-);
+    color: var(--text-);
+    border-radius: 6px;
+    margin: 2px;
+}
+
+.fb_likes {
+    background-color: var(--menu-);
+    border-radius: 6px;
+    margin: 2px;
+}
+
+.fb_comments {
+    margin: 2px;
+    border-radius: 6px;
+    background-color: var(--info-);
+}

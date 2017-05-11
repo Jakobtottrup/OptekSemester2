@@ -1,4 +1,5 @@
 <link rel="stylesheet" type ="text/css" href="/css/countdown.css">
+<link rel="stylesheet" type ="text/css" href="/css/specific/spec-index.css">
 <!-- Begin page content -->
 
         <div class="page-header">
@@ -16,12 +17,12 @@
             </div>
         </div>
 
-        <div class="pagecontent">'
+        <div class="pagecontent">
             <p class="lead">Forside features:</p>
             <ul class="indexlist">
                 <li>Billedkarusel (evt. med video highlights fra forrige lan events)</li>
                 <li><strike>Countdown timer</strike></li>
-                <li>Facebook plugin</li>
+                <li><strike>Facebook plugin</strike></li>
                 <li><strike>Pladsbestilling</strike></li>
                 <li>Turneringstilmelding</li>
                 <li><strike>Login funktion (alm. brugere kan måske se deres egen data) - Admins kommer til admin side</strike></li>
@@ -39,59 +40,64 @@
                     </ul>
                 </li>
             </ul>
+
+            <div id="facebookposts"></div>
         </div>
-        <div class="container">
-            <img src='https://chart.googleapis.com/chart?cht=qr&chl=https%3A%2F%2Fwww.google.dk%2Fmaps%2Fdir%2F%2FSyddansk%2BUniversitet%2C%2BCampusvej%2B55%2C%2B5230%2BOdense%2BM%2F%4055.367686%2C10.4252927%2C16z%2Fdata%3D!4m15!1m6!3m5!1s0x464d204fe2633dd5%3A0xa9604398da5c3e8a!2sSyddansk%2BUniversitet!8m2!3d55.3706746!4d10.4280674!4m7!1m0!1m5!1m1!1s0x464d204fe2633dd5%3A0xa9604398da5c3e8a!2m2!1d10.4280674!2d55.3706746&chs=180x180&choe=UTF-8&chld=L|2'
-                 rel='nofollow' alt='qr code'><a href='http://www.qrcode-generator.de' border='0' style='cursor:default'
-                                                 rel='nofollow'></a>
+        <!--<div class="container">-->
+            <!--<img src='https://chart.googleapis.com/chart?cht=qr&chl=https%3A%2F%2Fwww.google.dk%2Fmaps%2Fdir%2F%2FSyddansk%2BUniversitet%2C%2BCampusvej%2B55%2C%2B5230%2BOdense%2BM%2F%4055.367686%2C10.4252927%2C16z%2Fdata%3D!4m15!1m6!3m5!1s0x464d204fe2633dd5%3A0xa9604398da5c3e8a!2sSyddansk%2BUniversitet!8m2!3d55.3706746!4d10.4280674!4m7!1m0!1m5!1m1!1s0x464d204fe2633dd5%3A0xa9604398da5c3e8a!2m2!1d10.4280674!2d55.3706746&chs=180x180&choe=UTF-8&chld=L|2'-->
+                 <!--rel='nofollow' alt='qr code'><a href='http://www.qrcode-generator.de' border='0' style='cursor:default'-->
+                                                 <!--rel='nofollow'></a>-->
 
-        </div>
-        <header id="myCarousel" class="carousel slide">
+        <!--</div>-->
 
-            <!-- Indicators -->
-            <ol class="carousel-indicators">
-                <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
-                <li data-target="#myCarousel" data-slide-to="1"></li>
-                <li data-target="#myCarousel" data-slide-to="2"></li>
-            </ol>
 
-            <!-- Wrapper for Slides -->
-            <div class="carousel-inner">
-                <div class="item active">
-                    <!-- Set the first background image using inline CSS below. -->
-                    <div class="fill" style="background-image:url('/img/images/s7lan_2.jpg');">1
-                    </div>
-                    <div class="carousel-caption">
-                        <h2>Caption 1</h2>
-                    </div>
-                </div>
-                <div class="item">
-                    <!-- Set the second background image using inline CSS below. -->
-                    <div class="fill" style="background-image:url('/img/images/s7lan_1.jpg');">2</div>
-                    <div class="carousel-caption">
-                        <h2>Caption 2</h2>
-                    </div>
-                </div>
-                <div class="item">
-                    <!-- Set the third background image using inline CSS below. -->
-                    <div class="fill" style="background-image:url('/img/images/s7lan_3.jpg');">
-                        3
-                    </div>
-                    <div class="carousel-caption">
-                        <h2>Caption 3</h2>
-                    </div>
-                </div>
-            </div>
 
-            <!-- Controls -->
-            <a class="left carousel-control" href="#myCarousel" data-slide="prev">
-                <span class="icon-prev"></span>
-            </a>
-            <a class="right carousel-control" href="#myCarousel" data-slide="next">
-                <span class="icon-next"></span>
-            </a>
+        <!--<header id="myCarousel" class="carousel slide">-->
 
-        </header>
+            <!--&lt;!&ndash; Indicators &ndash;&gt;-->
+            <!--<ol class="carousel-indicators">-->
+                <!--<li data-target="#myCarousel" data-slide-to="0" class="active"></li>-->
+                <!--<li data-target="#myCarousel" data-slide-to="1"></li>-->
+                <!--<li data-target="#myCarousel" data-slide-to="2"></li>-->
+            <!--</ol>-->
+
+            <!--&lt;!&ndash; Wrapper for Slides &ndash;&gt;-->
+            <!--<div class="carousel-inner">-->
+                <!--<div class="item active">-->
+                    <!--&lt;!&ndash; Set the first background image using inline CSS below. &ndash;&gt;-->
+                    <!--<div class="fill" style="background-image:url('/img/images/s7lan_2.jpg');">1-->
+                    <!--</div>-->
+                    <!--<div class="carousel-caption">-->
+                        <!--<h2>Caption 1</h2>-->
+                    <!--</div>-->
+                <!--</div>-->
+                <!--<div class="item">-->
+                    <!--&lt;!&ndash; Set the second background image using inline CSS below. &ndash;&gt;-->
+                    <!--<div class="fill" style="background-image:url('/img/images/s7lan_1.jpg');">2</div>-->
+                    <!--<div class="carousel-caption">-->
+                        <!--<h2>Caption 2</h2>-->
+                    <!--</div>-->
+                <!--</div>-->
+                <!--<div class="item">-->
+                    <!--&lt;!&ndash; Set the third background image using inline CSS below. &ndash;&gt;-->
+                    <!--<div class="fill" style="background-image:url('/img/images/s7lan_3.jpg');">-->
+                        <!--3-->
+                    <!--</div>-->
+                    <!--<div class="carousel-caption">-->
+                        <!--<h2>Caption 3</h2>-->
+                    <!--</div>-->
+                <!--</div>-->
+            <!--</div>-->
+
+            <!--&lt;!&ndash; Controls &ndash;&gt;-->
+            <!--<a class="left carousel-control" href="#myCarousel" data-slide="prev">-->
+                <!--<span class="icon-prev"></span>-->
+            <!--</a>-->
+            <!--<a class="right carousel-control" href="#myCarousel" data-slide="next">-->
+                <!--<span class="icon-next"></span>-->
+            <!--</a>-->
+
+        <!--</header>-->
 
 <div id="loader"><div></div></div>
 
