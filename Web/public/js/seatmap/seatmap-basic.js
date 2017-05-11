@@ -26,6 +26,11 @@ color = {
             stroke: "white",
             hover: "red"
         },
+        mine: {
+            neutral: "yellow",
+            stroke: "white",
+            hover: "white"
+        },
         label: "yellow"
     },
     wall: "black"
@@ -53,6 +58,20 @@ function mapResize() {
     ctx.scale(1 / scaling, 1 / scaling);
     rescaleCanvas();
     ctx.scale(scaling, scaling);
+}
+
+/*** ********** ***/
+/** get database **/
+/*** ********** ***/
+
+function getLocalUserData(){
+    return $.ajax({
+        type: 'GET',
+        url: "/api/localuser",
+        dataType: "json"
+    }).done(function(data){
+        localuser = data;
+    });
 }
 
 /*** ********* ***/
@@ -115,12 +134,30 @@ function drawSeat(x, y, id, hover, label) {
         ctx.strokeStyle = color.seat.free.stroke;
     } else {
         //if seat is taken
-        if (hover) {
-            ctx.fillStyle = color.seat.taken.hover;
+        if (localuser) {
+            if (id == localuser._id) {
+                if (hover) {
+                    ctx.fillStyle = color.seat.mine.hover;
+                } else {
+                    ctx.fillStyle = color.seat.mine.neutral;
+                }
+                ctx.strokeStyle = color.seat.mine.stroke;
+            } else {
+                if (hover) {
+                    ctx.fillStyle = color.seat.taken.hover;
+                } else {
+                    ctx.fillStyle = color.seat.taken.neutral;
+                }
+                ctx.strokeStyle = color.seat.taken.stroke;
+            }
         } else {
-            ctx.fillStyle = color.seat.taken.neutral;
+            if (hover) {
+                ctx.fillStyle = color.seat.taken.hover;
+            } else {
+                ctx.fillStyle = color.seat.taken.neutral;
+            }
+            ctx.strokeStyle = color.seat.taken.stroke;
         }
-        ctx.strokeStyle = color.seat.taken.stroke;
     }
 
     ctx.fill();

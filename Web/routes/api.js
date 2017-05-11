@@ -35,7 +35,7 @@ router.get('/localuser', function(req, res) {
         res.json(req.user);
     } else {
 
-        req.flash('error_msg','Du er ikke logget ind');
+        //req.flash('error_msg','Du er ikke logget ind');
         res.json(null);
     }
 });

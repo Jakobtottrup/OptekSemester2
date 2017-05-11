@@ -70,7 +70,7 @@ function getUserData(){
     });
 }
 
-$.when(getSeatData(), getUserData()).done(function() {
+$.when(getSeatData(), getUserData(), getLocalUserData()).done(function() {
     seatmapCleanup(seatmap);
     checkforDeletedUsers();
     rescaleCanvas();

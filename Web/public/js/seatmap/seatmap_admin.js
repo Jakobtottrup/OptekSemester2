@@ -71,7 +71,7 @@ function getSeatData(){
     });
 }
 
-$.when(getSeatData()).done(function() {
+$.when(getSeatData(), getLocalUserData()).done(function() {
     seatmapCleanup(seatmap);
     rescaleCanvas();
     initVariables();

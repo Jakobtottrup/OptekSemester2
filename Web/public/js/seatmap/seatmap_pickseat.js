@@ -70,16 +70,6 @@ function getUserData(){
     });
 }
 
-function getLocalUserData(){
-    return $.ajax({
-        type: 'GET',
-        url: "/api/localuser",
-        dataType: "json"
-    }).done(function(data){
-        localuser = data;
-    });
-}
-
 function getSeatGroupData(){
     return $.ajax({
         type: 'GET',
@@ -179,8 +169,12 @@ function chooseSeat() {
         console.log("in Group: " + UserInGroup);
         console.log("Group leader: " + isGroupLeader);
 
-        updateInfoBox("Denne plads er " + seatclick.label, "", "");
+        updateInfoBox("Du har trykket på " + seatclick.label, "", "");
+        if (seatclick.userid != 0) {
+            updateInfoBox("Denne plads er optaget", "", "");
+        } else {
 
+        }
     } else {
         updateInfoBox("", "", "");
     }
