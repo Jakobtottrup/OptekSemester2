@@ -1,6 +1,6 @@
 #image_div {
     height: 350px;
-    width: 500px;
+    width: 100%;
     margin-top: 50px;
     display:inline;
 }
@@ -10,5 +10,5 @@
     object-fit: cover;
     width: 100%;
     height: 100%;
-    margin: 0.5%
+    margin-bottom: 10px;
 }

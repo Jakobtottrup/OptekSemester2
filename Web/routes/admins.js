@@ -16,6 +16,7 @@ const async = require('async');
 const fs = require('fs');
 const rimraf = require('rimraf');
 
+
 // DECLARING MODELS AND ROUTES
 const seats = require('../models/seats');
 const User = require('../models/user');
@@ -26,6 +27,7 @@ const router = express.Router();
 const userRoute = router.route('/users/:_id/:adminClicked/:paymentClicked');
 const delRoute = router.route('/users/:_id');
 const tourRoute = router.route('/tournaments/:_id');
+const galleryRoute = router.route('/gallery/:id');
 const mailRoute = router.route('/mails');
 const thisEvent = router.route('/events');
 
@@ -352,11 +354,11 @@ tourRoute.delete(ensureAdminAuthenticated, function (req, res) {
         }
     });
     req.flash('success_msg', 'Turneringen er nu slettet');
-    res.status(204).redirect("/admins/tournaments");
+    res.status(200).redirect("/admins/tournaments");
 });
 
 
-mailRoute.post(function (req, res, next) {
+mailRoute.post(ensureAdminAuthenticated, function (req, res, next) {
         let modtager = req.body.modtager;
         let emne = req.body.emne;
         let txt = req.body.text;
@@ -491,9 +493,29 @@ router.post('/events', ensureAdminAuthenticated, function (req, res) {
     newEvent.save(function (err) {
         if (err) throw err;
         req.flash('success_msg', 'Eventet er nu oprettet');
-        res.status(204).end();
+        res.status(200).end();
         res.redirect('/admins/events');
     });
+});
+
+// DELETE GALLERY IMAGES
+let dirPath = "./public/uploads/image/gallery/";
+galleryRoute.delete(ensureAdminAuthenticated, function (req, res) {
+    let id = req.params.id;
+    let delFile = dirPath + id;
+
+    fs.exists(delFile, function (exists) {
+        if (exists) {
+            fs.unlinkSync(delFile);
+        } else {
+            console.log("file does not exist");
+            req.flash('error_msg', "Billede"+id+"eksistere ikke");
+            res.redirect("/admins/gallery");
+        }
+    });
+
+    req.flash('success_msg', "Billede"+id+"er nu slettet");
+    res.redirect("/admins/gallery");
 });
 
 module.exports = router;
