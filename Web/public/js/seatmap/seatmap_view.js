@@ -98,10 +98,12 @@ function seatmapCleanup(json_seat) {
 function checkforDeletedUsers() {
     //infoFromID(id)
     seatmap.seats.forEach(function (item, index) {
-        if (item.userid != 0) {
-            if (!infoFromID(item.userid) || seatmap.seats[index].type != 2) {
-                //delete user if userinfo can't be found or userid is not on a seat
-                seatmap.seats[index].userid = 0;
+        if (item.type == 2) {
+            if (item.userid != 0) {
+                if (!infoFromID(item.userid) || seatmap.seats[index].type != 2) {
+                    //delete user if userinfo can't be found or userid is not on a seat
+                    seatmap.seats[index].userid = 0;
+                }
             }
         }
     });

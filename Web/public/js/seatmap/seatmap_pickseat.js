@@ -211,3 +211,17 @@ function initMousemove() {
     }, false);
 }
 
+/*** ************ ***/
+/** update databse **/
+/*** ************ ***/
+
+function pickChosenSeats() {
+    console.log("I have chosen a seat");
+    chosenIndex = 10;
+
+    $.ajax({
+        type: 'PUT',
+        url: '/users/getseat/' + chosenIndex,
+        dataType: 'json'
+    });
+}

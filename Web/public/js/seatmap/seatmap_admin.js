@@ -82,8 +82,30 @@ $.when(getSeatData()).done(function() {
 
 //konverter kort til JSON
 function savemap() {
+    var server_seats = [];
+    var server_seats_tot = 0;
+
+    for (var i = 0; i < seatmap.room_width * seatmap.room_height; i++) {
+        if (seatmap.seats[i].type == 2) {
+            server_seats.push(seatmap.seats[i]);
+            server_seats_tot++;
+        } else {
+            server_seats.push({type: seatmap.seats[i].type});
+        }
+    }
+
+    var server_seatmap = {
+        room_width: seatmap.room_width,
+        room_height: seatmap.room_height,
+        seats_tot: server_seats_tot,
+        map_open: seatmap.map_open,
+        seats: server_seats
+    };
+
+
+
     $(function () {
-        $('#seatName').val(JSON.stringify(seatmap));
+        $('#seatName').val(JSON.stringify(server_seatmap));
     });
 }
 
@@ -103,6 +125,15 @@ function seatmapCleanup(json_seat) {
         var del_this = "container";
         temp = res.substring(res.indexOf(del_this) + del_this.length + 3, res.length - 3);
         seatmap = JSON.parse(temp);
+
+        for (var i = 0; i < seatmap.room_width * seatmap.room_height; i++) {
+            if (typeof seatmap.seats[i].label === "undefined") {
+                seatmap.seats[i].userid = 0;
+            }
+            if (typeof seatmap.seats[i].userid === "undefined") {
+                seatmap.seats[i].userid = 0;
+            }
+        }
     }
 }
 

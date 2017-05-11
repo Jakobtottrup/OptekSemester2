@@ -9,8 +9,10 @@ mongoose.Promise = require('bluebird');
 
 const Group = require('../models/seatingGroups');
 const Tournament = require('../models/tournaments');
+const Seat = require('../models/seats');
 const groupRoute = router.route('/seatgroups/:_id/:task/:pass');
 const tourRoute = router.route('/tournaments/:_id/:task/:tn/:tp/:tp2');
+const seatRoute = router.route('/getseat/:index');
 
 
 // THESE VIEWS ARE ONLY ALLOWED IF USER IS LOGGED IN //
@@ -254,5 +256,14 @@ tourRoute.put(ensureAuthenticated, function (req, res) {
     }
 });
 
+seatRoute.put(ensureAuthenticated, function (req, res) {
+    console.log("SEAT INDEX: " + req.params.index);
+    Seat.find({}, function (err, seats) {
+        seats = seats[0].container;
+        seats = JSON.parse(seats);
+
+        console.log(seats);
+    });
+});
 
 module.exports = router;
