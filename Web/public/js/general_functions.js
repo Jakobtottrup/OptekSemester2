@@ -2,7 +2,11 @@
  * Created by Christian Skjerning on 5/6/2017.
  */
 
-// get all users data
+
+/**
+ * Sends GET request to router localhost:3000/api/users as admin
+ * returns userdata in JSON format.
+ */
 function getUsersData() {
     return $.ajax({
         type: 'GET',
@@ -21,7 +25,6 @@ function getUserData(){
         dataType: "json"
     }).done(function(data){
         userData = data;
-
     });
 }
 

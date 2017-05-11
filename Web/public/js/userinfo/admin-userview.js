@@ -8,19 +8,6 @@ var deleteUserId = [];
 var adminClicked = false;
 var paymentClicked = false;
 
-/**
- * Sends GET request to router localhost:3000/api/users as admin
- * returns userdata in JSON format.
- */
-function getUsersData() {
-    return $.ajax({
-        type: 'GET',
-        url: "/api/users",
-        dataType: "json"
-    }).done(function (data) {
-        usersData = data;
-    });
-}
 
 
 /**

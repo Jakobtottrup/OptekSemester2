@@ -29,13 +29,14 @@ function ensureAuthenticated(req, res, next) {
 
 
 // ACTIVE USER LOGIN DATA
-router.get('/localuser', ensureAuthenticated, function(req, res) {
+router.get('/localuser', function(req, res) {
     if (req.user){
         req.user.password = 0;
         res.json(req.user);
     } else {
+
         req.flash('error_msg','Du er ikke logget ind');
-        res.redirect('/login');
+        res.json(null);
     }
 });
 
@@ -167,7 +168,6 @@ router.get('/event', function (req, res) {
 // GALLERY IMAGES
 const galleryFolder = './public/uploads/image/gallery';
 router.get('/gallery', function (req, res) {
-    files = [];
     fs.readdir(galleryFolder, (err, files) => {
         res.json(files);
     });

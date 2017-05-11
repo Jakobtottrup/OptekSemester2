@@ -160,7 +160,7 @@ function editGroup (source) {
 }
 
 
-function sendData(groupID, type, task, pass) {
+function sendData(groupID, type, task, pass){
     $.ajax({
         type: type,
         url: "/users/seatgroups/" + groupID + "/" + task + "/" + pass,
@@ -168,7 +168,6 @@ function sendData(groupID, type, task, pass) {
         success: location.reload()
     });
 }
-
 
 // open modal for entering password
 function openModal(source) {

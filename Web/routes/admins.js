@@ -335,7 +335,7 @@ tourRoute.delete(ensureAdminAuthenticated, function (req, res) {
         for (i = 0; i < tourImages.length; i++) {
             let delFile = dirPath + tourImages[i];
             for (let i = 0; i < tourImages.length; i++) {
-                (function (delFile) {
+                (function () {
                     fs.exists(delFile, function (exists) {
                         if (exists) {
                             fs.unlinkSync(delFile);
@@ -517,5 +517,6 @@ galleryRoute.delete(ensureAdminAuthenticated, function (req, res) {
     req.flash('success_msg', "Billede"+id+"er nu slettet");
     res.redirect("/admins/gallery");
 });
+
 
 module.exports = router;
