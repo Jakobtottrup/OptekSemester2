@@ -216,6 +216,7 @@ function pickChosenSeats() {
     $.ajax({
         type: 'PUT',
         url: '/users/getseat/' + chosenIndex,
-        dataType: 'json'
+        dataType: 'json',
+        success: location.reload()
     });
 }
