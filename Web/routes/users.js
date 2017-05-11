@@ -102,9 +102,9 @@ router.post('/seatgroups', ensureAuthenticated, function(req, res){
 
 
 groupRoute.put(ensureAuthenticated, function (req, res) {
-    console.log("ID: "+req.params._id);
-    console.log("Task: "+req.params.task);
-    console.log("Pass: "+req.params.pass);
+    // console.log("ID: "+req.params._id);
+    // console.log("Task: "+req.params.task);
+    // console.log("Pass: "+req.params.pass);
 
     switch (req.params.task) {
         // add user to group
@@ -115,7 +115,6 @@ groupRoute.put(ensureAuthenticated, function (req, res) {
                 Group.comparePassword(req.params.pass, group.password, function (err, isMatch) {
                     if (err) throw err;
                     if (isMatch) {
-                        console.log("password match");
                         // push user ID in to members array
                         group.members.push(req.user.id);
                         // save changes to database

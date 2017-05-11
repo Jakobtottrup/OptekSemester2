@@ -16,6 +16,7 @@ mongoose.Promise = require('bluebird');
 const bcrypt = require('bcryptjs');
 
 
+
 // GET HOMEPAGE
 router.get('/', function (req, res) {
     res.render('frontend/index', {title: "S7 LAN"});

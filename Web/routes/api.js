@@ -14,6 +14,9 @@ const seats = require('../models/seats');
 const Event = require('../models/event');
 const Sponsors = require('../models/sponsors');
 const Tournaments = require('../models/tournaments');
+const FB = require('FB');
+FB.setAccessToken('EAACEdEose0cBAJ2lVDbAIuYfXRG9FCcZCzuVMZA07iRhbWnZACD6yZC0wgp8hdFJ6Oh3ZBbXrZAyk6heRXnRsXawTd3QMo9GZCe0bVivcBSdZAfcQLQ3YzGC8msBqqp1TIUHRc0PkZCaKkAebZB2hWD03Op0dSJHdVOg0pv40N8EbfcVoHZBVUpniL3');  // Siden læses på vegne af Christian Skjerning's Access Token..
+
 
 
 // THIS ROUTE IS USED FOR EXPORING JSON DATA TO CLIENTSIDE SCRIPTS //
@@ -172,6 +175,23 @@ router.get('/gallery', function (req, res) {
         res.json(files);
     });
 });
+
+
+// GET FACEBOOK POSTS
+router.get('/fb', function(req, res) {
+    FB.api('247667268610623/feed', function (data) {
+        if(!data || data.error) {
+            console.log(!data ? 'error occurred' : data.error);
+            return;
+        }
+        res.json(data);
+    });
+});
+
+
+
+
+
 
 
 module.exports = router;
