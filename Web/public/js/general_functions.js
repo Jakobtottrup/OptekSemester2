@@ -17,6 +17,17 @@ function getUsersData() {
     });
 }
 
+// get tournamnet data
+function getTourData() {
+    return $.ajax({
+        type: 'GET',
+        url: "/api/tournaments",
+        dataType: "json"
+    }).done(function(data){
+        tourData = data;
+    });
+}
+
 // get current user's data
 function getUserData(){
     return $.ajax({

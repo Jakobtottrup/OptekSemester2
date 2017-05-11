@@ -1,4 +1,46 @@
 /**
+ Friends
+ 28
+ PRIVAT BESKEDER
+ NatashKa.
+
+ Unnamed
+ 1 Member
+
+ Bubbz
+ 2 Members
+
+ Shikibo
+
+ Vincent AKA Fat Scunt, Shikibo
+ 3 Members
+
+ discocaramelka
+
+ Vincent AKA Fat Scunt, Shikibo
+ 3 Members
+
+ Tilsluttet til Samtale
+ @NatashKa.
+
+ Christian
+ #8261
+
+ NatashKa.
+
+
+
+ Søg
+
+
+
+
+ LEAVE CALL
+
+ region
+ Western Europe
+ INDLÆS FLERE BESKEDER
+
  * Created by chris on 11-04-2017.
  */
 const express = require('express');
@@ -15,7 +57,7 @@ const Event = require('../models/event');
 const Sponsors = require('../models/sponsors');
 const Tournaments = require('../models/tournaments');
 const FB = require('FB');
-FB.setAccessToken('EAACEdEose0cBAJ2lVDbAIuYfXRG9FCcZCzuVMZA07iRhbWnZACD6yZC0wgp8hdFJ6Oh3ZBbXrZAyk6heRXnRsXawTd3QMo9GZCe0bVivcBSdZAfcQLQ3YzGC8msBqqp1TIUHRc0PkZCaKkAebZB2hWD03Op0dSJHdVOg0pv40N8EbfcVoHZBVUpniL3');  // Siden læses på vegne af Christian Skjerning's Access Token..
+FB.setAccessToken('EAACEdEose0cBAKPMb3zAzkiN8UbxhZBkttMOFGxmd0HrsHmZAagf9h6zWAeOUqpfoZAthvEP7Pbsl7v3qhV3e0TEFfPziwtUohx38NYKjGsZAVt12SIAvPZAFaZB3lhooSbjJawmKPhItZBAhZBRNkY0mBZAKZC6iLVwoV60sweoij1ZBl4VdujPhb0GMSpf932XCwZD');  // Siden læses på vegne af Christian Skjerning's Access Token..
 
 
 
@@ -179,19 +221,14 @@ router.get('/gallery', function (req, res) {
 
 // GET FACEBOOK POSTS
 router.get('/fb', function(req, res) {
-    FB.api('247667268610623/feed', function (data) {
-        if(!data || data.error) {
-            console.log(!data ? 'error occurred' : data.error);
+    FB.api('247667268610623/feed', function (response) {
+        if(!response || response.error) {
+            console.log(!response ? 'error occurred' : response.error);
             return;
         }
-        res.json(data);
+        res.json(response);
     });
 });
-
-
-
-
-
 
 
 module.exports = router;
