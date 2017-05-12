@@ -16,7 +16,34 @@ const Sponsors = require('../models/sponsors');
 const Tournaments = require('../models/tournaments');
 const Fb_post = require('../models/fb_posts');
 const FB = require('FB');
-FB.setAccessToken('EAACEdEose0cBACB1vGr7aDReS9Q6eNrCDdZB6lfiJsbdabFjeneNkpGYoRs5UdUDGykZATvjZBOYNUQAPFZCjq6C0YkjiKxVLD0OCF0Pca9kZB6fhOX5HwTZAOpG28GtI7VqJkliVeszJSgsrg9OhtsXKSkP2TKUIXDl6ZALKxqNrHjcojIXeS1u7N3DzmeGUP3AnFCeNxZBjvTg8PIkoO9dpgoIZAeR2zo0ZD');  // Siden læses på vegne af Christian Skjerning's Access Token..
+
+
+/** FACEBOOK ACCESS TOKEN INFORMATION - v2.9
+ *  GUIDE : http://stackoverflow.com/questions/17197970/facebook-permanent-page-access-token
+ *
+ *
+ *  S7LAN PAGE ID :         247667268610623
+ *  S7LAN APP ID :          658376531024359
+ *  S7LAN APP SECRET :      f89bf31e6dfef146ce8e423a168f4786
+ *  SHORT-LIVED TOKEN ID :  EAAJWyjtCmecBAAfx8lrB70bvpOKqp9N7TShvLF34WDWkE6J5TQdDYSluih6HWj0XpHSxe3poDbfC2ZBrcCABCIt9OdFFTmoEAQjfGZCVqYzJargiDDdLO7x1vPez41UzeRvnauIGxnKSx1wNv7i8oSfjjEmq8aZBZBzcW5AN1W6aLwPdFFvT
+ *
+ *  URL TEMPLATE FOR 'GET' REQUESTING LONG-LIVED TOKEN ID :     https://graph.facebook.com/v2.9/oauth/access_token?grant_type=fb_exchange_token&client_id={app_id}&client_secret={app_secret}&fb_exchange_token={short_lived_token}
+ *  URL TEMPLATE FOR 'GET' REQUESTING ACCOUNT ID :              https://graph.facebook.com/v2.9/me?access_token={long_lived_access_token}
+ *  URL TEMPLATE FOR 'GET' REQUESTING PERMANENT TOKEN ID :      https://graph.facebook.com/v2.9/{account_id}/accounts?access_token={long_lived_access_token}
+ *
+ *
+ *  **** FOLLOWING TOKENS BELONGS TO CHRISTIAN SKJERNING AND DOES NOT WORK ANY MORE, NEW TOKENS NEEDS TO BE GENERATED ****
+ *  LONG-LIVED TOKEN URL :  https://graph.facebook.com/v2.9/oauth/access_token?grant_type=fb_exchange_token&client_id=658376531024359&client_secret=f89bf31e6dfef146ce8e423a168f4786&fb_exchange_token=EAAJWyjtCmecBAAfx8lrB70bvpOKqp9N7TShvLF34WDWkE6J5TQdDYSluih6HWj0XpHSxe3poDbfC2ZBrcCABCIt9OdFFTmoEAQjfGZCVqYzJargiDDdLO7x1vPez41UzeRvnauIGxnKSx1wNv7i8oSfjjEmq8aZBZBzcW5AN1W6aLwPdFFvT
+ *  LONG-LIVED TOKEN ID :   EAAJWyjtCmecBAOsiYPKOZBSrxYqAoRmjkjEtnx44SOgr0mus2QmVyAUeoSeVXsYCmYtZCZCVhPglWeJWnLRxr5WI2llZCfRd5Eg6gvP51SYhMgLGWIXL1gjuyDQhLCm7Yx7qUKbvCyHOJvLbsZCnI
+ *
+ *  ACCOUNT ID URL :    https://graph.facebook.com/v2.9/me?access_token=EAAJWyjtCmecBAOsiYPKOZBSrxYqAoRmjkjEtnx44SOgr0mus2QmVyAUeoSeVXsYCmYtZCZCVhPglWeJWnLRxr5WI2llZCfRd5Eg6gvP51SYhMgLGWIXL1gjuyDQhLCm7Yx7qUKbvCyHOJvLbsZCnI
+ *  ACCOUNT ID :        10212163314745642
+ *
+ *  URL FOR PERMANENT TOKEN :   https://graph.facebook.com/v2.9/10212163314745642/accounts?access_token=EAAJWyjtCmecBAOsiYPKOZBSrxYqAoRmjkjEtnx44SOgr0mus2QmVyAUeoSeVXsYCmYtZCZCVhPglWeJWnLRxr5WI2llZCfRd5Eg6gvP51SYhMgLGWIXL1gjuyDQhLCm7Yx7qUKbvCyHOJvLbsZCnI
+ *  PERMANENT TOKEN ID:         EAAJWyjtCmecBAPWAH1ZCKSd2gWlFxaR0gtFMYtKLMe5owTeO3y0NOZCTmRbUdEWCfSIwyhrKZCwVMi1ko1ZCo3KRgNSuZBrF33gaWeAEw8nYSkZCdjjYyVmnxyNsHhaBZCGm6FUenyMJmx4y6cpOVmKHEeedeqfT18ZD
+ */
+
+FB.setAccessToken('EAAJWyjtCmecBAPWAH1ZCKSd2gWlFxaR0gtFMYtKLMe5owTeO3y0NOZCTmRbUdEWCfSIwyhrKZCwVMi1ko1ZCo3KRgNSuZBrF33gaWeAEw8nYSkZCdjjYyVmnxyNsHhaBZCGm6FUenyMJmx4y6cpOVmKHEeedeqfT18ZD');
 
 
 
@@ -180,13 +207,14 @@ router.get('/gallery', function (req, res) {
 
 // GET FACEBOOK POSTS
 router.get('/fb', function(req, res) {
-    FB.api('247667268610623/feed', function (response) {
-        if(!response || response.error) {
-            console.log(!response ? 'error occurred' : response.error);
-            return;
+    FB.api(
+        '/247667268610623/posts',
+        'GET',
+        {},
+        function(response) {
+            res.json(response);
         }
-        res.json(response);
-    });
+    );
 });
 
 

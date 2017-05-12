@@ -4,10 +4,10 @@
 
 
 $.when(getTourData()).done(function() {
-    if(tourData) {
-        createTours()
+    if(tourData.length === 0) {
+        $("#tour_head").text("Der er ingen turneringer åben på nuværende tidspunkt");
     } else {
-       $("#tour_head").text("Der er ingen turneringer åben på nuværende tidspunkt");
+        createTours()
     }
 });
 

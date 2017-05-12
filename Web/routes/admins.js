@@ -233,11 +233,12 @@ router.post('/tournaments', tourUploads, ensureAdminAuthenticated, function (req
     const minTeamSize = req.body.team_minsize;
 
     let isVisibel = req.body.visibility;
-    if (typeof isVisibel === "undefined" || isVisibel !== true) {
-        isVisibel = false;
-    } else {
+    if (isVisibel === "on" || typeof isVisibel !== "undefined") {
         isVisibel = true;
+    } else {
+        isVisibel = false;
     }
+
 
     // define path for cover image
     const coverImagePath = req.files.tour_image[0].destination + "/" + req.files.tour_image[0].filename;

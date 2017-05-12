@@ -25,7 +25,6 @@
     </tbody>
 </table>
 
-
 <!-- Modal for creating tournaments -->
 <div id="modal-create" class="modal fade" role="dialog">
     <div class="modal-dialog modal-lg">
@@ -42,7 +41,8 @@
                         <b>Indtast navn for turneringen</b><br><br>
                         <input type="text" class="form-control" maxlength="250" id="input_name" placeholder="Navn" name="tour_name" required>
                         <br>
-                        <p>Tilføj coverbillede til turneringen - størrelsesforhold skal være 16:4</p>
+                        Tilføj coverbillede til turneringen - størrelsesforhold bør være 6:1
+                        <br>
                         <div class="input-group">
                             <label class="input-group-btn">
                                 <span class="btn btn-primary">Browse&hellip; <input name="tour_image" type="file" accept="image/*" style="display: none;" required></span>
@@ -68,7 +68,7 @@
                                 <td><input type="datetime-local" class="form-control" name="closing_date" required></td>
                                 <td><input type="datetime-local" class="form-control" name="start_date" required></td>
                                 <td><input type="number" class="form-control" maxlength="10" placeholder="Timer" step="0.25" min="0" name="tour_duration" required></td>
-                                <td><input type="checkbox" name="visibility" checked="true"></td>
+                                <td><input type="checkbox" class="form-control" name="visibility" checked="true"></td>
                             </tr>
                         </tbody>
                     </table>
@@ -92,8 +92,9 @@
                 </div>
                     <div class="well">
                         <b>Tilføj præmier</b><td><input class='btn btn-success' type='button' value='Tilføj præmie' onclick='addPrize()' style="float:right; margin-left: 10px":/></td>
-                        <td><input class='btn btn-danger' type='button' value='Fjern præmie' onclick='removePrize()' style="float:right"/></td>
-                        <p>Billeder bør være 1:1 i størrelsesforhold</p>
+                        <td><input class='btn btn-danger' type='button' value='Fjern præmie' onclick='removePrize()' style="float:right"/></td><br>
+                        Billeder bør være 3:1 i størrelsesforhold
+                        <br>
                         <br>
                         <table class="table table-condensed">
                             <thead id="prize-head">
@@ -138,7 +139,6 @@
 </div>
 
 
-
 <!-- Modal for editing information -->
 <div id="modal-edit" class="modal fade" role="dialog">
     <div class="modal-dialog">
@@ -155,7 +155,6 @@
                 <button type="button" method="post" class="btn btn-success" data-dismiss="modal">Gem</button>
             </div>
         </div>
-
     </div>
 </div>
 

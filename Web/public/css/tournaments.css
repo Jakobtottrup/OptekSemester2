@@ -2,6 +2,11 @@
 
 }
 
+.tour-title{
+    margin-left: 10px
+}
+
+
 .tour-div {
     background-color: var(--menu-);
     border-radius: 10px;
@@ -10,9 +15,9 @@
 }
 
 .tour-cover {
-    height: 180px;
-    width: 96%;
+    width: calc(100% - 20px);
     margin: 10px;
+
     /*float: left;*/
     border: 2px solid rgba(0, 0, 0, 0.6);
     display:inline-block;
