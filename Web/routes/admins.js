@@ -520,7 +520,7 @@ galleryRoute.delete(ensureAdminAuthenticated, function (req, res) {
 });
 
 // SET FACEBOOK SETTINGS
-router.post('/fb_set', ensureAdminAuthenticated, function (req, res) {
+router.post('/posts', ensureAdminAuthenticated, function (req, res) {
     const posts_id = req.body.posts_id; // check boxes
     const max_posts = req.body.max_posts; // number field
     const post_direction = req.body.post_direction; // something
@@ -531,12 +531,26 @@ router.post('/fb_set', ensureAdminAuthenticated, function (req, res) {
         post_direction: post_direction
     });
 
-    newFb_post.save(function (err) {
-        if (err) throw err;
-        req.flash('success_msg', 'Indstillingerne blev gemt');
-        res.status(200).end();
+    req.checkBody('posts_id', 'posts_id er nødvendigt').notEmpty();
+    req.checkBody('max_posts', 'max_posts er nødvendigt').notEmpty();
+    req.checkBody('post_direction', 'post_direction er nødvendigt').notEmpty();
+
+    let errors = req.validationErrors();
+    if (errors) { // if validation fails
+        req.flash('error_msg', "Udfyldvenligst alle felterne");
         res.redirect('/admins/posts');
-    });
+
+    } else {
+        Fb_post.collection.drop();
+
+        newFb_post.save(function (err) {
+            if (err) throw err;
+            req.flash('success_msg', 'Indstillingerne blev gemt');
+            res.status(200).end();
+            res.redirect('/admins/posts');
+        });
+    }
 });
 
 module.exports = router;
+
