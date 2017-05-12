@@ -15,6 +15,10 @@
     margin: 5px;
 }
 
+.fb_message a, .fb_single_comment a {
+    background-color: #22FF6D;
+}
+
 .fb_posttime {
     background-color: var(--main-);
     color: var(--text-);

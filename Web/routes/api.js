@@ -16,7 +16,7 @@ const Sponsors = require('../models/sponsors');
 const Tournaments = require('../models/tournaments');
 const Fb_post = require('../models/fb_posts');
 const FB = require('FB');
-FB.setAccessToken('EAACEdEose0cBAARlLbRNDVHvwFldXCb3avk3MPZClHQrb1R4aWXSwyoRuhqJyvzmzKRi3yqpoYrRy4ZCXIZB2b5oTxZACQVdym2lWYZCSJuCZCeNCnVHq3C2tqPYtLyLQblL1CsgoTToZBeZCwZAuXi2gKIG9R3L281sl35jCkn3Xb0ZA0xgAUZC7SIq21S3S2gMRXkX142NQOWT15yIn6XbEtUyEnz9EsajZB0ZD');  // Siden læses på vegne af Christian Skjerning's Access Token..
+FB.setAccessToken('EAACEdEose0cBACB1vGr7aDReS9Q6eNrCDdZB6lfiJsbdabFjeneNkpGYoRs5UdUDGykZATvjZBOYNUQAPFZCjq6C0YkjiKxVLD0OCF0Pca9kZB6fhOX5HwTZAOpG28GtI7VqJkliVeszJSgsrg9OhtsXKSkP2TKUIXDl6ZALKxqNrHjcojIXeS1u7N3DzmeGUP3AnFCeNxZBjvTg8PIkoO9dpgoIZAeR2zo0ZD');  // Siden læses på vegne af Christian Skjerning's Access Token..
 
 
 
