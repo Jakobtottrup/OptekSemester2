@@ -17,20 +17,34 @@ $.when(getFacebookData()).done(function(){
     fb_createPosts();
 });
 
-/*** ******* ***/
-/** functions **/
-/*** ******* ***/
+/*** ************* ***/
+/** basic functions **/
+/*** ************* ***/
 
-function fb_message(message) {
-    var thismessage = "<div class='fb_message'><p>";
-    for (var i = 0; i < message.length; i++) {
-        if (message.charCodeAt(i) == 10) {
-            thismessage += "</p><p>";
+function convertToText(text) {
+    var thistext = "<p>";
+    for (var i = 0; i < text.length; i++) {
+        if (text.charCodeAt(i) == 10) {
+            thistext += "</p><p>";
         } else {
-            thismessage += message.charAt(i);
+            thistext += text.charAt(i);
         }
     }
-    thismessage += "</p></div>";
+    thistext += "</p>";
+    return thistext;
+}
+
+/*** *************** ***/
+/** content functions **/
+/*** *************** ***/
+
+function fb_message(thispost) {
+    var thismessage = "<div class='fb_message'>";
+
+    thismessage += "<img src='http://graph.facebook.com/" + thispost.from.id + "/picture?type=square' title='" + thispost.from.name + "'>";
+    thismessage += convertToText(thispost.message);
+
+    thismessage += "</div>";
     return thismessage;
 }
 
@@ -56,11 +70,15 @@ function fb_likes(likes) {
 }
 
 function fb_comments(comments) {
-    console.log(comments);
     var thiscomment = "<div class='fb_comments'>";
 
     comments.data.forEach(function (item) {
-        thiscomment += "<p>" + item.message + "</p>";
+        if (item.message.length > 0) {
+            thiscomment += "<div class='fb_single_comment'>";
+            thiscomment += "<img src='http://graph.facebook.com/" + item.from.id + "/picture?type=square' title='" + item.from.name + "'>";
+            thiscomment += convertToText(item.message);
+            thiscomment += "</div>";
+        }
     });
 
     thiscomment += "</div>";
@@ -79,7 +97,7 @@ function fb_thispost(post) {
     console.log(post);
     output = "<div class='fb_container'>";
 
-    output += fb_message(post.message);
+    output += fb_message(post);
     output += fb_posttime(post.created_time);
 
     if (typeof post.likes !== "undefined") {
