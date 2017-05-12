@@ -14,8 +14,9 @@ const seats = require('../models/seats');
 const Event = require('../models/event');
 const Sponsors = require('../models/sponsors');
 const Tournaments = require('../models/tournaments');
+const Fb_post = require('../models/fb_posts');
 const FB = require('FB');
-FB.setAccessToken('EAACEdEose0cBAEeh77AVLqranmD2C2rX5OA3kDHTVGBvHre7nIteuILXkT6WBV8sYIHBB1HtsX22iUAqdQrlnLdqwKPxRaf9LHmaNlDAfd0XRTVS4tPU6BNr9ZC7PwXElqMf4ad9TBxF4Wonzo2WlBze6DVq5KsYLm2ip6t3eyO3UmZCaM');  // Siden læses på vegne af Christian Skjerning's Access Token..
+FB.setAccessToken('EAACEdEose0cBAAZBNliZAmXLAmYjHQKsyFTAZCtfkWLXgtewiOqi3SvSjcPPERXt2uoa265ydN4V2DGdC1ZCsVOWaewxMGgZCb5ZAq6nwrVcGxJxCeosgdrqTC4FmcpWxRwKrRpKjk9ZAZCRqdIdtyiCwXWTGdeYEoszt0KfMtHI0DG5VUJSUbEU');  // Siden læses på vegne af Christian Skjerning's Access Token..
 
 
 
@@ -187,6 +188,17 @@ router.get('/fb', function(req, res) {
         res.json(response);
     });
 });
+
+
+router.get('/fb_set', function(req, res){
+    Fb_post.find({},{__v:0}, function(err, data) {
+        if (err) throw err;
+        res.json(data);
+    });
+});
+
+
+
 
 
 module.exports = router;

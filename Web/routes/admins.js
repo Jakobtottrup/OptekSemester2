@@ -23,6 +23,7 @@ const User = require('../models/user');
 const Tournament = require('../models/tournaments');
 const Group = require('../models/seatingGroups');
 const Event = require('../models/event');
+const Fb_post = require('../models/fb_posts');
 const router = express.Router();
 const userRoute = router.route('/users/:_id/:adminClicked/:paymentClicked');
 const delRoute = router.route('/users/:_id');
@@ -518,5 +519,24 @@ galleryRoute.delete(ensureAdminAuthenticated, function (req, res) {
     res.redirect("/admins/gallery");
 });
 
+// SET FACEBOOK SETTINGS
+router.post('/fb_set', ensureAdminAuthenticated, function (req, res) {
+    const posts_id = req.body.posts_id; // check boxes
+    const max_posts = req.body.max_posts; // number field
+    const post_direction = req.body.post_direction; // something
+
+    let newFb_post = new Fb_post ({
+        posts_id: posts_id,
+        max_posts: max_posts,
+        post_direction: post_direction
+    });
+
+    newFb_post.save(function (err) {
+        if (err) throw err;
+        req.flash('success_msg', 'Indstillingerne blev gemt');
+        res.status(200).end();
+        res.redirect('/admins/posts');
+    });
+});
 
 module.exports = router;

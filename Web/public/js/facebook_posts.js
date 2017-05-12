@@ -90,8 +90,6 @@ function fb_thispost(post) {
         output += fb_comments(post.comments);
     }
 
-
-
     output += "</div>";
     $("#facebookposts").append(output);
 }
