@@ -1,4 +1,100 @@
-#facebookposts {
+/* table */
+
+.fb_tb_post {
+    background-color: #22FF6D;
+    width: 100%;
+    border: 1px solid black;
+}
+
+.fb_tb_message {
+    background-color: blue;
+}
+
+.fb_tb_left {
+    background-color: orange;
+    width: 20%;
+}
+
+.fb_tb_right {
+    background-color: #00b3ee;
+    width: 20%
+}
+
+.fb_tb_center {
+    background-color: #7a43b6;
+}
+
+/* content */
+
+.fb_left {
+    background-color: yellow;
+    border-radius: 15px;
+}
+
+.fb_right {
+    background-color: #d43f3a;
+    border-radius: 15px;
+}
+
+.fb_message {
+    background-color: chartreuse;
+    border-radius: 15px;
+    height: 100%
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/*.fb_post {
+    background-color: #22FF6D;
+    margin-top: 10px;*/
+    /*display: flex;*/
+/*}
+
+.fb_pic_left {
+    background-color: #7a43b6;
+    width: 20%
+}
+
+.fb_pic_right {
+    background-color: #00b3ee;
+    width: 20%
+}
+
+.fb_center {
+    background-color: #8a6d3b;
+    width: 50%;
+}
+
+.fb_message {
+    background-color: #843534;
+}
+*/
+
+
+
+
+
+
+
+
+
+
+
+/*#facebookposts {
 
 }
 
@@ -37,3 +133,4 @@
     border-radius: 6px;
     background-color: var(--info-);
 }
+*/

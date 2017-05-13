@@ -5,7 +5,7 @@
 function getFacebookData() {
     return $.ajax({
         type: 'GET',
-        url: "/api/fb",
+        url: "/api/fb_admin",
         dataType: "json"
     }).done(function(data){
         fbData = data;
@@ -89,9 +89,8 @@ function convertToText(text) {
 /*** *************** ***/
 
 function fb_message(thispost) {
-    var thismessage = "<div class='fb_message'>";
+    var thismessage = "<div class='fb_message_text'>";
 
-    thismessage += "<img src='http://graph.facebook.com/" + thispost.from.id + "/picture?type=square' title='" + thispost.from.name + "'>";
     thismessage += "<p>" + thispost.from.name + "</p>";
     thismessage += convertToText(thispost.message);
 
@@ -141,13 +140,26 @@ function fb_comments(comments) {
     return thiscomment;
 }
 
-function fb_photo(image) {
-    return "<img src='" + image + "'>";
+function fb_photo(thispost) {
+    return "<img src='" + thispost.picture + "' title='" + thispost.name + "'>";
 }
 
 function fb_event(thispost) {
-    var thisevent = "<a href='" + thispost.link + "'><img src='" + thispost.picture + "'></a>";
+    var thisevent = "<a href='" + thispost.link + "'><img src='" + thispost.picture + "' title='" + thispost.name + "'></a>";
     return thisevent;
+}
+
+function fb_link(thispost) {
+    var thislink = "<a href='" + thispost.link + "'><img src='" + thispost.picture + "' title='" + thispost.name + "'></a>";
+    return thislink;
+}
+
+/*** * those I use * ***/
+/** content functions **/
+/*** *************** ***/
+
+function fb_post_head(item) {
+    return "<img src='http://graph.facebook.com/" + item.id + "/picture?type=square' title='" + item.name + "'>";
 }
 
 /*** ********** ***/
@@ -160,13 +172,62 @@ function fb_createPosts() {
 
 function fb_thispost(post) {
     console.log(post);
+    output = "";
+    output += "<table class='fb_tb_post'>";
+        output += "<tr class='fb_tb_message'>";
+            output += "<td class='fb_tb_left hidden-xs'>";
+                output += "<div class='fb_left'>" + fb_post_head(post.from) + "</div>";
+            output += "<td>";
+            output += "<td class='fb_tb_center'>";
+                output += "<div class='fb_message'>" + fb_message(post) + "</div>";
+            output += "<td>";
+            output += "<td class='fb_tb_right hidden-xs'>";
+                output += "<div class='fb_right'>" + "right" + "</div>"
+            output += "<td>";
+        output += "</tr>";
+    output += "</table>";
+
+    output += "<br>";
+
+    /*output += "<div class='fb_post'>"; //entire post  col-xs-12
+
+        output += "<div class='fb_message'>";
+
+            output += "<div class='fb_pic_left'>"; // col-sm-2 hidden-xs
+            output += fb_post_head(post.from);
+            output += "</div>";
+
+            output += "<div class='fb_center'>"; // col-sm-8
+                output += fb_message(post);
+                if (post.type == "photo") {
+                    output += fb_photo(post);
+                } else if (post.type == "event") {
+                    output += fb_event(post);
+                } else if (post.type == "link") {
+                    output += fb_link(post);
+                }
+            output += "</div>";
+
+            output += "<div class='fb_pic_right'>"; // col-sm-2 hidden-xs
+            output += "right empty";
+            output += "</div>";
+
+        output += "</div>";
+
+    output += "</div>";*/
+
+    /*
     output = "<div class='fb_container'>";
         output += "<div class='fb_post_container'>";
             output += fb_message(post);
             if (post.type == "photo") {
-                output += fb_photo(post.picture);
+                output += fb_photo(post);
             } else if (post.type == "event") {
                 output += fb_event(post);
+            } else if (post.type == "link") {
+                output += fb_link(post);
+            } else {
+                //console.log(post.type);
             }
             output += fb_posttime(post.created_time);
         output += "</div>";
@@ -176,6 +237,6 @@ function fb_thispost(post) {
         if (typeof post.comments !== "undefined") {
             output += fb_comments(post.comments);
         }
-    output += "</div>";
+    output += "</div>";*/
     $("#facebookposts").append(output);
 }

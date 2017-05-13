@@ -83,8 +83,10 @@
             <div class="col-md-2">
                 {{#if user}}
                     {{#unless user.resetPasswordToken}}
-                        <ul class="nav nav-pills nav-stacked dash-menu">
-                            <li><a href="/dashboard"><i class="fa fa-crosshairs fa-fw "></i>{{user.username}}'s Dashboard</a></li>
+                        <ul class="nav nav-pills nav-stacked dash-menu left-menu">
+                            <li><a href="#" data-target="#item1" data-toggle="collapse" data-parent="#stacked-menu">{{user.username}}'s menu<span class="caret arrow"></span></a></li>
+                            <ul class="nav nav-stacked collapse left-submenu" id="item1">
+                            <li><a href="/dashboard"><i class="fa fa-crosshairs fa-fw "></i>Dit Dashboard</a></li>
                             {{#unless user.isAdmin}}
                                 <li><a href="/users/userinfo"><i class="fa fa-edit fa-fw"></i>Bruger info</a></li>
                                 <li><a href="/users/getseat"><i class="fa fa-th fa-fw"></i>Din Plads</a></li>
@@ -101,11 +103,13 @@
                                 <li><a href="/admins/sponsors"><i class="fa fa-tasks fa-fw"></i>Sponsors</a></li>
                                 <li><a href="/admins/gallery"><i class="fa-image"></i>Gallery</a></li>
                             {{/unless}}
+                            </ul>
                         </ul>
                     {{/unless}}
                 {{/if}}
             </div>
-            <div class="col col-md-8">
+            <div class="col-sm-1 hidden-md hidden-lg hidden-xl"></div>
+            <div class="col col-sm-10 col-md-8">
                 {{#if success_msg}}
                     <div class="alert alert-success">{{success_msg}}</div>
                 {{/if}}
