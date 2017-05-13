@@ -1,44 +1,45 @@
 <script src="/js/admin-mail.js"></script>
 
 
-        <h1>Admin panel - mails</h1>
-        <div class="">
-            <form class="form-horizontal" id="input_form" method="post" action="/admins/mails">
-                <div class="form-group">
-                    <label for="input_modtager" class="col-sm-1 control-label">Modtager:</label>
-                    <div class="col-sm-10 req">
-                        <select class="form-control" name="modtager" id="data_insert"></select>
-                    </div>
-                </div>
-
-                <div class="form-group">
-                    <label for="input_name" class="col-sm-1 control-label">Emne:</label>
-                    <div class="col-sm-10 req">
-                        <input type="text" class="form-control" id="input_emne" placeholder="Emne" name="emne">
-                    </div>
-                </div>
-
-                <div class="form-group">
-                    <label for="input_email" class="col-sm-1 control-label"> Tekst: </label>
-                    <div class="col-sm-10 req">
-                        <textarea name="text" id="input_text" cols="30" rows="10" class="form-control"></textarea>
-                    </div>
-                </div>
-
-                <div class="col-lg-offset-1">
-                    <input type="submit" name="submit" value="Send Email" class="btn btn-primary btn-lg">
-                    <input type="submit" name="submit" value="Send til ALLE" class="btn btn-success btn-lg" id="send_to_all">
-                    <input type="submit" name="reminder_submit" value="Send Betalingspåmindelse" class="btn btn-warning btn-lg" id="reminder">
-                </div>
-
-                <div class="form-group hidden" id="unpaid_emails">
-                    <!--<input type="text" name="emails" id="emails" class="form-control">-->
-                </div>
-                <div class="form-group hidden" id="all_users">
-
-                </div>
-
-            </form>
+<h1>Mails</h1>
+<hr>
+<div class="">
+    <form class="form-horizontal" id="input_form" method="post" action="/admins/mails">
+        <div class="form-group">
+            <label for="input_modtager" class="col-sm-1 control-label">Modtager:</label>
+            <div class="col-sm-10 req">
+                <select class="form-control" name="modtager" id="data_insert"></select>
+            </div>
         </div>
+
+        <div class="form-group">
+            <label for="input_name" class="col-sm-1 control-label">Emne:</label>
+            <div class="col-sm-10 req">
+                <input type="text" class="form-control" id="input_emne" placeholder="Emne" name="emne">
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label for="input_email" class="col-sm-1 control-label"> Tekst: </label>
+            <div class="col-sm-10 req">
+                <textarea name="text" id="input_text" cols="30" rows="10" class="form-control"></textarea>
+            </div>
+        </div>
+
+        <div class="col-lg-offset-1">
+            <input type="submit" name="submit" value="Send Email" class="btn btn-primary btn-lg">
+            <input type="submit" name="submit" value="Send til ALLE" class="btn btn-success btn-lg" id="send_to_all">
+            <input type="submit" name="reminder_submit" value="Send Betalingspåmindelse" class="btn btn-warning btn-lg" id="reminder">
+        </div>
+
+        <div class="form-group hidden" id="unpaid_emails">
+            <!--<input type="text" name="emails" id="emails" class="form-control">-->
+        </div>
+        <div class="form-group hidden" id="all_users">
+
+        </div>
+
+    </form>
+</div>
 
 <div id="loader"><div></div></div>

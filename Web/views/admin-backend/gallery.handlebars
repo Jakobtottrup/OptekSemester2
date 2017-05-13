@@ -1,17 +1,24 @@
 
 <link href="/css/specific/spec-gallery.css" rel="stylesheet" type="text/css"/>
 
-        <h1>Admin panel - gallery</h1>
+<h1>Galleri</h1>
+<hr>
 
-        <div>
-            <form enctype="multipart/form-data" method="post" action="/admins/gallery">
-                <input type="file"name="upl" multiple/>
-                <input type="submit" name="submit">
-            </form>
+<div>
+    <form enctype="multipart/form-data" method="post" action="/admins/gallery">
+        <div class="input-group">
+            <label class="input-group-btn">
+                <span class="btn btn-primary">Vælg filer&hellip; <input name="up1" type="file" accept="image/*" style="display: none;" multiple></span>
+            </label>
+            <input type="text" class="form-control" value="Valgte filer vises her" readonly required>
         </div>
+        <br>
+        <input class="btn btn-primary" type="submit" name="submit" value="Upload">
+    </form>
+</div>
+<hr>
+<div id="image_div"></div>
 
-        <div id="image_div"></div>
-
-        <script src="/js/gallery/gallery_admin.js"></script>
+<script src="/js/gallery/gallery_admin.js"></script>
 
 <div id="loader"><div></div></div>

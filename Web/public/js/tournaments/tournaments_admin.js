@@ -45,6 +45,9 @@ $.when(document, getTournamentsData(), getUsersData()).done(function(){
     $('#data_insert').append(output);
 });
 
+
+
+
 // convert hold
 function convertMember(data){
     if (data === null) {
@@ -101,7 +104,7 @@ function addPrize(){
         $("#prize-head").append('<td id="prize'+totalPrizes+'">'+totalPrizes+'. Plads</td>');
         $("#prize-name").append('<td id="prize'+totalPrizes+'"><input type="text" class="form-control" maxlength="200" placeholder="Navn" name="prize_name" required></td>');
         $("#prize-info").append('<td id="prize'+totalPrizes+'"><input type="text" class="form-control" maxlength="200" placeholder="Beskrivelse" name="prize_info" required></td>');
-        $("#prize-image").append('<td id="prize'+totalPrizes+'"><label class="btn btn-primary" style="width:100%">Browse&hellip;<input name="prize_image" type="file" accept="image/*" onchange="loadFile(this)" style="display:none;"required></label>' +
+        $("#prize-image").append('<td id="prize'+totalPrizes+'"><label class="btn btn-primary" style="width:100%">Vælg billede&hellip;<input name="prize_image" type="file" accept="image/*" onchange="loadFile(this)" style="display:none;"required></label>' +
             '<br><img id="image'+totalPrizes+'" style="width:100%; margin-top:10px"/></td>');
     }
 }
@@ -247,7 +250,7 @@ $(function() {
         $(':file').on('fileselect', function(event, numFiles, label) {
 
             let input = $(this).parents('.input-group').find(':text'),
-                log = numFiles > 1 ? numFiles + ' files selected' : label;
+                log = numFiles > 1 ? numFiles + ' filer valgt' : label;
 
             if( input.length ) {
                 input.val(log);

@@ -1,24 +1,26 @@
 <h1>Opret nyt password</h1>
+<hr>
+
+
 
 <form id="resetForm" class="form-horizontal" role="form" method="post" action="/reset/">
-    <div class="form-group">
-        <label for="password">New password</label>
-        <input id="password" type="password" class="form-control" name="password" value="" placeholder="New Password"
+    <div class="input-group">
+        <span class="input-group-addon"><i class="glyphicon glyphicon-lock"></i></span>
+        <input id="password" type="password" class="form-control" name="password" value="" placeholder="Nyt kodeord"
                autofocus>
     </div>
-    <div class="form-group">
-        <label for="confirm">New password</label>
-        <input id="confirm" type="password" class="form-control" name="confirm" value="" placeholder="Confirm Password"
+    <br>
+    <div class="input-group">
+        <span class="input-group-addon"><i class="glyphicon glyphicon-lock"></i></span>
+        <input id="confirm" type="password" class="form-control" name="confirm" value="" placeholder="Gentag kodeord"
                autofocus>
     </div>
-
-    <div class="form-group">
-        <input type="submit" name="submit" value="Update password" class="btn btn-primary btn-lg" id="submitBtn">
-    </div>
+    <hr>
+    <input type="submit" name="submit" value="Bekræft" class="btn btn-primary btn-lg" id="submitBtn">
 </form>
 
-<script>
 
+<script>
     function updatePassword(token) {
         $.ajax({
             type: 'POST',

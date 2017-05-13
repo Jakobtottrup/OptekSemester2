@@ -40,7 +40,7 @@ const FB = require('FB');
  *  ACCOUNT ID URL :            https://graph.facebook.com/v2.9/me?access_token=EAAJWyjtCmecBAPgNZAyjMdVMiP1hQmIJb4hkO0EJDA7GB6IS255i7F37jYwqZCD1TgfNktr6dHSyC5arXP4j9L7EV4FYNq3Jm0XEpySamPVgjyQDd670dw2R9leY8XbFZBMEfG2k6pvCElxIDwUq6BKmvgsmb8ZD
  *  ACCOUNT ID :                247667268610623
  *
- *  URL FOR PERMANENT TOKEN :   https://graph.facebook.com/v2.9/247667268610623/accounts?access_token=EAAJWyjtCmecBAHYFf8IaW37yZC9Q3l9nzAjn5eT13paG7eZBw1ZAn94ZAXSeyYYEwWzzmk8NsranZAtLxxwChbpZAmE0xxRulVc2idLFHsBku4PTpuOUFDzdtwHvMPwnshvwPisTTY7nZCsODFRv1ZAcjbKISojlvmoZD // does not work with page id... more to come...
+ *  URL FOR PERMANENT TOKEN :   https://graph.facebook.com/v2.9/247667268610623/pages?access_token=EAAJWyjtCmecBAPgNZAyjMdVMiP1hQmIJb4hkO0EJDA7GB6IS255i7F37jYwqZCD1TgfNktr6dHSyC5arXP4j9L7EV4FYNq3Jm0XEpySamPVgjyQDd670dw2R9leY8XbFZBMEfG2k6pvCElxIDwUq6BKmvgsmb8ZD // does not work with page id... more to come...
  *  PERMANENT TOKEN ID:
  */
 

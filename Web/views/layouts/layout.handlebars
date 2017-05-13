@@ -57,7 +57,7 @@
                     <li><a href="/tournaments">TURNERINGER</a></li>
                     <li><a href="/seats">PLADSKORT</a></li>
                     <li><a href="/contact">KONTAKT</a></li>
-                    <li><a href="/gallery">GALLERY</a></li>
+                    <li><a href="/gallery">GALLERI</a></li>
                 </ul>
 
                 <ul class="nav navbar-nav navbar-right">
@@ -84,7 +84,7 @@
                 {{#if user}}
                     {{#unless user.resetPasswordToken}}
                         <ul class="nav nav-pills nav-stacked dash-menu left-menu">
-                            <li><a href="#" data-target="#item1" data-toggle="collapse" data-parent="#stacked-menu">{{user.username}}'s menu<span class="caret arrow"></span></a></li>
+                            <li><a href="#" data-target="#item1" data-toggle="collapse" data-parent="#stacked-menu"><b>{{user.username}}</b>'s menu<span class="caret arrow"></span></a></li>
                             <ul class="nav nav-stacked collapse left-submenu" id="item1">
                             <li><a href="/dashboard"><i class="fa fa-crosshairs fa-fw "></i>Dit Dashboard</a></li>
                             {{#unless user.isAdmin}}
@@ -101,7 +101,7 @@
                                 <li><a href="/admins/seating_groups"><i class="fa fa-users fa-fw "></i>Siddegrupper</a></li>
                                 <li><a href="/admins/mails"><i class="fa fa-envelope fa-fw"></i>Mails</a></li>
                                 <li><a href="/admins/sponsors"><i class="fa fa-tasks fa-fw"></i>Sponsors</a></li>
-                                <li><a href="/admins/gallery"><i class="fa-image"></i>Gallery</a></li>
+                                <li><a href="/admins/gallery"><i class="fa-image"></i>Galleri</a></li>
                             {{/unless}}
                             </ul>
                         </ul>

@@ -1,21 +1,20 @@
 
 <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyANQd8petvZv_ezZ0dfCZ55TZINe40at_M&libraries=geometry,directions"></script>
 <script src="/js/GoogleMaps.js"></script>
-<!--script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?libraries=geometry,directions"></script-->
 <link href="/css/MapStyling.css" rel="stylesheet" type="text/css" />
 
 <div onload="initialize()">
+    <h1>Kontakt</h1>
+    <hr>
 
-        <h1>Kontakt</h1>
-
-        <div>
-
-            <p> S7LAN kan kontaktes pr. e-mail <br>
-                <a href="mailto:kontakt@s7lan.dk">kontakt@s7lan.dk</a>
-            </p>
-        </div>
-
-        <div id="map-canvas"></div>
-
-        <input id="getRoute" type="button" value="Find Vej" onclick='showRoute();'>
+    <div>
+        <p> S7LAN kan kontaktes pr. e-mail <br>
+            <a href="mailto:kontakt@s7lan.dk">kontakt@s7lan.dk</a>
+        </p>
     </div>
+
+    <div class="img-rounded" id="map-canvas"></div>
+
+    <br>
+    <input class="btn btn-primary" id="getRoute" type="button" value="Find Vej" onclick='showRoute();'>
+</div>
