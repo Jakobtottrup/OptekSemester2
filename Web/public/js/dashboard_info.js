@@ -22,6 +22,7 @@ $.when(document, getUserData()).done(function(){
     $("#fakultet").append(userData.fakultet);
     $("#payment_status").append(paymentStatus(userData.hasPaid));
     $("#social").append(socialInfo(userData));
+    $("#joined").append("<p>"+convertTimeWithYear(userData.joined)+"</p>");
 
     drawGroup();
     drawTournament();
@@ -56,7 +57,14 @@ function sendData_ui () {
         let fakultet = $('#input_fakultet').val();
         let steam = $('#input_steam').val();
         let bnet = $('#input_bnet').val();
+        if (steam === ""){
+            steam = "|"
+        }
+        if (bnet === ""){
+            bnet = "|"
+        }
 
+        console.log("username:",username,"\nage:",age,"\nemail:",email,"\nstudie:",studie,"\nfakultet:",fakultet,"\nsteam:",steam,"\nbnet:",bnet);
         $.ajax({
             type: "PUT",
             url: "/users/userupdate/" + username + "/" + email + "/" + age + "/" + studie + "/" + fakultet + "/" + steam + "/" + bnet,

@@ -110,10 +110,40 @@ function socialInfo(data){
         if (data.bnet) {
             output += "<br><img src='https://maxcdn.icons8.com/Share/icon/Logos//battle_net1600.png'> " + data.bnet;
         } else {
-            output += "<img src='https://maxcdn.icons8.com/Share/icon/Logos//battle_net1600.png'> (Ikke angivet)"
+            output += "<br><img src='https://maxcdn.icons8.com/Share/icon/Logos//battle_net1600.png'> (Ikke angivet)"
         }
     } else {
         output = "(Intet angivet)";
     }
     return output;
+}
+
+
+// used for warping time space into understandable text for human species
+let monthNames = ["Jan", "Feb", "Mar", "Apr", "Maj", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+function convertTimeNoYear(time){
+    if (typeof time === "number"){
+        if(time === 1 || time === 0.1) {
+            return time+" time";
+        } else {
+            return time+" timer";
+        }
+    } else if (typeof time !== "number") {
+        let month = monthNames[new Date(time).getMonth()];
+        let day = new Date(time).getDay()+1;
+        let hour = new Date(time).getHours();
+        let min = new Date(time).getMinutes();
+        time = day +". " + month +" kl: " + hour + ":" + min;
+        console.log(time);
+        return time;
+    }
+}
+
+// used for warping time space into understandable text for human species
+function convertTimeWithYear(time){
+    let year = new Date(time).getUTCFullYear();
+    let month = monthNames[new Date(time).getMonth()];
+    let day = new Date(time).getDay()+1;
+    time = day +". " + month +" - "+ year;
+    return time;
 }

@@ -200,7 +200,8 @@ router.post('/signup', function (req, res) {
             steam: steam,
             isAdmin: false,
             hasPaid: false,
-            isActive: true
+            isActive: true,
+            createdAt: Date.now()
         });
 
         User.findOne({username: username}, function (err, user) {

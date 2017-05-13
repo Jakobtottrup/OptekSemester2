@@ -44,6 +44,9 @@ var UserSchema = mongoose.Schema({
         steam: {
             type: String
         },
+        createdAt: {
+            type: Date
+        },
         isAdmin: Boolean,
 
         hasPaid: Boolean,

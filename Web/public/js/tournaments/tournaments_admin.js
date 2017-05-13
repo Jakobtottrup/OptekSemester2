@@ -32,7 +32,7 @@ $.when(document, getTournamentsData(), getUsersData()).done(function(){
         output += "<tr class='data_row "+data.isVisibel+" "+data.isOpen+"' id='"+data._id+"'>";
         output += "<td class='hidden-xs hidden-sm hidden-md'>" + (key+1) + "</td>";
         output += "<td><b>" + data.name + "</b></td>";
-        output += "<td><b>Åbner: </b>" + convertTime(data.openingDate) + "<br><b>Lukker: </b>" + convertTime(data.closingDate) + "<br><b>Start: </b>" + convertTime(data.startDate) + "<br><b>Varighed: </b>" + convertTime(data.tourDuration) + "</td>";
+        output += "<td><b>Åbner: </b>" + convertTimeNoYear(data.openingDate) + "<br><b>Lukker: </b>" + convertTimeNoYear(data.closingDate) + "<br><b>Start: </b>" + convertTimeNoYear(data.startDate) + "<br><b>Varighed: </b>" + convertTimeNoYear(data.tourDuration) + "</td>";
         output += "<td class='hidden-xs hidden-sm hidden-md'><button class='btn btn-primary' onclick='showTourDescription(this)'>Se beskrivelse</button></td>";
         output += "<td class='hidden-xs hidden-sm hidden-md'><button class='btn btn-primary' onclick='showPic(this)'>Se billede</button></td>";
         output += "<td class='hidden-xs hidden-sm hidden-md'><b>Max hold: </b>"+ convertMember(data.maxTeams) +"<br><b>Pr. hold: </b>"+ convertMember(data.minTeamSize) + " - " + convertMember(data.maxTeamSize) +" deltagere</td><br>";
@@ -161,28 +161,6 @@ function showPic(source){
         $('#modal-edit').modal('show'); // show modal
     }
 }
-
-// used for warping time space into understandable text for human species
-function convertTime(time){
-    if (typeof time === "number"){
-        if(time === 1 || time === 0.1) {
-            return time+" time";
-        } else {
-            return time+" timer";
-        }
-    } else if (typeof time !== "number") {
-        // console.log(time);
-        let month = new Date(time).getDate()+1;
-        let day = new Date(time).getDay()+1;
-        let hour = new Date(time).getHours();
-        let min = new Date(time).getMinutes();
-        time = month +"/"+ day +" - "+ hour +":"+ min;
-        // let time = new Date(time);
-        // time.toString();
-        return time;
-    }
-}
-
 
 
 // ============== EDITING TOURNAMENTS ============== //

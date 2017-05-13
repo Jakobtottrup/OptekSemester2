@@ -68,8 +68,18 @@ router.put('/userupdate/:username/:email/:age/:studie/:fakultet/:steam/:bnet', e
             user.age = req.params.age;
             user.studie = req.params.studie;
             user.fakultet = req.params.fakultet;
-            user.steam = req.params.steam;
-            user.bnet = req.params.bnet;
+
+            if (req.params.steam === "|"){
+                user.steam = "";
+            } else {
+                user.steam = req.params.steam;
+            }
+
+            if (req.params.bnet === "|"){
+                user.bnet = "";
+            } else {
+                user.bnet = req.params.bnet;
+            }
 
             user.save(function (err) {
                 if (err) {
