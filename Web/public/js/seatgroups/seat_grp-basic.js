@@ -27,7 +27,7 @@ $.when(getGroupData(), getUsersData(), getUserData()).done(function(){
 });
 
 
-/* available config options
+/** available config options
  output += "<button class='btn btn-danger' onclick='leaveGroup(this)'>Forlad gruppe</button>";
  output += "<button class='btn btn-success' onclick='joinGroup(this)'>Deltag i gruppe</button>";
  output += "<button class='btn btn-primary' onclick='editGroup(this)'>Redigér gruppe</button>";
@@ -36,16 +36,13 @@ $.when(getGroupData(), getUsersData(), getUserData()).done(function(){
 
 // place control buttons
 function placeButtons(data) {
-    // console.log(data.groupName);
-    // console.log("isLeader: "+ isLeader(data));
-    // console.log("inGroup: "+ inGroup(data));
     let output = "<td>";
 
     // if user is admin
     if(userData.isAdmin === true){
         output += "<button class='btn btn-primary' onclick='editGroup(this)'>Redigér gruppe</button>";
         if (inGroup(data) === false) {
-            output += "<button class='btn btn-success' onclick='openModal(this)'>Deltag i gruppe</button>";
+           // output += "<button class='btn btn-success' onclick='openModal(this)'>Deltag i gruppe</button>";
         } else if (inGroup(data) === true && isLeader(data) === false) {
             output += "<button class='btn btn-danger' onclick='leaveGroup(this)'>Forlad gruppe</button>";
         }

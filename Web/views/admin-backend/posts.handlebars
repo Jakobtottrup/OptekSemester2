@@ -1,18 +1,22 @@
 
-        <h1>Admin panel - posts</h1>
-        <p>Nothing here yet</p>
+<h1>Administrér opslag</h1>
+<h4>Opslag hentes direkte fra Facebook</h4>
+<br>
 
 
-        <form method="post" action="/admins/posts">
-            <input class="form-control" type="text" name="posts_id" placeholder="id">
-            <br>
-            <input class="form-control" type="text" name="posts_id" placeholder="id">
-            <br>
-            <input class="form-control" type="text" name="posts_id" placeholder="id">
-            <br>
-            <input class="form-control" type="number" name="max_posts" placeholder="max antal">
-            <br>
-            <input class="form-control" type="checkbox" name="post_direction" checked>
-            <br>
-            <button class="btn btn-primary" type="submit" value="submit">submit</button>
-        </form>
+
+<p>Vælg hvilke opslag der skal vises eller ej - indtast deres ID (stadig i beta)</p>
+<form method="post" action="/admins/posts">
+    <input class="form-control" type="text" name="posts_id" placeholder="id" required>
+    <br>
+    <input class="form-control" type="text" name="posts_id" placeholder="id" required>
+    <br>
+    <input class="form-control" type="text" name="posts_id" placeholder="id" required>
+    <br>
+    <input class="form-control" min="0" max="100" type="number" name="max_posts" placeholder="max antal">
+    <br>
+    <p>Skal valgt ID'er vises?</p>
+    <input class="form-control" type="checkbox" name="post_direction" checked>
+    <br>
+    <button class="btn btn-primary" type="submit" value="submit">Gem indstillinger</button>
+</form>
