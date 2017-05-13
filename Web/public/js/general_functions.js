@@ -82,7 +82,6 @@ function translateBoolean(statement){
 
 // used to display loading screen
 $(document).ajaxStart(function() {
-    //console.log($.active);
     if($.active > 0) {
         $('#loader').show();
     }
@@ -99,3 +98,22 @@ $(document).ready(function(){
     $("#dashboard-nav").find('a[href$="' +path+ '"]').parent().addClass("active");
 });
 
+
+function socialInfo(data){
+    let output = "";
+    if (data.steam || data.bnet) {
+        if (data.steam){
+            output += "<img src='https://steamstore-a.akamaihd.net/public/shared/images/responsive/share_steam_logo.png'> " + data.steam;
+        } else {
+            output += "<img src='https://steamstore-a.akamaihd.net/public/shared/images/responsive/share_steam_logo.png'> (Ikke angivet)"
+        }
+        if (data.bnet) {
+            output += "<br><img src='https://maxcdn.icons8.com/Share/icon/Logos//battle_net1600.png'> " + data.bnet;
+        } else {
+            output += "<img src='https://maxcdn.icons8.com/Share/icon/Logos//battle_net1600.png'> (Ikke angivet)"
+        }
+    } else {
+        output = "(Intet angivet)";
+    }
+    return output;
+}

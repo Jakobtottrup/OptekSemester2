@@ -10,6 +10,7 @@ mongoose.Promise = require('bluebird');
 const Group = require('../models/seatingGroups');
 const Tournament = require('../models/tournaments');
 const Seat = require('../models/seats');
+const User = require('../models/user');
 const groupRoute = router.route('/seatgroups/:_id/:task/:pass');
 const tourRoute = router.route('/tournaments/:_id/:task/:tn/:tp/:tp2');
 const seatRoute = router.route('/getseat/:index');
@@ -29,13 +30,13 @@ function ensureAuthenticated(req, res, next){
 
 // USER INFO
 router.get('/userinfo', ensureAuthenticated, function(req, res){
-    res.render('user-backend/userinfo', {title: "Bruger info"});
+    res.render('user-backend/userinfo', {title: "Brugerlist"});
 });
 
 
 // USER TOURNAMENTS
 router.get('/tournaments', ensureAuthenticated, function(req, res){
-    res.render('user-backend/tournaments', {title: "Dine Turneringer"});
+    res.render('user-backend/tournaments', {title: "Turneringer"});
 });
 
 // CREATE TEAM
@@ -53,6 +54,32 @@ router.get('/getseat', ensureAuthenticated, function(req, res){
 // USER SEAT
 router.get('/seatgroups', ensureAuthenticated, function(req, res){
     res.render('user-backend/seatgroups', {title: "Siddegrupper"});
+});
+
+
+// UPDATE USER INFORMATION
+router.put('/userupdate/:username/:email/:age/:studie/:fakultet/:steam/:bnet', ensureAuthenticated, function(req, res){
+    User.findById(req.user._id, function (err, user) {
+        if (err) {
+            res.send(err);
+        } else {
+            user.username = req.params.username;
+            user.email = req.params.email;
+            user.age = req.params.age;
+            user.studie = req.params.studie;
+            user.fakultet = req.params.fakultet;
+            user.steam = req.params.steam;
+            user.bnet = req.params.bnet;
+
+            user.save(function (err) {
+                if (err) {
+                    res.send(err);
+                }
+                req.flash('success_msg', 'Dine oplysninger er nu blevet opdateret');
+                res.redirect("/dashboard");
+            });
+        }
+    });
 });
 
 

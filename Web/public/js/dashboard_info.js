@@ -20,6 +20,58 @@ $.when(document, getUserData()).done(function(){
     $("#age").append(userData.age);
     $("#studie").append(userData.studie);
     $("#fakultet").append(userData.fakultet);
-    $("#steam").append(userData.steam);
-    $("#bnet").append(userData.bnet);
+    $("#payment_status").append(paymentStatus(userData.hasPaid));
+    $("#social").append(socialInfo(userData));
+
+    drawGroup();
+    drawTournament();
 });
+
+function paymentStatus(status) {
+    if(status === true){
+        return "<b>Godkendt</b>";
+    } else {
+        return "<b>Ikke godkendt endnu</b>";
+    }
+}
+
+function toggleModal() {
+    $("#modal-edit").modal('show');
+    $('#input_username').val(userData.username);
+    $('#input_email').val(userData.email);
+    $('#input_age').val(userData.age);
+    $('#input_studie').val(userData.studie);
+    $('#input_fakultet').val(userData.fakultet);
+    $('#input_steam').val(userData.steam);
+    $('#input_bnet').val(userData.bnet);
+}
+
+function sendData_ui () {
+    if (window.confirm("Vil du gemme de nye oplysninger?")) {
+        $("#modal-edit").modal('hide');
+        let username = $('#input_username').val();
+        let email = $('#input_email').val();
+        let age = $('#input_age').val();
+        let studie = $('#input_studie').val();
+        let fakultet = $('#input_fakultet').val();
+        let steam = $('#input_steam').val();
+        let bnet = $('#input_bnet').val();
+
+        $.ajax({
+            type: "PUT",
+            url: "/users/userupdate/" + username + "/" + email + "/" + age + "/" + studie + "/" + fakultet + "/" + steam + "/" + bnet,
+            dataType: 'json',
+            success: location.reload()
+        });
+    }
+}
+
+function drawGroup() {
+
+
+}
+
+
+function drawTournament() {
+
+}

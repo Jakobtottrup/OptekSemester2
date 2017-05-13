@@ -97,13 +97,15 @@ router.get('/sponsors', ensureAdminAuthenticated, function (req, res) {
 
 // RENDER EVENT VIEW
 router.get('/events', ensureAdminAuthenticated, function (req, res) {
-    res.render('admin-backend/events', {title: "Admin Panel"});
+    res.render('admin-backend/events', {title: "LAN"});
 });
+
 
 // RENDER MAILS VIEW
 router.get('/mails', ensureAdminAuthenticated, function (req, res) {
-    res.render('admin-backend/mails', {title: "Admin Panel", name: "Brugers navn"});
+    res.render('admin-backend/mails', {title: "Mails"});
 });
+
 
 router.post('/create_seats', ensureAdminAuthenticated, function (req, res) {
     let seatName = req.body.seatName;
@@ -146,24 +148,13 @@ router.post('/create_seats', ensureAdminAuthenticated, function (req, res) {
 
 // RENDER GALLERY UPLOAD VIEW
 router.get('/gallery', ensureAdminAuthenticated, function (req, res) {
-    res.render('admin-backend/gallery', {title: 'Admin panel'});
+    res.render('admin-backend/gallery', {title: 'Galleri'});
 });
 
 // GALLERY UPLOAD
 router.post('/gallery', ensureAdminAuthenticated, galleryUploads, function (req, res) {
     res.status(200);
     res.redirect('/admins/gallery');
-});
-
-
-// RENDER EVENT VIEW
-router.get('/events', ensureAdminAuthenticated, function (req, res) {
-    res.render('admin-backend/events', {title: "Admin Panel"});
-});
-
-// RENDER MAILS VIEW
-router.get('/mails', ensureAdminAuthenticated, function (req, res) {
-    res.render('admin-backend/mails', {title: "Admin Panel", name: "Brugers navn"});
 });
 
 
@@ -361,7 +352,7 @@ tourRoute.delete(ensureAdminAuthenticated, function (req, res) {
         }
     });
     req.flash('success_msg', 'Turneringen er nu slettet');
-    res.status(200).redirect("/admins/tournaments");
+    res.redirect("/admins/tournaments");
 });
 
 

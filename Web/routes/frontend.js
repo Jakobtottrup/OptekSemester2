@@ -155,7 +155,7 @@ router.post('/reset/:token', function (req, res) {
 
 // render gallery view
 router.get('/gallery', function (req, res) {
-    res.render('frontend/gallery', {title: "Gallery"});
+    res.render('frontend/gallery', {title: "Galleri"});
 });
 
 
@@ -275,7 +275,7 @@ router.get('/seats', function (req, res) {
 
 // RENDER 'EVENTS' VIEW
 router.get('/events', function (req, res) {
-    res.render('frontend/events', {title: "Dette Event"});
+    res.render('frontend/events', {title: "LAN"});
 });
 
 
@@ -284,7 +284,7 @@ router.get('/login', function (req, res) {
     if (typeof req.user !== "undefined") {
         res.redirect('/dashboard');
     } else {
-        res.render('frontend/login', {title: "Dashboard"});
+        res.render('frontend/login', {title: "Login"});
     }
 });
 
@@ -353,7 +353,7 @@ router.post('/login', function(req, res, next) {
         }
         req.logIn(user, function(err) {
             if (err) { return next(err); }
-            return res.redirect('/dashboard/');
+            return res.redirect('/dashboard');
         });
     })(req, res, next);
 });
@@ -383,11 +383,5 @@ function ensureAuthenticated(req, res, next) {
         res.redirect('/login');
     }
 }
-
-
-
-
-
-
 
 module.exports = router;

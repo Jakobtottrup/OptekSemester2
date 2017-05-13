@@ -1,19 +1,122 @@
 <link rel="stylesheet" type="text/css" href="/css/specific/spec-dash.css">
 <script src="/js/dashboard_info.js"></script>
 
-
 <h1> Velkommen <b>{{user.username}}</b></h1>
+<br>
+<br>
+
+<div class="table-responsive">
+    <table class="table table-condensed" id="user_info">
+        <td>Brugernavn</td>
+        <td>Alder</td>
+        <td>Email</td>
+        <td>Social</td>
+        <td>Studie</td>
+        <td>Fakultet</td>
+        <tbody>
+        <tr>
+            <td><p id="username"></p></td>
+            <td><p id="age"></p></td>
+            <td><p id="email"></p></td>
+            <td><p id="social"></p></td>
+            <td><p id="studie"></p></td>
+            <td><p id="fakultet"></p></td>
+        </tr>
+        </tbody>
+    </table>
+
+</div>
+<button class='btn btn-primary pull-right' onclick="toggleModal()">Ret oplysninger</button>
+<div class="clearfix"></div>
+
 <hr>
 
 
-<ul class="nav nav-pills nav-stacked">
-    <li class="well"><div class="dash-text"><p id="username"></p></div></li>
-    <li class="well"><div class="dash-text"><p id="email"></p></div></li>
-    <li class="well"><div class="dash-text"><p id="age"></p></div></li>
-    <li class="well"><div class="dash-text"><p id="studie"></p></div></li>
-    <li class="well"><div class="dash-text"><p id="fakultet"></p></div></li>
-    <li class="well"><div class="dash-text"><p id="steam"></p></div></li>
-    <li class="well"><div class="dash-text"><p id="bnet"></p></div></li>
-</ul>
+<h3>Siddeplads</h3>
+<div class="well">
+    <div id="seat">
+
+    </div>
+</div>
+
+<hr>
+<h3>Siddegruppe</h3>
+<div class="well">
+    <div id="seatgroup">
+
+    </div>
+</div>
+
+<hr>
+<h3>Turneringer</h3>
+<div class="well">
+    <div id="tournamnet">
+
+    </div>
+</div>
+
+
+
+<!-- Modal for editing information -->
+<div id="modal-edit" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header"><h2>Redigér dine oplysninger</h2>
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title" id="edit-data-header"></h4>
+            </div>
+            <div class="modal-body input-group" id="edit-data-body"></div>
+            <label>Brugernavn</label>
+            <input type="text" class="form-control" maxlength="30" id="input_username"  placeholder="Brugernavn" required>
+            <br>
+            <label>Email</label>
+            <input type="email" maxlength="40" class="form-control" id="input_email" placeholder="Fx. [initialer][årgang]@student.sdu.dk" required>
+            <br>
+            <label>Alder</label>
+            <input type="number" min="10" max="99" maxlength="2" class="form-control" id="input_age" required>
+            <br>
+            <label>Steam</label>
+            <input type="text" class="form-control" maxlength="15" id="input_steam" placeholder="Fx. SteamID123" required>
+            <br>
+            <label>Bnet</label>
+            <input type="text" class="form-control" maxlength="17" id="input_bnet" placeholder="Fx. BattleTag#1234" required>
+            <br>
+
+            <label>Uddannelsessted</label>
+            <div class="req">
+                <select class="form-control" name="studie" id="input_studie">
+                    <option>SDU Odense</option>
+                    <option>SDU Esbjerg</option>
+                    <option>SDU Kolding</option>
+                    <option>SDU Slagelse</option>
+                    <option>SDU København</option>
+                    <option>Ikke fra SDU</option>
+                </select>
+            </div>
+            <br>
+            <label>Fakultet</label>
+            <div class="req">
+                <select class="form-control" name="fakultet" id="input_fakultet">
+                    <option>Teknisk Fakultet</option>
+                    <option>Samfundsvidenskabelige Fakultet</option>
+                    <option>Naturvidenskabelige Fakultet</option>
+                    <option>Humanistiske Fakultet</option>
+                    <option>Sunhedsvidenskabelige Fakultet</option>
+                    <option>Andet</option>
+                </select>
+            </div>
+
+            <div class="modal-footer">
+                <button type="button" method="post" class="btn btn-danger" data-dismiss="modal">Annuller</button>
+                <button class="btn btn-success" onclick="sendData_ui()">Gem</button>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+
 
 <div id="loader"><div></div></div>

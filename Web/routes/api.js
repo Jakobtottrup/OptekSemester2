@@ -77,11 +77,23 @@ function ensureAuthenticated(req, res, next) {
 // ACTIVE USER LOGIN DATA
 router.get('/localuser', function(req, res) {
     if (req.user){
-        req.user.password = 0;
-        res.json(req.user);
-    } else {
+        let _id = req.user.id;
+        let username = req.user.username;
+        let age = req.user.age;
+        let email = req.user.email;
+        let studie = req.user.studie;
+        let fakultet = req.user.fakultet;
+        let bnet = req.user.bnet;
+        let steam = req.user.steam;
+        let hasPaid = req.user.hasPaid;
+        let isAdmin = req.user.isAdmin;
 
-        //req.flash('error_msg','Du er ikke logget ind');
+        if(req.user.isAdmin === true){
+            res.json({_id, username, age, email, studie, fakultet, bnet, steam, hasPaid, isAdmin});
+        } else {
+            res.json({_id, username, age, email, studie, fakultet, bnet, steam, hasPaid});
+        }
+    } else {
         res.json(null);
     }
 });
@@ -95,9 +107,23 @@ router.get('/users', function (req, res) {
             res.json(data);
         });
     } else if (typeof req.user === "object") {                          // IF USER REQUESTING IS NOT ADMIN - USER
-        User.find({},{__v:0, password:0, resetPasswordExpires:0, resetPasswordToken:0}, function(err, data) {
+        User.find({},{__v:0, password:0, resetPasswordExpires:0, resetPasswordToken:0, isAdmin:0}, function(err, data) {
             if (err) throw err;
-            res.json(data);
+            let newData = [];
+            for(let i = 0; i < data.length; i++){
+                if(data[i].hasPaid === true) {
+                    let _id = data[i].id;
+                    let username = data[i].username;
+                    let age = data[i].age;
+                    let email = data[i].email;
+                    let studie = data[i].studie;
+                    let fakultet = data[i].fakultet;
+                    let bnet = data[i].bnet;
+                    let steam = data[i].steam;
+                    newData.push({_id, username, age, email, studie, fakultet, bnet, steam});
+                }
+            }
+            res.json(newData);
         });
     } else {                                                            // IF THERE IS NO USER LOGGED IN - PUBLIC
         User.find({},{__v:0, password:0, age:0, email:0, studie:0, steam:0, bnet:0, isAdmin:0, fakultet:0, hasPaid:0, resetPasswordExpires:0, resetPasswordToken:0}, function(err, data) {
