@@ -162,6 +162,148 @@ function fb_post_head(item) {
     return "<img src='http://graph.facebook.com/" + item.id + "/picture?type=square' title='" + item.name + "'>";
 }
 
+function fb_comment_head(item) {
+    return "<img src='http://graph.facebook.com/" + item.id + "/picture?type=square' title='" + item.name + "'>";
+}
+
+function fb_comment(item) {
+    var thiscomment = "<div class='fb_comment'>";
+    thiscomment += convertToText(item.message);
+    thiscomment += "</div>";
+
+    return thiscomment;
+}
+
+function fb_likes(likes) {
+    var thislikes = "<div class='fb_likes'>";
+
+    likes.data.forEach(function (item) {
+        thislikes += "<img src='http://graph.facebook.com/" + item.id + "/picture?type=square' title='" + item.name + "'>";
+    });
+
+    thislikes += "</div>";
+    return thislikes;
+}
+
+/** those I truly use ***/
+/** content functions **/
+/*** *************** ***/
+
+function fb_created_time(time) {
+    return "Tid: " + time;
+}
+
+function fb_user_pic(user) {
+    return "<img src='http://graph.facebook.com/" + user.id + "/picture?type=square' title='" + user.name + "'>";
+}
+
+function fb_post_large(post) {
+    //name, date, text
+    var text = "";
+
+    text += "<div class='fb_post'>";
+    text += "<p>" + post.from.name + "</p>";
+    text += "<p>" + fb_created_time(post.created_time) + "</p>";
+    text += fb_post_text(post);
+    text += "</div>";
+
+    return text;
+}
+
+function fb_post_medium(post) {
+    //pic, name, date, text
+    var text = "";
+
+    text += "<div class='fb_post'>";
+    text += fb_user_pic(post.from);
+    text += "<p>" + post.from.name + "</p>";
+    text += "<p>" + fb_created_time(post.created_time) + "</p>";
+    text += fb_post_text(post);
+    text += "</div>";
+
+    return text;
+}
+
+function fb_post_small(post) {
+    //pic, name, date, text
+    var text = "";
+
+    text += "<div class='fb_post'>";
+    text += fb_user_pic(post.from);
+    text += "<p>" + post.from.name + "</p>";
+    text += "<p>" + fb_created_time(post.created_time) + "</p>";
+    text += fb_post_text(post);
+    text += "</div>";
+
+    return text;
+}
+
+function fb_post_text(post) {
+    var text = "";
+
+    text += "<p>" + convertToText(post.message); + "</p>";
+    if (post.type == "photo") {
+        text += fb_photo(post);
+    } else if (post.type == "event") {
+        text += fb_event(post);
+    } else if (post.type == "link") {
+        text += fb_link(post);
+    } else {
+        //console.log(post.type);
+    }
+
+    return text;
+}
+
+function fb_comment_text(comment) {
+    var text = "";
+
+    text += "<p>" + convertToText(comment.message); + "</p>";
+
+    return text;
+}
+
+function fb_comment_large(comment) {
+    //name, date, text
+    var text = "";
+
+    text += "<div class='fb_comment'>";
+    text += "<p>" + comment.from.name + "</p>";
+    text += "<p>" + fb_created_time(comment.created_time) + "</p>";
+    text += fb_comment_text(comment);
+    text += "</div>";
+
+    return text;
+}
+
+function fb_comment_medium(comment) {
+    //pic, name, date, text
+    var text = "";
+
+    text += "<div class='fb_comment'>";
+    text += fb_user_pic(comment.from);
+    text += "<p>" + comment.from.name + "</p>";
+    text += "<p>" + fb_created_time(comment.created_time) + "</p>";
+    text += fb_comment_text(comment);
+    text += "</div>";
+
+    return text;
+}
+
+function fb_comment_small(comment) {
+    //pic, name, date, text
+    var text = "";
+
+    text += "<div class='fb_comment'>";
+    text += fb_user_pic(comment.from);
+    text += "<p>" + comment.from.name + "</p>";
+    text += "<p>" + fb_created_time(comment.created_time) + "</p>";
+    text += fb_comment_text(comment);
+    text += "</div>";
+
+    return text;
+}
+
 /*** ********** ***/
 /** create posts **/
 /*** ********** ***/
@@ -173,48 +315,178 @@ function fb_createPosts() {
 function fb_thispost(post) {
     console.log(post);
     output = "";
+
+    output += "<table border='1'>";
+
+    output += "<tr>";
+
+    output += "<td class='hidden-sm hidden-xs fb_tb_left'>";
+    output += fb_user_pic(post.from);
+    output += "</td>";
+
+    output += "<td class='hidden-xs hidden-sm'>";
+    output += fb_post_large(post);
+    output += "</td>";
+
+    output += "<td class='visible-sm'>";
+    output += fb_post_medium(post);
+    output += "</td>";
+
+    output += "<td class='visible-xs'>";
+    output += fb_post_small(post);
+    output += "</td>";
+
+    output += "<td rowspan='2' class='visible-lg visible-xl fb_tb_right'>";
+    output += "</td>";
+
+    output += "</tr>";
+
+
+
+    output += "<tr>";
+
+    output += "<td  class='hidden-sm hidden-xs fb_tb_left'>";
+    output += "</td>";
+
+    output += "<td>";
+    if (typeof post.likes !== "undefined") {
+        output += fb_likes(post.likes);
+    }
+    output += "</td>";
+
+    output += "</tr>";
+
+    if (typeof post.comments !== "undefined") {
+        post.comments.data.forEach(function (comment) {
+            if (comment.message.length > 0) {
+                output += "<tr>";
+
+                output += "<td class='visible-lg visible-xl fb_tb_left'>";
+                output += "</td>";
+
+                output += "<td class='visible-md fb_tb_left'>";
+                output += fb_user_pic(comment.from);
+                output += "</td>";
+
+                output += "<td class='hidden-xs hidden-sm'>";
+                output += fb_comment_large(comment);//"com name 0, com date 0, com tekst 0";
+                output += "</td>";
+
+                output += "<td class='visible-sm'>";
+                output += fb_comment_medium(comment);//"com pic 1, com name 1, com date 1, com tekst 1";
+                output += "</td>";
+
+                output += "<td class='visible-xs'>";
+                output += fb_comment_small(comment);//"com pic 2, com name 2, com date 2, com tekst 2";
+                output += "</td>";
+
+                output += "<td class='visible-lg visible-xl fb_tb_right'>";
+                output += fb_user_pic(comment.from);
+                output += "</td>";
+
+                output += "</tr>";
+            }
+        });
+    }
+
+    output += "</table>";
+
+    output += "<br>";
+
+
+
+
+
+
+
+
+
+
+
+    /*
     output += "<table class='fb_tb_post'>";
         output += "<tr class='fb_tb_message'>";
             output += "<td class='fb_tb_left hidden-xs'>";
                 output += "<div class='fb_left'>" + fb_post_head(post.from) + "</div>";
             output += "<td>";
-            output += "<td class='fb_tb_center'>";
+            output += "<td class='fb_tb_center' colspan='2'>";
                 output += "<div class='fb_message'>" + fb_message(post) + "</div>";
             output += "<td>";
             output += "<td class='fb_tb_right hidden-xs'>";
                 output += "<div class='fb_right'>" + "right" + "</div>"
             output += "<td>";
         output += "</tr>";
+
+
+    if (typeof post.likes !== "undefined") {
+
+        output += "<tr class='fb_tb_likes'>";
+        output += "<td class='fb_tb_left hidden-xs'>";
+        output += "<div class='fb_left'>" + "left" + "</div>";
+        output += "<td>";
+        output += "<td class='fb_tb_center' colspan='2'>";
+        output += "<div class='fb_likes'>" + fb_likes(post.likes) + "</div>";
+        output += "<td>";
+        output += "<td class='fb_tb_right hidden-xs'>";
+        output += "<div class='fb_right'>" + "right" + "</div>"
+        output += "<td>";
+        output += "</tr>";
+    }
+
+
+    if (typeof post.comments !== "undefined") {
+        post.comments.data.forEach(function (item) {
+            if (item.message.length > 0) {
+                output += "<tr class='fb_tb_comment'>";
+                output += "<td class='fb_tb_left hidden-xs'>";
+                output += "<div class='fb_left'>" + "left" + "</div>";
+                output += "<td>";
+                output += "<td class='fb_tb_center'>";
+                output += "<div class='fb_comment'>" + fb_comment(item) + "</div>";
+                output += "<td>";
+                output += "<td class='fb_tb_right hidden-xs'>";
+                output += "<div class='fb_right'>" + fb_comment_head(item.from) + "</div>"
+                output += "<td>";
+                output += "</tr>";
+            }
+        });
+    }
+
+
     output += "</table>";
 
     output += "<br>";
 
-    /*output += "<div class='fb_post'>"; //entire post  col-xs-12
 
-        output += "<div class='fb_message'>";
 
-            output += "<div class='fb_pic_left'>"; // col-sm-2 hidden-xs
-            output += fb_post_head(post.from);
-            output += "</div>";
 
-            output += "<div class='fb_center'>"; // col-sm-8
-                output += fb_message(post);
-                if (post.type == "photo") {
-                    output += fb_photo(post);
-                } else if (post.type == "event") {
-                    output += fb_event(post);
-                } else if (post.type == "link") {
-                    output += fb_link(post);
-                }
-            output += "</div>";
 
-            output += "<div class='fb_pic_right'>"; // col-sm-2 hidden-xs
-            output += "right empty";
-            output += "</div>";
 
-        output += "</div>";
+*/
 
-    output += "</div>";*/
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
     /*
     output = "<div class='fb_container'>";

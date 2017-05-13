@@ -1,136 +1,24 @@
-/* table */
-
-.fb_tb_post {
-    background-color: #22FF6D;
-    width: 100%;
-    border: 1px solid black;
-}
-
-.fb_tb_message {
-    background-color: blue;
-}
-
-.fb_tb_left {
-    background-color: orange;
-    width: 20%;
-}
-
-.fb_tb_right {
-    background-color: #00b3ee;
-    width: 20%
-}
-
-.fb_tb_center {
-    background-color: #7a43b6;
-}
-
-/* content */
-
-.fb_left {
-    background-color: yellow;
-    border-radius: 15px;
-}
-
-.fb_right {
+table {
     background-color: #d43f3a;
-    border-radius: 15px;
+    width: 100%;
+    /*border: 2px solid black;*/
 }
 
-.fb_message {
-    background-color: chartreuse;
-    border-radius: 15px;
-    height: 100%
+.fb_tb_left, .fb_tb_right {
+    width: 16%;
 }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-/*.fb_post {
-    background-color: #22FF6D;
-    margin-top: 10px;*/
-    /*display: flex;*/
-/*}
-
-.fb_pic_left {
+.fb_post {
     background-color: #7a43b6;
-    width: 20%
 }
 
-.fb_pic_right {
+.fb_comment {
     background-color: #00b3ee;
-    width: 20%
 }
 
-.fb_center {
-    background-color: #8a6d3b;
-    width: 50%;
+.fb_tb_left img, .fb_tb_right img {
+    display: block;
+    margin: auto;
+    width: 60%;
+    border-radius: 25%;
 }
-
-.fb_message {
-    background-color: #843534;
-}
-*/
-
-
-
-
-
-
-
-
-
-
-
-/*#facebookposts {
-
-}
-
-.fb_container {
-    background-color: var(--text-);
-    color: var(--menu-);
-    margin-top: 10px;
-    border-radius: 15px;
-    padding: 10px;
-}
-
-.fb_message p {
-    color: var(--menu-);
-    margin: 5px;
-}
-
-.fb_message a, .fb_single_comment a {
-    background-color: #22FF6D;
-}
-
-.fb_posttime {
-    background-color: var(--main-);
-    color: var(--text-);
-    border-radius: 6px;
-    margin: 2px;
-}
-
-.fb_likes {
-    background-color: var(--menu-);
-    border-radius: 6px;
-    margin: 2px;
-}
-
-.fb_single_comment {
-    margin: 2px;
-    border-radius: 6px;
-    background-color: var(--info-);
-}
-*/
