@@ -130,20 +130,19 @@ function convertTimeNoYear(time){
         }
     } else if (typeof time !== "number") {
         let month = monthNames[new Date(time).getMonth()];
-        let day = new Date(time).getDay()+1;
+        let day = new Date(time).getDate();
         let hour = new Date(time).getHours();
         let min = new Date(time).getMinutes();
         time = day +". " + month +" kl: " + hour + ":" + min;
-        console.log(time);
         return time;
     }
 }
 
 // used for warping time space into understandable text for human species
 function convertTimeWithYear(time){
+    let day = new Date(time).getDate();
     let year = new Date(time).getUTCFullYear();
     let month = monthNames[new Date(time).getMonth()];
-    let day = new Date(time).getDay()+1;
     time = day +". " + month +" - "+ year;
     return time;
 }

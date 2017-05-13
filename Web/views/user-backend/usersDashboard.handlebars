@@ -75,45 +75,49 @@
                 <h4 class="modal-title" id="edit-data-header"></h4>
             </div>
             <div class="modal-body input-group" id="edit-data-body"></div>
-            <label>Brugernavn</label>
-            <input type="text" class="form-control" maxlength="30" id="input_username"  placeholder="Brugernavn" required>
-            <br>
-            <label>Email</label>
-            <input type="email" maxlength="40" class="form-control" id="input_email" placeholder="Fx. [initialer][årgang]@student.sdu.dk" required>
-            <br>
-            <label>Alder</label>
-            <input type="number" min="10" max="99" maxlength="2" class="form-control" id="input_age" required>
-            <br>
-            <label>Steam</label>
-            <input type="text" class="form-control" maxlength="15" id="input_steam" placeholder="Fx. SteamID123" required>
-            <br>
-            <label>Bnet</label>
-            <input type="text" class="form-control" maxlength="17" id="input_bnet" placeholder="Fx. BattleTag#1234" required>
-            <br>
+            <div class="well">
+                <label>Brugernavn</label>
+                <input type="text" class="form-control" maxlength="30" id="input_username"  placeholder="Brugernavn" required>
+                <br>
+                <label>Email</label>
+                <input type="email" maxlength="40" class="form-control" id="input_email" placeholder="Fx. [initialer][årgang]@student.sdu.dk" required>
+                <br>
+                <label>Alder</label>
+                <input type="number" min="10" max="99" maxlength="2" class="form-control" id="input_age" required>
+            </div>
+            <div class="well">
+                <label>Uddannelsessted</label>
+                <div class="req">
+                    <select class="form-control" name="studie" id="input_studie">
+                        <option>SDU Odense</option>
+                        <option>SDU Esbjerg</option>
+                        <option>SDU Kolding</option>
+                        <option>SDU Slagelse</option>
+                        <option>SDU København</option>
+                        <option>Ikke fra SDU</option>
+                    </select>
+                </div>
+                <label>Fakultet</label>
+                <div class="req">
+                    <select class="form-control" name="fakultet" id="input_fakultet">
+                        <option>Teknisk Fakultet</option>
+                        <option>Samfundsvidenskabelige Fakultet</option>
+                        <option>Naturvidenskabelige Fakultet</option>
+                        <option>Humanistiske Fakultet</option>
+                        <option>Sunhedsvidenskabelige Fakultet</option>
+                        <option>Andet</option>
+                    </select>
+                </div>
+            </div>
+            <div class="well">
+                <label>Steam</label>
+                <input type="text" class="form-control" maxlength="15" id="input_steam" placeholder="Fx. SteamID123" required>
+                <br>
+                <label>Bnet</label>
+                <input type="text" class="form-control" maxlength="17" id="input_bnet" placeholder="Fx. BattleTag#1234" required>
+            </div>
 
-            <label>Uddannelsessted</label>
-            <div class="req">
-                <select class="form-control" name="studie" id="input_studie">
-                    <option>SDU Odense</option>
-                    <option>SDU Esbjerg</option>
-                    <option>SDU Kolding</option>
-                    <option>SDU Slagelse</option>
-                    <option>SDU København</option>
-                    <option>Ikke fra SDU</option>
-                </select>
-            </div>
-            <br>
-            <label>Fakultet</label>
-            <div class="req">
-                <select class="form-control" name="fakultet" id="input_fakultet">
-                    <option>Teknisk Fakultet</option>
-                    <option>Samfundsvidenskabelige Fakultet</option>
-                    <option>Naturvidenskabelige Fakultet</option>
-                    <option>Humanistiske Fakultet</option>
-                    <option>Sunhedsvidenskabelige Fakultet</option>
-                    <option>Andet</option>
-                </select>
-            </div>
+
 
             <div class="modal-footer">
                 <button type="button" method="post" class="btn btn-danger" data-dismiss="modal">Annuller</button>
