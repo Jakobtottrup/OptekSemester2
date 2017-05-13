@@ -21,29 +21,29 @@ const FB = require('FB');
 /** FACEBOOK ACCESS TOKEN INFORMATION - v2.9
  *  GUIDE : http://stackoverflow.com/questions/17197970/facebook-permanent-page-access-token
  *
- *
- *  S7LAN PAGE ID :         247667268610623
- *  S7LAN APP ID :          658376531024359
- *  S7LAN APP SECRET :      f89bf31e6dfef146ce8e423a168f4786
- *  SHORT-LIVED TOKEN ID :  EAAJWyjtCmecBAAfx8lrB70bvpOKqp9N7TShvLF34WDWkE6J5TQdDYSluih6HWj0XpHSxe3poDbfC2ZBrcCABCIt9OdFFTmoEAQjfGZCVqYzJargiDDdLO7x1vPez41UzeRvnauIGxnKSx1wNv7i8oSfjjEmq8aZBZBzcW5AN1W6aLwPdFFvT
+ *  S7LAN PAGE/ACCOUNT ID :     247667268610623
+ *  S7LAN APP ID :              658376531024359
+ *  S7LAN APP SECRET :          f89bf31e6dfef146ce8e423a168f4786
+ *  SHORT-LIVED TOKEN ID :      EAAJWyjtCmecBAEUjaecF42LiYjv4PIHmy3FUmj8EDZBZAcqf7o4gVWERNWZBlEROoeDDivb3iaBZCCMuzFQmEgMPmRmJZAQX7xLQG0x3ljv0FHZCz3Whq9rN03ORurU1zYet1OGcLvKE8f8Jx5ODPjFLaY3k6WBRkLwAs2Lrca9dzcy2FbUojg
  *
  *  URL TEMPLATE FOR 'GET' REQUESTING LONG-LIVED TOKEN ID :     https://graph.facebook.com/v2.9/oauth/access_token?grant_type=fb_exchange_token&client_id={app_id}&client_secret={app_secret}&fb_exchange_token={short_lived_token}
  *  URL TEMPLATE FOR 'GET' REQUESTING ACCOUNT ID :              https://graph.facebook.com/v2.9/me?access_token={long_lived_access_token}
  *  URL TEMPLATE FOR 'GET' REQUESTING PERMANENT TOKEN ID :      https://graph.facebook.com/v2.9/{account_id}/accounts?access_token={long_lived_access_token}
+ *                                                              https://graph.facebook.com/v2.9/me/accounts?access_token=long_lived_access_token
  *
  *
  *  **** FOLLOWING TOKENS BELONGS TO CHRISTIAN SKJERNING AND DOES NOT WORK ANY MORE, NEW TOKENS NEEDS TO BE GENERATED ****
- *  LONG-LIVED TOKEN URL :  https://graph.facebook.com/v2.9/oauth/access_token?grant_type=fb_exchange_token&client_id=658376531024359&client_secret=f89bf31e6dfef146ce8e423a168f4786&fb_exchange_token=EAAJWyjtCmecBAAfx8lrB70bvpOKqp9N7TShvLF34WDWkE6J5TQdDYSluih6HWj0XpHSxe3poDbfC2ZBrcCABCIt9OdFFTmoEAQjfGZCVqYzJargiDDdLO7x1vPez41UzeRvnauIGxnKSx1wNv7i8oSfjjEmq8aZBZBzcW5AN1W6aLwPdFFvT
- *  LONG-LIVED TOKEN ID :   EAAJWyjtCmecBAOsiYPKOZBSrxYqAoRmjkjEtnx44SOgr0mus2QmVyAUeoSeVXsYCmYtZCZCVhPglWeJWnLRxr5WI2llZCfRd5Eg6gvP51SYhMgLGWIXL1gjuyDQhLCm7Yx7qUKbvCyHOJvLbsZCnI
+ *  LONG-LIVED TOKEN URL :      https://graph.facebook.com/v2.9/oauth/access_token?grant_type=fb_exchange_token&client_id=658376531024359&client_secret=f89bf31e6dfef146ce8e423a168f4786&fb_exchange_token=EAAJWyjtCmecBAONsIxb4c8an2lJmWdHkjbCiEdva7sqHmJrsyX3x1Y7aT0xxanCYZBlgXu4WGARfLnE9SPZAr8lsq3m0j3hYgndGfP1i3vFBH29K1KCL8YgHPJw6KoxeXZAQ6XgIK0qJ32qbg11AbZAoZA9sbMJcVlRUH0QTLOtTZCy8ZBzJyDZBwsbbLWZC9LiAZD
+ *  LONG-LIVED TOKEN ID :       EAAJWyjtCmecBAHYFf8IaW37yZC9Q3l9nzAjn5eT13paG7eZBw1ZAn94ZAXSeyYYEwWzzmk8NsranZAtLxxwChbpZAmE0xxRulVc2idLFHsBku4PTpuOUFDzdtwHvMPwnshvwPisTTY7nZCsODFRv1ZAcjbKISojlvmoZD
  *
- *  ACCOUNT ID URL :    https://graph.facebook.com/v2.9/me?access_token=EAAJWyjtCmecBAOsiYPKOZBSrxYqAoRmjkjEtnx44SOgr0mus2QmVyAUeoSeVXsYCmYtZCZCVhPglWeJWnLRxr5WI2llZCfRd5Eg6gvP51SYhMgLGWIXL1gjuyDQhLCm7Yx7qUKbvCyHOJvLbsZCnI
- *  ACCOUNT ID :        10212163314745642
+ *  ACCOUNT ID URL :            https://graph.facebook.com/v2.9/me?access_token=EAAJWyjtCmecBAHYFf8IaW37yZC9Q3l9nzAjn5eT13paG7eZBw1ZAn94ZAXSeyYYEwWzzmk8NsranZAtLxxwChbpZAmE0xxRulVc2idLFHsBku4PTpuOUFDzdtwHvMPwnshvwPisTTY7nZCsODFRv1ZAcjbKISojlvmoZD
+ *  ACCOUNT ID :                247667268610623
  *
- *  URL FOR PERMANENT TOKEN :   https://graph.facebook.com/v2.9/10212163314745642/accounts?access_token=EAAJWyjtCmecBAOsiYPKOZBSrxYqAoRmjkjEtnx44SOgr0mus2QmVyAUeoSeVXsYCmYtZCZCVhPglWeJWnLRxr5WI2llZCfRd5Eg6gvP51SYhMgLGWIXL1gjuyDQhLCm7Yx7qUKbvCyHOJvLbsZCnI
- *  PERMANENT TOKEN ID:         EAAJWyjtCmecBAPWAH1ZCKSd2gWlFxaR0gtFMYtKLMe5owTeO3y0NOZCTmRbUdEWCfSIwyhrKZCwVMi1ko1ZCo3KRgNSuZBrF33gaWeAEw8nYSkZCdjjYyVmnxyNsHhaBZCGm6FUenyMJmx4y6cpOVmKHEeedeqfT18ZD
+ *  URL FOR PERMANENT TOKEN :   https://graph.facebook.com/v2.9/247667268610623/accounts?access_token=EAAJWyjtCmecBAHYFf8IaW37yZC9Q3l9nzAjn5eT13paG7eZBw1ZAn94ZAXSeyYYEwWzzmk8NsranZAtLxxwChbpZAmE0xxRulVc2idLFHsBku4PTpuOUFDzdtwHvMPwnshvwPisTTY7nZCsODFRv1ZAcjbKISojlvmoZD // does not work with page id... more to come...
+ *  PERMANENT TOKEN ID:
  */
 
-FB.setAccessToken('EAAJWyjtCmecBAPWAH1ZCKSd2gWlFxaR0gtFMYtKLMe5owTeO3y0NOZCTmRbUdEWCfSIwyhrKZCwVMi1ko1ZCo3KRgNSuZBrF33gaWeAEw8nYSkZCdjjYyVmnxyNsHhaBZCGm6FUenyMJmx4y6cpOVmKHEeedeqfT18ZD');
+FB.setAccessToken('EAAJWyjtCmecBAHYFf8IaW37yZC9Q3l9nzAjn5eT13paG7eZBw1ZAn94ZAXSeyYYEwWzzmk8NsranZAtLxxwChbpZAmE0xxRulVc2idLFHsBku4PTpuOUFDzdtwHvMPwnshvwPisTTY7nZCsODFRv1ZAcjbKISojlvmoZD');  // expires Wed, 12 Jul 2017 02:56:24 (Danish summer time)
 
 
 
@@ -208,13 +208,18 @@ router.get('/gallery', function (req, res) {
 // GET FACEBOOK POSTS
 router.get('/fb', function(req, res) {
     FB.api(
-        '/247667268610623/posts',
+        '/247667268610623/feed',
         'GET',
-        {},
+        { fields: ['id, from{name, category, category_list}, message, message_tags, picture, link, name, caption, description, icon, ' +
+        'actions{name, link, id}, privacy, type, status_type, created_time, updated_time, is_hidden, subscribed, is_expired, admin_creator,' +
+        'comments{created_time, from, message, can_remove, like_count, user_likes, id}, likes{id, name}, story, story_tags, full_picture, ' +
+        'object_id, shares, place, backdated_time']},
         function(response) {
             res.json(response);
         }
     );
+
+
 });
 
 
