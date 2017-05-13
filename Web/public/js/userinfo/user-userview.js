@@ -6,9 +6,9 @@ $.when(getGroupData(), getUsersData()).done(function() {
     let output = "";
     for (let i = 0; i < usersData.length; i++){
         output += "<tr>";
-        output += "<td>"+i+"</td>";
+        output += "<td class='hidden-xs hidden-sm hidden-md'>"+i+"</td>";
         output += "<td>"+usersData[i].username+"</td>";
-        output += "<td>"+usersData[i].fakultet+"</td>";
+        output += "<td class='hidden-xs hidden-sm hidden-md'>"+usersData[i].fakultet+"</td>";
         output += "<td>"+socialInfo(usersData[i])+"</td>";
         output += "<td>"+seatGroup(usersData[i]._id)+"</td>";
         output += "<td>"+userSeat(usersData[i]._id)+"</td>";

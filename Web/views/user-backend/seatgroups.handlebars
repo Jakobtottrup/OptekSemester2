@@ -1,22 +1,24 @@
 <link rel="stylesheet" type="text/css" href="/css/specific/spec-seatgroup.css">
 
-<h1>Siddegruppe</h1>
+<div class="pull-left">
+    <h1>Siddegrupper</h1>
+</div>
+<div class="pull-right" id="create_btn"></div>
+<div class="clearfix"></div>
 <hr>
-<input type="text" class="form-control" id="search-field" onkeyup="sortGroups()" placeholder="Søg efter gruppe.."><br>
+<input type="text" class="form-control" id="search-field" onkeyup="sortGroups()" placeholder="Søg efter siddegruppe.."><br>
 
-<table class="table table-condensed table-hover" id="seatgroup-table">
-    <div id="create_btn"></div>
-
-    <tr class="data_row">
-        <th style="width:20%">Grupper</th>
-        <th style="width:100%">Medlemmer</th>
-        <th></th>
-        <!--<th>Tilmeldte turneringer</th>-->
-        <th></th>
-    </tr>
-    <tbody id="data_insert">
-    </tbody>
-</table>
+<div class="table-responsive">
+    <table class="table table-hover" id="seatgroup-table">
+        <tr class="data_row">
+            <th style="width:50%">Grupper</th>
+            <th style="width:100%">Medlemmer</th>
+            <th class="hidden-xs"></th>
+        </tr>
+        <tbody id="data_insert">
+        </tbody>
+    </table>
+</div>
 
 
 

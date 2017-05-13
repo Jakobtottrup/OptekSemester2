@@ -7,7 +7,7 @@ $.when(getGroupData(), getUsersData(), getUserData()).done(function(){
      // console.log("inGroup checked: "+inGroup(groupData));
      // console.log("isLeader checked: "+isLeader(groupData));
     if (inGroup(groupData) === false && isLeader(groupData) === false || userData.isAdmin === true) {
-        $("#create_btn").prepend('<button type="button" class="btn btn-lg btn-primary" id="create_group" data-toggle="modal" data-target="#modal-create" style="margin-top:5px;margin-bottom: 10px; float:right;">Opret gruppe</button>');
+        $("#create_btn").prepend('<button type="button" class="btn btn-lg btn-primary" id="create_group" data-toggle="modal" data-target="#modal-create" style="margin-top:5px;margin-bottom: 10px; float:right;">Opret siddegruppe</button>');
     } else {
         $("#modal-create").remove();
     }
@@ -16,9 +16,9 @@ $.when(getGroupData(), getUsersData(), getUserData()).done(function(){
         let output = "";
         $.each(groupData, function (key, data) {
             output += "<tr class='data_row' id='" + data._id + "'>";
-            output += "<td><h2>" + data.groupName + "</h2></td>";
+            output += "<td><h3>" + data.groupName + "</h3></td>";
             output += "<td>" + showMembers(data) + "</td>";
-            output += "<td id='controls'>" + placeButtons(data) + "</td>";
+            output += "<td class='hidden-xs' id='controls'>" + placeButtons(data) + "</td>";
             output += "</tr>";
         });
         output += "";
@@ -36,8 +36,7 @@ $.when(getGroupData(), getUsersData(), getUserData()).done(function(){
 
 // place control buttons
 function placeButtons(data) {
-    let output = "<td>";
-
+    let output = "";
     // if user is admin
     if(userData.isAdmin === true){
         output += "<button class='btn btn-primary' onclick='editGroup(this)'>Redigér gruppe</button>";
@@ -58,7 +57,7 @@ function placeButtons(data) {
             output += "<button class='btn btn-danger' onclick='leaveGroup(this)'>Forlad gruppe</button>";
         }
     }
-    output += "</td>";
+    output += "";
     return output;
 }
 

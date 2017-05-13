@@ -32,6 +32,17 @@ const galleryRoute = router.route('/gallery/:id');
 const mailRoute = router.route('/mails');
 const thisEvent = router.route('/events');
 
+// MULTER SETTINGS
+const limits = {fileSize: 512 * 512 * 512};
+//const fileFilter = { fileType: ".jpg"};
+const tourUploads = multer({dest: 'public/uploads/image/tournaments', limits: limits}).fields([{
+    name: 'tour_image',
+    maxCount: 1
+}, {name: 'prize_image', maxCount: 7}]);
+
+const galleryUploads = multer({dest: 'public/uploads/image/gallery', limits: limits}).fields([{
+    name: 'up1'}]);
+
 
 // ADMIN AUTHENTICATION
 function ensureAdminAuthenticated(req, res, next) {
@@ -138,6 +149,13 @@ router.get('/gallery', ensureAdminAuthenticated, function (req, res) {
     res.render('admin-backend/gallery', {title: 'Admin panel'});
 });
 
+// GALLERY UPLOAD
+router.post('/gallery', ensureAdminAuthenticated, galleryUploads, function (req, res) {
+    res.status(200);
+    res.redirect('/admins/gallery');
+});
+
+
 // RENDER EVENT VIEW
 router.get('/events', ensureAdminAuthenticated, function (req, res) {
     res.render('admin-backend/events', {title: "Admin Panel"});
@@ -148,19 +166,12 @@ router.get('/mails', ensureAdminAuthenticated, function (req, res) {
     res.render('admin-backend/mails', {title: "Admin Panel", name: "Brugers navn"});
 });
 
-//Upload files
-var uploads = multer({dest: 'public/uploads/image/gallery'});
-router.post('/gallery', ensureAdminAuthenticated, uploads.array('upl'), function (req, res) {
-    console.log(req.files);
-    res.status(204).end();
-});
-
 
 router.delete('/users/:_id', ensureAdminAuthenticated, function (req, res) {
     console.log("deleted");
     console.log(req.body);
 
-    //res.redirect('/users');
+    //res.redirect('/admins/users');
 });
 userRoute.get(function (req, res) {
     User.findById(req.params._id, function (err, user) {
@@ -213,12 +224,6 @@ delRoute.delete(ensureAdminAuthenticated, function (req, res) {
 
 
 // TOURNAMENT CONTROLLERS
-const limits = {fileSize: 512 * 512 * 512};
-//const fileFilter = { fileType: ".jpg"};
-const tourUploads = multer({dest: 'public/uploads/image/tournaments', limits: limits}).fields([{
-    name: 'tour_image',
-    maxCount: 1
-}, {name: 'prize_image', maxCount: 7}]);
 router.post('/tournaments', tourUploads, ensureAdminAuthenticated, function (req, res) {
     //console.log(req.files);
 

@@ -1,21 +1,22 @@
 
-<h1>Brugere til nuværende event</h1>
+<h1>Brugere til nuværende LAN</h1>
 <hr>
 
 <input type="text" id="input" class="form-control" onkeyup="searchTable()" placeholder="Søg efter navn...">
 <br>
-<table id="user_table" class="table table-condensed table-hover">
-
-    <tr class="data_row">
-        <th class='hidden-xs hidden-sm hidden-md'>#</th>
-        <th>Brugernavn</th>
-        <th class='hidden-xs hidden-sm hidden-md'>Fakultet</th>
-        <th>Social</th>
-        <th>Siddegruppe</th>
-        <th>Siddeplads</th>
-    </tr>
-    <tbody id="data_insert"></tbody>
-</table>
+<div class="table-responsive">
+    <table id="user_table" class="table table-hover">
+        <tr class="data_row">
+            <th class='hidden-xs hidden-sm hidden-md'>#</th>
+            <th>Brugernavn</th>
+            <th class='hidden-xs hidden-sm hidden-md'>Fakultet</th>
+            <th>Social</th>
+            <th>Siddegruppe</th>
+            <th>Siddeplads</th>
+        </tr>
+        <tbody id="data_insert"></tbody>
+    </table>
+</div>
 
 <script src="/js/userinfo/user-userview.js"></script>
 <link rel="stylesheet" type="text/css" href="/css/specific/spec-userinfo.css">
