@@ -202,3 +202,23 @@ function sortUsers() {
         }
     }
 }
+
+/*
+
+function sortUsers() {
+    $("#search-field").on("keyup", function() {
+        let value = $(this).val();
+        $("#users-table tr").each(function(index) {
+            if (index != 0) {
+                $row = $(this);
+                let id = $row.find("td:first").text();
+                if (id.indexOf(value) != 0) {
+                    $(this).hide();
+                }
+                else {
+                    $(this).show();
+                }
+            }
+        });
+    });​
+}*/

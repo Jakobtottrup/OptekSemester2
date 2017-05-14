@@ -148,7 +148,7 @@ function fb_likes(likes, postnum) {
 }
 
 function fb_created_time(time) {
-    return "Tid: " + time;
+    return convertTimeWithYear(time);
 }
 
 function fb_user_pic(user) {
