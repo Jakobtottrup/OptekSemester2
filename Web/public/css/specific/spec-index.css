@@ -1,24 +1,165 @@
+/*** ********** ***/
+/** Basic Layout **/
+/*** ********** ***/
+
 table {
-    background-color: #d43f3a;
     width: 100%;
-    /*border: 2px solid black;*/
+    margin-bottom: 40px;
 }
 
-.fb_tb_left, .fb_tb_right {
-    width: 16%;
+.fb_tb_left {
+    width: 90px;
 }
+
+.fb_tb_right {
+    width: 60px;
+}
+
+.fb_creater_pic img, .fb_comment_pic_left img, .fb_comment_pic_right img {
+    border: 1px solid var(--menu-);
+    border-radius: 25%;
+}
+
+.fb_creater_pic img {
+    display: block;
+    width: 75px;
+    margin: 3px;
+}
+
+.fb_creater_pic img:hover {
+    width: 81px;
+    margin: 0;
+}
+
+.fb_comment_pic_left img, .fb_comment_pic_right img {
+    display: block;
+    width: 60px;
+}
+
+.fb_comment_pic_left img {
+    float: right;
+}
+
+.fb_comment_pic_right img {
+
+}
+
+/*** ********* ***/
+/** Post Layout **/
+/*** ********* ***/
 
 .fb_post {
-    background-color: #7a43b6;
+    background-color: var(--text-);
+    border-radius: 15px;
+    padding: 10px;
 }
+
+.fb_post p {
+    color: var(--main-);
+}
+
+.fb_post a {
+    text-decoration: underline;
+    font-weight: bold;
+    border-radius: 6px;
+    padding: 2px;
+}
+
+.fb_post a:hover {
+    background-color: var(--menu-);
+    color: var(--text-);
+}
+
+/*** ************ ***/
+/** Comment Layout **/
+/*** ************ ***/
 
 .fb_comment {
-    background-color: #00b3ee;
+    background-color: var(--menu-);
+    border-radius: 15px;
+    padding: 10px;
+    height: 100%;
+    margin: 15px;
+    margin-top: 10px;
+    margin-bottom: 0;
 }
 
-.fb_tb_left img, .fb_tb_right img {
-    display: block;
-    margin: auto;
-    width: 60%;
-    border-radius: 25%;
+.fb_comment a {
+    color: var(--text-);
+    text-decoration: underline;
+    font-weight: bold;
+    border-radius: 6px;
+    padding: 2px;
+}
+
+.fb_comment a:hover {
+    background-color: var(--text-);
+    color: var(--menu-);
+}
+
+/*** ********** ***/
+/** Likes Layout **/
+/*** ********** ***/
+
+.fb_likes_container {
+    position: relative;
+    height: 15px;
+}
+
+.fb_likes {
+    margin-right: 0;
+    height: 0;
+    bottom: 55px;
+    position: absolute;
+    right: 4%;
+}
+
+.fb_likes img {
+    border-radius: 50%;
+    margin: 2px;
+    border: 1px solid var(--text-);
+    width: 52px;
+}
+
+.fb_likes img:hover {
+    width: 58px;
+    margin: -1px;
+}
+
+.fb_likes_plus {
+    color: var(--text-);
+    background-color: var(--menu-);
+    border: 1px solid var(--text-);
+    font-size: 150%;
+    font-weight: bold;
+    border-radius: 50%;
+    margin: 2px;
+}
+
+.fb_likes_plus:hover {
+    margin: 0;
+    font-size: 190%;
+}
+
+.fb_likes_list {
+    display: none;
+    margin-left: 20px;
+    background-color: var(--menu-);
+    width: 72px;
+    padding: 10px;
+    padding-bottom: 2px;
+    margin-top: -15px;
+    border-radius: 0 0 40px 40px;
+}
+
+.fb_likes_list img {
+    width: 52px;
+    margin: 2px;
+    border-radius: 50%;
+    border: 1px solid var(--info-);
+}
+
+.fb_likes_list img:hover {
+    width: 58px;
+    margin: -1px;
 }
