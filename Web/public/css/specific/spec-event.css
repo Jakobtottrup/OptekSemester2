@@ -11,16 +11,22 @@
     text-shadow: 0px 3px 3px black
 }
 
+
 #event-form h3 {
     font-style: italic;
     font-style: italic;
     color: black;
 }
+#event-header {
+    margin-left: 0%;
 
+}
 #event-header img{
     height:40%;
     width: 40%;
+    margin-left: 40%;
 }
+
 
 .page-header{
     text-align: center;
