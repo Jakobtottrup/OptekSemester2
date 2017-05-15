@@ -84,7 +84,7 @@
                 {{#if user}}
                     {{#unless user.resetPasswordToken}}
                         <ul class="nav nav-pills nav-stacked dash-menu left-menu">
-                            <li><a href="#" data-target="#item1" data-toggle="collapse" data-parent="#stacked-menu"><b>{{user.username}}</b>'s menu<span class="caret arrow"></span></a></li>
+                            <li><a data-target="#item1" data-toggle="collapse" data-parent="#stacked-menu"><b>{{user.username}}</b>'s menu<span class="caret arrow"></span></a></li>
                             <ul class="nav nav-stacked collapse left-submenu" id="item1">
                             <li><a href="/dashboard"><i class="fa fa-crosshairs fa-fw "></i>Dit Dashboard</a></li>
                             {{#unless user.isAdmin}}

@@ -57,6 +57,33 @@ router.get('/seatgroups', ensureAuthenticated, function(req, res){
 });
 
 
+// SET USER AS ACTIVE FOR CURRENT EVENT
+router.put('/joinevent/', ensureAuthenticated, function(req, res){
+    User.findById(req.user._id, function (err, user) {
+        if (err) {
+            res.send(err);
+        } else {
+            if(user.isActive === true && user.hasPaid === false){
+                user.isActive = false;
+            } else if (user.isActive === false && user.hasPaid === false) {
+                user.isActive = true;
+            }
+
+            user.save(function (err) {
+                if (err) {
+                    res.send(err);
+                }
+                if(user.isActive === true) {
+                    req.flash('success_msg', 'Du er nu tilmeldt');
+                } else if (user.isActive === false){
+                    req.flash('error_msg', 'Du er nu frameldt');
+                }
+                res.redirect("/dashboard");
+            });
+        }
+    });
+});
+
 // UPDATE USER INFORMATION
 router.put('/userupdate/:username/:email/:age/:studie/:fakultet/:steam/:bnet', ensureAuthenticated, function(req, res){
     User.findById(req.user._id, function (err, user) {

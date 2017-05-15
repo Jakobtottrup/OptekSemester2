@@ -88,11 +88,12 @@ router.get('/localuser', function(req, res) {
         let hasPaid = req.user.hasPaid;
         let isAdmin = req.user.isAdmin;
         let joined = req.user.createdAt;
+        let isActive = req.user.isActive;
 
         if(req.user.isAdmin === true){
-            res.json({_id, username, age, email, studie, fakultet, bnet, steam, hasPaid, isAdmin, joined});
+            res.json({_id, username, age, email, studie, fakultet, bnet, steam, hasPaid, isAdmin, joined, isActive});
         } else {
-            res.json({_id, username, age, email, studie, fakultet, bnet, steam, hasPaid, joined});
+            res.json({_id, username, age, email, studie, fakultet, bnet, steam, hasPaid, joined, isActive});
         }
     } else {
         res.json(null);

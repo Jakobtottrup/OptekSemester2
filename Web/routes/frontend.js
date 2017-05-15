@@ -200,7 +200,7 @@ router.post('/signup', function (req, res) {
             steam: steam,
             isAdmin: false,
             hasPaid: false,
-            isActive: true,
+            isActive: false,
             createdAt: Date.now()
         });
 

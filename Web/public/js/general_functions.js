@@ -51,6 +51,17 @@ function getGroupData(){
     });
 }
 
+// get facebook data
+function getFacebookData() {
+    return $.ajax({
+        type: 'GET',
+        url: "/api/fb_admin",
+        dataType: "json"
+    }).done(function(data){
+        fbData = data;
+    });
+}
+
 
 // find username using ID
 function findUserName(id) {
@@ -82,11 +93,10 @@ function translateBoolean(statement){
 
 // used to display loading screen
 $(document).ajaxStart(function() {
-    if($.active > 0) {
-        $('#loader').show();
-    }
+    $('#loader').show();
+
 });
-$(document).ajaxComplete(function() {
+$(document).ajaxStop(function() {
     $('#loader').hide();
 });
 
@@ -94,7 +104,8 @@ $(document).ajaxComplete(function() {
 
 // highlights active dashboard menu
 $(document).ready(function(){
-    var path = window.location.pathname;
+    let path = window.location.pathname;
+    // console.log( $("#dashboard-nav").find('a[href]'));
     $("#dashboard-nav").find('a[href$="' +path+ '"]').parent().addClass("active");
 });
 

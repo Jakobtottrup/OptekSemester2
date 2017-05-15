@@ -20,19 +20,44 @@ $.when(document, getUserData()).done(function(){
     $("#age").append(userData.age);
     $("#studie").append(userData.studie);
     $("#fakultet").append(userData.fakultet);
-    $("#payment_status").append(paymentStatus(userData.hasPaid));
+    $("#payment_status").append(paymentStatus(userData.hasPaid, userData.isActive));
     $("#social").append(socialInfo(userData));
     $("#joined").append("<p>"+convertTimeWithYear(userData.joined)+"</p>");
 
-    drawGroup();
-    drawTournament();
 });
 
-function paymentStatus(status) {
-    if(status === true){
+function paymentStatus(payment, active) {
+    if (active === true && payment === true) {
+        $("#join_button").remove();
+        $("#leave_button").remove();
+    } else if (active === true){
+        $("#join_button").remove();
+    } else if (active === false && payment === false) {
+        $("#event_info").remove();
+        $("#leave_button").remove();
+    } else if (payment === true){
+        $("#join_button").remove();
+        $("#leave_button").remove();
+    }
+
+    drawGroup();
+    drawTournament();
+
+    if(payment === true){
         return "<b>Godkendt</b>";
-    } else {
+    } else if (payment === false) {
         return "<b>Ikke godkendt endnu</b>";
+    }
+}
+
+function joinEvent() {
+    if (window.confirm("Tryk OK for at bekræfte")) {
+        $.ajax({
+            type: "PUT",
+            url: "/users/joinevent/",
+            dataType: 'json',
+            success: location.reload()
+        });
     }
 }
 
@@ -64,7 +89,7 @@ function sendData_ui () {
             bnet = "|"
         }
 
-        console.log("username:",username,"\nage:",age,"\nemail:",email,"\nstudie:",studie,"\nfakultet:",fakultet,"\nsteam:",steam,"\nbnet:",bnet);
+        // console.log("username:",username,"\nage:",age,"\nemail:",email,"\nstudie:",studie,"\nfakultet:",fakultet,"\nsteam:",steam,"\nbnet:",bnet);
         $.ajax({
             type: "PUT",
             url: "/users/userupdate/" + username + "/" + email + "/" + age + "/" + studie + "/" + fakultet + "/" + steam + "/" + bnet,
