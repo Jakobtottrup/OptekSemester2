@@ -1,0 +1,30 @@
+table {
+    width: 100%;
+    background-color: #b2dba1;
+}
+
+.fb_pic {
+    width: 76px;
+    height: 76px;
+}
+
+.fb_date {
+    width: 16%;
+    min-width: 100px;
+}
+
+.fb_checkbox {
+    width: 60px;
+}
+
+.fb_message_text {
+    background-color: #d43f3a;
+    max-width: 100%;
+    max-height: 76px;
+    overflow: hidden;
+}
+
+.fb_message_text_container {
+    /*width: 100%;*/
+}
+
