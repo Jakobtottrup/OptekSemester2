@@ -517,37 +517,19 @@ galleryRoute.delete(ensureAdminAuthenticated, function (req, res) {
 
 // SET FACEBOOK SETTINGS
 router.post('/posts', ensureAdminAuthenticated, function (req, res) {
-    console.log(req.body);
+    const posts_id = JSON.parse(req.body.checkListID);
+    let newFb_post = new Fb_post ({
+        posts_id: posts_id
+    });
 
-    //console.log(JSON.parse(req.body));
+    Fb_post.collection.drop();
 
-    const posts_id = req.body;
-
-    req.checkBody('posts_id', 'posts_id er nødvendigt').notEmpty();
-    //req.checkBody('max_posts', 'max_posts er nødvendigt').notEmpty();
-    //req.checkBody('post_direction', 'post_direction er nødvendigt').notEmpty();
-
-    let errors = req.validationErrors();
-    if (errors) { // if validation fails
-        req.flash('error_msg', "Udfyld venligst alle felterne");
+    newFb_post.save(function (err) {
+        if (err) throw err;
+        req.flash('success_msg', 'Indstillingerne blev gemt');
+        res.status(200).end();
         res.redirect('/admins/posts');
-
-    } else {
-        let newFb_post = new Fb_post ({
-            posts_id: posts_id,
-            max_posts: 5//max_posts//,
-            //post_direction: post_direction
-        });
-
-        Fb_post.collection.drop();
-
-        newFb_post.save(function (err) {
-            if (err) throw err;
-            req.flash('success_msg', 'Indstillingerne blev gemt');
-            res.status(200).end();
-            res.redirect('/admins/posts');
-        });
-    }
+    });
 });
 
 module.exports = router;

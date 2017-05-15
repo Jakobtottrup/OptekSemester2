@@ -4,7 +4,7 @@
 
 
 
-$.when(getFacebookData()).done(function(){
+$.when(getFacebookUserData()).done(function(){
     fb_createPosts();
 });
 
@@ -271,8 +271,8 @@ function fb_comment_small(comment) {
 /*** ********** ***/
 
 function fb_createPosts() {
-    for (var i = 0; i < fbData.data.length; i++) {
-        fb_thispost(fbData.data[i], i);
+    for (var i = 0; i < fb_userData.data.length; i++) {
+        fb_thispost(fb_userData.data[i], i);
     }
 }
 

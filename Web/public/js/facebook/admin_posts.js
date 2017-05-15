@@ -2,7 +2,7 @@
  * Created by ste on 15-05-2017.
  */
 
-$.when(getFacebookData()).done(function(){
+$.when(getFacebookAdminData()).done(function(){
     fb_createPosts();
 });
 
@@ -69,8 +69,8 @@ function fb_createPosts() {
 
     output += "<form method='post' action='/admins/posts'>";
 
-    for (var i = 0; i < fbData.data.length; i++) {
-        fb_thispost(fbData.data[i]);
+    for (var i = 0; i < fb_adminData.data.length; i++) {
+        fb_thispost(fb_adminData.data[i]);
     }
 
     output += "<input class='form-control' min='0' max='100' type='number' name='max_posts' placeholder='max antal'>";
@@ -122,14 +122,13 @@ function saveCheckboxes() {
             checkListID.push($(this).attr("id"));
         }
     });
-    console.log(checkListID);
 
-    var obj_list = {"posts_id": checkListID};
+    let obj_id = {"checkListID": JSON.stringify(checkListID)};
 
     $.ajax({
         type: 'POST',
         url: '/admins/posts',
         dataType: 'json',
-        data: JSON.stringify(obj_list)
+        data: obj_id
     });
 }

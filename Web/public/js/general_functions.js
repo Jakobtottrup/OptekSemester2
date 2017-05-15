@@ -52,15 +52,27 @@ function getGroupData(){
 }
 
 // get facebook data
-function getFacebookData() {
+function getFacebookUserData() {
+    return $.ajax({
+        type: 'GET',
+        url: "/api/fb_user",
+        dataType: "json"
+    }).done(function(data){
+        fb_userData = data;
+    });
+}
+
+// get facebook data
+function getFacebookAdminData() {
     return $.ajax({
         type: 'GET',
         url: "/api/fb_admin",
         dataType: "json"
     }).done(function(data){
-        fbData = data;
+        fb_adminData = data;
     });
 }
+
 
 
 // find username using ID

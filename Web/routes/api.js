@@ -272,33 +272,19 @@ router.get('/fb_admin', ensureAdminAuthenticated, function(req, res) {
 router.get('/fb_user', function(req, res) {
     Fb_post.find({},{__v:0}, function(err, fb_posts) {
         if (err) throw err;
-        let max_posts = fb_posts[0].max_posts;
         let posts_id = fb_posts[0].posts_id;
-        let direction = fb_posts[0].post_direction;
-
         FB.api(
             '/247667268610623/feed',
             'GET',
-            {
-                fields: fb_fields,
-                limit: max_posts
-            },
+            {fields: fb_fields},
             function (response) {
 
                 // filtering response to match settings given by admins
                 let newResponse = [];
                 for(let i=0; i<posts_id.length;i++){
                     for(let j=0;j < response.data.length; j++){
-
-                        // adding matching posts - if direction is true
-                        if (direction === true && posts_id[i] === response.data[j].id){
+                        if (response.data[j].id === posts_id[i]) {
                             newResponse.push(response.data[j]);
-
-                            // removing matching posts - if direction is false
-                        } else if (direction === false && posts_id[i] === response.data[j].id){
-                            newResponse.push(response.data[j]);
-                            // let index = response.data[j].id.indexOf(posts_id[i]);
-                            // response.data[j].splice(index, 1);
                         }
                     }
                 }
@@ -310,70 +296,6 @@ router.get('/fb_user', function(req, res) {
 
 
 
-
-/*
-// GET FACEBOOK POSTS
-router.get('/fb', function (req, res) {
-    if (typeof req.user === "object" && req.user.isAdmin === true) {    // IF USER REQUESTING IS LOGGED IN AS ADMIN - ADMIN
-        FB.api(
-            '/247667268610623/feed',
-            'GET',
-            {
-                fields: ['id, from{name, category, category_list}, message, message_tags, picture, link, name, caption, description, icon, ' +
-                'actions{name, link, id}, privacy, type, status_type, created_time, updated_time, is_hidden, subscribed, is_expired, admin_creator,' +
-                'comments{created_time, from, message, can_remove, like_count, user_likes, id}, likes{id, name}, story, story_tags, full_picture, ' +
-                'object_id, shares, place, backdated_time']},
-            function (response) {
-                res.json(response);
-            }
-        );
-    } else {                                                            // IF THERE IS NO USER LOGGED IN - PUBLIC
-        Fb_post.find({},{__v:0}, function(err, fb_posts) {
-            if (err) throw err;
-            let max_posts = fb_posts[0].max_posts;
-            let posts_id = fb_posts[0].posts_id;
-            let direction = fb_posts[0].post_direction;
-
-            FB.api(
-                '/247667268610623/feed',
-                'GET',
-                {
-                    fields: ['id, from{name, category, category_list}, message, message_tags, picture, link, name, caption, description, icon, ' +
-                    'actions{name, link, id}, privacy, type, status_type, created_time, updated_time, is_hidden, subscribed, is_expired, admin_creator,' +
-                    'comments{created_time, from, message, can_remove, like_count, user_likes, id}, likes{id, name}, story, story_tags, full_picture, ' +
-                    'object_id, shares, place, backdated_time'],
-                    limit: max_posts
-                },
-                function (response) {
-                    let newResponse = [];
-                    for(let i=0; i<posts_id.length;i++){
-                        for(let j=0;j < response.data.length; j++){
-
-                            // adding matching posts - if direction is true
-                            if (direction === true && posts_id[i] === response.data[j].id){
-                            newResponse.push(response.data[j]);
-
-                            // removing matching posts - if direction is false
-                            } else if (direction === false && posts_id[i] === response.data[j].id){
-                            newResponse.push(response.data[j]);
-                            // let index = response.data[j].id.indexOf(posts_id[i]);
-                            // response.data[j].splice(index, 1);
-                            }
-                        }
-                    }
-                    res.json({data:newResponse});
-                }
-            );
-        });
-    }
-});
-router.get('/fb_set', function(req, res){
-    Fb_post.find({},{__v:0}, function(err, data) {
-        if (err) throw err;
-        res.json(data);
-    });
-});
-*/
 
 
 module.exports = router;
