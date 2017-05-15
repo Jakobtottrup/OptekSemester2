@@ -14,15 +14,18 @@ $.ajax({
 });
 
 function selectImage(data){
-    window.confirm('Er du sikker på at du vil slette billedet');
-    var selectedImage = $(data).closest("div").prop("id");
+    var result = window.confirm('Er du sikker på at du vil slette billedet');
+    if (result){
+        var selectedImage = $(data).closest("div").prop("id");
 
-    console.log(selectedImage);
-    $.ajax({
-        url: "/admins/gallery/" + selectedImage,
-        type: "DELETE",
-        success: location.reload()
-    })
+        console.log(selectedImage);
+        $.ajax({
+            url: "/admins/gallery/" + selectedImage,
+            type: "DELETE",
+            success: location.reload()
+        })
+    }
+
 }
 
 
