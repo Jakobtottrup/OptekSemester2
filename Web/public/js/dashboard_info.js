@@ -91,7 +91,6 @@ function sendData_ui () {
             bnet = "|"
         }
 
-        // console.log("username:",username,"\nage:",age,"\nemail:",email,"\nstudie:",studie,"\nfakultet:",fakultet,"\nsteam:",steam,"\nbnet:",bnet);
         $.ajax({
             type: "PUT",
             url: "/users/userupdate/" + username + "/" + email + "/" + age + "/" + studie + "/" + fakultet + "/" + steam + "/" + bnet,

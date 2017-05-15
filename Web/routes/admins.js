@@ -510,14 +510,17 @@ galleryRoute.delete(ensureAdminAuthenticated, function (req, res) {
             res.redirect("/admins/gallery");
         }
     });
-
     req.flash('success_msg', "Billede "+id+" er nu slettet");
     res.redirect("/admins/gallery");
 });
 
 // SET FACEBOOK SETTINGS
 router.post('/posts', ensureAdminAuthenticated, function (req, res) {
-    const posts_id = JSON.parse(req.body.checkListID);
+    console.log(req.body.checkListID);
+    // const posts_id = JSON.parse(req.body.checkListID);
+    const posts_id = req.body.checkListID;
+
+
     let newFb_post = new Fb_post ({
         posts_id: posts_id
     });

@@ -247,12 +247,16 @@ router.get('/gallery', function (req, res) {
     });
 });
 
-
+/*
 // FACEBOOK REQUEST OPTIONS
 let fb_fields = ['id, from{name, category, category_list}, message, message_tags, picture, link, name, caption, description, icon, ' +
 'actions{name, link, id}, privacy, type, status_type, created_time, updated_time, is_hidden, subscribed, is_expired, admin_creator,' +
 'comments{created_time, from, message, can_remove, like_count, user_likes, id}, likes{id, name}, story, story_tags, full_picture, ' +
 'object_id, shares, place, backdated_time'];
+*/
+
+let fb_fields = ['id, from{name}, message, picture, link, name, type, created_time,' +
+'comments{created_time, from, message, id}, likes{id, name}'];
 
 // GET FACEBOOK INFORMATION FOR ADMIN VIEW
 router.get('/fb_admin', ensureAdminAuthenticated, function(req, res) {
@@ -293,9 +297,6 @@ router.get('/fb_user', function(req, res) {
         );
     });
 });
-
-
-
 
 
 module.exports = router;

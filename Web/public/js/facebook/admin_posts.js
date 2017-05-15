@@ -2,7 +2,7 @@
  * Created by ste on 15-05-2017.
  */
 
-$.when(getFacebookAdminData(), getFacebookUserData()).done(function(){
+$.when(getFacebookAdminData()).done(function(){
     fb_createPosts();
 });
 
@@ -58,8 +58,8 @@ function fb_post_text(post) {
 
 function fb_post_visible(curid) {
     var respond = false;
-    for (var i = 0; i < fb_userData.data.length; i++) {
-        if (fb_userData.data[i].id == curid) {
+    for (var i = 0; i < fb_adminData.data.length; i++) {
+        if (fb_adminData.data[i].id == curid) {
             respond = true;
         }
     }
@@ -93,9 +93,7 @@ function fb_createPosts() {
         fb_thispost(fb_adminData.data[i]);
     }
 
-    output += "<input class='form-control' min='0' max='100' type='number' name='max_posts' placeholder='max antal'>";
-
-    output += "<button class='btn btn-primary' type='submit' value='submit'>Gem indstillinger</button>";
+    output += "<button class='btn btn-primary' onclick='saveCheckboxes()' type='submit' value='submit'>Gem indstillinger</button>";
 
     output += "</form>";
 
