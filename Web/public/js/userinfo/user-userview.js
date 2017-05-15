@@ -30,7 +30,7 @@ function seatGroup(id) {
                 console.log(findUserName(groupData[i].members[j]));
                 return groupData[i].groupName;
             } else {
-                return ""; //"Ingen gruppe";
+                return "Ingen gruppe";
             }
         }
     }

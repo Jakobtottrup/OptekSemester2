@@ -2,7 +2,7 @@
  * Created by ste on 15-05-2017.
  */
 
-$.when(getFacebookAdminData()).done(function(){
+$.when(getFacebookAdminData(), getFacebookUserData()).done(function(){
     fb_createPosts();
 });
 
@@ -58,8 +58,8 @@ function fb_post_text(post) {
 
 function fb_post_visible(curid) {
     var respond = false;
-    for (var i = 0; i < fb_adminData.data.length; i++) {
-        if (fb_adminData.data[i].id == curid) {
+    for (var i = 0; i < fb_userData.data.length; i++) {
+        if (fb_userData.data[i].id == curid) {
             respond = true;
         }
     }
@@ -74,8 +74,6 @@ function fb_checkbox(thisid) {
     } else {
         thistext += "not-checked";
     }
-
-
     thistext += "></div>";
     return thistext;
 }
@@ -87,21 +85,17 @@ function fb_checkbox(thisid) {
 function fb_createPosts() {
     output = "";
 
-    output += "<form method='post' action='/admins/posts'>";
-
     for (var i = 0; i < fb_adminData.data.length; i++) {
         fb_thispost(fb_adminData.data[i]);
     }
 
-    output += "<button class='btn btn-primary' onclick='saveCheckboxes()' type='submit' value='submit'>Gem indstillinger</button>";
-
-    output += "</form>";
+    output += "<button class='btn btn-primary' onclick='saveCheckboxes()'>Gem indstillinger</button>";
 
     $("#fb_post_list").append(output);
 }
 
 function fb_thispost(post) {
-    console.log(post);
+    // console.log(post);
     output += "<table border='1'>";
 
     output += "<tr>";
@@ -134,20 +128,20 @@ function fb_thispost(post) {
 /*** ************* ***/
 
 function saveCheckboxes() {
-    console.log("yo");
-    var checkListID = [];
+    let checkListID = [];
     $('input[type=checkbox]').each(function () {
         if (this.checked) {
             checkListID.push($(this).attr("id"));
         }
     });
 
-    let obj_id = {"checkListID": JSON.stringify(checkListID)};
+    let obj_id = {"posts_id":JSON.stringify(checkListID)};
 
     $.ajax({
         type: 'POST',
         url: '/admins/posts',
         dataType: 'json',
-        data: obj_id
+        data: obj_id,
+        success: location.reload()
     });
 }

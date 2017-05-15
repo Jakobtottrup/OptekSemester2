@@ -455,8 +455,8 @@ thisEvent.put(ensureAdminAuthenticated, function (req, res) {
     Group.collection.drop();
     Tournament.collection.drop();
 
-    // reset all users to "hasPaid = false"
-    User.update({hasPaid: true}, {hasPaid: false}, {multi: true}, function () {
+    // reset all users to "hasPaid = false and isActive = false"
+    User.update({hasPaid: true, isActive: true}, {hasPaid: false, isActive: false}, {multi: true}, function () {
         console.log("hasPaid set to false for all users");
     });
 
@@ -516,24 +516,35 @@ galleryRoute.delete(ensureAdminAuthenticated, function (req, res) {
 
 // SET FACEBOOK SETTINGS
 router.post('/posts', ensureAdminAuthenticated, function (req, res) {
-    console.log(req.body.checkListID);
-    // const posts_id = JSON.parse(req.body.checkListID);
-    const posts_id = req.body.checkListID;
+    const posts_id = JSON.parse(req.body.posts_id);
+    const doc_id = "fb_posts"; // predefines document ID for easy update of document
 
-
-    let newFb_post = new Fb_post ({
-        posts_id: posts_id
-    });
-
-    Fb_post.collection.drop();
-
-    newFb_post.save(function (err) {
+    const new_posts_id = posts_id;
+    Fb_post.findByIdAndUpdate({_id: doc_id}, {fb_posts: new_posts_id}, function (err, fb_posts) {
         if (err) throw err;
-        req.flash('success_msg', 'Indstillingerne blev gemt');
-        res.status(200).end();
-        res.redirect('/admins/posts');
+        if (fb_posts === null) {
+            // create new document
+            let newFb_post = new Fb_post ({
+                posts_id: posts_id,
+                _id: doc_id
+            });
+            newFb_post.save(function (err) {
+                if (err) throw err;
+                req.flash('success_msg', 'Indstillingerne blev gemt');
+                res.redirect('/admins/posts')
+            });
+            // update existing document
+        } else {
+            fb_posts.posts_id = new_posts_id;
+            fb_posts.save(function (err) {
+                if (err) throw err;
+                req.flash('success_msg', 'Indstillingerne blev gemt');
+                res.redirect('/admins/posts')
+            });
+        }
     });
 });
+
 
 module.exports = router;
 

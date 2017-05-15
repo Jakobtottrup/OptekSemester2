@@ -10,11 +10,8 @@ let Fb_postSchema = mongoose.Schema({
     posts_id: {
         type: Array
     },
-    max_posts: {
-        type: Number
-    },
-    post_direction: {
-        type: Boolean
+    _id: {
+        type: String
     }
 });
 
