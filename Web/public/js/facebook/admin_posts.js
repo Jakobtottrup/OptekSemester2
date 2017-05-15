@@ -2,7 +2,7 @@
  * Created by ste on 15-05-2017.
  */
 
-$.when(getFacebookAdminData()).done(function(){
+$.when(getFacebookAdminData(), getFacebookUserData()).done(function(){
     fb_createPosts();
 });
 
@@ -56,8 +56,28 @@ function fb_post_text(post) {
     return text;
 }
 
+function fb_post_visible(curid) {
+    var respond = false;
+    for (var i = 0; i < fb_userData.data.length; i++) {
+        if (fb_userData.data[i].id == curid) {
+            respond = true;
+        }
+    }
+    return respond;
+}
+
 function fb_checkbox(thisid) {
-    return "<div><input class='form-control' type='checkbox' name='posts_id' id='" + thisid + "' checked></div>";
+    var thistext = "<div><input class='form-control' type='checkbox' name='posts_id' id='" + thisid + "' ";
+
+    if (fb_post_visible(thisid)) {
+        thistext += "checked";
+    } else {
+        thistext += "not-checked";
+    }
+
+
+    thistext += "></div>";
+    return thistext;
 }
 
 /*** ********** ***/
@@ -83,6 +103,7 @@ function fb_createPosts() {
 }
 
 function fb_thispost(post) {
+    console.log(post);
     output += "<table border='1'>";
 
     output += "<tr>";
