@@ -2,18 +2,6 @@
  * Created by chris on 26-04-2017.
  */
 
-// ============== SHOWING TOURNAMENTS ============== //
-// retrieve data from database
-function getUserData(){
-    return $.ajax({
-        type: 'GET',
-        url: "/api/localuser",
-        dataType: "json"
-    }).done(function(data){
-        userData = data;
-    });
-}
-
 $.when(document, getUserData()).done(function(){
     $("#username").append(userData.username);
     $("#email").append(userData.email);
@@ -27,7 +15,6 @@ $.when(document, getUserData()).done(function(){
 });
 
 function paymentStatus(payment, active) {
-    console.log(payment, active);
     if (active === true && payment === true) {
         $("#join_button").remove();
         $("#leave_button").remove();
@@ -55,10 +42,14 @@ function paymentStatus(payment, active) {
 function joinEvent() {
     if (window.confirm("Tryk OK for at bekræfte")) {
         $.ajax({
-            type: "PUT",
-            url: "/users/joinevent/",
+            type: "POST",
+            url: "/users/joinevent",
             dataType: 'json',
-            success: location.reload(true)
+            success: function (data){
+                if (typeof data.redirect === 'string'){
+                    window.location = data.redirect
+                }
+            }
         });
     }
 }
@@ -95,7 +86,7 @@ function sendData_ui () {
             type: "PUT",
             url: "/users/userupdate/" + username + "/" + email + "/" + age + "/" + studie + "/" + fakultet + "/" + steam + "/" + bnet,
             dataType: 'json',
-            success: location.reload()
+            //success: reloadPage(1)
         });
     }
 }

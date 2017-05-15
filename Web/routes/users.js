@@ -58,10 +58,8 @@ router.get('/seatgroups', ensureAuthenticated, function(req, res){
 
 
 // SET USER AS ACTIVE FOR CURRENT EVENT
-router.put('/joinevent', ensureAuthenticated, function(req, res){
-    res.redirect("/dashboard");
+router.post('/joinevent', ensureAuthenticated, function(req, res){
     User.findById(req.user._id, function (err, user) {
-        //console.log(req, res);
         if (err) {
             res.send(err);
         } else {
@@ -81,7 +79,7 @@ router.put('/joinevent', ensureAuthenticated, function(req, res){
                 } else if (user.isActive === false){
                     req.flash('error_msg', 'Du er nu frameldt');
                 }
-
+                res.send({redirect: '/dashboard'});
             });
         }
     });
