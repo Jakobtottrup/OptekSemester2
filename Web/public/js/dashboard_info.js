@@ -27,11 +27,13 @@ $.when(document, getUserData()).done(function(){
 });
 
 function paymentStatus(payment, active) {
+    console.log(payment, active);
     if (active === true && payment === true) {
         $("#join_button").remove();
         $("#leave_button").remove();
     } else if (active === true){
         $("#join_button").remove();
+        $("#event_info").remove();
     } else if (active === false && payment === false) {
         $("#event_info").remove();
         $("#leave_button").remove();
@@ -56,7 +58,7 @@ function joinEvent() {
             type: "PUT",
             url: "/users/joinevent/",
             dataType: 'json',
-            success: location.reload()
+            success: location.reload(true)
         });
     }
 }

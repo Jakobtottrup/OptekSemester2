@@ -58,8 +58,10 @@ router.get('/seatgroups', ensureAuthenticated, function(req, res){
 
 
 // SET USER AS ACTIVE FOR CURRENT EVENT
-router.put('/joinevent/', ensureAuthenticated, function(req, res){
+router.put('/joinevent', ensureAuthenticated, function(req, res){
+    res.redirect("/dashboard");
     User.findById(req.user._id, function (err, user) {
+        //console.log(req, res);
         if (err) {
             res.send(err);
         } else {
@@ -68,17 +70,18 @@ router.put('/joinevent/', ensureAuthenticated, function(req, res){
             } else if (user.isActive === false && user.hasPaid === false) {
                 user.isActive = true;
             }
-
             user.save(function (err) {
                 if (err) {
                     res.send(err);
                 }
+
                 if(user.isActive === true) {
                     req.flash('success_msg', 'Du er nu tilmeldt');
+
                 } else if (user.isActive === false){
                     req.flash('error_msg', 'Du er nu frameldt');
                 }
-                res.redirect("/dashboard");
+
             });
         }
     });
