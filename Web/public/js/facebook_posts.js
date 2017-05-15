@@ -96,7 +96,15 @@ function fb_event(thispost) {
 }
 
 function fb_link(thispost) {
-    var thislink = "<a href='" + thispost.link + "'><img src='" + thispost.picture + "' title='" + thispost.name + "'></a>";
+    var thislink = "<a href='" + thispost.link + "'>";
+
+    if (typeof thispost.picture !== "undefined") {
+        thislink += "<img src='" + thispost.picture + "' title='" + thispost.name + "'>";
+    } else {
+        thislink += "Se linket her";
+    }
+
+    thislink += "</a>";
     return thislink;
 }
 
@@ -160,8 +168,12 @@ function fb_post_large(post) {
     var text = "";
 
     text += "<div class='fb_post'>";
-    text += "<p>" + post.from.name + "</p>";
-    text += "<p>" + fb_created_time(post.created_time) + "</p>";
+
+    text += "<div style='clear: both;' class='date_box_large'>";
+    text += "<p class='name_align_left'>" + post.from.name + "</p>";
+    text += "<p class='date_align_right'>" + fb_created_time(post.created_time) + "</p>";
+    text += "</div>";
+
     text += fb_post_text(post);
     text += "</div>";
 
@@ -173,9 +185,20 @@ function fb_post_small(post) {
     var text = "";
 
     text += "<div class='fb_post'>";
+
+    text += "<div style='clear: both;' class='date_box_small'>";
+
+    text += "<div class='date_box_small_left'>";
     text += fb_user_pic(post.from);
+    text += "</div>";
+
+    text += "<div class='date_box_small_right'>";
     text += "<p>" + post.from.name + "</p>";
     text += "<p>" + fb_created_time(post.created_time) + "</p>";
+    text += "</div>";
+
+    text += "</div>";
+
     text += fb_post_text(post);
     text += "</div>";
 
@@ -186,6 +209,8 @@ function fb_post_text(post) {
     var text = "";
 
     text += "<p>" + convertToText(post.message); + "</p>";
+
+    text += "<div class='fb_link_pic' align='center'>";
     if (post.type == "photo") {
         text += fb_photo(post);
     } else if (post.type == "event") {
@@ -195,6 +220,7 @@ function fb_post_text(post) {
     } else {
         //console.log(post.type);
     }
+    text += "</div>";
 
     return text;
 }
@@ -212,8 +238,12 @@ function fb_comment_large(comment) {
     var text = "";
 
     text += "<div class='fb_comment'>";
-    text += "<p>" + comment.from.name + "</p>";
-    text += "<p>" + fb_created_time(comment.created_time) + "</p>";
+
+    text += "<div style='clear: both;' class='date_box_large'>";
+    text += "<p class='name_align_left'>" + comment.from.name + "</p>";
+    text += "<p class='date_align_right'>" + fb_created_time(comment.created_time) + "</p>";
+    text += "</div>";
+
     text += fb_comment_text(comment);
     text += "</div>";
 
@@ -225,9 +255,20 @@ function fb_comment_small(comment) {
     var text = "";
 
     text += "<div class='fb_comment'>";
+
+    text += "<div style='clear: both;' class='date_box_small'>";
+
+    text += "<div class='date_box_small_left'>";
     text += fb_user_pic(comment.from);
+    text += "</div>";
+
+    text += "<div class='date_box_small_right'>";
     text += "<p>" + comment.from.name + "</p>";
     text += "<p>" + fb_created_time(comment.created_time) + "</p>";
+    text += "</div>";
+
+    text += "</div>";
+
     text += fb_comment_text(comment);
     text += "</div>";
 
@@ -239,13 +280,14 @@ function fb_comment_small(comment) {
 /*** ********** ***/
 
 function fb_createPosts() {
-    var post_num = 0;
-    fbData.data.forEach(fb_thispost, post_num);
+    for (var i = 0; i < fbData.data.length; i++) {
+        fb_thispost(fbData.data[i], i);
+    }
 }
 
 function fb_thispost(post, post_num) {
     //console.log(post);
-    //console.log(post_num);
+    post_num *= 2;
 
     output = "";
 
@@ -263,6 +305,8 @@ function fb_thispost(post, post_num) {
         output += fb_likes(post.likes, post_num);
     }
     output += "</td>";
+
+    post_num++;
 
     output += "<td class='visible-xs'>";
     output += fb_post_small(post);
@@ -307,6 +351,5 @@ function fb_thispost(post, post_num) {
 
     output += "</table>";
 
-    post_num++;
     $("#facebookposts").append(output);
 }

@@ -12,7 +12,7 @@ table {
 }
 
 .fb_tb_right {
-    width: 60px;
+    width: 63px;
 }
 
 .fb_creater_pic img, .fb_comment_pic_left img, .fb_comment_pic_right img {
@@ -40,8 +40,9 @@ table {
     float: right;
 }
 
-.fb_comment_pic_right img {
-
+.fb_comment_pic_left img:hover, .fb_comment_pic_right img:hover {
+    margin: -3px;
+    width: 66px;
 }
 
 /*** ********* ***/
@@ -162,4 +163,86 @@ table {
 .fb_likes_list img:hover {
     width: 58px;
     margin: -1px;
+}
+
+/*** ************* ***/
+/** Date & Name box **/
+/*** ************* ***/
+
+.date_box_large {
+    height: 20px;
+    margin-left: 10px;
+    margin-right: 20px;
+    margin-bottom: 14px;
+}
+
+.date_box_large p {
+    color: gray;
+}
+
+.name_align_left {
+    float: left;
+}
+
+.date_align_right {
+    float: right;
+}
+
+.date_box_small {
+    height: 58px;
+}
+
+.date_box_small_left {
+    float: left;
+}
+
+.date_box_small_left img {
+    border-radius: 25%;
+    height: 52px;
+    margin: 3px;
+}
+
+.date_box_small_left img:hover {
+    height: 58px;
+    margin: 0;
+}
+
+.date_box_small_right {
+    float: left;
+    margin-left: 10px;
+
+    margin-top: 4px;
+
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    height: 58px;
+}
+
+.date_box_small_right p {
+    color: gray;
+    line-height: 14px;
+}
+
+/*** ********* ***/
+/** Tekst Links **/
+/*** ********* ***/
+
+.fb_link_pic img {
+    margin: 3px;
+    width: 280px;
+    max-width: 90%;
+    border: 3px solid var(--menu-);
+    border-radius: 10px;
+}
+
+.fb_link_pic img:hover {
+    width: 286px;
+    max-width: 92%;
+    margin: 0px;
+}
+
+.fb_link_pic a {
+    padding: 0;
+    background-color: none;
 }
