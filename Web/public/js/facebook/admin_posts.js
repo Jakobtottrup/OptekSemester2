@@ -2,21 +2,6 @@
  * Created by ste on 15-05-2017.
  */
 
-/**
- * Created by Christian Skjerning on 5/11/2017.
- */
-
-function getFacebookData() {
-    return $.ajax({
-        type: 'GET',
-        url: "/api/fb_admin",
-        dataType: "json"
-    }).done(function(data){
-        fbData = data;
-    });
-}
-
-
 $.when(getFacebookData()).done(function(){
     fb_createPosts();
 });
@@ -26,8 +11,8 @@ $.when(getFacebookData()).done(function(){
 /*** ************* ***/
 
 function convertToText(rawtext) {
-    var max_string_length = 200;
-    var max_word_length = 30;
+    var max_string_length = 2000;
+    var max_word_length = 20;
     var word_length = 0;
     var text = "";
 
@@ -72,7 +57,7 @@ function fb_post_text(post) {
 }
 
 function fb_checkbox(thisid) {
-    return "<div><input class='form-control' type='checkbox' name='fb_post_id_" + thisid + "' checked></div>";
+    return "<div><input class='form-control' type='checkbox' name='posts_id' id='" + thisid + "' checked></div>";
 }
 
 /*** ********** ***/
@@ -88,6 +73,8 @@ function fb_createPosts() {
         fb_thispost(fbData.data[i]);
     }
 
+    output += "<input class='form-control' min='0' max='100' type='number' name='max_posts' placeholder='max antal'>";
+
     output += "<button class='btn btn-primary' type='submit' value='submit'>Gem indstillinger</button>";
 
     output += "</form>";
@@ -96,8 +83,6 @@ function fb_createPosts() {
 }
 
 function fb_thispost(post) {
-    console.log(post);
-
     output += "<table border='1'>";
 
     output += "<tr>";
@@ -125,3 +110,26 @@ function fb_thispost(post) {
     output += "<br>";
 }
 
+/*** ************* ***/
+/** save checkboxes **/
+/*** ************* ***/
+
+function saveCheckboxes() {
+    console.log("yo");
+    var checkListID = [];
+    $('input[type=checkbox]').each(function () {
+        if (this.checked) {
+            checkListID.push($(this).attr("id"));
+        }
+    });
+    console.log(checkListID);
+
+    var obj_list = {"posts_id": checkListID};
+
+    $.ajax({
+        type: 'POST',
+        url: '/admins/posts',
+        dataType: 'json',
+        data: JSON.stringify(obj_list)
+    });
+}

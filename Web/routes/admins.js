@@ -517,18 +517,14 @@ galleryRoute.delete(ensureAdminAuthenticated, function (req, res) {
 
 // SET FACEBOOK SETTINGS
 router.post('/posts', ensureAdminAuthenticated, function (req, res) {
-    const posts_id = req.body.posts_id; // check boxes
-    const max_posts = req.body.max_posts; // number field
-    let post_direction = req.body.post_direction; // something
-    if (post_direction === "on" || typeof post_direction !== "undefined") {
-        post_direction = true;
-    } else {
-        post_direction = false;
-    }
+    console.log(req.body);
 
+    //console.log(JSON.parse(req.body));
+
+    const posts_id = req.body;
 
     req.checkBody('posts_id', 'posts_id er nødvendigt').notEmpty();
-    req.checkBody('max_posts', 'max_posts er nødvendigt').notEmpty();
+    //req.checkBody('max_posts', 'max_posts er nødvendigt').notEmpty();
     //req.checkBody('post_direction', 'post_direction er nødvendigt').notEmpty();
 
     let errors = req.validationErrors();
@@ -539,8 +535,8 @@ router.post('/posts', ensureAdminAuthenticated, function (req, res) {
     } else {
         let newFb_post = new Fb_post ({
             posts_id: posts_id,
-            max_posts: max_posts,
-            post_direction: post_direction
+            max_posts: 5//max_posts//,
+            //post_direction: post_direction
         });
 
         Fb_post.collection.drop();
