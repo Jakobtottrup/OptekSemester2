@@ -86,7 +86,11 @@ function sendData_ui () {
             type: "PUT",
             url: "/users/userupdate/" + username + "/" + email + "/" + age + "/" + studie + "/" + fakultet + "/" + steam + "/" + bnet,
             dataType: 'json',
-            //success: reloadPage(1)
+            success: function (data){
+                if (typeof data.redirect === 'string'){
+                    window.location = data.redirect
+                }
+            }
         });
     }
 }

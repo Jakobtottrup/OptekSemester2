@@ -213,6 +213,10 @@ delRoute.delete(ensureAdminAuthenticated, function (req, res) {
 });
 
 
+/** ********************** **/
+/** TOURNAMENT CONTROLLERS **/
+/** ********************** **/
+
 // TOURNAMENT CONTROLLERS
 router.post('/tournaments', tourUploads, ensureAdminAuthenticated, function (req, res) {
     //console.log(req.files);

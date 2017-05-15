@@ -170,14 +170,3 @@ function convertTimeWithYear(time){
     return time;
 }
 
-// reload page - pass in time
-function reloadPage(sec) {
-    (function myLoop(i) {
-        setTimeout(function () {
-            location.reload();
-            if (--i) myLoop(i);
-        }, sec*1000)
-    })(1);
-}
-
-

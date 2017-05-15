@@ -4,8 +4,6 @@
 
 // draw group list
 $.when(getGroupData(), getUsersData(), getUserData()).done(function(){
-     // console.log("inGroup checked: "+inGroup(groupData));
-     // console.log("isLeader checked: "+isLeader(groupData));
     if (inGroup(groupData) === false && isLeader(groupData) === false || userData.isAdmin === true) {
         $("#create_btn").prepend('<button type="button" class="btn btn-lg btn-primary" id="create_group" data-toggle="modal" data-target="#modal-create" style="margin-top:5px;margin-bottom: 10px; float:right;">Opret siddegruppe</button>');
     } else {
@@ -141,10 +139,9 @@ function leaveGroup(source) {
 function deleteGroup (source) {
     let groupID = $(source).closest("tr").prop("id");
     let type = "DELETE";
-    let delGroup = confirm("Vil du slette gruppe?");
     let task = 2;
     let pass = "something";
-    if (delGroup === true) {
+    if (confirm("Vil du slette gruppe?")) {
         sendData(groupID, type, task, pass);
     }
 }
@@ -161,7 +158,11 @@ function sendData(groupID, type, task, pass){
         type: type,
         url: "/users/seatgroups/" + groupID + "/" + task + "/" + pass,
         dataType: 'json',
-        success: location.reload()
+        success: function (data){
+            if (typeof data.redirect === 'string'){
+                window.location = data.redirect
+            }
+        }
     });
 }
 

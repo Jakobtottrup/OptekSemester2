@@ -129,17 +129,18 @@ function showMembers(source){
     // match ID's with names in users collection
     if (tour[0].teams.length > 0) {
         $.each(tour[0].teams, function (key, data) {
-            $("#show-data-body").append("<b>" + data.t_name + "</b>").append("<br>");
+            $("#show-data-body").append("Hold: <b>" + data.t_name + "</b>").append("<br>");
 
             for (i = 0; i < data.members.length; i++) {
                 let user = $.grep(usersData, function (usersData) {
                     return usersData._id === data.members[i];
                 });
-                $("#show-data-body").append(user[0].username + " - " + user[0].email).append("<br>");
+                $("#show-data-body").append(findUserName(data.leaderID)+" (leder)").append("<br>");
+                $("#show-data-body").append(user[0].username).append("<br>");
             }
             $("#show-data-body").append("<br>");
         });
-        $("#show-data-header").empty().append(tour[0].name);
+        $("#show-data-header").empty().append("Hold for turnering: "+tour[0].name);
         $('#modal-edit').modal('show');
     } else {
         window.alert("Ingen deltagere på nuværende tidspunkt")

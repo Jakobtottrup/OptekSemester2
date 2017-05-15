@@ -2,18 +2,45 @@
 <h1>Opret turneringshold</h1>
 <hr>
 
-<form>
-    <div class="well">
-        <h3>Giv dit hold et navn</h3>
-        <input class="form-control" type="text" maxlength="100" name="t_name" placeholder="Indtast holdnavn" required>
-    </div>
-
-    <div class="well">
-        <h3>Angiv en adgangskode til holdet</h3>
-        <input class="form-control" type="password" maxlength="30" minlength="8" name="t_pass" placeholder="Giv holdet en adgangskode" required>
-        <input class="form-control" type="password" maxlength="30" minlength="8" name="t_pass2" placeholder="Skriv adgangskoden igen" required>
-    </div>
+<input value="post" class="btn btn-success btn-lg" onclick="postData()()">
+<input value="put" class="btn btn-success btn-lg" onclick="putData()">
+<input value="delete" class="btn btn-success btn-lg" onclick="delData()">
 
 
-    <input type="submit" name="submit" value="Opret hold" class="btn btn-success btn-lg">
-</form>
+<!--<div id="loader"><div></div></div>-->
+<script>
+    function postData(){
+        arr = ["Hello", 1234, "nej nej nej", true];
+        var data1 = {"POST": arr};
+        var type = "POST";
+        sendData(type, data1);
+    }
+
+    function putData(){
+        arr = ["Hello", 1234, "nej nej nej", true];
+        var data1 = {"PUT": arr};
+        var type = "PUT";
+        sendData(type, data1);
+    }
+
+    function delData(){
+        arr = ["Hello", 1234, "nej nej nej", true];
+        var data1 = {"DELETE": arr};
+        var type = "DELETE";
+        sendData(type, data1);
+    }
+
+    function sendData(type, data1){
+        $.ajax({
+            type: type,
+            url: "/users/test",
+            dataType: 'json',
+            data: data1,
+            success: function (data2){
+                if (typeof data2.redirect === 'string'){
+                    window.location = data2.redirect
+                }
+            }
+        });
+    }
+</script>

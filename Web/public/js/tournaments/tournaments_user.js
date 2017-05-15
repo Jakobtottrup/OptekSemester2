@@ -48,7 +48,6 @@ function showTours() {
 }
 
 
-
 // open modal for entering password
 function openModal(source) {
     let tourID = $(source).closest("div").prop("id");
@@ -56,37 +55,50 @@ function openModal(source) {
     $("#modal-join").modal('show');
 }
 
-// add user to tournament he selected
-function joinTournament (source) {
+
+
+function createTeam(source){
+    console.log(source);
+    let url = "/users/createtournamentteam";
     let tourID = $(source).prop("id");
-    let tn = $("#t_name").val();
-    let tp = $("#t_pass").val();
-    let tp2 = $("#t_pass2").val();
-    console.log(tourID);
-    let type = "PUT";
-    let task = 0;
-    sendData(tourID , type, task, tn, tp, tp2);
+    let t_name = $("#t_name").val();
+    let t_pass = $("#t_pass").val();
+    let t_pass2 = $("#t_pass2").val();
+    let data = {t_name, t_pass, t_pass2, tourID};
+    sendData(data, url);
+}
+
+
+
+// add user to tournament he selected
+function joinTournamentTeam (source) {
+    let url = "/users/jointournamentteam";
+
 }
 
 // leave group
 function leaveTournament(source) {
     if (window.confirm("Vil du afmelde holdet fra turneringen?")) {
-        let tourID = $(source).closest("div").prop("id");
-        let tn = "something";
-        let tp = "something";
-        let type = "PUT";
-        let task = 1;
-        sendData(tourID, type, task, tn, tp, tp2);
+        let data = {"tourID": $(source).closest("div").prop("id")};
+        let url = "/users/leavetournament";
+        sendData(data, url);
     }
 }
 
-function sendData(tourID, type, task, tn, tp, tp2) {
-    console.log(tourID, type, task, tn, tp, tp2);
+
+// send data to server
+function sendData(data, url) {
+    console.log(data,url);
     $.ajax({
-        type: type,
-        url: "/users/tournaments/" + tourID + "/" + task + "/" + tn + "/" + tp + "/" + tp2,
+        type: "PUT",
+        url: url,
         dataType: 'json',
-        success: location.reload()
+        data: data,
+        success: function (response){
+            if (typeof response.redirect === 'string'){
+                window.location = response.redirect
+            }
+        }
     });
 }
 

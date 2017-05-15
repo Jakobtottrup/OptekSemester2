@@ -1,9 +1,9 @@
 /**
  * Created by chris on 12-04-2017.
  */
-var mongoose = require('mongoose');
+const mongoose = require('mongoose');
 mongoose.Promise = require('bluebird');
-var bcrypt = require('bcryptjs');
+const bcrypt = require('bcryptjs');
 
 
 // Group Schema for creating seating groups

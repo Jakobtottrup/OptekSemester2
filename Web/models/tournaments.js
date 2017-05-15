@@ -3,9 +3,9 @@
  */
 let mongoose = require('mongoose');
 mongoose.Promise = require('bluebird');
+const bcrypt = require('bcryptjs');
 
-
-// Seat Schema for creating seats
+// Tournament Schema for creating tournaments
 let TournamentSchema = mongoose.Schema({
     name: {
         type: String
@@ -52,24 +52,3 @@ let TournamentSchema = mongoose.Schema({
     }
 });
 let Tournament = module.exports = mongoose.model('tournaments', TournamentSchema);
-
-
-
-// PASSWORD ENCRYPTION
-module.exports.createTeam = function(newTeam, callback){
-    bcrypt.genSalt(10, function(err, salt) {
-        bcrypt.hash(newTeam.password, salt, function(err, hash) {
-            newTeam.password = hash;
-            newTeam.save(callback);
-        });
-    });
-};
-
-
-module.exports.comparePassword = function (candidatePassword, hash, callback) {
-    bcrypt.compare(candidatePassword, hash, function (err, isMatch) {
-        if (err) throw err;
-        callback(null, isMatch);
-
-    });
-};
