@@ -118,7 +118,6 @@ router.post('/create_seats', ensureAdminAuthenticated, function (req, res) {
         res.render('frontend/index', {
             errors: errors
         });
-        console.log(errors);
     } else { //if validation succeeds server sends data to database using modelschema "users.js"
 
         let newSeat = new seats({
@@ -269,7 +268,7 @@ router.post('/tournaments', tourUploads, ensureAdminAuthenticated, function (req
                     prizes.push({p_index, p_name, p_description, p_image});
                 }
             } else {
-                req.flash('error_msg', 'En opstod under behandling');
+                req.flash('error_msg', 'En fejl opstod under behandling');
                 res.redirect('/admins/tournamnets');
             }
         }
@@ -507,12 +506,12 @@ galleryRoute.delete(ensureAdminAuthenticated, function (req, res) {
             fs.unlinkSync(delFile);
         } else {
             console.log("file does not exist");
-            req.flash('error_msg', "Billede"+id+"eksistere ikke");
+            req.flash('error_msg', "Billede "+id+" eksisterer ikke");
             res.redirect("/admins/gallery");
         }
     });
 
-    req.flash('success_msg', "Billede"+id+"er nu slettet");
+    req.flash('success_msg', "Billede "+id+" er nu slettet");
     res.redirect("/admins/gallery");
 });
 
@@ -534,7 +533,7 @@ router.post('/posts', ensureAdminAuthenticated, function (req, res) {
 
     let errors = req.validationErrors();
     if (errors) { // if validation fails
-        req.flash('error_msg', "Udfyldvenligst alle felterne");
+        req.flash('error_msg', "Udfyld venligst alle felterne");
         res.redirect('/admins/posts');
 
     } else {

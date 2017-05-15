@@ -50,7 +50,7 @@ router.post('/passwordreset', function (req, res, next) {
         function (token, done) {
             User.findOne({email: req.body.email}, function (err, user) {
                 if (!user) {
-                    req.flash('error_msg', 'No account with that email address exists.');
+                    req.flash('error_msg', 'Ingen bruger med indtastede email fundet.');
                     return res.redirect('/passwordreset');
                 }
                 user.resetPasswordToken = token;
@@ -78,7 +78,7 @@ router.post('/passwordreset', function (req, res, next) {
                 'If you did not request this, please ignore this email and your password will remain unchanged.\n'
             };
             transporter.sendMail(mailOptions, function (err) {
-                req.flash('success_msg', 'An e-mail has been sent to ' + user.email + ' with further instructions.');
+                req.flash('success_msg', 'En e-mail er blevet sendt til ' + user.email + ' med yderligere instruktioner.');
                 done(err, 'done');
             });
         }
@@ -91,7 +91,7 @@ router.get('/reset/:token', function (req, res) {
     var date2 = Date.now();
     User.findOne({resetPasswordToken: req.params.token, resetPasswordExpires: {$gt: date2}}, function (err, user) {
         if (!user) {
-            req.flash('error_msg', 'TEST: Password reset token is invalid or has expired.');
+            req.flash('error_msg', 'Password gendannelse link er ugyldig eller udløbet.');
             return res.redirect('/passwordreset');
         }
         res.render('frontend/reset', {user});
@@ -109,7 +109,7 @@ router.post('/reset/:token', function (req, res) {
                     resetPasswordExpires: {$gt: date3}
                 }, function (err, user) {
                     if (!user) {
-                        req.flash('error_msg', 'Password reset token is invalid or has expired.');
+                        req.flash('error_msg', 'Password gendannelse link er ugyldig eller udløbet.');
                         // return res.redirect('/reset/:token');
                     }
                     user.password = req.body.password;
@@ -141,7 +141,7 @@ router.post('/reset/:token', function (req, res) {
                     'This is a confirmation that the password for your account ' + user.email + ' has just been changed.\n'
                 };
                 transporter.sendMail(mailOptions, function (err) {
-                    req.flash('success_msg', 'Password reset complete!');
+                    req.flash('success_msg', 'Password gendannelse fuldført!');
                     done(err);
                 });
             }
@@ -209,15 +209,12 @@ router.post('/signup', function (req, res) {
                 return done(err);
 
             if (user) {
-                console.log("user already exists.");
                 req.flash('error_msg', 'Bruger eksisterer allerede');
                 res.redirect('/signup');
             } else {
-                console.log("created user with: " + user);
                 User.createUser(newUser, function (err, username) {
                     if (err) throw err;
-                    console.log(username);
-                    req.flash('success_msg', 'You are registered!');
+                    req.flash('success_msg', 'Du er nu registreret!');
                     res.redirect('/login');
 
                 });
@@ -301,10 +298,8 @@ router.get('/logout', function (req, res) {
 // RENDER DASHBOARD VIEW
 router.get('/dashboard', ensureAuthenticated, function (req, res) {
     if (req.user.isAdmin === true) {
-        //console.log("Admin entered his dashboard");
         res.render('admin-backend/adminsDashboard', {title: "Dashboard"});
     } else if (typeof req.user === "object") {
-        //console.log("User entered his dashboard");
         res.render('user-backend/usersDashboard', {title: "Dashboard"});
     } else {
 
@@ -334,7 +329,6 @@ passport.use(new LocalStrategy(
 
 passport.serializeUser(function (user, done) {
     done(null, user.id);
-    //console.log("USER: "+user.username+" | ID: "+user.id);
 });
 
 
