@@ -8,13 +8,13 @@ $.ajax({
     url : "/api/gallery",
     success: function (data) {
         for(i=0; i < data.length; i++){
-            $("#image_div").append( "<div id='"+data[i]+"'> <img class='img-rounded' id='"+data[i]+"' src='"+ folder + data[i] +"'>" + "<input type='button' value='Select' onclick='selectImage(this)'></div>" );
+            $("#image_div").append( "<div id='"+data[i]+"'> <input type='button' value='Slet billedet' onclick='selectImage(this)'> <img class='img-rounded' id='"+data[i]+"' src='"+ folder + data[i] +"'>" + "</div>" );
         }
     }
 });
 
 function selectImage(data){
-
+    window.confirm('Er du sikker på at du vil slette billedet');
     var selectedImage = $(data).closest("div").prop("id");
 
     console.log(selectedImage);
