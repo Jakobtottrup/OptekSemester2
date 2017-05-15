@@ -2,8 +2,7 @@
 <hr>
 
 
-
-<form id="resetForm" class="form-horizontal" role="form" method="post" action="/reset/">
+<form id="resetForm" class="form-horizontal" role="form" method="post" action="/reset/:token">
     <div class="input-group">
         <span class="input-group-addon"><i class="glyphicon glyphicon-lock"></i></span>
         <input id="password" type="password" class="form-control" name="password" value="" placeholder="Nyt kodeord"
@@ -26,7 +25,21 @@
             type: 'POST',
             url: '/reset/' + token,
             dataType: 'json',
-            data: {password: $('#password').val()}
+            data: {
+                password: $('#password').val(),
+                success: function () {
+                    $('#msgs').prepend('<div class="alert alert-success">Password ændret!</div>');
+                    let i = 0;
+                    (function myLoop(i) {
+                        setTimeout(function () {
+                            location.href = "/login";
+                            if (--i) myLoop(i);
+                        }, 3000)
+                    })(1);
+                }
+
+            },
+
         }).done(function (user) {
             userData = user;
         });

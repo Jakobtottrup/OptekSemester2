@@ -16,7 +16,6 @@ mongoose.Promise = require('bluebird');
 const bcrypt = require('bcryptjs');
 
 
-
 // GET HOMEPAGE
 router.get('/', function (req, res) {
     res.render('frontend/index', {title: "S7 LAN"});
@@ -109,7 +108,7 @@ router.post('/reset/:token', function (req, res) {
                     resetPasswordExpires: {$gt: date3}
                 }, function (err, user) {
                     if (!user) {
-                        req.flash('error_msg', 'Password gendannelse link er ugyldig eller udløbet.');
+                        req.flash('error_msg', 'TEST: Password gendannelse link er ugyldig eller udløbet.');
                         // return res.redirect('/reset/:token');
                     }
                     user.password = req.body.password;
@@ -141,7 +140,6 @@ router.post('/reset/:token', function (req, res) {
                     'This is a confirmation that the password for your account ' + user.email + ' has just been changed.\n'
                 };
                 transporter.sendMail(mailOptions, function (err) {
-                    req.flash('success_msg', 'Password gendannelse fuldført!');
                     done(err);
                 });
             }
@@ -152,12 +150,10 @@ router.post('/reset/:token', function (req, res) {
 });
 
 
-
 // render gallery view
 router.get('/gallery', function (req, res) {
     res.render('frontend/gallery', {title: "Galleri"});
 });
-
 
 
 // Register User
@@ -338,16 +334,20 @@ passport.deserializeUser(function (id, done) {
     });
 });
 
-router.post('/login', function(req, res, next) {
-    passport.authenticate('local', function(err, user, info) {
-        if (err) { return next(err) }
+router.post('/login', function (req, res, next) {
+    passport.authenticate('local', function (err, user, info) {
+        if (err) {
+            return next(err)
+        }
         if (!user) {
             // *** Display message using Express 3 locals
             req.flash('error_msg', 'Ugyldige login detaljer - Husk forskel på store og små bogstaver');
             return res.redirect('/login');
         }
-        req.logIn(user, function(err) {
-            if (err) { return next(err); }
+        req.logIn(user, function (err) {
+            if (err) {
+                return next(err);
+            }
             return res.redirect('/dashboard');
         });
     })(req, res, next);
@@ -357,17 +357,17 @@ router.post('/login', function(req, res, next) {
 // GET DATA FROM LOGIN PAGE
 /*router.post('/login', passport.authenticate('local', {successRedirect: '/dashboard', failureRedirect: '/login', failureFlash: true}),
 
-    function (req, res) {
-    if(req.isAuthenticated()){
-        console.log("LOGGED IN!");
-        res.redirect('/dashboard');
-    } else{
-        req.flash('error_msg', 'Ugyldig login detaljer');
-        res.redirect('/login');
-    }
+ function (req, res) {
+ if(req.isAuthenticated()){
+ console.log("LOGGED IN!");
+ res.redirect('/dashboard');
+ } else{
+ req.flash('error_msg', 'Ugyldig login detaljer');
+ res.redirect('/login');
+ }
 
 
-    });*/
+ });*/
 
 // ENSURE USER IS LOGGED IN
 function ensureAuthenticated(req, res, next) {
