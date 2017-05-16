@@ -169,14 +169,3 @@ function convertTimeWithYear(time){
     time = day +". " + month +" - "+ year;
     return time;
 }
-
-
-function signUpForEvent(){
-    $.when(getUserData()).done(function() {
-        if(userData === null) {
-            window.location = "/signup";
-        } else {
-            window.location = "/dashboard";
-        }
-    });
-}

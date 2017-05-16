@@ -16,21 +16,22 @@
                 </div>
             </div>
         </div>
-        {{#unless user.isAdmin}}
-            {{#unless user.hasPaid}}
-                {{#unless user.isActive}}
-                    <button class="btn btn-lg btn-success center-block" id="signup-btn" onclick="signUpForEvent()">TILMELD EVENT</button>
-                {{/unless}}
+
+        {{#if user}}
+            {{#unless user.isAdmin}}
+                {{#if user.isActive}}
+                    {{#unless user.hasPaid}}
+                        <button class="btn btn-lg btn-danger center-block" id="signup-btn" onclick="location.href='/users/payment';">BETALING KAN SES HER</button>
+                    {{/unless}}
+                {{else}}
+                    <button class="btn btn-lg btn-success center-block" id="signup-btn" onclick="location.href='/dashboard';">TILMELD EVENT</button>
+                {{/if}}
             {{/unless}}
-        {{/unless}}
-
-
+        {{else}}
+            <button class="btn btn-lg btn-success center-block" id="signup-btn" onclick="location.href='/login';">TILMELD EVENT</button>
+        {{/if}}
 
         <div class="pagecontent">
-
-
-
-
             <div id="myPictureCarousel"></div>
 
 
