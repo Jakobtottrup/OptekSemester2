@@ -2,7 +2,7 @@
 <link rel="stylesheet" type ="text/css" href="/css/specific/spec-index.css">
 <!-- Begin page content -->
 
-        <div class="page-header">
+        <div class="page-header" onload="signUpForEvent()">
            <div class="hidden-md hidden-sm hidden-xs hidden-lg hidden-xl">
             <img src ="/img/images/s7logo.png" style="height:20%; width: 20%;">
            </div>
@@ -16,6 +16,15 @@
                 </div>
             </div>
         </div>
+        {{#unless user.isAdmin}}
+            {{#unless user.hasPaid}}
+                {{#unless user.isActive}}
+                    <button class="btn btn-lg btn-success center-block" id="signup-btn" onclick="signUpForEvent()">TILMELD EVENT</button>
+                {{/unless}}
+            {{/unless}}
+        {{/unless}}
+
+
 
         <div class="pagecontent">
 

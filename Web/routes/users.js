@@ -35,6 +35,10 @@ router.get('/userinfo', ensureAuthenticated, function(req, res){
     res.render('user-backend/userinfo', {title: "Brugerlist"});
 });
 
+// USER INFO
+router.get('/payment', ensureAuthenticated, function(req, res){
+    res.render('user-backend/paymentguide', {title: "Betalingsguide"});
+});
 
 
 // USER SEAT

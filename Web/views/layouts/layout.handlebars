@@ -101,6 +101,9 @@
                                 <li><a href="/users/getseat"><i class="fa fa-th fa-fw"></i>Din Plads</a></li>
                                 <li><a href="/users/seatgroups"><i class="fa fa-users fa-fw"></i>Siddegruppe</a></li>
                                 <li><a href="/users/tournaments"><i class="fa fa-sitemap fa-fw"></i>Tilmeld Turnering</a></li>
+                            {{#unless user.hasPaid}}
+                                <li><a href="/users/payment"><i class="fa fa-sitemap fa-fw"></i>Betalingsguide</a></li>
+                            {{/unless}}
                             {{else}}
                                 <li><a href="/admins/posts"><i class="fa fa-edit fa-fw"></i>Opslag</a></li>
                                 <li><a href="/admins/users"><i class="fa fa-user fa-fw"></i>Brugere</a></li>

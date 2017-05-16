@@ -1,0 +1,36 @@
+
+<h1>Guide til betaling</h1>
+<hr>
+
+<div>
+    <h3>Overfør nedestående beløb til S7LAN's bankkonto</h3>
+    <br>
+    <div id=event_info_div></div>
+    <p>Reg: 1551</p>
+    <p>Kontonr.: 0010986516</p>
+    <p>Eller på MobilePay til +45 28 33 45 56</p>
+    <br>
+    <p><b>VIGTIGT:</b> Det er vigtigt, at du skriver dit brugernavn som kommentar i overførslen.
+        Betaling skal ske med det samme. Du vil herefter kunne se om vi har registreret din betaling ved at logge ind på siden.
+        Bemærk at der kan gå et par dage fra du overfører penge til vi registrerer din betaling.</p>
+</div>
+
+<link rel="stylesheet" type="text/css" href="/css/specific/spec-userinfo.css">
+<div id="loader"><div></div></div>
+
+<script>
+    function getEventData(){
+        return $.ajax({
+            type: 'GET',
+            url: "/api/event",
+            dataType: "json"
+        }).done(function(data){
+            EventData = data;
+        });
+    }
+    // event informations
+    $.when(getEventData()).done(function(){
+        $("#event_info_div").append("<p><b>Pris: "+EventData[0].price+" DKK</b></p>");
+
+    });
+</script>
