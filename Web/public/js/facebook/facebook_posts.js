@@ -54,7 +54,7 @@ function convertToText(text) {
 
             var temptext = [
                 text_start,
-                "<a href='",
+                "<a target='_blank' href='",
                 text_link,
                 "'>",
                 text_link.slice(text_link.indexOf("/") + 2, text_link.indexOf("/", 8)),
@@ -82,12 +82,12 @@ function fb_photo(thispost) {
 }
 
 function fb_event(thispost) {
-    var thisevent = "<a href='" + thispost.link + "'><img src='" + thispost.picture + "' title='" + thispost.name + "'></a>";
+    var thisevent = "<a target='_blank' href='" + thispost.link + "'><img src='" + thispost.picture + "' title='" + thispost.name + "'></a>";
     return thisevent;
 }
 
 function fb_link(thispost) {
-    var thislink = "<a href='" + thispost.link + "'>";
+    var thislink = "<a target='_blank' href='" + thispost.link + "'>";
 
     if (typeof thispost.picture !== "undefined") {
         thislink += "<img src='" + thispost.picture + "' title='" + thispost.name + "'>";
