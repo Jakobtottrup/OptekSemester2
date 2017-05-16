@@ -78,29 +78,18 @@ router.post('/joinevent', ensureAuthenticated, function(req, res){
 });
 
 // UPDATE USER INFORMATION
-router.put('/userupdate/:username/:email/:age/:studie/:fakultet/:steam/:bnet', ensureAuthenticated, function(req, res){
+router.put('/userupdate', ensureAuthenticated, function(req, res){
     User.findById(req.user._id, function (err, user) {
         if (err) {
             res.send(err);
         } else {
-            user.username = req.params.username;
-            user.email = req.params.email;
-            user.age = req.params.age;
-            user.studie = req.params.studie;
-            user.fakultet = req.params.fakultet;
-
-            if (req.params.steam === "|"){
-                user.steam = "";
-            } else {
-                user.steam = req.params.steam;
-            }
-
-            if (req.params.bnet === "|"){
-                user.bnet = "";
-            } else {
-                user.bnet = req.params.bnet;
-            }
-
+            user.username = req.body.username;
+            user.email = req.body.email;
+            user.age = req.body.age;
+            user.studie = req.body.studie;
+            user.fakultet = req.body.fakultet;
+            user.steam = req.body.steam;
+            user.bnet = req.body.bnet;
             user.save(function (err) {
                 if (err) {
                     res.send(err);
@@ -271,7 +260,7 @@ router.get('/tournaments', ensureAuthenticated, function(req, res){
 });
 
 
-router.put("/leavetournament", function(req, res){
+router.put("/leavetournament", ensureAuthenticated, function(req, res){
     let tourID = req.body.tourID;
     Tournament.findById(tourID, function (err, tournament) {
         for(let i = 0; i < tournament.teams.length;i++){
@@ -292,12 +281,12 @@ router.put("/leavetournament", function(req, res){
 });
 
 
-router.put("/jointournamentteam", function(req, res){
+router.put("/jointournamentteam", ensureAuthenticated, function(req, res){
 
 });
 
 
-router.put("/createtournamentteam", function(req, res){
+router.put("/createtournamentteam", ensureAuthenticated, function(req, res){
     if (req.user.hasPaid === true){
         const tourID = req.body.tourID;
         const t_name = req.body.t_name;
@@ -319,24 +308,28 @@ router.put("/createtournamentteam", function(req, res){
                     res.send(err);
                 }
 
-                let leaderID = req.user.id;
-                let members = [];
-                let createdAt = new Date();
+                if(tournament.maxTeams > tournament.teams.length) {
+                    let leaderID = req.user.id;
+                    let members = [];
+                    let createdAt = new Date();
 
-                // encrypt password and save team to tournament document
-                bcrypt.genSalt(10, function(err, salt) {
-                    bcrypt.hash(t_pass, salt, function(err, hash) {
-                        t_pass = hash;
-                        team = {t_name, t_pass, members, createdAt, leaderID};
-                        tournament.teams.push(team);
-                        tournament.save(function (err) {
-                            if (err) {
-                                res.send(err);
-                            }
-                            req.flash('success_msg', 'Holdet er nu oprettet');
+                    // encrypt password and save team to tournament document
+                    bcrypt.genSalt(10, function(err, salt) {
+                        bcrypt.hash(t_pass, salt, function(err, hash) {
+                            t_pass = hash;
+                            team = {t_name, t_pass, members, createdAt, leaderID};
+                            tournament.teams.push(team);
+                            tournament.save(function (err) {
+                                if (err) {
+                                    res.send(err);
+                                }
+                                req.flash('success_msg', 'Holdet er nu oprettet');
+                            });
                         });
                     });
-                });
+                } else {
+                    req.flash('error_msg', 'Der kan ikke tilmeldes flere hold til denne turnering');
+                }
             });
         }
         // if user have hasPaid = false
@@ -357,8 +350,6 @@ seatRoute.put(ensureAuthenticated, function (req, res) {
     Seat.find({}, function (err, seats) {
         seats = seats[0].container;
         seats = JSON.parse(seats);
-
-        console.log(seats);
     });
 });
 

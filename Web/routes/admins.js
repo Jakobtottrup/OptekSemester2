@@ -468,46 +468,63 @@ thisEvent.put(ensureAdminAuthenticated, function (req, res) {
     Event.collection.drop();
     Group.collection.drop();
     Tournament.collection.drop();
-
-    // reset all users to "hasPaid = false and isActive = false"
-    User.update({isActive: true}, {isActive: false}, {multi: true}, function () {
-        console.log("hasPaid set to false for all users");
-    });
+    // reset user states
+    User.update({hasPaid: true}, {hasPaid: false}, {multi: true}, function () {});
+    User.update({isActive: true}, {isActive: false}, {multi: true}, function () {});
 
     // delete images
     let tournamnetDir = 'public/uploads/image/tournaments';
     rimraf(tournamnetDir, function () {
-        if (!fs.existsSync(tournamnetDir)) {  // TODO: skal ændres, så race condition undgåes
+        if (!fs.existsSync(tournamnetDir)) {
             fs.mkdirSync(tournamnetDir);
         }
     });
 
-    req.flash('success_msg', 'Alt er nu klargjort til nyt event');
-    res.status(200).redirect('/admins/events');
+    req.flash('success_msg', 'Alt er nu slettet');
+    res.redirect(304, '/admins/events');
 });
 
 router.post('/events', ensureAdminAuthenticated, function (req, res) {
+    const doc_id = "event_doc"; // predefines document ID for easy update of document
     const location = req.body.event_location;
     const description = req.body.event_description;
     const eventTime = req.body.event_date;
     const price = req.body.price;
     const maxGuests = req.body.max_guests;
-
-    let newEvent = new Event({
-        description: description,
-        eventTime: eventTime,
-        price: price,
-        maxGuests: maxGuests,
-        location: location
-    });
-
-    newEvent.save(function (err) {
+    Event.findById({_id: doc_id}, function (err, event_doc) {
         if (err) throw err;
-        req.flash('success_msg', 'Eventet er nu oprettet');
-        res.status(200).end();
-        res.redirect('/admins/events');
+        console.log(event_doc);
+        if (event_doc === null) {
+            // create new document
+            let newEvent = new Event({
+                _id: doc_id,
+                description: description,
+                eventTime: eventTime,
+                price: price,
+                maxGuests: maxGuests,
+                location: location
+            });
+            newEvent.save(function (err) {
+                if (err) throw err;
+                req.flash('success_msg', 'Eventet er nu oprettet');
+                res.redirect('/admins/events');
+            });
+
+            // update existing document
+        } else {
+            event_doc.description = description;
+            event_doc.eventTime = eventTime;
+            event_doc.location = location;
+            event_doc.price = price;
+            event_doc.save(function (err) {
+                if (err) throw err;
+                req.flash('success_msg', 'Indstillingerne blev gemt');
+                res.redirect('/admins/events');
+            });
+        }
     });
 });
+
 
 // DELETE GALLERY IMAGES
 let dirPath = "./public/uploads/image/gallery/";

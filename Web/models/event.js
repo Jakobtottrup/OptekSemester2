@@ -21,6 +21,9 @@ let EventSchema = mongoose.Schema({
     },
     location: {
         type: String
+    },
+    _id: {
+        type: String
     }
 });
 

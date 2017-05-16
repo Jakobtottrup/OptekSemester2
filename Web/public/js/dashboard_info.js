@@ -65,7 +65,7 @@ function toggleModal() {
     $('#input_bnet').val(userData.bnet);
 }
 
-function sendData_ui () {
+function sendData_ui() {
     if (window.confirm("Vil du gemme de nye oplysninger?")) {
         $("#modal-edit").modal('hide');
         let username = $('#input_username').val();
@@ -75,17 +75,19 @@ function sendData_ui () {
         let fakultet = $('#input_fakultet').val();
         let steam = $('#input_steam').val();
         let bnet = $('#input_bnet').val();
-        if (steam === ""){
-            steam = "|"
-        }
-        if (bnet === ""){
-            bnet = "|"
-        }
+        // if (steam === ""){
+        //     steam = "|"
+        // }
+        // if (bnet === ""){
+        //     bnet = "|"
+        // }
+        data = {username, email, age, studie, fakultet, bnet, steam};
 
         $.ajax({
             type: "PUT",
-            url: "/users/userupdate/" + username + "/" + email + "/" + age + "/" + studie + "/" + fakultet + "/" + steam + "/" + bnet,
+            url: "/users/userupdate"/* + username + "/" + email + "/" + age + "/" + studie + "/" + fakultet + "/" + steam + "/" + bnet*/,
             dataType: 'json',
+            data: data,
             success: function (data){
                 if (typeof data.redirect === 'string'){
                     window.location = data.redirect
