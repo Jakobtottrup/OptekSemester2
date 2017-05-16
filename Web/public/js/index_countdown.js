@@ -30,7 +30,7 @@ $.when(getEventData()).done(function() {
         days = pad( parseInt(seconds_left / 86400) );
         seconds_left = seconds_left % 86400;
 
-        hours = pad( parseInt(seconds_left / 3600) );
+        hours = pad( parseInt(seconds_left / (3600 + 7200) ) );
         seconds_left = seconds_left % 3600;
 
         minutes = pad( parseInt(seconds_left / 60) );

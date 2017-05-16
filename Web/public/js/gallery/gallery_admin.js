@@ -2,7 +2,6 @@
  * Created by Jonas on 10-05-2017.
  */
 
-
 var folder = "/uploads/image/gallery/";
 $.ajax({
     url : "/api/gallery",
