@@ -108,8 +108,8 @@ router.post('/reset/:token', function (req, res) {
                     resetPasswordExpires: {$gt: date3}
                 }, function (err, user) {
                     if (!user) {
-                        req.flash('error_msg', 'TEST: Password gendannelse link er ugyldig eller udløbet.');
-                        // return res.redirect('/reset/:token');
+                        req.flash('error_msg', 'Password gendannelse link er ugyldig eller udløbet.');
+                        return res.redirect('/reset/:token');
                     }
                     user.password = req.body.password;
                     user.resetPasswordToken = undefined;
@@ -140,6 +140,8 @@ router.post('/reset/:token', function (req, res) {
                     'This is a confirmation that the password for your account ' + user.email + ' has just been changed.\n'
                 };
                 transporter.sendMail(mailOptions, function (err) {
+                    req.flash('success_msg', 'Password ændret!2');
+                    res.redirect('/login');
                     done(err);
                 });
             }

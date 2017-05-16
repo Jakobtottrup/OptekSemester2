@@ -363,10 +363,9 @@ mailRoute.post(ensureAdminAuthenticated, function (req, res, next) {
         let modtager = req.body.modtager;
         let emne = req.body.emne;
         let txt = req.body.text;
-        let noPayment = req.body.emails;
+        let noPayment = req.body.array;
         let allUsers = req.body.all_user_emails;
-        // console.log(noPayment.length);
-        // console.log(req.body.emails);
+
 
         let transporter = nodemailer.createTransport({
             service: 'Gmail',
@@ -395,22 +394,33 @@ mailRoute.post(ensureAdminAuthenticated, function (req, res, next) {
         };
 
         if (req.body.modtager === 'ALL UNPAID') {
-            for (i = 0; i < noPayment.length; i++) {
-                (function (i) {
-                    setTimeout(function () {
-                        notPaid.to = noPayment[i];
-                        console.log(notPaid.to);
-                        transporter.sendMail(notPaid, function (error, info) {
-                            if (error) {
-                                console.log(error);
-                                res.json({yo: 'error'});
-                            } else {
-                                console.log('Message sent: ' + info.response);
-                                //res.json({yo: info.response});
-                            }
-                        })
-                    }, 3000 * i);
-                })(i);
+            if (typeof noPayment !== 'string') {
+                for (i = 0; i < noPayment.length; i++) {
+                    (function (i) {
+                        setTimeout(function () {
+                            notPaid.to = noPayment[i];
+                            console.log("recipient: " + notPaid.to);
+                            transporter.sendMail(notPaid, function (error, info) {
+                                if (error) {
+                                    console.log(error);
+                                    res.json({yo: 'error'});
+                                } else {
+                                    console.log('Message sent: ' + info.response);
+                                    //res.json({yo: info.response});
+                                }
+                            })
+                        }, 3000 * i);
+                    })(i);
+                }
+            } else if (typeof noPayment === 'string') {
+                notPaid.to = noPayment;
+                transporter.sendMail(notPaid, function(error, info) {
+                    if (error) {
+                        console.log(error);
+                        res.json({yo: 'error'});
+                    } else {
+                    }
+                })
             }
             req.flash('success_msg', 'Betalingspåmindelse sendt!');
             res.redirect('/admins/mails');
@@ -460,7 +470,7 @@ thisEvent.put(ensureAdminAuthenticated, function (req, res) {
     Tournament.collection.drop();
 
     // reset all users to "hasPaid = false and isActive = false"
-    User.update({hasPaid: true, isActive: true}, {hasPaid: false, isActive: false}, {multi: true}, function () {
+    User.update({isActive: true}, {isActive: false}, {multi: true}, function () {
         console.log("hasPaid set to false for all users");
     });
 

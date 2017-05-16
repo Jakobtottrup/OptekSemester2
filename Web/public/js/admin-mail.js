@@ -36,13 +36,19 @@ $.when(getUsersData().done(function () {
 
     var unPaid = [];
     for (i = 0; i < usersData.length; i++) {
-        if (usersData[i].hasPaid == false) {
+        if ((usersData[i].hasPaid == false) && (usersData[i].isActive == true)) {
             $('#unpaid_emails').append('<input type="text" name="emails" id="emails' + i + '" class="form-control hidden">');
             unPaid.push(usersData[i].email);
             $("#emails" + i).val(usersData[i].email);
+
         }
     }
-    console.log(unPaid);
+    for(i=0;i<unPaid.length;i++) {
+        $('#unPaid').append('<input type="text" name="array" id="array' + i + '" class="form-control hidden">');
+        for(j=0;j<unPaid.length;j++) {
+            $("#array" + j).val(unPaid[j]);
+        }
+    }
 }));
 
 /*
