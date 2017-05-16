@@ -96,7 +96,10 @@ function fb_createPosts() {
 
 function fb_thispost(post) {
     // console.log(post);
-    output += "<table border='1'>";
+
+    output += "<div class='fb_admin_table'>";
+
+    output += "<table border='0'>";
 
     output += "<tr>";
 
@@ -120,7 +123,7 @@ function fb_thispost(post) {
 
     output += "</table>";
 
-    output += "<br>";
+    output += "</div>";
 }
 
 /*** ************* ***/

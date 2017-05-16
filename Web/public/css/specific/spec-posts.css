@@ -1,27 +1,45 @@
 table {
     width: 100%;
-    background-color: #b2dba1;
+}
+
+.fb_admin_table {
+    padding: 10px;
+    background-color: var(--menu-);
+    border-radius: 10px;
+    margin-bottom: 10px;
 }
 
 .fb_pic {
-    width: 76px;
-    height: 76px;
+    width: 82px;
+    height: 70px;
+}
+
+.fb_pic img {
+    width: 66px;
+    height: 60px;
+    margin: 5px;
 }
 
 .fb_date {
     width: 16%;
     min-width: 100px;
+    text-align: center;
+    background-color: var(--text-);
+    border-radius: 14px 0 0 14px;
 }
 
 .fb_checkbox {
     width: 60px;
+    background-color: var(--text-);
+    border-radius: 0 14px 14px 0;
 }
 
 .fb_message_text {
-    background-color: #d43f3a;
+    background-color: var(--text-);
     max-width: 100%;
-    max-height: 76px;
+    height: 70px;
     overflow: hidden;
+    padding: 7px;
 }
 
 .fb_message_text_container {
