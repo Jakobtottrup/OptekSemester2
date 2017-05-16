@@ -108,7 +108,7 @@ $(document).ajaxStart(function() {
     $('#loader').show();
 
 });
-$(document).ajaxStop(function() {
+$(document).ajaxComplete(function() {
     $('#loader').hide();
 });
 

@@ -465,7 +465,6 @@ mailRoute.post(ensureAdminAuthenticated, function (req, res, next) {
 // reset event
 thisEvent.put(ensureAdminAuthenticated, function (req, res) {
     // delete collections
-    Event.collection.drop();
     Group.collection.drop();
     Tournament.collection.drop();
     // reset user states
