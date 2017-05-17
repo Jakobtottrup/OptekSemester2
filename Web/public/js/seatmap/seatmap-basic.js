@@ -173,7 +173,7 @@ function drawSeat(x, y, id, hover, label) {
 
 function drawWall(x, y) {
     ctx.fillStyle = color.wall;
-    ctx.fillRect(x * seat_size, y * seat_size, seat_size, seat_size);
+    ctx.fillRect(x * seat_size, y * seat_size, seat_size + 1, seat_size + 1);
 }
 
 function drawOther(x, y, type, hoverType) {

@@ -85,6 +85,7 @@ $.when(getSeatData(), getUserData(), getLocalUserData(), getSeatGroupData()).don
     checkforDeletedUsers();
     rescaleCanvas();
     setVariables();
+    checkSeatStatus();
     initMousemove();
     drawScreen();
 });
@@ -148,31 +149,34 @@ function checkSeatStatus() {
     UserInGroup = false;
     isGroupLeader = false;
 
+    theseGroupMembers = [];
+
     seatgroups.forEach(function (item, index) {
-        if (item.leaderID == localuser._id) {
+        if (item.leader_id == localuser._id) {
             isGroupLeader = true;
+            theseGroupMembers = item.members;
         } else {
             item.members.forEach(function (mem_item, mem_index) {
                 if (mem_item == localuser._id) {
                     UserInGroup = true;
+                    theseGroupMembers = item.members;
                 }
             });
         }
     });
+
+    console.log("------------");
+    console.log("Has seat: " + hasSeat);
+    console.log("in Group: " + UserInGroup);
+    console.log("Group leader: " + isGroupLeader);
+    console.log(theseGroupMembers);
 }
 
 function chooseSeat() {
     seatclick = seatmap.seats[m_index];
     if (seatclick.type == 2) {
-        console.log("------------");
-        console.log("Has seat: " + hasSeat);
-        console.log("in Group: " + UserInGroup);
-        console.log("Group leader: " + isGroupLeader);
-
         updateInfoBox("Du har trykket på " + seatclick.label, "", "");
-        if (seatclick.userid != 0) {
-            updateInfoBox("Denne plads er optaget", "", "");
-        } else {
+        if (isGroupLeader) {
 
         }
     } else {

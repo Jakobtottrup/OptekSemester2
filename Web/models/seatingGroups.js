@@ -25,7 +25,7 @@ let GroupSchema = mongoose.Schema({
         default: Date.now
     },
     updated_at: {
-        type: Date,
+        type: Date
     }
 });
 

@@ -185,14 +185,26 @@ router.put('/joinseatgroups', ensureAuthenticated, function(req, res){
         let group_id = req.body.group_id;
         let user_id = req.user.id;
         let password = req.user.password;
+        console.log("group: " + group_id + ", user: " + user_id + ", password: " + password);
 
         Group.findById(group_id, function (err, group) {
-            Group.comparePassword(password, group.password, function (err, isMatch) {
-                if (err) throw err;
-                console.log(isMatch);
-                if (isMatch) {
+            console.log("error found: " + err);
+            console.log("group found: " + group);
+            //Group.comparePassword(password, group.password, function (err, isMatch) {
+                //if (err) throw err;
+                //console.log(isMatch);
+                /*if (isMatch) {*/ if (true) { //temporary fix till Christian finishes his code
                     group.members.push(user_id);
                     req.flash('success_msg', 'Du er nu med i gruppen');
+
+                    group.save(function (err) {
+                        if (err) {
+                            res.send(err);
+                        }
+                        req.flash('success_msg', 'Holdet er nu oprettet');
+                    });
+                    res.send({redirect: '/users/seatgroups'});
+
                 } else {
                     req.flash('error_msg', 'Forkert kodeord');
                     if (req.user.isAdmin === true){
@@ -201,7 +213,7 @@ router.put('/joinseatgroups', ensureAuthenticated, function(req, res){
                         res.send({redirect: '/users/seatgroups'});
                     }
                 }
-            });
+            //});
         });
     } else {
         req.flash('error_msg', 'Du kan ikke fuldføre handlingen, da din betaling er ikke blevet godkendt endnu');
