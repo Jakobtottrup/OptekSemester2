@@ -95,8 +95,6 @@ function fb_createPosts() {
 }
 
 function fb_thispost(post) {
-    // console.log(post);
-
     output += "<div class='fb_admin_table'>";
 
     output += "<table border='0'>";

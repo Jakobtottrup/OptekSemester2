@@ -355,22 +355,6 @@ router.post('/login', function (req, res, next) {
     })(req, res, next);
 });
 
-
-// GET DATA FROM LOGIN PAGE
-/*router.post('/login', passport.authenticate('local', {successRedirect: '/dashboard', failureRedirect: '/login', failureFlash: true}),
-
- function (req, res) {
- if(req.isAuthenticated()){
- console.log("LOGGED IN!");
- res.redirect('/dashboard');
- } else{
- req.flash('error_msg', 'Ugyldig login detaljer');
- res.redirect('/login');
- }
-
-
- });*/
-
 // ENSURE USER IS LOGGED IN
 function ensureAuthenticated(req, res, next) {
     if (req.isAuthenticated()) {

@@ -11,7 +11,6 @@ var test_location = {lat: 57.085809, lng: 9.9573899};
 
 
 function initialize() {
-    console.log(google)
     var map = new google.maps.Map(document.getElementById('map-canvas'), {
         center: sdu_location,
         zoom: 16
@@ -26,7 +25,6 @@ function initialize() {
                 lat: position.coords.latitude,
                 lng: position.coords.longitude
             };
-            console.log("Current position: "+pos);
             infoWindow.setPosition(pos);
             infoWindow.setContent('<br/> Du er her <br/><br/>');
             map.setCenter(pos);

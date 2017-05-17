@@ -41,7 +41,8 @@ const tourUploads = multer({dest: 'public/uploads/image/tournaments', limits: li
 }, {name: 'prize_image', maxCount: 3}]);
 
 const galleryUploads = multer({dest: 'public/uploads/image/gallery', limits: limits}).fields([{
-    name: 'up1'}]);
+    name: 'up1'
+}]);
 
 
 // ADMIN AUTHENTICATION
@@ -128,11 +129,8 @@ router.post('/create_seats', ensureAdminAuthenticated, function (req, res) {
                 if (err) {
                     console.log(err);
                 } else {
-
                     newSeat.save(function (err) {
                         if (err) throw err;
-
-                        console.log("Room created!");
                     });
 
                     res.end('success');
@@ -156,13 +154,6 @@ router.post('/gallery', ensureAdminAuthenticated, galleryUploads, function (req,
     res.redirect('/admins/gallery');
 });
 
-
-router.delete('/users/:_id', ensureAdminAuthenticated, function (req, res) {
-    console.log("deleted");
-    console.log(req.body);
-
-    //res.redirect('/admins/users');
-});
 userRoute.get(function (req, res) {
     User.findById(req.params._id, function (err, user) {
         if (err)
@@ -174,37 +165,24 @@ userRoute.get(function (req, res) {
 
 
 userRoute.put(ensureAdminAuthenticated, function (req, res) {
-
-/*    for (i=0;i<29;i++) {
-        (function (i) {
-            setTimeout(function () {*/
-                //console.log("updating user nr: " + i)
-                User.findByIdAndUpdate(req.params._id, req.params.adminClicked, req.params.paymentClicked, function (err, user) {
-                   // console.log(req.body);
-                    //console.log(req.params);
-                    if (err)
-                        res.send(err);
-                    if (req.params.paymentClicked !== "true") {
-                        user.isAdmin = !user.isAdmin;
-                    }
-                    if (req.params.paymentClicked === "true") {
-                        user.hasPaid = !user.hasPaid;
-                    }
-                    user.save(function (err) {
-                        if (err)
-                            res.send(err);
-                        res.json(user);
-                    });
-                });
-/*
-            }, 3000 * i);
-        })(i);
-    }*/
-
+    User.findByIdAndUpdate(req.params._id, req.params.adminClicked, req.params.paymentClicked, function (err, user) {
+        if (err)
+            res.send(err);
+        if (req.params.paymentClicked !== "true") {
+            user.isAdmin = !user.isAdmin;
+        }
+        if (req.params.paymentClicked === "true") {
+            user.hasPaid = !user.hasPaid;
+        }
+        user.save(function (err) {
+            if (err)
+                res.send(err);
+            res.json(user);
+        });
+    });
 });
 
 delRoute.delete(ensureAdminAuthenticated, function (req, res) {
-    console.log("deleting user");
     User.findByIdAndRemove(req.params._id, function (err) {
         if (err)
             res.send(err);
@@ -219,8 +197,6 @@ delRoute.delete(ensureAdminAuthenticated, function (req, res) {
 
 // TOURNAMENT CONTROLLERS
 router.post('/tournaments', tourUploads, ensureAdminAuthenticated, function (req, res) {
-    //console.log(req.files);
-
     const name = req.body.tour_name;
     const description = req.body.tour_info;
     const openingDate = req.body.opening_date;
@@ -318,7 +294,7 @@ router.post('/tournaments', tourUploads, ensureAdminAuthenticated, function (req
 
 
 router.post('/tourupdate', tourUploads, ensureAdminAuthenticated, function (req, res) {
-    Tournament.findOne({_id: req.body.tour_id }, function(err, tournament){  // søgekriterie skal ændres til ID på turneringen
+    Tournament.findOne({_id: req.body.tour_id}, function (err, tournament) {  // søgekriterie skal ændres til ID på turneringen
         console.log(tournament);
         const name = req.body.tour_name;
         const description = req.body.tour_info;
@@ -377,8 +353,21 @@ router.post('/tourupdate', tourUploads, ensureAdminAuthenticated, function (req,
             }
         }
 
-        tournament = {name, description, openingDate, closingDate, startDate, tourDuration, maxTeams, maxTeamSize, minTeamSize, prizes, coverImage, updatedAt};
-        console.log("new",tournament);
+        tournament = {
+            name,
+            description,
+            openingDate,
+            closingDate,
+            startDate,
+            tourDuration,
+            maxTeams,
+            maxTeamSize,
+            minTeamSize,
+            prizes,
+            coverImage,
+            updatedAt
+        };
+        console.log("new", tournament);
         tournament.save(function (err) {
             if (err) throw err;
             req.flash('success_msg', 'Ændringerne blev gemt');
@@ -470,14 +459,12 @@ mailRoute.post(ensureAdminAuthenticated, function (req, res, next) {
                     (function (i) {
                         setTimeout(function () {
                             notPaid.to = noPayment[i];
-                            console.log("recipient: " + notPaid.to);
                             transporter.sendMail(notPaid, function (error, info) {
                                 if (error) {
                                     console.log(error);
                                     res.json({yo: 'error'});
                                 } else {
                                     console.log('Message sent: ' + info.response);
-                                    //res.json({yo: info.response});
                                 }
                             })
                         }, 3000 * i);
@@ -485,7 +472,7 @@ mailRoute.post(ensureAdminAuthenticated, function (req, res, next) {
                 }
             } else if (typeof noPayment === 'string') {
                 notPaid.to = noPayment;
-                transporter.sendMail(notPaid, function(error, info) {
+                transporter.sendMail(notPaid, function (error, info) {
                     if (error) {
                         console.log(error);
                         res.json({yo: 'error'});
@@ -500,14 +487,12 @@ mailRoute.post(ensureAdminAuthenticated, function (req, res, next) {
             for (i = 0; i < allUsers.length; i++) {
                 (function (i) {
                     setTimeout(function () {
-                        console.log("Sending email to: " + allUsers[i] + " with a 3 second delay...");
                         mailOptions.to = allUsers[i];
                         transporter.sendMail(mailOptions, function (error, info) {
                             if (error) {
                                 console.log(error);
                                 res.json({yo: 'error'});
                             } else {
-                                //console.log('Message sent: ' + info.response);
                             }
                         })
                     }, 3000 * i);
@@ -539,8 +524,10 @@ thisEvent.put(ensureAdminAuthenticated, function (req, res) {
     Group.collection.drop();
     Tournament.collection.drop();
     // reset user states
-    User.update({hasPaid: true}, {hasPaid: false}, {multi: true}, function () {});
-    User.update({isActive: true}, {isActive: false}, {multi: true}, function () {});
+    User.update({hasPaid: true}, {hasPaid: false}, {multi: true}, function () {
+    });
+    User.update({isActive: true}, {isActive: false}, {multi: true}, function () {
+    });
 
     // delete images
     let tournamnetDir = 'public/uploads/image/tournaments';
@@ -563,7 +550,6 @@ router.post('/events', ensureAdminAuthenticated, function (req, res) {
     const maxGuests = req.body.max_guests;
     Event.findById({_id: doc_id}, function (err, event_doc) {
         if (err) throw err;
-        console.log(event_doc);
         if (event_doc === null) {
             // create new document
             let newEvent = new Event({
@@ -606,12 +592,11 @@ galleryRoute.delete(ensureAdminAuthenticated, function (req, res) {
         if (exists) {
             fs.unlinkSync(delFile);
         } else {
-            console.log("file does not exist");
-            req.flash('error_msg', "Billede "+id+" eksisterer ikke");
+            req.flash('error_msg', "Billede " + id + " eksisterer ikke");
             res.redirect("/admins/gallery");
         }
     });
-    req.flash('success_msg', "Billede "+id+" er nu slettet");
+    req.flash('success_msg', "Billede " + id + " er nu slettet");
     res.redirect("/admins/gallery");
 });
 
@@ -625,7 +610,7 @@ router.post('/posts', ensureAdminAuthenticated, function (req, res) {
         if (err) throw err;
         if (fb_posts === null) {
             // create new document
-            let newFb_post = new Fb_post ({
+            let newFb_post = new Fb_post({
                 posts_id: posts_id,
                 _id: doc_id
             });

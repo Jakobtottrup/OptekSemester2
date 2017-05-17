@@ -1,6 +1,3 @@
-//(" ____      _      .  .    ___     ___         __       .    .    ___      ___     ___ \n     |    / \\     | /    /   \\   |   \\       |  \\      |\\   |   /   \\    /   \\   |   \\ \n     |   /___\\    |/    |     |  |___/       |__/      | \\  |  |     |  |     |  |___/\n     |  /     \\   |\\    |     |  |   \\       | \\       |  \\ |  |     |  |     |  |   \\ \n\\___/  /       \\  | \\    \\___/   |___/       |  \\      |   \\|   \\___/    \\___/   |___/");
-console.log(">> R E M E M B E R   T O   U P D A T E   M O D U L E S << \n\t\t\t -> npm install\n\t\t\t -> bower install \n");
-
 // Init Modules
 const path = require('path');
 const express = require('express');
@@ -152,5 +149,5 @@ app.listen(app.get('port'), "0.0.0.0", function () {
 // CONSOLE LOGS
 db.on('error', console.error.bind(console, 'connection error:'));
 db.once('open', function () {
-    console.log("Database connection established!");  //                                                                                                                                                                                                                                                                                              var c="\n   #####  #     # #######    ######  ### #    #     #####  #     # ######  ###  #####  ####### ###    #    #     #",h="\n  #     # #     #    #       #     #  #  #   #     #     # #     # #     #  #  #     #    #     #    # #   ##    # ",r="\n  #       #     #    #       #     #  #  #  #      #       #     # #     #  #  #          #     #   #   #  # #   #",i="\n   #####  #     #    #       ######   #  ###       #       ####### ######   #   #####     #     #  #     # #  #  #",s="\n        # #     #    #       #        #  #  #      #       #     # #   #    #        #    #     #  ####### #   # #",t="\n  #     # #     #    #       #        #  #   #     #     # #     # #    #   #  #     #    #     #  #     # #    ##",i2="\n   #####   #####     #       #       ### #    #     #####  #     # #     # ###  #####     #    ### #     # #     # ";console.log(c+h+r+i+s+t+i2);
+    console.log("Database connection established!");
 });

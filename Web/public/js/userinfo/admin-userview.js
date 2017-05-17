@@ -120,7 +120,6 @@ $(function () {
         paymentClicked = true;
         adminClicked = false;
         for (let i = 0; i < deleteUserId.length; i++) {
-            console.log("Updating user: " + deleteUserId[i]._id + "with username: " + deleteUserId[i].username);
             updateUsers(deleteUserId[i]._id, adminClicked, paymentClicked);
         }
         let i = 0;
@@ -130,7 +129,6 @@ $(function () {
                 if (--i) myLoop(i);      //  decrement i and call myLoop again if i > 0
             }, 3000)
         })(1);
-        // location.reload(true);
     });
 });
 

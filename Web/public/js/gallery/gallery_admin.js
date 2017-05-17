@@ -16,8 +16,6 @@ function selectImage(data){
     var result = window.confirm('Er du sikker på at du vil slette billedet');
     if (result){
         var selectedImage = $(data).closest("div").prop("id");
-
-        console.log(selectedImage);
         $.ajax({
             url: "/admins/gallery/" + selectedImage,
             type: "DELETE",
