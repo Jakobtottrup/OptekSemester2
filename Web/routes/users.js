@@ -76,7 +76,6 @@ router.put('/userupdate', ensureAuthenticated, function(req, res){
         if (err) {
             res.send(err);
         } else {
-            user.username = req.body.username;
             user.email = req.body.email;
             user.age = req.body.age;
             user.studie = req.body.studie;
