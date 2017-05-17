@@ -245,9 +245,8 @@ function editTournament(source){
         if(tournamentsData[i]._id === tour_id){
             $("#input_name").val(tournamentsData[i].name);
             $("#tour_info").val(tournamentsData[i].description);
-            // $("#opening_date").val(tournamentsData[i].openingDate);
+            $("#opening_date").val(formatDate(tournamentsData[i].openingDate));
             // $("#opening_date").datepicker('setDate', tournamentsData[i].openingDate);
-            $("#opening_date").datepicker({dateFormat: 'yy-mm-dd'});
             $("#closing_date").val(tournamentsData[i].closingDate);
             $("#start_date").val(tournamentsData[i].startDate);
             $("#tour_duration").val(tournamentsData[i].tourDuration);
@@ -271,4 +270,17 @@ function updateTournament() {
 
 
 
+}
+
+
+function formatDate(date) {
+    date = new Date(date);
+    console.log(date);
+    let year = date.getYear();
+    let month = date.getMonth();
+    let day = date.get();
+    console.log(day, month, year);
+
+
+    return day + "/" + month + "/" + year;
 }

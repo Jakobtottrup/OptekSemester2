@@ -269,13 +269,12 @@ router.put("/leavetournament", ensureAuthenticated, function(req, res){
                 });
                 req.flash('error_msg', 'Dit hold er nu afmeldt turneringen');
             } else {
-                req.flash('error_msg', 'Du har ikke den  nødvendige rettighed til denne handling');
+                req.flash('error_msg', 'Du har ikke de nødvendige rettigheder til denne handling');
             }
         }
     });
     res.send({redirect: '/users/tournaments'});
 });
-
 
 router.put("/jointournamentteam", ensureAuthenticated, function(req, res){
 

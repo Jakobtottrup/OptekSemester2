@@ -19,6 +19,7 @@
     "jquery": "^3.2.1",
     "ajax": "^2.1.5",
     "font-awesome": "fontawesome#^4.7.0",
-    "angular": "^1.6.4"
+    "angular": "^1.6.4",
+    "flipclock": "^0.7.7"
   }
 }
