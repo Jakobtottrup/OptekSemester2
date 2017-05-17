@@ -3,7 +3,11 @@
  */
 
 $.when(getFacebookAdminData(), getFacebookUserData()).done(function(){
-    fb_createPosts();
+    if (fb_userData !== null) {
+        fb_createPosts();
+    } else {
+        fb_createErrorMessage();
+    }
 });
 
 /*** ************* ***/
@@ -145,4 +149,9 @@ function saveCheckboxes() {
         data: obj_id,
         success: location.reload()
     });
+}
+
+function fb_createErrorMessage() {
+    output = "Der er sket en fejl. Kontakt Christian Skjerning på christianskjerning@gmail.com";
+    $("#fb_post_list").append(output);
 }

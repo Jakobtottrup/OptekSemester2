@@ -2,11 +2,26 @@
 <link rel="stylesheet" type ="text/css" href="/css/specific/spec-index.css">
 <!-- Begin page content -->
 
-        <div class="page-header" onload="signUpForEvent()">
-           <div class="hidden-md hidden-sm hidden-xs hidden-lg hidden-xl">
-            <img src ="/img/images/s7logo.png" style="height:20%; width: 20%;">
-           </div>
-            <div id="countdown" class="hidden-xs">
+        <div class="page-header">
+            <div id="myPictureCarousel"></div>
+
+            <div class="frontpage_button">
+            {{#if user}}
+                {{#unless user.isAdmin}}
+                    {{#if user.isActive}}
+                        {{#unless user.hasPaid}}
+                            <button class="btn btn-lg btn-danger center-block" id="signup-btn" onclick="location.href='/users/payment';">BETALING KAN SES HER</button>
+                        {{/unless}}
+                    {{else}}
+                        <button class="btn btn-lg btn-success center-block" id="signup-btn" onclick="location.href='/dashboard';">TILMELD EVENT</button>
+                    {{/if}}
+                {{/unless}}
+            {{else}}
+                <button class="btn btn-lg btn-success center-block" id="signup-btn" onclick="location.href='/login';">TILMELD EVENT</button>
+            {{/if}}
+            </div>
+
+            <div id="countdown" class="hidden-xs hidden-sm">
                 <div id='tiles'></div>
                 <div class="labels">
                     <li>Days</li>
@@ -17,22 +32,10 @@
             </div>
         </div>
 
-        {{#if user}}
-            {{#unless user.isAdmin}}
-                {{#if user.isActive}}
-                    {{#unless user.hasPaid}}
-                        <button class="btn btn-lg btn-danger center-block" id="signup-btn" onclick="location.href='/users/payment';">BETALING KAN SES HER</button>
-                    {{/unless}}
-                {{else}}
-                    <button class="btn btn-lg btn-success center-block" id="signup-btn" onclick="location.href='/dashboard';">TILMELD EVENT</button>
-                {{/if}}
-            {{/unless}}
-        {{else}}
-            <button class="btn btn-lg btn-success center-block" id="signup-btn" onclick="location.href='/login';">TILMELD EVENT</button>
-        {{/if}}
+
 
         <div class="pagecontent">
-            <div id="myPictureCarousel"></div>
+
 
 
 

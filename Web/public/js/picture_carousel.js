@@ -32,13 +32,13 @@ function caro_create_object(image) {
 
 function caro_start() {
     var thistext = "";
-
+/*
     thistext += '<ol class="carousel-indicators">';
     thistext += '<li data-target="#myCarousel" data-slide-to="0" class="active"></li>';
     thistext += '<li data-target="#myCarousel" data-slide-to="1"></li>';
     thistext += '<li data-target="#myCarousel" data-slide-to="2"></li>';
     thistext += '</ol>';
-
+*/
     return thistext;
 }
 
@@ -82,5 +82,3 @@ function caro_end() {
 
     return thistext;
 }
-
-// $("#image_div").append('<div class="item active"><img src="la.jpg" alt="Los Angeles" style="width:100%;"></div><div class="item"><img src="chicago.jpg" alt="Chicago" style="width:100%;"></div><div class="item"><img src="ny.jpg" alt="New york" style="width:100%;"></div>');

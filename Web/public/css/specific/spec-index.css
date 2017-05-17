@@ -246,3 +246,23 @@ table {
     padding: 0;
     background-color: none;
 }
+
+/*** ************** ***/
+/** Picture Carousel **/
+/*** ************** ***/
+
+#myPictureCarousel img, #myPictureCarousel a, .carousel-inner, #myPictureCarousel {
+    border-radius: 15px;
+}
+
+.frontpage_button {
+    position: relative;
+}
+
+#signup-btn {
+    position: absolute;
+    bottom: 200px;
+    left: 50%;
+    width: 200px;
+    margin-left: -100px;
+}

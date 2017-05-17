@@ -143,9 +143,9 @@ body {
     margin: auto;
     margin-bottom: 120px;
     /*@GUSTAV: HVIS DU SLETTER DET HER FÅR DU HØVL.*/
-    padding: 20px;
+    /*padding: 20px;*/
     /*@GUSTAV: HVIS DU SLETTER DET HER FÅR DU HØVL.*/
-    border-radius: 15px 15px 15px 15px;
+    border-radius: 15px;
     box-shadow: -1px 3px 1px rgba(0, 0, 0, 1);
 }
 
