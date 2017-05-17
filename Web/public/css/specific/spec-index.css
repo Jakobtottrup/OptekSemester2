@@ -266,3 +266,19 @@ table {
     width: 200px;
     margin-left: -100px;
 }
+
+.page-header {
+    margin: 0;
+}
+
+#countdown_container {
+    position: relative;
+}
+
+#countdown {
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    width: 500px;
+    margin-left: -250px;
+}

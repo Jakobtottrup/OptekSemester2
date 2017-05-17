@@ -131,22 +131,21 @@ body {
 .sponsor-bar img {
     width: 100%;
     max-height: 200px;
-
 }
 
 /** ********** **/
 /* Content page */
 /** ********** **/
 .content-background {
-    background-color: var(--info-);
+    /*background-color: var(--info-);*/
     /*max-width: 80%;*/
     margin: auto;
     margin-bottom: 120px;
     /*@GUSTAV: HVIS DU SLETTER DET HER FÅR DU HØVL.*/
     /*padding: 20px;*/
     /*@GUSTAV: HVIS DU SLETTER DET HER FÅR DU HØVL.*/
-    border-radius: 15px;
-    box-shadow: -1px 3px 1px rgba(0, 0, 0, 1);
+    /*border-radius: 15px;*/
+    /*box-shadow: -1px 3px 1px rgba(0, 0, 0, 1);*/
 }
 
 .content-background h1, .content-background h2, .content-background h3, .content-background h4, .content-background h5, .content-background h6 {
