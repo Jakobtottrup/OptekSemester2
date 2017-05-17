@@ -2,7 +2,6 @@
  * Created by ste on 02-05-2017.
  */
 
-
 $.when(getTourData()).done(function() {
     if(tourData.length === 0) {
         $("#tour_head").text("Der er ingen turneringer åben på nuværende tidspunkt");

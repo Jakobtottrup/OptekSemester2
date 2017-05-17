@@ -30,48 +30,22 @@
                 <button type="button" class="close" data-dismiss="modal">&times;</button>
                 <h4 class="modal-title" id="show-data-header">Opret gruppe</h4>
             </div>
-            <form id="input_form" method="post" action="/users/seatgroups">
-                <div class="modal-body" id="show-data-body"><p>Indtast oplysninger</p></div>
-
-                <div class="well">Gruppenavn<input type="text" class="form-control" placeholder="Giv din gruppe et fedt navn" maxlength="50" name="group_name" required></div>
-                <div class="well">Adgangskode<input type="password" class="form-control" placeholder="Adgangskode" maxlength="50" name="password" required><br>
-                    <input type="password" class="form-control" placeholder="Skriv adgangskoden igen" maxlength="50" name="password2" required></div>
+            <div class="modal-body" id="show-data-body"><p>Indtast oplysninger</p></div>
+            <form>
+                <div class="well">Gruppenavn<input id="name_field" type="text" class="form-control" placeholder="Giv din gruppe et fedt navn" maxlength="50" required></div>
+                <div class="well">Adgangskode<input id="pass_field" type="password" class="form-control" placeholder="Adgangskode" maxlength="50" required><br>
+                    <input type="password" id="pass_field2" class="form-control" placeholder="Skriv adgangskoden igen" maxlength="50" required></div>
 
                 <div class="modal-footer">
                     <input type="button" class="btn btn-danger" data-dismiss="modal" value="Luk">
-                    <input type="submit" name="submit" class="btn btn-success" value="Opret">
+                    <input value="Opret" onclick="createGroup()" class="btn btn-success">
                 </div>
             </form>
         </div>
-
     </div>
 </div>
 
 
-<!-- Modal for joining groups -->
-<div id="modal-join" class="modal fade" role="dialog">
-    <div class="modal-dialog">
-        <form id="join_form" method="post" action="/users/seatgroups">
-            <!-- Modal content-->
-            <div class="modal-content">
-                <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal">&times;</button>
-                    <h4 class="modal-title" id="show-data-header">Indtast adgangekoden for gruppen</h4>
-                </div>
-                <div class="modal-body" id="show-data-body">
-                    <div class='well'>
-                        <p>Indtast adgangskode</p>
-                        <input autocomplete="off" type='password' name='password_confirm' class="form-control" style='width:100%' required>
-                    </div>
-                </div>
-                <div class="modal-footer">
-                    <input type="submit" onclick="joinGroup(this)" name="join" value="Deltag" class="btn btn-success" data-dismiss="modal">
-                </div>
-        </form>
-    </div>
-</div>
-</div>
 
 <div id="loader"><div></div></div>
-
 <script src="/js/seatgroups/seat_grp-basic.js"></script>

@@ -38,7 +38,7 @@ const limits = {fileSize: 512 * 512 * 512};
 const tourUploads = multer({dest: 'public/uploads/image/tournaments', limits: limits}).fields([{
     name: 'tour_image',
     maxCount: 1
-}, {name: 'prize_image', maxCount: 7}]);
+}, {name: 'prize_image', maxCount: 3}]);
 
 const galleryUploads = multer({dest: 'public/uploads/image/gallery', limits: limits}).fields([{
     name: 'up1'}]);
@@ -317,6 +317,77 @@ router.post('/tournaments', tourUploads, ensureAdminAuthenticated, function (req
 });
 
 
+router.post('/tourupdate', tourUploads, ensureAdminAuthenticated, function (req, res) {
+    Tournament.findOne({_id: req.body.tour_id }, function(err, tournament){  // søgekriterie skal ændres til ID på turneringen
+        console.log(tournament);
+        const name = req.body.tour_name;
+        const description = req.body.tour_info;
+        const openingDate = req.body.opening_date;
+        const closingDate = req.body.closing_date;
+        const startDate = req.body.start_date;
+        const tourDuration = req.body.tour_duration;
+        const maxTeams = req.body.team_size;
+        const maxTeamSize = req.body.team_maxsize;
+        const minTeamSize = req.body.team_minsize;
+        const updatedAt = new Date();
+
+        let isVisibel = req.body.visibility;
+        if (isVisibel === "on" || typeof isVisibel !== "undefined") {
+            isVisibel = true;
+        } else {
+            isVisibel = false;
+        }
+
+        // define path for cover image
+        const coverImagePath = req.files.tour_image[0].destination + "/" + req.files.tour_image[0].filename;
+        const coverImage = coverImagePath.substring(6, Infinity);
+
+        // spilt array and put values into object, then push objects into array
+        let prizes = [];
+        if (typeof req.body.prize_name !== "undefined") {
+            const prize_name = req.body.prize_name;
+            const prize_info = req.body.prize_info;
+            const prize_image = req.files.prize_image;
+
+
+            // prize_name will appear as a sting, if only one prize is posted
+            if (typeof prize_name === "string") {
+                let p_index = 0;
+                let p_name = prize_name;
+                let p_description = prize_info;
+                let p_imagePath = prize_image[0].destination + "/" + prize_image[0].filename;
+                let p_image = p_imagePath.substring(6, Infinity);
+                prizes.push({p_index, p_name, p_description, p_image});
+
+                // if prize_name is an array
+            } else {
+                if (prize_name.length === prize_info.length) {
+                    for (i = 0; i < prize_name.length; i++) {
+                        let p_index = i;
+                        let p_name = prize_name[i];
+                        let p_description = prize_info[i];
+                        let p_imagePath = prize_image[i].destination + "/" + prize_image[i].filename;
+                        let p_image = p_imagePath.substring(6, Infinity);
+                        prizes.push({p_index, p_name, p_description, p_image});
+                    }
+                } else {
+                    req.flash('error_msg', 'En fejl opstod under behandling');
+                    res.redirect('/admins/tournamnets');
+                }
+            }
+        }
+
+        tournament = {name, description, openingDate, closingDate, startDate, tourDuration, maxTeams, maxTeamSize, minTeamSize, prizes, coverImage, updatedAt};
+        console.log("new",tournament);
+        tournament.save(function (err) {
+            if (err) throw err;
+            req.flash('success_msg', 'Ændringerne blev gemt');
+            res.redirect('/admins/tournaments')
+        });
+    });
+});
+
+
 tourRoute.delete(ensureAdminAuthenticated, function (req, res) {
     Tournament.findOne({_id: req.params._id}, function (err, tournament) {
         let tourImages = []; // create empty array for storing files
@@ -574,7 +645,6 @@ router.post('/posts', ensureAdminAuthenticated, function (req, res) {
         }
     });
 });
-
 
 module.exports = router;
 

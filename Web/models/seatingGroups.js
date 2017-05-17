@@ -7,8 +7,8 @@ const bcrypt = require('bcryptjs');
 
 
 // Group Schema for creating seating groups
-var GroupSchema = mongoose.Schema({
-    groupName: {
+let GroupSchema = mongoose.Schema({
+    group_name: {
         type: String
     },
     password: {
@@ -17,19 +17,19 @@ var GroupSchema = mongoose.Schema({
     members: {
         type: Array
     },
-    leaderID: {
+    leader_id: {
         type: String
     },
-    eventID: {
-        type: String
-    },
-    createdAt: {
+    created_at: {
         type: Date,
         default: Date.now
+    },
+    updated_at: {
+        type: Date,
     }
 });
 
-var Group = module.exports = mongoose.model('seatgroup', GroupSchema);
+let Group = module.exports = mongoose.model('seatgroup', GroupSchema);
 
 
 // PASSWORD ENCRYPTION
@@ -47,6 +47,5 @@ module.exports.comparePassword = function (candidatePassword, hash, callback) {
     bcrypt.compare(candidatePassword, hash, function (err, isMatch) {
         if (err) throw err;
         callback(null, isMatch);
-        //console.log("Password match: " + isMatch);
     });
 };

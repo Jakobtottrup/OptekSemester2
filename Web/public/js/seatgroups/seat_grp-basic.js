@@ -14,7 +14,7 @@ $.when(getGroupData(), getUsersData(), getUserData()).done(function(){
         let output = "";
         $.each(groupData, function (key, data) {
             output += "<tr class='data_row' id='" + data._id + "'>";
-            output += "<td><h3>" + data.groupName + "</h3></td>";
+            output += "<td><h3>" + data.group_name + "</h3></td>";
             output += "<td>" + showMembers(data) + "</td>";
             output += "<td class='hidden-xs' id='controls'>" + placeButtons(data) + "</td>";
             output += "</tr>";
@@ -45,7 +45,7 @@ function placeButtons(data) {
         }
         output += "<button class='btn btn-danger' onclick='deleteGroup(this)'>Slet gruppe</button>";
     } else if (inGroup(groupData) === false){
-        output += "<button class='btn btn-success join-group' onclick='openModal(this)'>Deltag i gruppe</button>";
+        output += "<button class='btn btn-success join-group' onclick='joinGroup(this)'>Deltag i gruppe</button>";
     // if user is not admin
     } else {
         if (isLeader(data) === true) {
@@ -62,7 +62,7 @@ function placeButtons(data) {
 
 // list members of each group
 function showMembers(data) {
-    let output = "<b><b>"+findUserName(data.leaderID)+"</b></b>";
+    let output = "<b><b>"+findUserName(data.leader_id)+"</b></b>";
     for (i=0; i<data.members.length; i++){
         output += "<br>"+findUserName(data.members[i]);
     }
@@ -100,12 +100,12 @@ function isLeader(data) {
     let isLeader = false;
     if(typeof data.length === "number") {
         $.each(data, function (key, data) {
-            if (userData._id === data.leaderID) {
+            if (userData._id === data.leader_id) {
                 isLeader = true;
             }
         });
     } else {
-        if (userData._id === data.leaderID) {
+        if (userData._id === data.leader_id) {
             isLeader = true;
         }
     }
@@ -113,17 +113,60 @@ function isLeader(data) {
 }
 
 
-// add user to group he selected
-function joinGroup (source) {
-    let groupID = $(source).prop("id");
-    let pass = $("#pass_field").val();
-    let type = "PUT";
-    let task = 0;
-    console.log(groupID +" : "+ type +" : "+ task +" : "+ pass);
-
-    sendData(groupID, type, task, pass);
+function sendData(type, url, data){
+    console.log(type, url, data);
+    $.ajax({
+        type: type,
+        url: url,
+        dataType: 'JSON',
+        data: data,
+        success: function (data){
+            if (typeof data.redirect === 'string'){
+                window.location = data.redirect
+            }
+        }
+    });
 }
 
+// create group
+function createGroup () {
+    let type = "PUT";
+    let url = "/users/createseatgroup";
+
+    let group_name = $("#name_field").val();
+    let password = $("#pass_field").val();
+    let password2 = $("#pass_field2").val();
+
+    let data = {group_name, password, password2};
+    sendData(type, url, data);
+}
+
+// delete group
+function deleteGroup (source) {
+    let type = "DELETE";
+    let url = "/users/deleteseatgroup";
+
+    let group_id = $(source).closest("tr").prop("id");
+    let data = {group_id};
+    if (confirm("Vil du slette gruppe?")) {
+        sendData(type, url, data);
+    }
+}
+
+
+// add user to group he selected
+function joinGroup (source) {
+    let type = "PUT";
+    let url = "/users/joinseatgroups";
+
+    let group_id = $(source).closest("tr").prop("id");
+    let password = prompt("Indtast koden for gruppen");
+
+    let data = {group_id, password};
+    if (password) {
+        sendData(type, url, data);
+    }
+}
 
 // leave group
 function leaveGroup(source) {
@@ -135,17 +178,6 @@ function leaveGroup(source) {
 }
 
 
-// delete group
-function deleteGroup (source) {
-    let groupID = $(source).closest("tr").prop("id");
-    let type = "DELETE";
-    let task = 2;
-    let pass = "something";
-    if (confirm("Vil du slette gruppe?")) {
-        sendData(groupID, type, task, pass);
-    }
-}
-
 
 // edit group
 function editGroup (source) {
@@ -153,18 +185,6 @@ function editGroup (source) {
 }
 
 
-function sendData(groupID, type, task, pass){
-    $.ajax({
-        type: type,
-        url: "/users/seatgroups/" + groupID + "/" + task + "/" + pass,
-        dataType: 'json',
-        success: function (data){
-            if (typeof data.redirect === 'string'){
-                window.location = data.redirect
-            }
-        }
-    });
-}
 
 // open modal for entering password
 function openModal(source) {

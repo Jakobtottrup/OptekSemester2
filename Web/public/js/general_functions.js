@@ -39,7 +39,6 @@ function getUserData(){
     });
 }
 
-
 // get seatgroup data
 function getGroupData(){
     return $.ajax({
@@ -73,7 +72,16 @@ function getFacebookAdminData() {
     });
 }
 
-
+// retrieve data from database
+function getTournamentsData(){
+    return $.ajax({
+        type: 'GET',
+        url: "/api/tournaments",
+        dataType: "json"
+    }).done(function(data){
+        tournamentsData = data;
+    });
+}
 
 // find username using ID
 function findUserName(id) {
@@ -155,11 +163,18 @@ function convertTimeNoYear(time){
         let month = monthNames[new Date(time).getMonth()];
         let day = new Date(time).getDate();
         let hour = new Date(time).getHours();
+        if (hour < 10){
+            hour = "0" + hour;
+        }
         let min = new Date(time).getMinutes();
+        if (min < 10) {
+            min = "0" + min;
+        }
         time = day +". " + month +" kl: " + hour + ":" + min;
         return time;
     }
 }
+
 
 // used for warping time space into understandable text for human species
 function convertTimeWithYear(time){

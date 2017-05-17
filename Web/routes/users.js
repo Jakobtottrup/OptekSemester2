@@ -12,8 +12,6 @@ const Group = require('../models/seatingGroups');
 const Tournament = require('../models/tournaments');
 const Seat = require('../models/seats');
 const User = require('../models/user');
-const groupRoute = router.route('/seatgroups/:_id/:task/:pass');
-const tourRoute = router.route('/tournaments/:_id/:task/:tn/:tp/:tp2');
 const seatRoute = router.route('/getseat/:index');
 
 
@@ -41,16 +39,7 @@ router.get('/payment', ensureAuthenticated, function(req, res){
 });
 
 
-// USER SEAT
-router.get('/getseat', ensureAuthenticated, function(req, res){
-    res.render('user-backend/getseat', {title: "Din plads"});
-});
 
-
-// USER SEAT
-router.get('/seatgroups', ensureAuthenticated, function(req, res){
-    res.render('user-backend/seatgroups', {title: "Siddegrupper"});
-});
 
 
 // SET USER AS ACTIVE FOR CURRENT EVENT
@@ -106,151 +95,154 @@ router.put('/userupdate', ensureAuthenticated, function(req, res){
 });
 
 
-// GROUP
-router.post('/seatgroups', ensureAuthenticated, function(req, res){
-    if (req.user.hasPaid === true) {
-        let groupName = req.body.group_name;
+/** ********************** **/
+/** SEAT GROUP CONTROLLERS **/
+/** ********************** **/
+
+// RENDER VIEW
+router.get('/seatgroups', ensureAuthenticated, function(req, res){
+    res.render('user-backend/seatgroups', {title: "Siddegrupper"});
+});
+
+// CREATE GROUP
+router.put('/createseatgroup', ensureAuthenticated, function(req, res){
+    if (req.user.hasPaid === true || req.user.isAdmin === true) {
+        let group_name = req.body.group_name;
         let password = req.body.password;
         let password2 = req.body.password2;
         let members = [];
-        let leaderID = req.user.id;
+        let leader_id = req.user.id;
 
         // VALIDATION
         req.checkBody('group_name', 'Gruppenavn er nødvendigt').notEmpty();
         req.checkBody('password', 'Kodeord er nødvendigt').notEmpty();
-        req.checkBody('password2', 'Tjek venligst at kodeordene stemmer overens').equals(req.body.password);
-
+        req.checkBody('password2', 'Tjek venligst at kodeordene stemmer overens').equals(password);
         let errors = req.validationErrors();
-        if (errors) { // if validation fails
-            req.flash("error_msg", "Adgangskoderne skal stemme overens");
-            console.log(errors);
+        if (errors) {
+            req.flash("error_msg", errors.msg);
         } else {
-            let newGroup = new Group({
-                groupName: groupName,
-                password: password,
-                members: members,
-                leaderID: leaderID
-            });
+            Group.findOne({group_name: group_name}, function (err, group) {
+                if (err) throw err;
+                console.log(group);
+                if (group === null) {
+                    let newGroup = new Group({
+                        group_name: group_name,
+                        password: password,
+                        members: members,
+                        leader_id: leader_id
+                    });
 
-            Group.findOne({groupName: groupName}, function (err, group) {
-                if (err)
-                    return done(err);
-
-                if (group) {
-                    req.flash('error_msg', 'Gruppenavn eksisterer allerede');
-                } else {
                     Group.createGroup(newGroup, function (err, group) {
                         if (err) throw err;
+                        console.log(group);
+                        req.flash('success_msg', 'Gruppen er nu oprettet');
                     });
-                    req.flash('success_msg', 'Gruppen er nu oprettet');
+
+                } else {
+                    req.flash('error_msg', 'Gruppenavn eksisterer allerede');
                 }
             });
         }
     } else {
-        req.flash('error_msg', 'Din betaling er ikke blevet godkendt endnu');
-        res.send({redirect: '/users/seatgroups'});
+        req.flash('error_msg', 'Du kan ikke fuldføre handlingen, da din betaling er ikke blevet godkendt endnu');
     }
-});
 
-
-groupRoute.put(ensureAuthenticated, function (req, res) {
-    if (req.user.hasPaid === true) {
-        Group.findById(req.params._id, function (err, group) {
-            if (err) {
-                res.send(err);
-            } else {
-                switch (req.params.task) {
-                    // add user to group
-                    case "0":
-                        if (err) {
-                            res.send(err);
-                        } else {
-                            Group.comparePassword(req.params.pass, group.password, function (err, isMatch) {
-                                if (err) throw err;
-                                if (isMatch) {
-                                    // push user ID in to members array
-                                    group.members.push(req.user.id);
-                                    // save changes to database
-                                    group.save(function (err) {
-                                        if (err) {
-                                            res.send(err);
-                                        }
-                                    });
-                                    req.flash('success_msg', 'Du er nu med i gruppen - du kan derfor ikke fuldføre handlingen');
-                                    res.send({redirect: '/users/seatgroups'});
-                                } else {
-                                    console.log("no match")
-                                }
-                            });
-                        } break;
-
-                    // remove user from group
-                    case "1":
-                        if (err) {
-                            res.send(err);
-                        } else {
-                            // search for user ID in array and then remove matches.
-                            let index = group.members.indexOf(req.user.id);
-                            if (index >= 0) {
-                                group.members.splice(index, 1);
-                            }
-                            // save changes to database
-                            group.save(function (err) {
-                                if (err) {
-                                    res.send(err);
-                                }
-                            });
-                            req.flash('error_msg', 'Du er nu fjernet fra gruppen');
-                            res.send({redirect: '/users/seatgroups'});
-                        } break;
-
-                    // edit group details
-                    case "2":
-                        if (err) {
-                            res.send(err);
-                        } else {
-
-                            // save changes to database
-                            group.save(function (err) {
-                                if (err) {
-                                    res.send(err);
-                                }
-                            });
-                            req.flash('success_msg', 'Ændringerne er blevet gemt');
-                            res.send({redirect: '/users/seatgroups'});
-                        } break;
-                }
-            }
-        })
+    if (req.user.isAdmin === true){
+        console.log("admin");
+        res.send({redirect: '/admins/seating_groups'});
     } else {
-        req.flash('error_msg', 'Din betaling er ikke blevet godkendt endnu');
+        console.log("user");
         res.send({redirect: '/users/seatgroups'});
     }
+    console.log("outside");
 });
 
-
-groupRoute.delete(ensureAuthenticated, function (req, res) {
-    if (req.user.hasPaid === true) {
-        Group.findOne({_id: req.params._id}, function (err, group) {
-            if(group.leaderID === req.user.id || req.user.isAdmin === true) {
-                Group.findByIdAndRemove(req.params._id, function (err) {
-                    if (err) {
-                        res.send(err);
-                    }
-                });
-                req.flash('error_msg', 'Gruppen er nu slettet');
-                res.send({redirect: '/users/seatgroups'});
-
-            } else if (group.leaderID !== req.user.id) {
-                req.flash('error_msg', 'Du har ikke rettigheder til at slette denne gruppe!');
-                res.send({redirect: '/users/seatgroups'});
+// DELETE GROUP
+router.delete('/deleteseatgroup', ensureAuthenticated, function(req, res){
+    if (req.user.hasPaid === true || req.user.isAdmin === true) {
+        let group_id = req.body.group_id;
+        let leader_id = req.user.id;
+        Group.findByIdAndRemove({_id: group_id}, function (err, group) {
+            if (err) throw err;
+            if (group === null) {
+                req.flash('error_msg', 'Gruppen blev ikke fundet');
+            } else {
             }
         });
     } else {
         req.flash('error_msg', 'Din betaling er ikke blevet godkendt endnu');
+    }
+    if (req.user.isAdmin === true){
+        res.send({redirect: '/admins/seating_groups'});
+    } else {
         res.send({redirect: '/users/seatgroups'});
     }
 });
+
+// JOIN GROUPS
+router.put('/joinseatgroups', ensureAuthenticated, function(req, res){
+    if (req.user.hasPaid === true || req.user.isAdmin === true) {
+        let group_id = req.body.group_id;
+        let user_id = req.user.id;
+        let password = req.user.password;
+
+        Group.findById(group_id, function (err, group) {
+            Group.comparePassword(password, group.password, function (err, isMatch) {
+                if (err) throw err;
+                console.log(isMatch);
+                if (isMatch) {
+                    group.members.push(user_id);
+                    req.flash('success_msg', 'Du er nu med i gruppen');
+                } else {
+                    req.flash('error_msg', 'Forkert kodeord');
+                    if (req.user.isAdmin === true){
+                        res.send({redirect: '/admins/seating_groups'});
+                    } else {
+                        res.send({redirect: '/users/seatgroups'});
+                    }
+                }
+            });
+        });
+    } else {
+        req.flash('error_msg', 'Du kan ikke fuldføre handlingen, da din betaling er ikke blevet godkendt endnu');
+        if (req.user.isAdmin === true){
+            res.send({redirect: '/admins/seating_groups'});
+        } else {
+            res.send({redirect: '/users/seatgroups'});
+        }
+    }
+});
+
+// UPDATE GROUPS
+router.put('/updateseatgroups', ensureAuthenticated, function(req, res){
+    if (req.user.hasPaid === true || req.user.isAdmin === true) {
+        let group_id = req.body.group_id;
+        let user_id = req.user.id;
+        let members = req.user.members;
+        let group_name = req.user.members;
+
+        Group.findById(group_id, function (err, group) {
+            if (err) throw err;
+            if(group.leader_id === user_id){
+                group.members = members;
+                group.group_name = group_name;
+                group.updated_at = Date.now;
+                req.flash('success_msg', 'Ændringerne er blevet gemt');
+            } else {
+                req.flash('error_msg', 'Du har ikke de nødvendige rettigheder');
+            }
+        });
+    } else {
+        req.flash('error_msg', 'Du kan ikke fuldføre handlingen, da din betaling er ikke blevet godkendt endnu');
+    }
+    if (req.user.isAdmin === true){
+        res.send({redirect: '/admins/seating_groups'});
+    } else {
+        res.send({redirect: '/users/seatgroups'});
+    }
+});
+
+
 
 
 
@@ -258,7 +250,7 @@ groupRoute.delete(ensureAuthenticated, function (req, res) {
     /** TOURNAMENT CONTROLLERS **/
     /** ********************** **/
 
-// REDNER USER TOURNAMENTS
+// RENDER USER TOURNAMENTS
 router.get('/tournaments', ensureAuthenticated, function(req, res){
     res.render('user-backend/tournaments', {title: "Turneringer"});
 });
@@ -348,6 +340,11 @@ router.put("/createtournamentteam", ensureAuthenticated, function(req, res){
     /** **************** **/
     /** SEAT CONTROLLERS **/
     /** **************** **/
+
+// RENDER VIEW
+router.get('/getseat', ensureAuthenticated, function(req, res){
+    res.render('user-backend/getseat', {title: "Din plads"});
+});
 
 seatRoute.put(ensureAuthenticated, function (req, res) {
     console.log("SEAT INDEX: " + req.params.index);
