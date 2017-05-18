@@ -205,7 +205,6 @@ router.post('/signup', function (req, res) {
         User.findOne({username: username}, function (err, user) {
             if (err)
                 return done(err);
-
             if (user) {
                 req.flash('error_msg', 'Bruger eksisterer allerede');
                 res.redirect('/signup');
@@ -231,18 +230,10 @@ router.post('/signup', function (req, res) {
                         res.redirect('/login');
                         done(err);
                     });
-                    /*req.flash('success_msg', 'Du er nu registreret!');
-                    res.redirect('/login');*/
-
                 });
-
-
             }
         });
-
-
     }
-
 });
 
 

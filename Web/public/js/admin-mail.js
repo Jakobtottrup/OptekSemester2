@@ -50,12 +50,3 @@ $.when(getUsersData().done(function () {
         }
     }
 }));
-
-/*
-$('#reminder').click(function () {
-
-});
-
-$('#send_to_all').click(function () {
-
-});*/

@@ -510,7 +510,6 @@ mailRoute.post(ensureAdminAuthenticated, function (req, res, next) {
                     console.log('Message sent: ' + info.response);
                     req.flash('success_msg', 'Email sendt!');
                     res.redirect('/admins/mails');
-                    //res.json({yo: info.response});
                 }
             });
         }
