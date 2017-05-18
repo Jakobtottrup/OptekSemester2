@@ -212,30 +212,31 @@ router.post('/signup', function (req, res) {
             } else {
                 User.createUser(newUser, function (err, username) {
                     if (err) throw err;
-                    req.flash('success_msg', 'Du er nu registreret!');
-                    res.redirect('/login');
+                    var transporter = nodemailer.createTransport({
+                        service: 'Gmail',
+                        auth: {
+                            user: 'sdulan.optek@gmail.com',
+                            pass: 'OpTek2016'
+                        }
+                    });
+                    var mailOptions = {
+                        to: newUser.email,
+                        from: 'sdulan.optek@gmail.com',
+                        subject: 'S7-Lan Konto Oprettet!',
+                        text: 'Hej,\n\n' +
+                        'Dette er en bekræftelsesmail for at konto med brugernavn: ' + newUser.username + ' netop er blevet oprettet i vores system.\n'
+                    };
+                    transporter.sendMail(mailOptions, function (err) {
+                        req.flash('success_msg', 'Du er nu registreret!');
+                        res.redirect('/login');
+                        done(err);
+                    });
+                    /*req.flash('success_msg', 'Du er nu registreret!');
+                    res.redirect('/login');*/
 
                 });
 
-                /* var transporter = nodemailer.createTransport({
-                 service: 'Gmail',
-                 auth: {
-                 user: 'sdulan.optek@gmail.com',
-                 pass: 'OpTek2016'
-                 }
-                 });
-                 var mailOptions = {
-                 to: user.email,
-                 from: 'sdulan.optek@gmail.com',
-                 subject: 'S7-Lan Konto Oprettet!',
-                 text: 'Hej,\n\n' +
-                 'Dette er en bekræftelsesmail for at konto med brugernavn: ' + user.username + ' netop er blevet oprettet i vores system.\n'
-                 };
-                 transporter.sendMail(mailOptions, function (err) {
-                 req.flash('success_msg', 'You are registered!');
-                 res.redirect('/login');
-                 done(err);
-                 });*/
+
             }
         });
 
