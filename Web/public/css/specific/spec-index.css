@@ -50,13 +50,13 @@ table {
 /*** ********* ***/
 
 .fb_post {
-    background-color: var(--text-);
+    background-color: var(--menu-);
     border-radius: 15px;
     padding: 10px;
 }
 
 .fb_post p {
-    color: var(--main-);
+    color: var(--text-);
 }
 
 .fb_post a {
@@ -67,16 +67,20 @@ table {
 }
 
 .fb_post a:hover {
-    background-color: var(--menu-);
-    color: var(--text-);
+    background-color: var(--text-);
+    color: var(--menu-);
 }
 
 /*** ************ ***/
 /** Comment Layout **/
 /*** ************ ***/
 
+.fb_comment p {
+    color: var(--menu-);
+}
+
 .fb_comment {
-    background-color: var(--menu-);
+    background-color: var(--text-);
     border-radius: 15px;
     padding: 10px;
     height: 100%;
@@ -86,15 +90,16 @@ table {
 }
 
 .fb_comment a {
-    color: var(--text-);
+    color: var(--menu-);
     text-decoration: underline;
     font-weight: bold;
     border-radius: 6px;
     padding: 2px;
 }
 
+
 .fb_comment a:hover {
-    background-color: var(--text-);
+    background-color: var(--menu-);
     color: var(--menu-);
 }
 
@@ -271,14 +276,14 @@ table {
     margin: 0;
 }
 
-#countdown_container {
-    position: relative;
-}
+/*#countdown_container {*/
+    /*position: relative;*/
+/*}*/
 
-#countdown {
-    position: absolute;
-    bottom: 0;
-    left: 50%;
-    width: 500px;
-    margin-left: -250px;
-}
+/*#countdown {*/
+    /*position: absolute;*/
+    /*bottom: 0;*/
+    /*left: 50%;*/
+    /*width: 500px;*/
+    /*margin-left: -250px;*/
+/*}*/

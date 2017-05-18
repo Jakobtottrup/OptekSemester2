@@ -45,7 +45,7 @@ $.when(getEventData()).done(function() {
         }
 
         // format countdown string + set tag value
-        countdown.innerHTML = "<span>" + days + "</span><span>" + hours + "</span><span>" + minutes + "</span><span>" + seconds + "</span>";
+        countdown.innerHTML = "<span class='countdown_number'>" + days + "</span><span>" + hours + "</span><span>" + minutes + "</span><span>" + seconds + "</span>";
     }
 
     function pad(n) {
