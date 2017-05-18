@@ -3,13 +3,13 @@
  */
 
 
-/*$.when(getFacebookUserData()).done(function(){
+$.when(getFacebookUserData()).done(function(){
     if (fb_userData !== null) {
         fb_createPosts();
     } else {
         fb_createErrorMessage();
     }
-});*/
+});
 
 /*** ************* ***/
 /** basic functions **/

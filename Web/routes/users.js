@@ -7,6 +7,7 @@ const router = express.Router();
 const mongoose = require('mongoose');
 mongoose.Promise = require('bluebird');
 const bcrypt = require('bcryptjs');
+const async = require('async');
 
 const Group = require('../models/seatingGroups');
 const Tournament = require('../models/tournaments');
@@ -98,6 +99,14 @@ router.put('/userupdate', ensureAuthenticated, function(req, res){
 /** SEAT GROUP CONTROLLERS **/
 /** ********************** **/
 
+function redirectSeatGroups(req, res){
+    if (req.user.isAdmin === true){
+        res.send({redirect: '/admins/seating_groups'});
+    } else {
+        res.send({redirect: '/users/seatgroups'});
+    }
+}
+
 // RENDER VIEW
 router.get('/seatgroups', ensureAuthenticated, function(req, res){
     res.render('user-backend/seatgroups', {title: "Siddegrupper"});
@@ -105,127 +114,151 @@ router.get('/seatgroups', ensureAuthenticated, function(req, res){
 
 // CREATE GROUP
 router.put('/createseatgroup', ensureAuthenticated, function(req, res){
-    if (req.user.hasPaid === true || req.user.isAdmin === true) {
-        let group_name = req.body.group_name;
-        let password = req.body.password;
-        let password2 = req.body.password2;
-        let members = [];
-        let leader_id = req.user.id;
+    console.log("first ",req.body);
+    let group_name = req.body.group_name;
+    let password = req.body.password;
+    let password2 = req.body.password2;
+    let members = [];
+    let leader_id = req.user.id;
 
-        // VALIDATION
-        req.checkBody('group_name', 'Gruppenavn er nødvendigt').notEmpty();
-        req.checkBody('password', 'Kodeord er nødvendigt').notEmpty();
-        req.checkBody('password2', 'Tjek venligst at kodeordene stemmer overens').equals(password);
-        let errors = req.validationErrors();
-        if (errors) {
-            req.flash("error_msg", errors.msg);
-        } else {
-            Group.findOne({group_name: group_name}, function (err, group) {
-                if (err) throw err;
-                console.log(group);
-                if (group === null) {
-                    let newGroup = new Group({
-                        group_name: group_name,
-                        password: password,
-                        members: members,
-                        leader_id: leader_id
-                    });
-
-                    Group.createGroup(newGroup, function (err, group) {
+    // VALIDATION
+    req.checkBody('group_name', 'Gruppenavn er nødvendigt').notEmpty();
+    req.checkBody('password', 'Kodeord er nødvendigt').notEmpty();
+    req.checkBody('password2', 'Tjek venligst at kodeordene stemmer overens').equals(password);
+    let errors = req.validationErrors();
+    if (errors) {
+        req.flash("error_msg", errors[0].msg);
+        redirectSeatGroups(req, res);
+    } else {
+        if (req.user.hasPaid === true || req.user.isAdmin === true) {
+            async.waterfall([
+                function(done){
+                    Group.findOne({group_name: group_name}, function (err, group) {
                         if (err) throw err;
-                        console.log(group);
-                        req.flash('success_msg', 'Gruppen er nu oprettet');
+                        console.log("group",group);
+                        if (group === null) {
+                            let newGroup = new Group({
+                                group_name: group_name,
+                                password: password,
+                                members: members,
+                                leader_id: leader_id
+                            });
+                            Group.createGroup(newGroup, function (err, group) {
+                                if (err) throw err;
+                                req.flash('success_msg', 'Gruppen er nu oprettet');
+                                redirectSeatGroups(req, res);
+                            });
+                        } else {
+                            req.flash('error_msg', 'Gruppenavn eksisterer allerede');
+                            redirectSeatGroups(req, res);
+                        }
                     });
+                },
+            ], function (err) {
+                console.log("waterfall done")
 
-                } else {
-                    req.flash('error_msg', 'Gruppenavn eksisterer allerede');
-                }
             });
-        }
-    } else {
-        req.flash('error_msg', 'Du kan ikke fuldføre handlingen, da din betaling er ikke blevet godkendt endnu');
-    }
+        } else {
+            console.log("fifth ",req.body);
+            req.flash('error_msg', 'Du kan ikke fuldføre handlingen, da din betaling er ikke blevet godkendt endnu');
+            redirectSeatGroups(req, res);
 
-    if (req.user.isAdmin === true){
-        console.log("admin");
-        res.send({redirect: '/admins/seating_groups'});
-    } else {
-        console.log("user");
-        res.send({redirect: '/users/seatgroups'});
+        }
     }
-    console.log("outside");
 });
+
 
 // DELETE GROUP
 router.delete('/deleteseatgroup', ensureAuthenticated, function(req, res){
     if (req.user.hasPaid === true || req.user.isAdmin === true) {
         let group_id = req.body.group_id;
         let leader_id = req.user.id;
-        Group.findByIdAndRemove({_id: group_id}, function (err, group) {
+        Group.findByIdAndRemove({_id: group_id, leader_id: leader_id}, function (err, group) {
             if (err) throw err;
             if (group === null) {
                 req.flash('error_msg', 'Gruppen blev ikke fundet');
+                redirectSeatGroups(req, res);
             } else {
+                req.flash('error_msg', 'Gruppen er nu slettet');
+                redirectSeatGroups(req, res);
             }
         });
     } else {
         req.flash('error_msg', 'Din betaling er ikke blevet godkendt endnu');
-    }
-    if (req.user.isAdmin === true){
-        res.send({redirect: '/admins/seating_groups'});
-    } else {
-        res.send({redirect: '/users/seatgroups'});
+        redirectSeatGroups(req, res);
     }
 });
 
+
 // JOIN GROUPS
-router.put('/joinseatgroups', ensureAuthenticated, function(req, res){
+router.put('/joinseatgroup', ensureAuthenticated, function(req, res){
     if (req.user.hasPaid === true || req.user.isAdmin === true) {
         let group_id = req.body.group_id;
         let user_id = req.user.id;
-        let password = req.user.password;
-        console.log("group: " + group_id + ", user: " + user_id + ", password: " + password);
-
+        let password = req.body.password;
         Group.findById(group_id, function (err, group) {
-            console.log("error found: " + err);
-            console.log("group found: " + group);
-            //Group.comparePassword(password, group.password, function (err, isMatch) {
-                //if (err) throw err;
-                //console.log(isMatch);
-                /*if (isMatch) {*/ if (true) { //temporary fix till Christian finishes his code
+            if (group !== null) {
+                if (group.password === password){
                     group.members.push(user_id);
-                    req.flash('success_msg', 'Du er nu med i gruppen');
-
                     group.save(function (err) {
                         if (err) {
                             res.send(err);
                         }
-                        req.flash('success_msg', 'Holdet er nu oprettet');
+                        req.flash('success_msg', 'Du er nu med i gruppen');
+                        redirectSeatGroups(req, res);
                     });
-                    res.send({redirect: '/users/seatgroups'});
 
                 } else {
                     req.flash('error_msg', 'Forkert kodeord');
-                    if (req.user.isAdmin === true){
-                        res.send({redirect: '/admins/seating_groups'});
-                    } else {
-                        res.send({redirect: '/users/seatgroups'});
-                    }
+                    redirectSeatGroups(req, res);
                 }
-            //});
+            } else {
+                console.log("group",group);
+                req.flash('error_msg', 'Gruppen blev ikke fundet');
+                redirectSeatGroups(req, res);
+            }
         });
     } else {
         req.flash('error_msg', 'Du kan ikke fuldføre handlingen, da din betaling er ikke blevet godkendt endnu');
-        if (req.user.isAdmin === true){
-            res.send({redirect: '/admins/seating_groups'});
-        } else {
-            res.send({redirect: '/users/seatgroups'});
-        }
+        redirectSeatGroups(req, res);
     }
 });
 
+
+// LEAVE GROUPS
+router.put('/leaveseatgroup', ensureAuthenticated, function(req, res){
+    if (req.user.hasPaid === true || req.user.isAdmin === true) {
+        let group_id = req.body.group_id;
+        let user_id = req.user.id;
+
+        Group.findById(group_id, function (err, group) {
+            if (err) throw err;
+            console.log("group",group);
+
+            let index = group.members.indexOf(user_id);
+            if (index > -1) {
+                group.members.splice(index, 1);
+            }
+            console.log("index", index);
+            group.save(function (err) {
+                if (err) {
+                    res.send(err);
+                }
+                req.flash('success_msg', 'Du er nu fjernet fra gruppen');
+            });
+            redirectSeatGroups(req, res);
+        });
+    } else {
+        req.flash('error_msg', 'Du kan ikke fuldføre handlingen, da din betaling er ikke blevet godkendt endnu');
+        redirectSeatGroups(req, res);
+    }
+});
+
+
 // UPDATE GROUPS
-router.put('/updateseatgroups', ensureAuthenticated, function(req, res){
+router.put('/updateseatgroup', ensureAuthenticated, function(req, res){
+    console.log(req.body);
+/*
     if (req.user.hasPaid === true || req.user.isAdmin === true) {
         let group_id = req.body.group_id;
         let user_id = req.user.id;
@@ -245,12 +278,8 @@ router.put('/updateseatgroups', ensureAuthenticated, function(req, res){
         });
     } else {
         req.flash('error_msg', 'Du kan ikke fuldføre handlingen, da din betaling er ikke blevet godkendt endnu');
-    }
-    if (req.user.isAdmin === true){
-        res.send({redirect: '/admins/seating_groups'});
-    } else {
-        res.send({redirect: '/users/seatgroups'});
-    }
+    }*/
+    redirectSeatGroups(req, res);
 });
 
 

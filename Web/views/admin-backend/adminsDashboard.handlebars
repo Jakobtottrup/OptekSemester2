@@ -2,6 +2,10 @@
 <script src="/js/dashboard_info.js"></script>
 
 <h1> Velkommen <b>{{user.username}}</b></h1>
+<hr>
+
+<p>Dette er din profil. Her kan du se og rette dine oplysninger.</p>
+<p>Dine aktiviteter, såsom din sideplads, siddegruppe og turneringer du er tilmeldt, vises nederst på siden, når din betaling er godkendt.</p>
 <br>
 
 <div class="table-responsive">
@@ -32,30 +36,32 @@
 
 <hr>
 
+<button id="join_button" class='btn btn-lg btn-success center-block' onclick="joinEvent()">KLIK HER FOR AT DELTAGE I LAN</button>
+<button id="leave_button" class='btn btn-lg btn-danger center-block' onclick="joinEvent()">FRAMELD LAN</button>
 
-<h3>Siddeplads</h3>
-<div class="well">
-    <div id="seat">
+<div id="event_info">
+    <h3>Siddeplads</h3>
+    <div class="well">
+        <div id="seat">
 
+        </div>
+    </div>
+
+    <hr>
+    <h3>Siddegruppe</h3>
+    <div class="well">
+        <div id="seatgroup">
+
+        </div>
+    </div>
+
+    <hr>
+    <h3>Turneringer</h3>
+    <div class="well">
+        <div id="tournamnet">
+        </div>
     </div>
 </div>
-
-<hr>
-<h3>Siddegruppe</h3>
-<div class="well">
-    <div id="seatgroup">
-
-    </div>
-</div>
-
-<hr>
-<h3>Turneringer</h3>
-<div class="well">
-    <div id="tournamnet">
-
-    </div>
-</div>
-
 
 
 <!-- Modal for editing information -->
@@ -64,14 +70,15 @@
 
         <!-- Modal content-->
         <div class="modal-content">
-            <div class="modal-header"><h2>Redigér dine oplysninger</h2>
+            <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h2>Redigér dine oplysninger</h2>
                 <h4 class="modal-title" id="edit-data-header"></h4>
             </div>
             <div class="modal-body input-group" id="edit-data-body"></div>
             <div class="well">
                 <label>Brugernavn</label>
-                <input type="text" class="form-control" maxlength="30" id="input_username"  placeholder="Brugernavn" required>
+                <input type="text" class="form-control" maxlength="30" id="input_username"  placeholder="Brugernavn" required disabled>
                 <br>
                 <label>Email</label>
                 <input type="email" maxlength="40" class="form-control" id="input_email" placeholder="Fx. [initialer][årgang]@student.sdu.dk" required>
@@ -91,6 +98,7 @@
                         <option>Ikke fra SDU</option>
                     </select>
                 </div>
+                <br>
                 <label>Fakultet</label>
                 <div class="req">
                     <select class="form-control" name="fakultet" id="input_fakultet">
@@ -115,7 +123,7 @@
 
             <div class="modal-footer">
                 <button type="button" method="post" class="btn btn-danger" data-dismiss="modal">Annuller</button>
-                <button class="btn btn-success" onclick="sendData_ui()">Gem</button>
+                <button class="btn btn-success" onclick="sendData()">Gem</button>
 
             </div>
         </div>

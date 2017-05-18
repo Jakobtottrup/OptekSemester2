@@ -15,7 +15,7 @@ $.when(document, getUserData()).done(function(){
 });
 
 function paymentStatus(payment, active) {
-    if (active === true && payment === true) {
+    if (active === true && payment === true || userData.isAdmin) {
         $("#join_button").remove();
         $("#leave_button").remove();
     } else if (active === true){
@@ -65,37 +65,45 @@ function toggleModal() {
     $('#input_bnet').val(userData.bnet);
 }
 
-function sendData_ui() {
+function sendData() {
     if (window.confirm("Vil du gemme de nye oplysninger?")) {
-        $("#modal-edit").modal('hide');
-        let username = $('#input_username').val();
-        let email = $('#input_email').val();
+        let email = isEmail($('#input_email').val());
         let age = $('#input_age').val();
         let studie = $('#input_studie').val();
         let fakultet = $('#input_fakultet').val();
         let steam = $('#input_steam').val();
         let bnet = $('#input_bnet').val();
-        // if (steam === ""){
-        //     steam = "|"
-        // }
-        // if (bnet === ""){
-        //     bnet = "|"
-        // }
-        data = {username, email, age, studie, fakultet, bnet, steam};
 
-        $.ajax({
-            type: "PUT",
-            url: "/users/userupdate"/* + username + "/" + email + "/" + age + "/" + studie + "/" + fakultet + "/" + steam + "/" + bnet*/,
-            dataType: 'json',
-            data: data,
-            success: function (data){
-                if (typeof data.redirect === 'string'){
-                    window.location = data.redirect
+        if (email === true){
+            $("#modal-edit").modal('hide');
+            let email = $('#input_email').val();
+            data = {email, age, studie, fakultet, bnet, steam};
+
+            $.ajax({
+                type: "PUT",
+                url: "/users/userupdate"/* + username + "/" + email + "/" + age + "/" + studie + "/" + fakultet + "/" + steam + "/" + bnet*/,
+                dataType: 'json',
+                data: data,
+                success: function (data){
+                    if (typeof data.redirect === 'string'){
+                        window.location = data.redirect
+                    }
                 }
-            }
-        });
+            });
+        } else {
+            $('#input_email').css('color', 'red').val("VENLIGST INDTAST GYLDIG EMAIL");
+            // $('#input_email').blur();
+            // $('#input_email').focus($('#input_email').css('color', 'black'));
+        }
     }
 }
+
+// make sure input has email format
+function isEmail(email) {
+    let regex = /^([a-zA-Z0-9_.+-])+\@(([a-zA-Z0-9-])+\.)+([a-zA-Z0-9]{2,4})+$/;
+    return regex.test(email);
+}
+
 
 function drawGroup() {
 

@@ -1,0 +1,8 @@
+#reset_link {
+    color: var(--text-);
+}
+
+
+* :not(button) {
+    color: var(--main-);
+}

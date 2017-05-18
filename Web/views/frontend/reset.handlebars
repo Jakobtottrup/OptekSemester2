@@ -1,3 +1,4 @@
+<link rel="stylesheet" type="text/css" href="/css/specific/spec-login.css">
 <h1>Opret nyt password</h1>
 <hr>
 
@@ -5,13 +6,13 @@
 <form id="resetForm" class="form-horizontal" role="form" method="post" action="/reset/:token">
     <div class="input-group">
         <span class="input-group-addon"><i class="glyphicon glyphicon-lock"></i></span>
-        <input id="password" type="password" class="form-control" name="password" value="" placeholder="Nyt kodeord"
+        <input id="password" type="password" minlength="8" maxlength="30" class="form-control" name="password" value="" placeholder="Nyt kodeord"
                autofocus>
     </div>
     <br>
     <div class="input-group">
         <span class="input-group-addon"><i class="glyphicon glyphicon-lock"></i></span>
-        <input id="confirm" type="password" class="form-control" name="confirm" value="" placeholder="Gentag kodeord"
+        <input id="confirm" type="password" minlength="8" maxlength="30" class="form-control" name="confirm" value="" placeholder="Gentag kodeord"
                autofocus>
     </div>
     <hr>

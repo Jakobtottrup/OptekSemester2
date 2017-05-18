@@ -1,9 +1,15 @@
-.dash-text p {
-    color: var(--main-);
+td {
+    color: var(--text-);
 }
 
 
+
 #user_info img {
+    filter: grayscale(100%);
     width: 20px;
-    height: 20px
+    height: 20px;
+}
+
+#modal-edit *:not(button) {
+    color: var(--main-);
 }

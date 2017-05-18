@@ -72,14 +72,15 @@
 
         <!-- Modal content-->
         <div class="modal-content">
-            <div class="modal-header"><h2>Redigér dine oplysninger</h2>
+            <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h2>Redigér dine oplysninger</h2>
                 <h4 class="modal-title" id="edit-data-header"></h4>
             </div>
             <div class="modal-body input-group" id="edit-data-body"></div>
             <div class="well">
                 <label>Brugernavn</label>
-                <input type="text" class="form-control" maxlength="30" id="input_username"  placeholder="Brugernavn" required>
+                <input type="text" class="form-control" maxlength="30" id="input_username"  placeholder="Brugernavn" required disabled>
                 <br>
                 <label>Email</label>
                 <input type="email" maxlength="40" class="form-control" id="input_email" placeholder="Fx. [initialer][årgang]@student.sdu.dk" required>
@@ -99,6 +100,7 @@
                         <option>Ikke fra SDU</option>
                     </select>
                 </div>
+                <br>
                 <label>Fakultet</label>
                 <div class="req">
                     <select class="form-control" name="fakultet" id="input_fakultet">
@@ -123,7 +125,7 @@
 
             <div class="modal-footer">
                 <button type="button" method="post" class="btn btn-danger" data-dismiss="modal">Annuller</button>
-                <button class="btn btn-success" onclick="sendData_ui()">Gem</button>
+                <button class="btn btn-success" onclick="sendData()">Gem</button>
 
             </div>
         </div>

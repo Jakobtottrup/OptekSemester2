@@ -152,6 +152,6 @@ function saveCheckboxes() {
 }
 
 function fb_createErrorMessage() {
-    output = "Der er sket en fejl. Kontakt Christian Skjerning på christianskjerning@gmail.com";
+    output = "Der er sket en fejl. Kontakt Sebastian Andreasen på sebastian.sommersted@live.dk";
     $("#fb_post_list").append(output);
 }

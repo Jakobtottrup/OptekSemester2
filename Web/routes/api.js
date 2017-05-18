@@ -15,7 +15,7 @@ const Event = require('../models/event');
 const Sponsors = require('../models/sponsors');
 const Tournaments = require('../models/tournaments');
 const Fb_post = require('../models/fb_posts');
-const FB = require('FB');
+const FB = require('fb');
 
 /** FACEBOOK ACCESS TOKEN INFORMATION - v2.9
  *  GET TOKEN GUIDE :   http://stackoverflow.com/questions/17197970/facebook-permanent-page-access-token
@@ -26,25 +26,15 @@ const FB = require('FB');
  *  S7LAN APP ID :              658376531024359
  *  S7LAN APP SECRET :          f89bf31e6dfef146ce8e423a168f4786
  *  S7LAN APP CLIENT TOKEN :    ace86d4971fb01580378e091bc1b3b0b
- *  SHORT-LIVED TOKEN ID :      EAAJWyjtCmecBAPHxVKWaBDzJ0lYtehHZBvtIJ1xMaAHG0qrEurVZCD2b690Hm0pmFsc0KVJ3L7zZC5nkuRtULf0IRlpKqyKWnZBnnKJycwqslX9qxqwe4MQZAvviIBUMJSDe4eWZB5hDZA4iJxxIbKl5Xen3TTVrZACU1IXPvG9gXcao6ZBo8zVA3
+ *  S7LAN APP TOKEN ID :        658376531024359|E2ZZMX7jZEoYcoFZluWhcn3FfdQ
  *
  *  URL TEMPLATE FOR 'GET' REQUESTING LONG-LIVED TOKEN ID :     https://graph.facebook.com/v2.9/oauth/access_token?grant_type=fb_exchange_token&client_id={app_id}&client_secret={app_secret}&fb_exchange_token={short_lived_token}
  *  URL TEMPLATE FOR 'GET' REQUESTING ACCOUNT ID :              https://graph.facebook.com/v2.9/me?access_token={long_lived_access_token}
  *  URL TEMPLATE FOR 'GET' REQUESTING PERMANENT TOKEN ID :      https://graph.facebook.com/v2.9/{account_id}/accounts?access_token={long_lived_access_token}
  *                                                              https://graph.facebook.com/v2.9/me/accounts?access_token={long_lived_access_token}
- *
- *
- *  LONG-LIVED TOKEN URL :      https://graph.facebook.com/v2.9/oauth/access_token?grant_type=fb_exchange_token&client_id=658376531024359&client_secret=f89bf31e6dfef146ce8e423a168f4786&fb_exchange_token=EAAJWyjtCmecBAPHxVKWaBDzJ0lYtehHZBvtIJ1xMaAHG0qrEurVZCD2b690Hm0pmFsc0KVJ3L7zZC5nkuRtULf0IRlpKqyKWnZBnnKJycwqslX9qxqwe4MQZAvviIBUMJSDe4eWZB5hDZA4iJxxIbKl5Xen3TTVrZACU1IXPvG9gXcao6ZBo8zVA3
- *  LONG-LIVED TOKEN ID :       EAAJWyjtCmecBAPgNZAyjMdVMiP1hQmIJb4hkO0EJDA7GB6IS255i7F37jYwqZCD1TgfNktr6dHSyC5arXP4j9L7EV4FYNq3Jm0XEpySamPVgjyQDd670dw2R9leY8XbFZBMEfG2k6pvCElxIDwUq6BKmvgsmb8ZD
- *
- *  ACCOUNT ID URL :            https://graph.facebook.com/v2.9/me?access_token=EAAJWyjtCmecBAPgNZAyjMdVMiP1hQmIJb4hkO0EJDA7GB6IS255i7F37jYwqZCD1TgfNktr6dHSyC5arXP4j9L7EV4FYNq3Jm0XEpySamPVgjyQDd670dw2R9leY8XbFZBMEfG2k6pvCElxIDwUq6BKmvgsmb8ZD
- *  ACCOUNT ID :                247667268610623
- *
- *  URL FOR PERMANENT TOKEN :   https://graph.facebook.com/v2.9/247667268610623/pages?access_token=EAAJWyjtCmecBAPgNZAyjMdVMiP1hQmIJb4hkO0EJDA7GB6IS255i7F37jYwqZCD1TgfNktr6dHSyC5arXP4j9L7EV4FYNq3Jm0XEpySamPVgjyQDd670dw2R9leY8XbFZBMEfG2k6pvCElxIDwUq6BKmvgsmb8ZD // does not work with page id... more to come...
- *  PERMANENT TOKEN ID:
  */
 
-FB.setAccessToken('EAAJWyjtCmecBAPgNZAyjMdVMiP1hQmIJb4hkO0EJDA7GB6IS255i7F37jYwqZCD1TgfNktr6dHSyC5arXP4j9L7EV4FYNq3Jm0XEpySamPVgjyQDd670dw2R9leY8XbFZBMEfG2k6pvCElxIDwUq6BKmvgsmb8ZD');
+FB.setAccessToken('658376531024359|E2ZZMX7jZEoYcoFZluWhcn3FfdQ');
 
 
 function ensureAdminAuthenticated(req, res, next) {
@@ -109,11 +99,11 @@ router.get('/users', function (req, res) {
             res.json(data);
         });
     } else if (typeof req.user === "object") {                          // IF USER REQUESTING IS NOT ADMIN - USER
-        User.find({},{__v:0, password:0, resetPasswordExpires:0, resetPasswordToken:0, isAdmin:0}, function(err, data) {
+        User.find({},{__v:0, password:0, resetPasswordExpires:0, resetPasswordToken:0}, function(err, data) {
             if (err) throw err;
             let newData = [];
             for(let i = 0; i < data.length; i++){
-                if(data[i].hasPaid === true) {
+                if(data[i].hasPaid === true || data[i].isAdmin === true) {
                     let _id = data[i].id;
                     let username = data[i].username;
                     let age = data[i].age;
@@ -128,7 +118,7 @@ router.get('/users', function (req, res) {
             res.json(newData);
         });
     } else {                                                            // IF THERE IS NO USER LOGGED IN - PUBLIC
-        User.find({},{__v:0, password:0, age:0, email:0, studie:0, steam:0, bnet:0, isAdmin:0, fakultet:0, hasPaid:0, resetPasswordExpires:0, resetPasswordToken:0}, function(err, data) {
+        User.find({},{__v:0, password:0, age:0, email:0, studie:0, steam:0, bnet:0, isAdmin:0, fakultet:0, hasPaid:0, resetPasswordExpires:0, resetPasswordToken:0, createdAt:0, isActive:0}, function(err, data) {
             if (err) throw err;
             res.json(data);
         });
@@ -280,7 +270,6 @@ router.get('/fb_user', function(req, res) {
             {fields: fb_fields},
             function (response) {
                 if (typeof response.error === "undefined"){
-                    console.log("no error");
                     // filtering response to match settings given by admins
                     let newResponse = [];
                     for(let i=0; i<posts_id.length;i++){

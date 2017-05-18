@@ -37,9 +37,8 @@ function placeButtons(data) {
     let output = "";
     // if user is admin
     if(userData.isAdmin === true){
-        output += "<button class='btn btn-primary' onclick='editGroup(this)'>Redigér gruppe</button>";
+        output += "<button class='btn btn-primary' onclick='editGroup(0, this)'>Redigér gruppe</button>";
         if (inGroup(data) === false) {
-           // output += "<button class='btn btn-success' onclick='openModal(this)'>Deltag i gruppe</button>";
         } else if (inGroup(data) === true && isLeader(data) === false) {
             output += "<button class='btn btn-danger' onclick='leaveGroup(this)'>Forlad gruppe</button>";
         }
@@ -49,7 +48,7 @@ function placeButtons(data) {
     // if user is not admin
     } else {
         if (isLeader(data) === true) {
-            output += "<button class='btn btn-primary' onclick='editGroup(this)'>Redigér gruppe</button>";
+            output += "<button class='btn btn-primary' onclick='editGroup(this, 0)'>Redigér gruppe</button>";
             output += "<button class='btn btn-danger' onclick='deleteGroup(this)'>Slet gruppe</button>";
         } else if (inGroup(data) === true && isLeader(data) === false) {
             output += "<button class='btn btn-danger' onclick='leaveGroup(this)'>Forlad gruppe</button>";
@@ -128,15 +127,23 @@ function sendData(type, url, data){
     });
 }
 
+
+// open modal for editing info
+let group_id;
+function openModal(source, task) {
+    group_id = $(source).closest("tr").prop("id");
+    if(task === 1){
+        $("#modal-edit").modal('show');
+    }
+}
+
 // create group
 function createGroup () {
     let type = "PUT";
     let url = "/users/createseatgroup";
-
     let group_name = $("#name_field").val();
     let password = $("#pass_field").val();
     let password2 = $("#pass_field2").val();
-
     let data = {group_name, password, password2};
     sendData(type, url, data);
 }
@@ -145,7 +152,6 @@ function createGroup () {
 function deleteGroup (source) {
     let type = "DELETE";
     let url = "/users/deleteseatgroup";
-
     let group_id = $(source).closest("tr").prop("id");
     let data = {group_id};
     if (confirm("Vil du slette gruppe?")) {
@@ -157,11 +163,9 @@ function deleteGroup (source) {
 // add user to group he selected
 function joinGroup (source) {
     let type = "PUT";
-    let url = "/users/joinseatgroups";
-
+    let url = "/users/joinseatgroup";
     let group_id = $(source).closest("tr").prop("id");
     let password = prompt("Indtast koden for gruppen");
-
     let data = {group_id, password};
     if (password) {
         sendData(type, url, data);
@@ -170,27 +174,47 @@ function joinGroup (source) {
 
 // leave group
 function leaveGroup(source) {
-    let groupID = $(source).closest("tr").prop("id");
     let type = "PUT";
-    let task = 1;
-    let pass = "something";
-    sendData(groupID, type, task, pass);
+    let url = "/users/leaveseatgroup";
+    let group_id= $(source).closest("tr").prop("id");
+    let data = {group_id};
+    if (confirm("Vil du forlade guppe?")) {
+        sendData(type, url, data);
+    }
 }
-
 
 
 // edit group
-function editGroup (source) {
+function editGroup (task, source) {
+    window.alert("Funktionen er ikke færdiggjort");
+    let url = "/users/updateseatgroup";
+    let type = "PUT";
+    let group_id = $(source).closest("tr").prop("id");
+    console.log("gruppe id",group_id);
 
-}
+    if (task === 0){
+        $("#modal-edit").modal('show');
+        $("#user_list").find("li").remove();
+        $("#edit_pass_field").val("");
 
+        for (let i = 0; i < groupData.length; i++){
+            if(groupData[i]._id === group_id){
+                console.log("found group", groupData[i]);
+                $("#edit_name_field").val(groupData[i].group_name);
+                $("#user_list").append("<li id='"+groupData[i].leader_id+"' class='list-group-item'><input type='checkbox' checked><b> "+findUserName(groupData[i].leader_id)+"</b> (leder)</li>");
+                for(let j = 0; j < groupData[i].members.length; j++){
+                    $("#user_list").append("<li id='"+groupData[i].members[j]+"' class='list-group-item'><input type='checkbox' checked> "+findUserName(groupData[i].members[j])+"</li>");
+                }
+            }
+        }
+    } else if (task === 1){
+        $("#modal-edit").modal('hide');
+        let members = $("#user_list ").find("li").prop("id");
 
-
-// open modal for entering password
-function openModal(source) {
-    let groupID = $(source).closest("tr").prop("id");
-    $("#modal-join-sub").attr("id", groupID);
-    $("#modal-join").modal('show');
+        let data = {group_id, members};
+        console.log("new group", data);
+        sendData(type, url, data)
+    }
 }
 
 

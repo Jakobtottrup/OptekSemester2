@@ -1,6 +1,5 @@
 <link rel="stylesheet" type="text/css" href="/css/specific/spec-seatgroup.css">
 
-
 <div class="pull-left">
     <h1>Siddegrupper</h1>
 </div>
@@ -20,6 +19,7 @@
         </tbody>
     </table>
 </div>
+
 
 
 <!-- Modal for creating groups -->
@@ -44,6 +44,36 @@
         </div>
     </div>
 </div>
+
+
+
+<!-- Modal for editing groups -->
+<div id="modal-edit" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title" id="show-data-header">Opret gruppe</h4>
+            </div>
+            <div class="modal-body" id="show-data-body"><p>Indtast oplysninger</p>
+                <div class="well">Gruppenavn<input id="edit_name_field" type="text" autocomplete="off" class="form-control" placeholder="Giv din gruppe et fedt navn" maxlength="50" required></div>
+                <div class="well">Forbliv tom, hvis ingen ændring ønskes<input id="edit_pass_field" type="password" autocomplete="off" class="form-control" placeholder="Adgangskode" maxlength="50" required></div>
+                <div>
+
+                    <ul id="user_list"class="list-group well">
+                        <p>Fjern markering ved de, der skal fjernes fra gruppen</p>
+
+                    </ul>
+                </div>
+                <div class="modal-footer">
+                    <input type="button" class="btn btn-danger" data-dismiss="modal" value="Luk">
+                    <input id="submit-edit" value="Opret" onclick="editGroup(1, this)" class="btn btn-success">
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
 
 
 
