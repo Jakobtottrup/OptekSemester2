@@ -70,11 +70,11 @@ router.post('/passwordreset', function (req, res, next) {
             var mailOptions = {
                 to: user.email,
                 from: 'sdulan.optek@gmail.com',
-                subject: 'S7-Lan Password Reset',
-                text: 'You are receiving this because you (or someone else) have requested the reset of the password for your account.\n\n' +
-                'Please click on the following link, or paste this into your browser to complete the process:\n\n' +
+                subject: 'S7-Lan Password gendannelse',
+                text: 'Du modtager denne mail fordi du, eller en anden har forsøgt at ændre password til din konto.\n\n' +
+                'Du bedes venligst klikke på følgende link, eller kopiere adressen ind i din browser for at fuldføre gendannelsen:\n\n' +
                 'http://' + req.headers.host + '/reset/' + token + '\n\n' +
-                'If you did not request this, please ignore this email and your password will remain unchanged.\n'
+                'Hvis du ikke ønsker at gendanne dit password, skal du ignorere denne mail og dit password forbliver det samme.\n'
             };
             transporter.sendMail(mailOptions, function (err) {
                 req.flash('success_msg', 'En e-mail er blevet sendt til ' + user.email + ' med yderligere instruktioner.');
