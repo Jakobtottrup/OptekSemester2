@@ -5,7 +5,6 @@ td {
 
 
 #user_info img {
-    filter: grayscale(100%);
     width: 20px;
     height: 20px;
 }
