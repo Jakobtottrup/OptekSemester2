@@ -54,7 +54,7 @@ router.post('/passwordreset', function (req, res, next) {
                 }
                 user.resetPasswordToken = token;
                 user.resetPasswordExpires = Date.now() + 3600000;
-                user.save(function (err) {
+                user.save(f unction (err) {
                     done(err, token, user);
                 });
             });
