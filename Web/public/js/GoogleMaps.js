@@ -29,20 +29,16 @@ function initialize() {
     var content = '<div id="iw-container">' +
         '<div class="iw-title">S7Lan, SDU Odense</div>' +
         '<div class="iw-content">' +
-        '<img src="img/icons/Logo.png" alt="SDU Odense" height="75" width="75">' +
+        '<img src="img/icons/Logo.png" alt="SDU Odense" height=75 width=75>' +
         '<div class="iw-subTitle">Kontakt</div>' +
-        '<p>Syddansk Univervitet, Odense<br> Campusvej 55, <br> 5230 Odense M<br> ' +
-        '<a href="https://s7lan.dk/"target="_blank">www.s7Lan.dk</a> <br>' +
+        '<div>Syddansk Univervitet, Odense<br> Campusvej 55,<br> 5230 Odense M<br></div><br>' +
+        '<a href="https://s7lan.dk/" target="_blank">www.s7Lan.dk</a><br>' +
         '</div>' +
         '</div>';
 
     // A new Info Window is created and set content
     var infowindowSDU = new google.maps.InfoWindow({
         content: content,
-
-        // Assign a maximum value for the width of the infowindow allows
-        // greater control over the various content elements
-        maxWidth: 320
     });
 
     // marker options
@@ -53,8 +49,7 @@ function initialize() {
         title:"Syddansk Universitet, Odense"
     });
 
-    // This event expects a click on a marker
-    // When this event is fired the Info Window is opened.
+    // Event opens the info window when the SDU marker is clicked
     google.maps.event.addListener(marker, 'click', function() {
         infowindowSDU.open(map, marker);
     });
@@ -69,9 +64,8 @@ function initialize() {
         $(this).prop("disabled", true);
     });
 }
-
+    // Show route from current position to SDU
 function showRoute() {
-
 
     navigator.geolocation.getCurrentPosition(function(pos) {
         var start = new google.maps.LatLng(pos.coords.latitude, pos.coords.longitude);
@@ -84,17 +78,15 @@ function showRoute() {
         directionsService.route(request, function(response, status) {
             if (status = google.maps.DirectionsStatus.OK) {
                 var route = response.routes[0];
-                var start =route.legs[0].start_location;
-                var end =route.legs[0].end_location;
+                var start = route.legs[0].start_location;
                 addMarker(start);
                 directionsDisplay.setDirections(response);
             } else alert("Directions request failed: "+status);
         });
-    }, function(err) {
-        alert('ERROR(' + err.code + '): ' + err.message);
     });
 }
 
+    // Adds marker at user location
 function addMarker(pos){
     new google.maps.Marker({
             position: pos,
