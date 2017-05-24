@@ -32,7 +32,7 @@
 <body>
 <div id="wrapper" class="container-fluid">
     <!--navigations bar -->
-    <nav class="navbar navbar-default top-menu-back">
+    <nav class="navbar navbar-default top-menu-back navbar-fixed-top" style="">
         <div class="top-menu">
             <!-- Brand and toggle get grouped for better mobile display -->
             <div class="navbar-header row">
@@ -42,12 +42,13 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a class="navbar-brand" href="/">S7LAN</a>
+                <a class="navbar-brand" href="/" style="padding-left: 30px">S7LAN</a>
             </div>
 
             <!-- Collect the nav links, forms, and other content for toggling -->
             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                 <ul class="nav navbar-nav">
+                    <li class="hidden-lg hidden-md hidden-sm" style="padding-bottom: 18px;">HIDDEN</li>
                     <!--<li><a href="https://www.facebook.com/S7LAN/"target="_blank">FACEBOOK</a></li>-->
                     <li><a href="/events">EVENTET</a></li>
                     <!--<li><a href="/rules">REGLER</a></li>-->
@@ -57,7 +58,7 @@
                     <li><a href="/gallery">GALLERI</a></li>
                 </ul>
 
-                <ul class="nav navbar-nav navbar-right">
+                <ul class="nav navbar-nav navbar-right" style="padding-right: 20px">
                     {{#if user}}
                         {{#unless user.resetPasswordToken}}
                             <li><a href="/logout">LOG UD</a></li>
@@ -80,7 +81,7 @@
             <div class="col-md-2">
                 {{#if user}}
                     {{#unless user.resetPasswordToken}}
-                        <ul class="nav nav-pills nav-stacked dash-menu left-menu">
+                        <ul class="col-md-2 nav nav-pills nav-stacked dash-menu left-menu navbar-fixed-top" style="top: 70px;">
                             <li><a data-target="#item1" data-toggle="collapse" data-parent="#stacked-menu"><b>{{user.username}}</b>'s menu<span class="caret arrow"></span></a></li>
                             <ul class="nav nav-stacked collapse left-submenu" id="item1">
                             <li><a href="/dashboard"><i class="fa fa-crosshairs fa-fw "></i>Dit Dashboard</a></li>
