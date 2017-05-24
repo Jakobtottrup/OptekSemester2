@@ -501,7 +501,9 @@ mailRoute.post(ensureAdminAuthenticated, function (req, res, next) {
             req.flash('success_msg', 'Email sendt til alle brugere!');
             res.redirect('/admins/mails');
 
-        } else {
+        }
+
+        else {
             transporter.sendMail(mailOptions, function (error, info) {
                 if (error) {
                     console.log(error);

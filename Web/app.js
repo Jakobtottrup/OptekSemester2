@@ -10,7 +10,6 @@ const bodyParser = require('body-parser');
 const flash = require('connect-flash');
 const passport = require('passport');
 const localStrategy = require('passport-local').Strategy;
-//const mailer = require('express-mailer');
 const helpers = require('handlebars-helpers')();
 const async = require('async');
 const crypto = require('crypto');
