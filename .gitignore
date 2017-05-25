@@ -1,7 +1,5 @@
 .DS_Store
-Web/.idea/*
-.idea/*
-Web/node_modules/*
-Web/bower_components/*
+/node_modules/*
+/bower_components/*
 jvt/*
 .idea/*
