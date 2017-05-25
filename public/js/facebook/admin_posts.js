@@ -45,7 +45,7 @@ function fb_created_time(time) {
 }
 
 function fb_user_pic(user) {
-    return "<img src='http://graph.facebook.com/" + user.id + "/picture?type=square' title='" + user.name + "'>";
+    return "<img src='https://graph.facebook.com/" + user.id + "/picture?type=square' title='" + user.name + "'>";
 }
 
 function fb_post_text(post) {

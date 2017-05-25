@@ -123,7 +123,7 @@ function fb_likes(likes, postnum) {
     pic_count = 0;
     likes.data.forEach(function (item) {
         if (pic_count < pic_max - 1 || (pic_max == likes.data.length)) {
-            thislikes += "<img src='http://graph.facebook.com/" + item.id + "/picture?type=square' title='" + item.name + "'>";
+            thislikes += "<img src='https://graph.facebook.com/" + item.id + "/picture?type=square' title='" + item.name + "'>";
         }
         pic_count++;
     });
@@ -137,7 +137,7 @@ function fb_likes(likes, postnum) {
         likes.data.forEach(function (item) {
             if (pic_count >= pic_max - 1) {
                 thislikes += "<p>";
-                thislikes += "<img src='http://graph.facebook.com/" + item.id + "/picture?type=square' title='" + item.name + "'>";
+                thislikes += "<img src='https://graph.facebook.com/" + item.id + "/picture?type=square' title='" + item.name + "'>";
                 thislikes += "</p>";
             }
             pic_count++;
@@ -154,7 +154,7 @@ function fb_created_time(time) {
 }
 
 function fb_user_pic(user) {
-    return "<img src='http://graph.facebook.com/" + user.id + "/picture?type=square' title='" + user.name + "'>";
+    return "<img src='https://graph.facebook.com/" + user.id + "/picture?type=square' title='" + user.name + "'>";
 }
 
 function fb_post_large(post) {
