@@ -1,0 +1,58 @@
+<link rel="stylesheet" type="text/css" href="/css/specific/spec-event.css">
+
+
+<h1>Oplysninger om nyt LAN</h1>
+<hr>
+
+<h4>SLET EKSISTERENDE LAN INFORMATIONER</h4>
+<p>Dette indebærer sletning af alle siddegruper, turneringer og nulstilling af betaling for alle brugere.</p>
+<button type="button" class="btn-lg btn btn-danger" id="reset_event" onclick="resetEvent()">Slet eksisterende LAN</button>
+
+<hr>
+<h4>OPDATÈR INFORMATIONER FOR LAN</h4>
+
+<form method="POST" action="/admins/events" id="event-form">
+    <p>Starttid for næste LAN.</p>
+    <input type="datetime-local" class="form-control" name="event_date" required>
+    <br>
+
+    <p>Lokation af LAN.</p>
+    <textarea type="text" class="form-control" name="event_location" placeholder="Fx. den store kantine, U100.." style="width:100%; max-width: 100%"></textarea>
+    <br>
+
+    <p>Beskrivelse af LAN.</p>
+    <textarea type="text" class="form-control" name="event_description" placeholder="Beskrivelse" style="width:100%; max-width: 100%"></textarea>
+    <br>
+
+
+    <p>Billetpris.</p>
+    <input type="number" class="form-control" min="0" placeholder="Angiv pris" name="price" required>
+    <br>
+
+    <p>Max gæster.</p>
+    <input type="number" class="form-control" placeholder="Angiv antal" min="0" step="1" name="max_guests" required>
+    <br>
+
+    <div>
+        <p>Det er kun muligt at oprette et nyt LAN efter at have slettet det gamle.</p>
+        <input type="submit" id="nuke_event" value="Gem informationer" name="submit" class="btn btn-success">
+    </div>
+</form>
+
+
+<!--<style>
+    .btn-danger {
+        margin-top: 20px;
+        margin-bottom: 20px;
+    }
+    .btn-success{
+        /*margin-top: 10px;*/
+        margin-bottom: 10px;
+    }
+    p{
+        font-style: italic;
+    }
+</style>-->
+
+
+<script src="/js/event/event_nuke.js"></script>

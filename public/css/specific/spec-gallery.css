@@ -1,0 +1,14 @@
+#image_div {
+    height: 350px;
+    width: 100%;
+    margin-top: 50px;
+    display:inline;
+}
+
+#image_div img {
+    border: 2px solid rgba(0, 0, 0, 0.6);
+    object-fit: cover;
+    width: 100%;
+    height: 100%;
+    margin-bottom: 10px;
+}

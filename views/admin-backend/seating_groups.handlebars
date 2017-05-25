@@ -1,0 +1,81 @@
+<link rel="stylesheet" type="text/css" href="/css/specific/spec-seatgroup.css">
+
+<div class="pull-left">
+    <h1>Siddegrupper</h1>
+</div>
+<div class="pull-right" id="create_btn"></div>
+<div class="clearfix"></div>
+<hr>
+<input type="text" class="form-control" id="search-field" onkeyup="sortGroups()" placeholder="Søg efter siddegruppe.."><br>
+
+<div class="table-responsive">
+    <table class="table table-hover" id="seatgroup-table">
+        <tr class="data_row">
+            <th style="width:50%">Grupper</th>
+            <th style="width:100%">Medlemmer</th>
+            <th class="hidden-xs"></th>
+        </tr>
+        <tbody id="data_insert">
+        </tbody>
+    </table>
+</div>
+
+
+
+<!-- Modal for creating groups -->
+<div id="modal-create" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title" id="show-data-header">Opret gruppe</h4>
+            </div>
+            <div class="modal-body" id="show-data-body"><p>Indtast oplysninger</p></div>
+            <form>
+                <div class="well">Gruppenavn<input id="name_field" type="text" class="form-control" placeholder="Giv din gruppe et fedt navn" maxlength="50" required></div>
+                <div class="well">Adgangskode<input id="pass_field" type="password" class="form-control" placeholder="Adgangskode" maxlength="50" required><br>
+                    <input type="password" id="pass_field2" class="form-control" placeholder="Skriv adgangskoden igen" maxlength="50" required></div>
+
+                <div class="modal-footer">
+                    <input type="button" class="btn btn-danger" data-dismiss="modal" value="Luk">
+                    <input value="Opret" onclick="createGroup()" class="btn btn-success">
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+
+
+<!-- Modal for editing groups -->
+<div id="modal-edit" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title" id="show-data-header">Opret gruppe</h4>
+            </div>
+            <div class="modal-body" id="show-data-body"><p>Indtast oplysninger</p>
+                <div class="well">Gruppenavn<input id="edit_name_field" type="text" autocomplete="off" class="form-control" placeholder="Giv din gruppe et fedt navn" maxlength="50" required></div>
+                <div class="well">Forbliv tom, hvis ingen ændring ønskes<input id="edit_pass_field" type="password" autocomplete="off" class="form-control" placeholder="Adgangskode" maxlength="50" required></div>
+                <div>
+
+                    <ul id="user_list"class="list-group well">
+                        <p>Fjern markering ved de, der skal fjernes fra gruppen</p>
+
+                    </ul>
+                </div>
+                <div class="modal-footer">
+                    <input type="button" class="btn btn-danger" data-dismiss="modal" value="Luk">
+                    <input id="submit-edit" value="Opret" onclick="editGroup(1, this)" class="btn btn-success">
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+<div id="loader"><div></div></div>
+<script src="/js/seatgroups/seat_grp-basic.js"></script>

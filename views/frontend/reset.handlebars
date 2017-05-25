@@ -1,0 +1,56 @@
+<link rel="stylesheet" type="text/css" href="/css/specific/spec-login.css">
+<h1>Opret nyt password</h1>
+<hr>
+
+
+<form id="resetForm" class="form-horizontal" role="form" method="post" action="/reset/:token">
+    <div class="input-group">
+        <span class="input-group-addon"><i class="glyphicon glyphicon-lock"></i></span>
+        <input id="password" type="password" minlength="8" maxlength="30" class="form-control" name="password" value="" placeholder="Nyt kodeord"
+               autofocus>
+    </div>
+    <br>
+    <div class="input-group">
+        <span class="input-group-addon"><i class="glyphicon glyphicon-lock"></i></span>
+        <input id="confirm" type="password" minlength="8" maxlength="30" class="form-control" name="confirm" value="" placeholder="Gentag kodeord"
+               autofocus>
+    </div>
+    <hr>
+    <input type="submit" name="submit" value="Bekræft" class="btn btn-primary btn-lg" id="submitBtn">
+</form>
+
+
+<script>
+    function updatePassword(token) {
+        $.ajax({
+            type: 'POST',
+            url: '/reset/' + token,
+            dataType: 'json',
+            data: {
+                password: $('#password').val(),
+                success: function () {
+                    $('#msgs').prepend('<div class="alert alert-success">Password ændret!</div>');
+                    let i = 0;
+                    (function myLoop(i) {
+                        setTimeout(function () {
+                            location.href = "/login";
+                            if (--i) myLoop(i);
+                        }, 3000)
+                    })(1);
+                }
+
+            },
+
+        }).done(function (user) {
+            userData = user;
+        });
+    }
+    var token = window.location.pathname.slice(7);
+    document.getElementById('submitBtn').onclick = function (e) {
+        e.preventDefault();
+        updatePassword(token);
+    };
+</script>
+
+
+

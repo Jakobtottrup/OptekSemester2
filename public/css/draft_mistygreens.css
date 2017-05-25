@@ -1,0 +1,246 @@
+/*>> STYLING FOR seatgroup<<*/
+@import url(/font-awesome/css/font-awesome.min.css);
+/*body{margin-top:20px;}*/
+.fa-fw {width: 2em;}
+
+:root{
+    --main-:#04202C; /*main*/
+    --menu-:#304040; /*footer, menu*/
+    --info-:#5B7065; /*info-box*/
+    --text-:#C9D1C8; /*text*/
+}
+
+/** ****** **/
+/* Old Main */
+/** ****** **/
+html, body {
+    margin:0;
+    padding:0;
+    height:100%;
+}
+
+#wrapper {
+    min-height:100%;
+    position:relative;
+}
+
+.content-center {
+    padding-bottom:100px; /* Height of the footer element */
+    /*z-index: 5;*/
+    background-color: var(--info-);
+    border-radius: 20px 20px 20px 20px;
+    box-shadow:-1px 3px 1px rgba(0, 0, 0, 0.46);
+    width: 850px;
+    left: 50;
+    bottom: 50;
+    margin-bottom: 75px;
+
+}
+#tournament-table{
+    float: left;
+}
+
+/*.fade.in {*/
+/*z-index: 2;*/
+/*}*/
+
+#footer {
+    background-color: #04202C;
+    width:100%;
+    height:60px;
+    position: absolute;
+    bottom:0;
+    left:0;
+}
+
+.panel-primary {
+    border-radius: 10px 10px 10px 10px;
+    background-color: white;
+    width: 1000px;
+}
+
+
+/** ******* **/
+/* Main page */
+/** ******* **/
+body {
+    /*box-shadow:-1px 3px 1px rgba(0, 0, 0, 0.46);*/
+    text-shadow: 0px 0px 0px rgba(0, 0, 0, 0);
+    margin-top: 55px;
+    background: #304040; /* For browsers that do not support gradients */
+    background: -webkit-linear-gradient(left, #04202C, #304040 , #04202C); /* For Safari 5.1 to 6.0 */
+    background: -o-linear-gradient(left, #04202C, #304040 ,#04202C); /* For Opera 11.1 to 12.0 */
+    background: -moz-linear-gradient(left, #04202C, #304040 ,#04202C); /* For Firefox 3.6 to 15 */
+    background: linear-gradient(left, #04202C, #304040  ,#04202C); /* Standard syntax */
+
+
+}
+
+#footer p {
+    color: var(--info-);
+}
+
+
+
+/** ****** **/
+/* Top Menu */
+/** ****** **/
+.top-menu, .top-menu-back {
+    background-color: var(--text-);
+    width: 100%;
+    z-index: 100;
+    border-radius: 0px 0px 10px 10px;
+    top: 0;
+    border-top: 0;
+    position: fixed;
+
+}
+
+/**  ************   **
+ ** ADMIN USERVIEW  **
+/**  ************   **/
+
+#userpanel1{
+    color: var(--menu-);
+    text-shadow: 0px 0px 0px rgba(0, 0, 0, 0.00);
+    font-size: 13px;
+}
+#userpanel1 h2{
+    color: var(--menu-);
+}
+/*/ **************** */
+/*/ TOURNAMENT PANEL */
+/*/ **************** */
+
+#tournamentpanel1 {
+
+    color: var(--menu-);
+    text-shadow: 0px 0px 0px rgba(0, 0, 0, 0.00);
+    font-size: 13px;
+}
+/*.modal-content*/
+
+
+/** ******* **/
+/* Dash Menu */
+/** ******* **/
+.dash-menu {
+    background-color: var(--menu-);
+    margin-top: 50px;
+    border-radius: 0px 10px 10px 0px;
+    box-shadow:-1px 3px 1px rgba(0, 0, 0, 0.46);
+    position: fixed;
+    /*z-index: 10;*/
+    margin-left:-15px;
+    /*margin-top: -10px;*/
+
+}
+
+.dash-menu a {
+    color: var(--text-);
+    text-shadow: -1px 1px 1px rgba(0, 0, 0, 0.46);
+
+}
+/*#dashboard-nav-collapse button{*/
+    /*margin-right: 500px;*/
+    /*position: absolute;*/
+/*}*/
+
+/** ********** **/
+/*  COUNTDOWN  **/
+/*  ********** **/
+
+#countdown {
+    border-radius: 16px 16px 16px 16px;
+    box-shadow: -1px 3px 1px rgba(0, 0, 0, 0.46);
+    width: 295px;
+    height: 40px;
+    padding: 10px;
+    position: center;
+    color: #F4EBDB;
+    margin-left: 35%;
+    background-color:var(--menu-);
+}
+
+/** ********** **/
+/*   SPONSOR   **/
+/*  ********** **/
+
+.sponsor-bar{
+    border-radius: 16px 0px 0px 16px;
+    box-shadow: -1px 3px 1px rgba(0, 0, 0, 0.46);
+    position: fixed;
+    right: 0;
+    top: 0;
+    left: 100;
+    margin-top: 100px;
+    color:#C9D1C8;
+    background-color:#304040;
+
+}
+.sponsor-bar li{
+    list-style-type: none;
+
+}
+.sponsor-bar img {
+    max-width: 150px;
+    max-height: 150px;
+    padding:10px;
+    min-height: 0px;
+    min-width: 0px;
+    float:right;
+}
+/*#sponsor-container{*/
+    /*position: relative;*/
+}
+/*.sponsor-bar button{*/
+    /*position: absolute;*/
+    /*background-color: #304040;*/
+    /*padding: 10px 15px;*/
+    /*text-align: center;*/
+    /*text-decoration: none;*/
+    /*display: inline-block;*/
+    /*font-size: 12px;*/
+    /*margin: 4px 2px;*/
+    /*cursor: pointer;*/
+    /*right: 0px;*/
+    /*top: -290px;*/
+    /*color:#C9D1C8;*/
+    /*border-radius: 16px 0px 0px 16px;*/
+/*}*/
+
+/** ********** **/
+/* Content page */
+/** ********** **/
+.content-main {
+    background-color:black;
+    border-radius: 16px 16px 16px 16px;
+}
+
+.content-background {
+    background-color: var(--info-);
+    border-radius: 20px 20px 20px 20px;
+    box-shadow:-1px 3px 1px rgba(0, 0, 0, 0.46);
+
+}
+
+.content-background h1, .content-background h2, .content-background h3, .content-background h4, .content-background h5, .content-background h6 {
+    color: var(--text-);
+}
+
+.content-background p {
+    color: var(--text-);
+}
+
+.content-background li {
+    color: var(--text-);
+    padding: 8px;
+}
+
+.content-background .important {
+    font-weight: 900;
+}
+
+.content-background a {
+    color: var(--main-);
+}

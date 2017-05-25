@@ -1,0 +1,24 @@
+
+<link href="/css/specific/spec-gallery.css" rel="stylesheet" type="text/css"/>
+
+<h1>Galleri</h1>
+<hr>
+
+<div>
+    <form enctype="multipart/form-data" method="post" action="/admins/gallery">
+        <div class="input-group">
+            <label class="input-group-btn">
+                <span class="btn btn-primary">Vælg filer&hellip; <input name="up1" type="file" accept="image/*" style="display: none;" multiple></span>
+            </label>
+            <input type="text" class="form-control" value="Maximum filstørrelse er 130MB" readonly required>
+        </div>
+        <br>
+        <input class="btn btn-primary" type="submit" name="submit" value="Upload">
+    </form>
+</div>
+<hr>
+<div id="image_div"></div>
+
+<script src="/js/gallery/gallery_admin.js"></script>
+
+<div id="loader"><div></div></div>

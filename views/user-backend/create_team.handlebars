@@ -1,0 +1,46 @@
+
+<h1>Opret turneringshold</h1>
+<hr>
+
+<input value="post" class="btn btn-success btn-lg" onclick="postData()()">
+<input value="put" class="btn btn-success btn-lg" onclick="putData()">
+<input value="delete" class="btn btn-success btn-lg" onclick="delData()">
+
+
+<!--<div id="loader"><div></div></div>-->
+<script>
+    function postData(){
+        arr = ["Hello", 1234, "nej nej nej", true];
+        var data1 = {"POST": arr};
+        var type = "POST";
+        sendData(type, data1);
+    }
+
+    function putData(){
+        arr = ["Hello", 1234, "nej nej nej", true];
+        var data1 = {"PUT": arr};
+        var type = "PUT";
+        sendData(type, data1);
+    }
+
+    function delData(){
+        arr = ["Hello", 1234, "nej nej nej", true];
+        var data1 = {"DELETE": arr};
+        var type = "DELETE";
+        sendData(type, data1);
+    }
+
+    function sendData(type, data1){
+        $.ajax({
+            type: type,
+            url: "/users/test",
+            dataType: 'json',
+            data: data1,
+            success: function (data2){
+                if (typeof data2.redirect === 'string'){
+                    window.location = data2.redirect
+                }
+            }
+        });
+    }
+</script>

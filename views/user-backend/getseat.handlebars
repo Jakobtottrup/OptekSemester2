@@ -1,0 +1,20 @@
+<link rel="stylesheet" type="text/css" href="/css/specific/spec-seatmap.css">
+
+<h1>Din plads</h1>
+<hr>
+<p>Vælg din plads ved at trykke på en tom plads. Hvis du er tilmeldt en siddegruppe, er det lederen af gruppen der skal vælge din plads</p>
+
+<div class="screen_level"></div>
+
+<canvas id="pladskort-pick">
+    <p>Din browser understøtter ikke canvas</p>
+</canvas>
+
+<div class="pladskort-info"></div>
+
+<button id="new_map_btn" onclick="pickChosenSeats()">Vælg pladser</button>
+
+<div id="loader"><div></div></div>
+
+<script src="/js/seatmap/seatmap-basic.js"></script>
+<script src="/js/seatmap/seatmap_pickseat.js"></script>

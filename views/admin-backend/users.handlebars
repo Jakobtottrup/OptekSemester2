@@ -1,0 +1,48 @@
+
+<script src="/js/userinfo/admin-userview.js"></script>
+
+<h1>Brugere</h1>
+<hr>
+
+<button type="button" class="btn btn-lg btn-primary" id="togglePaymentBtn"
+        style="margin: 5px 5px 5px 0;" disabled="disabled" >Toggle Payment Status
+</button>
+<button type="button" class="btn btn-lg btn-primary" id="toggleAdminBtn"
+        style="margin: 5px;" disabled="disabled">Toggle Admin
+</button>
+<button type="button" class="btn btn-lg btn-danger" id="removeUserBtn"
+        style="float: right;margin-top:5px;margin-bottom: 5px;" disabled="disabled">Delete Selected
+</button>
+<hr>
+<input type="text" class="form-control" id="search-field" onkeyup="sortUsers()" placeholder="Søg efter bruger.. (email)">
+<br>
+<form method="post" role="presentation" action="/users.handlebars">
+    <div class="table-responsive" style="background-color: whitesmoke; left: 5px; padding: 10px;">
+        <table class="table table-condensed table-striped table-hover" id="users-table">
+        <tr class="data_row">
+            <th><input type="checkbox" id="selectAll"></th>
+            <th class='hidden-xs hidden-sm hidden-md'>#</th>
+            <th>Username</th>
+            <th class='hidden-xs hidden-sm hidden-md'>Age</th>
+            <th>Email</th>
+            <th class='hidden-xs'>Uddannelsessted</th>
+            <th class='hidden-xs hidden-sm hidden-md'>Fakultet</th>
+            <th class='hidden-xs hidden-sm hidden-md'>BattleTag</th>
+            <th class='hidden-xs hidden-sm hidden-md'>SteamID</th>
+            <th class='hidden-xs'>isAdmin</th>
+            <th>hasPaid</th>
+            <th class='hidden-xs'>isActive</th>
+        </tr>
+
+
+        <tbody id="data_insert">
+        </tbody>
+    </table></div>
+
+    <div class="form-group hidden" id="user_data">
+
+
+    </div>
+</form>
+
+<div id="loader"><div></div></div>

@@ -1,0 +1,106 @@
+<link rel="stylesheet" href="/css/specific/spec-signup.css">
+<h1>Opret en bruger</h1>
+<hr>
+
+<form class="form-horizontal" id="input_form" method="post" action="/signup">
+
+    <div>
+        <label for="input_name" class="control-label">Navn:</label>
+        <div class="req hidden-xs">
+            <input type="text" class="form-control" maxlength="30" id="input_name" placeholder="Brugernavn" name="username">
+        </div>
+    </div>
+    <div class="">
+        <label for="input_alder" class="control-label"> Alder:</label>
+        <div class="req">
+            <input type="number" min="10" max="99" maxlength="2" class="form-control" id="input_alder" name="age">
+        </div>
+    </div>
+
+    <div class="">
+        <label for="input_email" class="control-label"> Email: </label>
+        <div class="req">
+            <input type="email" maxlength="40" class="form-control" id="input_email" placeholder="Fx. [initialer][årgang]@student.sdu.dk" name="email">
+        </div>
+    </div>
+
+    <div class="">
+        <label for="input_password" class="control-label"> Password:</label>
+        <div class="req">
+            <input type="password" class="form-control" minlength="8" maxlength="30" id="input_password" placeholder="Indtast et password"
+                   name="password">
+        </div>
+    </div>
+
+    <div class="">
+        <label for="input_password_confirm" class="control-label"> Bekræft password:</label>
+        <div class="req">
+            <input type="password" minlength="8" maxlength="30" class="form-control" id="input_password_confirm" placeholder="Bekræft password" name="password2">
+        </div>
+    </div>
+
+    <div class="">
+        <label for="input_studie" class="control-label">Uddannelsessted:</label>
+        <div class="req">
+            <select class="form-control" name="studie" id="input_studie">
+                <option></option>
+                <option>SDU Odense</option>
+                <option>SDU Esbjerg</option>
+                <option>SDU Kolding</option>
+                <option>SDU Slagelse</option>
+                <option>SDU København</option>
+                <option>Ikke fra SDU</option>
+            </select>
+        </div>
+    </div>
+
+    <div class="">
+        <label for="input_fakultet" class="control-label"> Fakultet:</label>
+        <div class="req">
+            <select class="form-control" name="fakultet" id="input_fakultet">
+                <option>Teknisk Fakultet</option>
+                <option>Samfundsvidenskabelige Fakultet</option>
+                <option>Naturvidenskabelige Fakultet</option>
+                <option>Humanistiske Fakultet</option>
+                <option>Sunhedsvidenskabelige Fakultet</option>
+                <option>Andet</option>
+            </select>
+        </div>
+    </div>
+
+    <div class="">
+        <label for="input_bnet" class="control-label">BattleTag:</label>
+        <div class="">
+            <input type="text" class="form-control" maxlength="17" id="input_bnet" placeholder="Fx. BattleTag#1234" name="bnet">
+        </div>
+    </div>
+
+    <div class="">
+        <label for="input_steam" class="control-label">Steam ID:</label>
+        <div class="">
+            <input type="text" class="form-control" maxlength="15" id="input_steam" placeholder="Fx. SteamID123" name="steam">
+        </div>
+    </div>
+    <!--TODO: Inline CSS-->
+    <div class="">
+        <div class=""><p><span style="color: red;">*</span> = required</p></div>
+    </div>
+
+    <div>
+        <input type="submit" name="submit" value="Opret bruger" class="btn btn-primary btn-lg">
+    </div>
+</form>
+
+
+<div id="test"></div>
+
+
+<script>
+    document.getElementById('input_alder').oninput = function () {
+        if (this.value.length > 2) {
+            this.value = this.value.slice(0, 2);
+        }
+    };
+</script>
+
+

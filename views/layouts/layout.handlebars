@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <link rel="stylesheet" type="text/css" href="/bootstrap/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="/bootstrap/dist/css/bootstrap-theme.min.css">
+    <!--<link rel="stylesheet" type="text/css" href="/css/main.css">-->
+    <!--<link rel="stylesheet" type="text/css" href="/css/draft_1_2.css">-->
+    <!--<link rel="stylesheet" type="text/css" href="/css/colortest.css">-->
+    <!--<link rel="stylesheet" type="text/css" href="/css/draft_5.css">-->
+    <link rel="stylesheet" type="text/css" href="/css/specific/spec-main.css">
+    <!--<link rel="stylesheet" type="text/css" href="/css/GustavsStylesheet.css">-->
+
+    <script src="/jquery/dist/jquery.min.js"></script>
+    <script src="/bootstrap/dist/js/bootstrap.min.js"></script>
+    <script src="/ajax/dist/ajax.min.js"></script>
+    <script src="/angular/angular.min.js"></script>
+    <!--<script src="/tween.js/src/Tween.js"></script>-->
+    <script src="/js/general_functions.js"></script>
+
+    <!--<script src="/js/change_style.js"></script>-->
+
+    <title>{{ title }}</title>
+</head>
+
+<body>
+<div id="wrapper" class="container-fluid">
+    <!--navigations bar -->
+    <nav class="navbar navbar-default top-menu-back navbar-fixed-top" style="">
+        <div class="top-menu">
+            <!-- Brand and toggle get grouped for better mobile display -->
+            <div class="navbar-header row">
+                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="/" style="padding-left: 30px">S7LAN</a>
+            </div>
+
+            <!-- Collect the nav links, forms, and other content for toggling -->
+            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                <ul class="nav navbar-nav">
+                    <li class="hidden-lg hidden-md hidden-sm" style="padding-bottom: 18px;">HIDDEN</li>
+                    <!--<li><a href="https://www.facebook.com/S7LAN/"target="_blank">FACEBOOK</a></li>-->
+                    <li><a href="/events">EVENTET</a></li>
+                    <!--<li><a href="/rules">REGLER</a></li>-->
+                    <li><a href="/tournaments">TURNERINGER</a></li>
+                    <li><a href="/seats">PLADSKORT</a></li>
+                    <li><a href="/contact">KONTAKT</a></li>
+                    <li><a href="/gallery">GALLERI</a></li>
+                </ul>
+
+                <ul class="nav navbar-nav navbar-right" style="padding-right: 20px">
+                    {{#if user}}
+                        {{#unless user.resetPasswordToken}}
+                            <li><a href="/logout">LOG UD</a></li>
+                        {{else}}
+                            <li><a href="/signup">TILMELD</a></li>
+                            <li><a href="/login">LOG IND</a></li>
+                        {{/unless}}
+                    {{else}}
+                        <li><a href="/signup">TILMELD</a></li>
+                        <li><a href="/login">LOG IND</a></li>
+                    {{/if}}
+                </ul>
+            </div><!-- /.navbar-collapse -->
+        </div><!-- /.container-fluid -->
+    </nav>
+
+    <!-- dashboard panels -->
+    <div id="dashboard-nav">
+        <div class="row">
+            <div class="col-md-2">
+                {{#if user}}
+                    {{#unless user.resetPasswordToken}}
+                        <ul class="col-md-2 nav nav-pills nav-stacked dash-menu left-menu navbar-fixed-top" style="top: 70px;">
+                            <li><a data-target="#item1" data-toggle="collapse" data-parent="#stacked-menu"><b>{{user.username}}</b>'s menu<span class="caret arrow"></span></a></li>
+                            <ul class="nav nav-stacked collapse left-submenu" id="item1">
+                            <li><a href="/dashboard"><i class="fa fa-crosshairs fa-fw "></i>Dit Dashboard</a></li>
+                            {{#unless user.isAdmin}}
+                                <li><a href="/users/userinfo"><i class="fa fa-edit fa-fw"></i>Brugerlist</a></li>
+                                <li><a href="/users/getseat"><i class="fa fa-th fa-fw"></i>Din Plads</a></li>
+                                <li><a href="/users/seatgroups"><i class="fa fa-users fa-fw"></i>Siddegruppe</a></li>
+                                <li><a href="/users/tournaments"><i class="fa fa-sitemap fa-fw"></i>Tilmeld Turnering</a></li>
+                            {{#unless user.hasPaid}}
+                                <li><a href="/users/payment"><i class="fa fa-sitemap fa-fw"></i>Betalingsguide</a></li>
+                            {{/unless}}
+                            {{else}}
+                                <li><a href="/admins/posts"><i class="fa fa-edit fa-fw"></i>Opslag</a></li>
+                                <li><a href="/admins/users"><i class="fa fa-user fa-fw"></i>Brugere</a></li>
+                                <li><a href="/admins/events"><i class="fa fa-cogs fa-fw"></i>LAN</a></li>
+                                <li><a href="/admins/tournaments"><i class="fa fa-sitemap fa-fw"></i>Turneringer</a></li>
+                                <li><a href="/admins/create_seats"><i class="fa fa-th fa-fw"></i>Bordopstilling</a></li>
+                                <li><a href="/admins/seating_groups"><i class="fa fa-users fa-fw "></i>Siddegrupper</a></li>
+                                <li><a href="/admins/mails"><i class="fa fa-envelope fa-fw"></i>Mails</a></li>
+                                <li><a href="/admins/sponsors"><i class="fa fa-tasks fa-fw"></i>Sponsors</a></li>
+                                <li><a href="/admins/gallery"><i class="fa-image"></i>Galleri</a></li>
+                            {{/unless}}
+                            </ul>
+                        </ul>
+                    {{/unless}}
+                {{/if}}
+            </div>
+            <div class="col-sm-1 hidden-md hidden-lg hidden-xl"></div>
+            <div class="col col-sm-12 col-md-8" id="msgs">
+                {{#if success_msg}}
+                    <div class="alert alert-success">{{success_msg}}</div>
+                {{/if}}
+                {{#if error_msg}}
+                    <div class="alert alert-danger">{{error_msg}}</div>
+                {{/if}}
+                {{#if error}}
+                    <div class="alert alert-danger">{{error}}</div>
+                {{/if}}
+
+                <div class="content-center content-background">
+                    {{{body}}}
+                </div>
+            </div>
+            <div class="sponsor-bar col-md-2 hidden-xs hidden-sm">
+                <!--<div>-->
+                    <!--<a href="https://www.facebook.com/S7LAN/" target="_blank">-->
+                    <!--<img src="/img/images/fb-art.png" style="height: 50%; width: 50%; margin-left: 50px;>-->
+                    <!--&lt;!&ndash;</a>&ndash;&gt;-->
+                <!--</div>-->
+                <div>
+                    <a href="https://ida.dk/" target="_blank">
+                    <img src="/img/sponsors/IDA-logo.png">
+                    </a>
+                </div>
+                <div>
+                    <a href="http://dragonslair.eu/da" target="_blank">
+                    <img src="/img/sponsors/DragonsLair-logo.png">
+                    </a>
+                </div>
+                <div>
+                    <a href="https://www.prosa.dk/" target="_blank">
+                    <img src="/img/sponsors/Prosa-logo.jpg">
+                    </a>
+                </div>
+                <div>
+                    <a href="http://www.sdu.dk/en/" target="_blank">
+                    <img src="/img/sponsors/SDU-logo.png">
+                    </a>
+                </div>
+
+            </div>
+        </div>
+        </div>
+
+        <div id="footer">
+            <div class="container">
+                <p class="text-muted">BOOTSTRAP | STYLE | FINISHED</p>
+                <p class="text-muted">EVERYTHING | IS | RESPONSIVE</p>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
