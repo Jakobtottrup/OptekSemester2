@@ -150,7 +150,6 @@ router.get('/gallery', ensureAdminAuthenticated, function (req, res) {
 
 // GALLERY UPLOAD
 router.post('/gallery', ensureAdminAuthenticated, galleryUploads, function (req, res) {
-    res.status(200);
     res.redirect('/admins/gallery');
 });
 
@@ -286,7 +285,6 @@ router.post('/tournaments', tourUploads, ensureAdminAuthenticated, function (req
         newTournament.save(function (err) {
             if (err) throw err;
             req.flash('success_msg', 'Turneringen er nu oprettet');
-            res.status(200).end();
             res.redirect('/admins/tournaments');
         });
     }
