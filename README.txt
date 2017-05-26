@@ -5,16 +5,17 @@ https://s7lan.herokuapp.com/
 
 Installation
 1) For at kunne køre denne applikation, skal node.js være installeret: https://nodejs.org/en/
-2) Efter installationen af node.js, åbned kommandoprompten som administrator. 
-3) Navigér via kommandoprompten ind i projektmappen og videre ind i mappen "web".
-4) Kør kommandoen "npm install".
-5) Kør kommandoen "bower install".
-6) Kør kommandoen "node app" for at starte serveren. 
-7) Åben et browservindue og skriv denne URL: "localhost:3000"
+2) Efter installationen af node.js, åbnes kommandoprompten som administrator. 
+3) Udpak ZIP-filen. Dette kan tage nogle minutter. 
+4) Navigér via kommandoprompten ind i projektmappen og videre ind i mappen "kode".
+5) Kør kommandoen "npm install".
+6) Kør kommandoen "bower install".
+7) Kør kommandoen "node app" for at starte serveren. 
+8) Åben et browservindue og skriv denne URL: "localhost:3000".
 
 En visuel guide af installationen kan ses her:
-Windows: https://www.youtube.com/watch?v=L8PhUN1pe5E
-Mac:     https://www.youtube.com/watch?v=K3p0QcSL87U
+Windows:  https://www.youtube.com/watch?v=L8PhUN1pe5E
+Mac:      https://www.youtube.com/watch?v=K3p0QcSL87U
 
 Nogle funktioner virker endnu ikke i firefox. 
 Da projektet blev designet med browseren chrome, foreslås det at søge til denne browser ved problemer. 
