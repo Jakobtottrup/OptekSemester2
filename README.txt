@@ -11,7 +11,7 @@ Installation
 5) Kør kommandoen "npm install".
 6) Kør kommandoen "bower install".
 7) Kør kommandoen "node app" for at starte serveren. 
-8) Åben et browservindue og skriv denne URL: "localhost:3000".
+8) Uden at lukke kommandoprompten; åben et browservindue og skriv denne URL: "localhost:3000".
 
 En visuel guide af installationen kan ses her:
 Windows:  https://www.youtube.com/watch?v=L8PhUN1pe5E
