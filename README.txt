@@ -1,7 +1,7 @@
-Visning af webaplikationen
+Live visning af webaplikationen:
 https://s7lan.herokuapp.com/
 
-
+-------------------------------
 
 Installation
 1) For at kunne køre denne applikation, skal node.js være installeret: https://nodejs.org/en/
@@ -22,7 +22,7 @@ Da projektet blev designet med browseren chrome, foreslås det at søge til denn
 Skulle der forekomme problemer ved brugen af siden, eller tvivl om sidens funktionaliten, er der udført en video af samtlige af sidens funktioner i brug:
 https://www.youtube.com/watch?v=02foGrJMJKo
 
-
+-------------------------------
 
 Sådan bruges admin-funktionerne i webapplikationens:
 * LAN
