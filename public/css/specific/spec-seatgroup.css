@@ -14,3 +14,7 @@
 #modal-edit *:not(button):not(input), #modal-create *:not(button):not(input) {
     color: var(--main-);
 }
+
+#seatgroup-table tr:hover {
+    color: var(--menu-);
+}

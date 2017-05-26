@@ -5,3 +5,11 @@
     width: 20px;
     height: 20px
 }
+
+table {
+    color: var(--text-);
+}
+
+table tr:hover {
+    color: var(--menu-);
+}

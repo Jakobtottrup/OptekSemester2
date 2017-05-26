@@ -103,7 +103,7 @@ router.get('/users', function (req, res) {
             if (err) throw err;
             let newData = [];
             for(let i = 0; i < data.length; i++){
-                if(data[i].hasPaid === true || data[i].isAdmin === true) {
+                if(data[i].isActive === true || data[i].isAdmin === true) {
                     let _id = data[i].id;
                     let username = data[i].username;
                     let age = data[i].age;

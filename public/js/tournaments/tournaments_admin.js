@@ -231,6 +231,7 @@ $(function() {
 
 // edit tournaments
 function editTournament(source){
+    window.alert("Denne funktionen er ikke færdiggjort");
     openModal();
     $("#submit-div").find("input").remove();
     //$("#submit-div").append("<button class='btn btn-lg btn-success' onclick='updateTournament()'>Gem ændringer</button>");

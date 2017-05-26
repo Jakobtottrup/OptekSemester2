@@ -38,7 +38,7 @@ function seatGroup(id) {
 
 
 function userSeat(id) {
-    return "Sebastian har ikke færdiggjort denne funktion";
+    return "Ikke færdiggjort";
 }
 
 function searchTable() {

@@ -50,6 +50,7 @@ function showTours() {
 
 // open modal for entering password
 function openModal(source) {
+    window.alert("Denne funktionen er ikke færdiggjort");
     let tourID = $(source).closest("div").prop("id");
     $("#modal-join-sub").attr("id", tourID);
     $("#modal-join").modal('show');
@@ -78,6 +79,7 @@ function joinTournamentTeam (source) {
 
 // leave group
 function leaveTournament(source) {
+    window.alert("Denne funktionen er ikke færdiggjort");
     if (window.confirm("Vil du afmelde holdet fra turneringen?")) {
         let data = {"tourID": $(source).closest("div").prop("id")};
         let url = "/users/leavetournament";

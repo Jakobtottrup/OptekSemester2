@@ -16,7 +16,7 @@ function createTours() {
         output += "<div class='tour-div'>";
         output += "<div class='tour-title'><h2>" + tourData[i].name + "</h2></div>";
         output += "<div class='tour-cover'><img src='" + tourData[i].coverImage + "'></div>";
-        output += "<div class='tour-countdown'><p>Turneringen begynder " + tourData[i].openingDate + "</p></div>";
+        output += "<div class='tour-countdown'><p>Turneringen begynder d. " + convertTimeNoYear(tourData[i].openingDate) + "</p></div>";
         if (tourData[i].prizes.length > 0) {
             output += "<div class='tour-price-list'>";
             output += "<table><tr>";

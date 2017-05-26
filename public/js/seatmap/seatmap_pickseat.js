@@ -214,6 +214,7 @@ function initMousemove() {
 /*** ************ ***/
 
 function pickChosenSeats() {
+    window.alert("Denne funktionen er ikke færdiggjort");
     console.log("I have chosen a seat");
     chosenIndex = 10;
 

@@ -4,7 +4,7 @@
 
 
 function resetEvent() {
-    if (window.confirm("Vil du starte nyt event? - Alt bliver seriøst slettet")) {
+    if (window.confirm("Vil du starte nyt event? - Alt bliver seriøst slettet \n >>>SLET IKKE UNDER UDVIKLING AF PROJEKT<<<")) {
         $.ajax({
             type: "PUT",
             url: "/admins/events/",

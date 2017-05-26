@@ -186,7 +186,7 @@ function leaveGroup(source) {
 
 // edit group
 function editGroup (task, source) {
-    window.alert("Funktionen er ikke færdiggjort");
+    window.alert("Denne funktionen er ikke færdiggjort");
     let url = "/users/updateseatgroup";
     let type = "PUT";
     let group_id = $(source).closest("tr").prop("id");

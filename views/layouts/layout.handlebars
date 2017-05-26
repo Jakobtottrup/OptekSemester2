@@ -85,23 +85,24 @@
                             <ul class="nav nav-stacked collapse left-submenu" id="item1">
                             <li><a href="/dashboard"><i class="fa fa-crosshairs fa-fw "></i>Dit Dashboard</a></li>
                             {{#unless user.isAdmin}}
-                                <li><a href="/users/userinfo"><i class="fa fa-edit fa-fw"></i>Brugerlist</a></li>
-                                <li><a href="/users/getseat"><i class="fa fa-th fa-fw"></i>Din Plads</a></li>
                                 <li><a href="/users/seatgroups"><i class="fa fa-users fa-fw"></i>Siddegruppe</a></li>
-                                <li><a href="/users/tournaments"><i class="fa fa-sitemap fa-fw"></i>Tilmeld Turnering</a></li>
+                                <li><a href="/users/tournaments"><i class="fa fa-sitemap fa-fw"></i>Dine turneringer</a></li>
+                                <li><a href="/users/getseat"><i class="fa fa-th fa-fw"></i>Din plads</a></li>
+                                <li><a href="/users/userinfo"><i class="fa fa-edit fa-fw"></i>Brugerliste</a></li>
+
                             {{#unless user.hasPaid}}
                                 <li><a href="/users/payment"><i class="fa fa-sitemap fa-fw"></i>Betalingsguide</a></li>
                             {{/unless}}
                             {{else}}
+                                <li><a href="/admins/events"><i class="fa fa-cogs fa-fw"></i>LAN</a></li>
+                                <li><a href="/admins/seating_groups"><i class="fa fa-users fa-fw "></i>Siddegrupper</a></li>
                                 <li><a href="/admins/posts"><i class="fa fa-edit fa-fw"></i>Opslag</a></li>
                                 <li><a href="/admins/users"><i class="fa fa-user fa-fw"></i>Brugere</a></li>
-                                <li><a href="/admins/events"><i class="fa fa-cogs fa-fw"></i>LAN</a></li>
                                 <li><a href="/admins/tournaments"><i class="fa fa-sitemap fa-fw"></i>Turneringer</a></li>
                                 <li><a href="/admins/create_seats"><i class="fa fa-th fa-fw"></i>Bordopstilling</a></li>
-                                <li><a href="/admins/seating_groups"><i class="fa fa-users fa-fw "></i>Siddegrupper</a></li>
                                 <li><a href="/admins/mails"><i class="fa fa-envelope fa-fw"></i>Mails</a></li>
-                                <li><a href="/admins/sponsors"><i class="fa fa-tasks fa-fw"></i>Sponsors</a></li>
                                 <li><a href="/admins/gallery"><i class="fa-image"></i>Galleri</a></li>
+                                <li><a href="/admins/sponsors"><i class="fa fa-tasks fa-fw"></i>Sponsors</a></li>
                             {{/unless}}
                             </ul>
                         </ul>
