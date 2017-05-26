@@ -7,7 +7,7 @@ Installation
 1) For at kunne køre denne applikation, skal node.js være installeret: https://nodejs.org/en/
 2) Efter installationen af node.js, åbnes kommandoprompten som administrator. 
 3) Udpak ZIP-filen. Dette kan tage nogle minutter. 
-4) Navigér via kommandoprompten ind i projektmappen og videre ind i mappen "kode".
+4) Navigér via kommandoprompten ind i projektmappen og videre ind i mappen "kode" der indeholder en fil kaldet "app.js".
 5) Kør kommandoen "npm install".
 6) Kør kommandoen "bower install".
 7) Kør kommandoen "node app" for at starte serveren. 
