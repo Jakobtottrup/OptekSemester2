@@ -202,7 +202,7 @@ router.post('/signup', function (req, res) {
             createdAt: Date.now()
         });
 
-        User.find({username: username},{email: email}, function (err, user) {
+        User.findOne({username: username}, function (err, user) {
             if (err)
                 return done(err);
             if (user) {
